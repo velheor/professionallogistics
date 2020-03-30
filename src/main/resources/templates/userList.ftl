@@ -1,24 +1,17 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    List of users
+    User editor
 
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <#list users as user>
-            <tr>
-                <td>${user.username}</td>
-                <td><#list user.roles as role>${role}<#sep>, </#list></td>
-                <td><a href="/user/${user.id}">edit</a></td>
-            </tr>
+    <form action="/user" method="post">
+        <input type="text" name="username" value="${user.username}">
+        <#list roles as role>
+            <div>
+                <label><input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>
+            </div>
         </#list>
-        </tbody>
-    </table>
+        <input type="hidden" value="${user.id}" name="userId">
+        <input type="hidden" value="${_csrf.token}" name="_csrf">
+        <button type="submit">Save</button>
+    </form>
 </@c.page>
