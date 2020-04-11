@@ -1,5 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 
+ALTER USER postgres WITH SUPERUSER;
+
 create table message (
     id int8 not null,
     filename varchar(255),
