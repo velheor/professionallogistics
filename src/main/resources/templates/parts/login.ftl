@@ -1,67 +1,79 @@
 <#macro login path isRegisterForm>
-    <form action="${path}" method="post">
-        <div class="form-group" style="margin-top: -10px">
-            <label class="col-md-4 col-form-label">Your name</label>
-            <div class="col-md-12" style="margin-top: -7px">
-                <input type="text" name="username" value="<#if user??>${user.username}</#if>"
-                       class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       placeholder="User name"/>
-                <#if usernameError??>
-                    <div class="invalid-feedback">
-                        ${usernameError}
+    <div class="row" style="margin-top: 40px">
+        <div class="col-md-4" style="margin: auto">
+
+            <div class="col-md-6">
+                <h5><#if isRegisterForm>Create account<#else>Sign-In</#if></h5>
+            </div>
+            <form action="${path}" method="post">
+                <div class="form-group" style="margin-top: -10px">
+                    <label class="col-md-4 col-form-label">Your name</label>
+                    <div class="col-md-12" style="margin-top: -7px">
+                        <input type="text" name="username" value="<#if user??>${user.username}</#if>"
+                               class="form-control ${(usernameError??)?string('is-invalid', '')}"
+                        />
+                        <#if usernameError??>
+                            <div class="invalid-feedback">
+                                ${usernameError}
+                            </div>
+                        </#if>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: -10px">
+                    <label class="col-md-2 col-form-label">Password:</label>
+                    <div class="col-md-12" style="margin-top: -7px">
+                        <input type="password" name="password"
+                               class="form-control ${(passwordError??)?string('is-invalid', '')}"
+                        />
+                        <#if passwordError??>
+                            <div class="invalid-feedback">
+                                ${passwordError}
+                            </div>
+                        </#if>
+                    </div>
+                </div>
+                <#if isRegisterForm>
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="col-md-2 col-form-label">Password:</label>
+                        <div class="col-md-12" style="margin-top: -7px">
+                            <input type="password" name="password2"
+                                   class="form-control ${(password2Error??)?string('is-invalid', '')}"
+                            />
+                            <#if password2Error??>
+                                <div class="invalid-feedback">
+                                    ${password2Error}
+                                </div>
+                            </#if>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: -10px">
+                        <label class="col-md-2 col-form-label">Email:</label>
+                        <div class="col-md-12" style="margin-top: -7px">
+                            <input type="email" name="email" value="<#if user??>${user.email}</#if>"
+                                   class="form-control ${(emailError??)?string('is-invalid', '')}"
+                                   placeholder="some@some.com"/>
+                            <#if emailError??>
+                                <div class="invalid-feedback">
+                                    ${emailError}
+                                </div>
+                            </#if>
+                        </div>
                     </div>
                 </#if>
-            </div>
-        </div>
-        <div class="form-group" style="margin-top: -10px">
-            <label class="col-md-2 col-form-label">Password:</label>
-            <div class="col-md-12" style="margin-top: -7px">
-                <input type="password" name="password"
-                       class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       placeholder="Password"/>
-                <#if passwordError??>
-                    <div class="invalid-feedback">
-                        ${passwordError}
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-block"
+                                type="submit"
+                                style="margin-bottom: 10px"><#if isRegisterForm>Create<#else>Sign In</#if></button>
+                        <#if !isRegisterForm><a href="/registration" class="btn btn-primary active btn-block"
+                                                role="button"
+                                                aria-pressed="true">Create your RaccoonTruck account</a></#if>
                     </div>
-                </#if>
-            </div>
-        </div>
-        <#if isRegisterForm>
-            <div class="form-group" style="margin-top: -10px">
-                <label class="col-md-2 col-form-label">Password:</label>
-                <div class="col-md-12" style="margin-top: -7px">
-                    <input type="password" name="password2"
-                           class="form-control ${(password2Error??)?string('is-invalid', '')}"
-                           placeholder="Retype password"/>
-                    <#if password2Error??>
-                        <div class="invalid-feedback">
-                            ${password2Error}
-                        </div>
-                    </#if>
                 </div>
-            </div>
-            <div class="form-group" style="margin-top: -10px">
-                <label class="col-md-2 col-form-label">Email:</label>
-                <div class="col-md-12" style="margin-top: -7px">
-                    <input type="email" name="email" value="<#if user??>${user.email}</#if>"
-                           class="form-control ${(emailError??)?string('is-invalid', '')}"
-                           placeholder="some@some.com"/>
-                    <#if emailError??>
-                        <div class="invalid-feedback">
-                            ${emailError}
-                        </div>
-                    </#if>
-                </div>
-            </div>
-        </#if>
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <div class="form-group">
-            <div class="col-md-12">
-                <#if !isRegisterForm><a href="/registration">Add new user</a></#if>
-                <button class="btn btn-primary" type="submit"><#if isRegisterForm>Create<#else>Sign In</#if></button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </#macro>
 
 <#macro logout>

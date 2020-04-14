@@ -3,9 +3,6 @@
 
 <@c.page>
     <div class="form-group">
-        <div class="col-sm-10">
-            <h5>Create account</h5>
-        </div>
     </div>
     ${message?ifExists}
     <@l.login "/registration" true />

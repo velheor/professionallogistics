@@ -12,14 +12,38 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
               integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
               crossorigin="anonymous">
+        <style>
+            .bootstrap-iso .form-control:focus {
+                border-color: #f89b2e;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(248, 155, 46, 0.6);
+            }
+
+            .asteriskField {
+                color: red;
+            }
+
+            .bootstrap-iso form .input-group-addon {
+                color: #cbc417;
+                background-color: #8e2424;
+                border-radius: 4px;
+                padding-left: 12px
+            }
+
+            .btn-primary,
+            .btn-primary:hover,
+            .btn-primary:active,
+            .btn-primary:visited,
+            .btn-primary:focus {
+                background-color: #f89b2e;
+                border-color: #f89b2e;
+            }
+        </style>
     </head>
     <body>
     <#include "navbar.ftl">
-    <div class="container-fluid">
-        <div class="row" style="margin-top: 40px">
-            <div class="col-md-4" style="margin: auto">
-                <#nested>
-            </div>
+    <div class="bootstrap-iso">
+        <div class="container">
+            <#nested>
         </div>
     </div>
     <!-- Optional JavaScript -->
