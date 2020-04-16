@@ -1,8 +1,8 @@
 package com.startup.raccoontruck.controller;
 
-import com.startup.raccoontruck.domain.Message;
+import com.startup.raccoontruck.domain.Trip;
 import com.startup.raccoontruck.domain.User;
-import com.startup.raccoontruck.repos.MessageRepo;
+import com.startup.raccoontruck.repos.TripRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.util.Map;
 @Controller
 public class MainController {
     @Autowired
-    private MessageRepo messageRepo;
+    private TripRepo tripRepo;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -26,16 +26,16 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Message> messages = messageRepo.findAll();
+    public String test(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+        Iterable<Trip> trips = tripRepo.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            trips = tripRepo.findByPrice(Long.parseLong(filter));
         } else {
-            messages = messageRepo.findAll();
+            trips = tripRepo.findAll();
         }
 
-        model.addAttribute("messages", messages);
+        model.addAttribute("trips", trips);
         model.addAttribute("filter", filter);
 
         return "main";
@@ -44,24 +44,23 @@ public class MainController {
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
-            @Valid Message message,
+            @Valid Trip trip,
             BindingResult bindingResult,
             Model model
     ) {
-        message.setAuthor(user);
+        trip.setCustomer(user);
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errorsMap);
-            model.addAttribute("message", message);
+            model.addAttribute("trip", trip);
         } else {
-            messageRepo.save(message);
+            tripRepo.save(trip);
         }
 
+        Iterable<Trip> trips = tripRepo.findAll();
 
-        Iterable<Message> messages = messageRepo.findAll();
-
-        model.addAttribute("messages", messages);
+        model.addAttribute("trips", trips);
 
         return "main";
     }
