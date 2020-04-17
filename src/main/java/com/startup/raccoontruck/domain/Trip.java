@@ -12,15 +12,13 @@ public class Trip {
     private Long id;
 
     @NotBlank(message = "Please fill the city from")
-    @Length(max = 2048, message = "Message too long (more than 2kB)")
     private String cityFrom;
     @NotBlank(message = "Please fill the city to")
-    @Length(max = 2048, message = "Message too long (more than 255)")
     private String cityTo;
     @NotBlank(message = "Please fill the price")
-    private Long price;
+    private String price;
     @NotBlank(message = "Please fill the weight")
-    private Long weight;
+    private String weight;
 
     private Long driverId;
 
@@ -33,7 +31,7 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(String cityFrom, String cityTo, Long price, Long weight, User customer, Long driverId) {
+    public Trip(String cityFrom, String cityTo, String price, String weight, User customer, Long driverId) {
         this.customer = customer;
         this.driverId = driverId;
         this.cityFrom = cityFrom;
@@ -82,19 +80,19 @@ public class Trip {
         this.cityTo = cityTo;
     }
 
-    public Long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Long getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }

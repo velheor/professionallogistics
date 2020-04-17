@@ -26,18 +26,17 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String test(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Trip> trips = tripRepo.findAll();
+    public String main(@RequestParam(required = false, defaultValue = "") String cityFrom, String cityTo, String price, String weight, Model model) {
+        Iterable<Trip> trips;
 
-        if (filter != null && !filter.isEmpty()) {
-            trips = tripRepo.findByPrice(Long.parseLong(filter));
+        if (price != null && !price.isEmpty()) {
+            trips = tripRepo.findByPriceAndCityFromAndCityToAndWeight(cityTo, cityFrom, price, weight);
         } else {
             trips = tripRepo.findAll();
         }
 
         model.addAttribute("trips", trips);
-        model.addAttribute("filter", filter);
-
+        model.addAttribute("filter", cityTo);
         return "main";
     }
 

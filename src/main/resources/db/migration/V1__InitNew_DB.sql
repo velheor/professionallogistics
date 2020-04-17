@@ -7,8 +7,8 @@ create table trip
     id        int8          not null,
     city_from varchar(2048) not null,
     city_to   varchar(2048) not null,
-    price     int8          not null,
-    weight    int8          not null,
+    price     varchar(2048) not null,
+    weight    varchar(2048) not null,
     driver_id int8,
     user_id   int8,
     primary key (id)
@@ -16,7 +16,7 @@ create table trip
 create table truck
 (
     model      varchar(2048),
-    max_weight int8 not null,
+    max_weight varchar(2048) not null,
     user_id    int8 not null
 );
 
