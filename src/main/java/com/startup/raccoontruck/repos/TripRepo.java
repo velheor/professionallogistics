@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface TripRepo extends CrudRepository<Trip, Long> {
-    List<Trip> findByPriceAndCityFromAndCityToAndWeight(String cityFrom, String cityTo, String price, String weight);
+    List<Trip> findByCityFromOrCityToOrWeightOrPrice(String cityFrom, String cityTo, String weight, String price);
 }

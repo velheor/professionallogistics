@@ -27,17 +27,19 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String cityTo, String cityFrom, String price, String weight, Model model) {
-        Iterable<Trip> trips;
+    public String main(@RequestParam(required = false, defaultValue = "") String cityFrom, String cityTo, String weight, String price, Model model) {
+        Iterable<Trip> trips = tripRepo.findAll();
 
-        if (price != null && !price.isEmpty()) {
-            trips = tripRepo.findByPriceAndCityFromAndCityToAndWeight(cityTo, cityFrom, price, weight);
-        } else {
-            trips = tripRepo.findAll();
+        if ((cityFrom != null && !cityFrom.isEmpty()) || (cityTo != null && !cityTo.isEmpty()) || (weight != null && !weight.isEmpty()) || (price != null && !price.isEmpty())) {
+            trips = tripRepo.findByCityFromOrCityToOrWeightOrPrice(cityFrom, cityTo, weight, price);
         }
 
         model.addAttribute("trips", trips);
-        model.addAttribute("filter", cityTo);
+        model.addAttribute("cityFrom", cityFrom);
+        model.addAttribute("cityTo", cityTo);
+        model.addAttribute("weight", weight);
+        model.addAttribute("price", price);
+
         return "main";
     }
 
@@ -65,4 +67,6 @@ public class MainController {
 
         return "main";
     }
+
+
 }
