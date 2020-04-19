@@ -4,6 +4,7 @@ import com.startup.raccoontruck.domain.Trip;
 import com.startup.raccoontruck.domain.User;
 import com.startup.raccoontruck.repos.TripRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String cityFrom, String cityTo, String price, String weight, Model model) {
+    public String main(@RequestParam(required = false, defaultValue = "") String cityTo, String cityFrom, String price, String weight, Model model) {
         Iterable<Trip> trips;
 
         if (price != null && !price.isEmpty()) {
@@ -40,6 +41,7 @@ public class MainController {
         return "main";
     }
 
+    @PreAuthorize("hasAuthority('CUSTOMER')")
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,

@@ -38,6 +38,14 @@ public class User implements UserDetails {
         return roles.contains(Role.ADMIN);
     }
 
+    public boolean isDriver() {
+        return roles.contains(Role.DRIVER);
+    }
+
+    public boolean isCustomer() {
+        return roles.contains(Role.CUSTOMER);
+    }
+
     public Long getId() {
         return id;
     }
