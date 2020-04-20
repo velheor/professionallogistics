@@ -8,13 +8,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -68,5 +73,52 @@ public class MainController {
         return "main";
     }
 
+    @GetMapping("/user-trips/{user}")
+    public String userTrips(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            Model model,
+            @RequestParam(required = false) Trip trip
+    ) {
+        Set<Trip> trips = user.getTrips();
 
+        model.addAttribute("trips", trips);
+        model.addAttribute("trip", trip);
+        model.addAttribute("isCurrentUserId", currentUser.equals(user));
+
+        return "userTrips";
+    }
+
+    @PostMapping("/user-trips/{user}")
+    public String updateTrip(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable Long user,
+            @RequestParam("id") Trip trip,
+            @RequestParam("cityFrom") String cityFrom,
+            @RequestParam("cityTo") String cityTo,
+            @RequestParam("weight") String weight,
+            @RequestParam("price") String price
+    ) {
+        if (trip.getCustomer().equals(currentUser)) {
+            if (!StringUtils.isEmpty(cityFrom)) {
+                trip.setCityTo(cityFrom);
+            }
+
+            if (!StringUtils.isEmpty(cityTo)) {
+                trip.setCityFrom(cityTo);
+            }
+
+            if (!StringUtils.isEmpty(weight)) {
+                trip.setWeight(weight);
+            }
+
+            if (!StringUtils.isEmpty(price)) {
+                trip.setPrice(price);
+            }
+
+            tripRepo.save(trip);
+        }
+
+        return "redirect:/user-trips/" + user;
+    }
 }
