@@ -1,7 +1,5 @@
 package com.startup.raccoontruck.domain;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -94,5 +92,12 @@ public class Trip {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public boolean driverExists() {
+        if (driverId == null) {
+            return false;
+        }
+        return true;
     }
 }

@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,10 +38,6 @@ public class MainController {
         }
 
         model.addAttribute("trips", trips);
-        model.addAttribute("cityFrom", cityFrom);
-        model.addAttribute("cityTo", cityTo);
-        model.addAttribute("weight", weight);
-        model.addAttribute("price", price);
 
         return "main";
     }
