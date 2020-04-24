@@ -37,6 +37,8 @@ public class SpecialTripController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable Trip trip
     ) {
-        return "redirect:/special-trips/" + trip;
+        trip.setDriver(currentUser.getId());
+        tripRepo.save(trip);
+        return "redirect:/special-trips/";
     }
 }
