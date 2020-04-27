@@ -1,11 +1,11 @@
 package com.startup.raccoontruck.controller;
 
 import com.startup.raccoontruck.domain.User;
-import com.startup.raccoontruck.repos.UserRepo;
 import com.startup.raccoontruck.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +20,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepo userRepo;
-
 
     @GetMapping("/registration")
     public String registration() {
@@ -30,20 +27,31 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid User user,
-                          @RequestParam("role")String role,
-                          BindingResult bindingResult,
-                          Model model
+    public String addUser(
+            @RequestParam("password2") String passwordConfirm,
+            @RequestParam("role") String role,
+            @Valid User user,
+            BindingResult bindingResult,
+            Model model
     ) {
+        boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
+
+        if (isConfirmEmpty) {
+            model.addAttribute("password2Error", "Password confirmation cannot be empty");
+        }
         if (user.getPassword() != null && !user.getPassword().equals(user.getPassword2())) {
             model.addAttribute("passwordError", "Passwords are different!");
         }
 
-        if (bindingResult.hasErrors()) {
+        if (isConfirmEmpty || bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
 
+            return "registration";
+        }
+
+        if (ControllerUtils.checkIfModelHasErrors(model)) {
             return "registration";
         }
 
@@ -56,14 +64,14 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    public String activate(Model model,
-                           @PathVariable String code
-    ) {
+    public String activate(Model model, @PathVariable String code) {
         boolean isActivated = userService.activateUser(code);
 
         if (isActivated) {
+            model.addAttribute("messageType", "success");
             model.addAttribute("message", "User successfully activated");
         } else {
+            model.addAttribute("messageType", "danger");
             model.addAttribute("message", "Activation code is not found!");
         }
 

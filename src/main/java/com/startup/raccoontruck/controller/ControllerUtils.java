@@ -1,5 +1,6 @@
 package com.startup.raccoontruck.controller;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -14,5 +15,9 @@ public class ControllerUtils {
                 FieldError::getDefaultMessage
         );
         return bindingResult.getFieldErrors().stream().collect(collector);
+    }
+
+    static Boolean checkIfModelHasErrors(Model model) {
+        return model.asMap().keySet().stream().anyMatch(key -> key.contains("Error"));
     }
 }
