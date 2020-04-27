@@ -61,8 +61,8 @@
                     </div>
                     <div class="form-check">
                         <div class="col-md-12">
-                            <input class="form-check-input" type="radio" name="roleRadios" id="driverRoleRadio"
-                                   value="DRIVER" checked>
+                            <input class="form-check-input" type="radio" name="role" id="driverRoleRadio"
+                                   value="DRIVER" checked >
                             <label class="form-check-label" for="driverRoleRadio">
                                 <h5>Driver</h5>
                                 You own your vehicle and have authority to book your own loads for you or your fleet.
@@ -71,7 +71,7 @@
                     </div>
                     <div class="form-check">
                         <div class="col-md-12" style="margin-top: 10px">
-                            <input class="form-check-input" type="radio" name="roleRadios" id="shipperRoleRadio"
+                            <input class="form-check-input" type="radio" name="role" id="shipperRoleRadio"
                                    value="CUSTOMER">
                             <label class="form-check-label" for="driverRoleRadio">
                                 <h5>Shipper</h5>
