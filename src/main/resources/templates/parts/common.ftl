@@ -19,7 +19,7 @@
             }
 
             .asteriskField {
-                color: red;
+                color: #ff0000;
             }
 
             .bootstrap-iso form .input-group-addon {
@@ -42,7 +42,7 @@
     <body>
     <#include "navbar.ftl">
     <div class="bootstrap-iso">
-        <div class="container">
+        <div class="container-fluid">
             <#nested>
         </div>
     </div>
