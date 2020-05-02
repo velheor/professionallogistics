@@ -31,7 +31,7 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String cityFrom, String cityTo, String weight, String price, Model model) {
-        Iterable<Trip> trips = tripRepo.findAll();
+        Iterable<Trip> trips = tripRepo.findByDriverId(null);
 
         if ((cityFrom != null && !cityFrom.isEmpty()) || (cityTo != null && !cityTo.isEmpty()) || (weight != null && !weight.isEmpty()) || (price != null && !price.isEmpty())) {
             trips = tripRepo.findByCityFromOrCityToOrWeightOrPrice(cityFrom, cityTo, weight, price);
