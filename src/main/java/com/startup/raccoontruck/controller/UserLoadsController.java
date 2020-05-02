@@ -31,7 +31,7 @@ public class UserLoadsController {
 
         model.addAttribute("loads", loads);
         model.addAttribute("load", load);
-        model.addAttribute("isCurrentUserId", currentUser.equals(user));
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
 
         return "userLoads";
     }

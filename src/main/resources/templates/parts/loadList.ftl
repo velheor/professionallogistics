@@ -13,7 +13,7 @@
             </div>
             <div class="card-footer text-muted">
                 <a href="/user-loads/${load.customer.id}">${load.customer.username}</a>
-                <#if load.customer.id == isCurrentUserId>
+                <#if load.customer.id == сurrentUserId>
                     <a class="btn btn-primary" href="/user-loads/${load.customer.id}?load=${load.id}">
                         Edit
                     </a>
