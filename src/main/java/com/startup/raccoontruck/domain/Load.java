@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Trip {
+public class Load {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,10 +26,10 @@ public class Trip {
     private User customer;
 
 
-    public Trip() {
+    public Load() {
     }
 
-    public Trip(String cityFrom, String cityTo, String price, String weight, User customer, Long driverId) {
+    public Load(String cityFrom, String cityTo, String price, String weight, User customer, Long driverId) {
         this.customer = customer;
         this.driverId = driverId;
         this.cityFrom = cityFrom;
@@ -95,9 +95,6 @@ public class Trip {
     }
 
     public boolean driverExists() {
-        if (driverId == null) {
-            return false;
-        }
-        return true;
+        return driverId != null;
     }
 }

@@ -39,9 +39,6 @@
         </div>
     </div>
 
-
-    <#include "parts/tripEdit.ftl"/>
-
-    <#include "parts/tripList.ftl"/>
+    <#include "parts/loadList.ftl"/>
 
 </@c.page>

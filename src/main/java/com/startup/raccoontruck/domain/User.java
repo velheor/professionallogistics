@@ -48,14 +48,14 @@ public class User implements UserDetails {
     }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Trip> trips;
+    private Set<Load> loads;
 
-    public Set<Trip> getTrips() {
-        return trips;
+    public Set<Load> getLoads() {
+        return loads;
     }
 
-    public void setTrips(Set<Trip> trips) {
-        this.trips = trips;
+    public void setLoads(Set<Load> loads) {
+        this.loads = loads;
     }
 
     public boolean isAdmin() {

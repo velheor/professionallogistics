@@ -1,8 +1,8 @@
 package com.startup.raccoontruck.controller;
 
-import com.startup.raccoontruck.domain.Trip;
+import com.startup.raccoontruck.domain.Load;
 import com.startup.raccoontruck.domain.User;
-import com.startup.raccoontruck.repos.TripRepo;
+import com.startup.raccoontruck.repos.LoadRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,28 +15,28 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class SpecialTripController {
+public class SpecialLoadController {
     @Autowired
-    private TripRepo tripRepo;
+    private LoadRepo loadRepo;
 
-    @GetMapping("/special-trips/{trip}")
-    public String userTrips(
-            @PathVariable Trip trip,
+    @GetMapping("/special-loads/{load}")
+    public String userLoads(
+            @PathVariable Load load,
             Model model
     ) {
-        Trip optionalTrip = tripRepo.findById(trip.getId()).orElse(new Trip());
-        List<Trip> trips = Arrays.asList(optionalTrip);
-        model.addAttribute("trips", trips);
-        return "specialTrip";
+        Load optionalLoad = loadRepo.findById(load.getId()).orElse(new Load());
+        List<Load> loads = Arrays.asList(optionalLoad);
+        model.addAttribute("loads", loads);
+        return "specialLoad";
     }
 
-    @PostMapping("/special-trips/{trip}")
+    @PostMapping("/special-loads/{load}")
     public String setDriver(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable Trip trip
+            @PathVariable Load load
     ) {
-        trip.setDriver(currentUser.getId());
-        tripRepo.save(trip);
-        return "redirect:/special-trips/" + trip.getId();
+        load.setDriver(currentUser.getId());
+        loadRepo.save(load);
+        return "redirect:/special-loads/" + load.getId();
     }
 }

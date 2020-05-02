@@ -18,7 +18,7 @@
             </li>
             <#if isCustomer>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user-trips/${isCurrentUserId}">My trips</a>
+                    <a class="nav-link" href="/user-loads/${isCurrentUserId}">My loads</a>
                 </li>
             </#if>
             <#if isAdmin>

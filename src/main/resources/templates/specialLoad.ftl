@@ -2,7 +2,7 @@
 
 <@c.page>
     <form method="post">
-        <#include "parts/tripList.ftl" />
+        <#include "parts/loadList.ftl" />
         <#if isDriver>
             <div class="form-group">
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
