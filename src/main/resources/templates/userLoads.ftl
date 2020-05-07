@@ -2,19 +2,35 @@
 <#include "parts/security.ftl">
 
 <@c.page>
-    <#if isCurrentUser>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-           aria-expanded="false"
-           aria-controls="collapseExample">
-            Trip editor
-        </a>
-    </#if>
+    <div>
+        <h3 style="text-align: center; margin-top: 70px; margin-left: 20px ">My Loads</h3>
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <#if isCurrentUser>
 
-    <div class="collapse <#if load??>show</#if>" id="collapseExample">
-        <#include "parts/loadEdit.ftl">
+                    <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapseExample" style="font-size: 20px;margin-left: 382px;">
+                        Trip editor
+                    </a>
+                </#if>
+            </div>
+            <div class="col-md-6">
+                <div class="collapse <#if load??>show</#if>" id="collapseExample">
+                    <#include "parts/loadEdit.ftl">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <a class="btn btn-primary btn-sm btn-block" href="/create"
+                   style="font-size: 20px; margin-left: 382px ; margin-top: 10px">
+                    Publish new load
+                </a>
+            </div>
+            <div class="col-md-7" style="margin-left: 150px">
+                <#include "parts/loadList.ftl" />
+            </div>
+
+        </div>
     </div>
-    <a class="btn btn-primary" href="/create">
-        Publish new load
-    </a>
-    <#include "parts/loadList.ftl" />
 </@c.page>
