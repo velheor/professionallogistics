@@ -6,14 +6,15 @@
         <h3 style="text-align: center; margin-top: 70px; margin-left: 20px ">My Loads</h3>
         <div class="col-md-12">
             <div class="col-md-5">
-                <#if isCurrentUser>
-
-                    <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="collapseExample" style="font-size: 20px;margin-left: 382px;">
-                        Trip editor
-                    </a>
+                <#if isCustomer>
+                    <#if isCurrentUser>
+                        <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
+                           role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample" style="font-size: 20px;margin-left: 382px;">
+                            Trip editor
+                        </a>
+                    </#if>
                 </#if>
             </div>
             <div class="col-md-6">
@@ -21,12 +22,14 @@
                     <#include "parts/loadEdit.ftl">
                 </div>
             </div>
-            <div class="col-md-5">
-                <a class="btn btn-primary btn-sm btn-block" href="/create"
-                   style="font-size: 20px; margin-left: 382px ; margin-top: 10px">
-                    Publish new load
-                </a>
-            </div>
+            <#if isCustomer>
+                <div class="col-md-5">
+                    <a class="btn btn-primary btn-sm btn-block" href="/create"
+                       style="font-size: 20px; margin-left: 382px ; margin-top: 10px">
+                        Publish new load
+                    </a>
+                </div>
+            </#if>
             <div class="col-md-7" style="margin-left: 150px">
                 <#include "parts/loadList.ftl" />
             </div>

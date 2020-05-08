@@ -14,13 +14,11 @@
                 <a class="nav-link " href="/" style="color: white">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/main" style="color: white">Trips</a>
+                <a class="nav-link" href="/main" style="color: white">Loads</a>
             </li>
-            <#if isCustomer>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user-loads/${сurrentUserId}" style="color: white">My loads</a>
-                </li>
-            </#if>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-loads/${сurrentUserId}" style="color: white">My loads</a>
+            </li>
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user" style="color: white">User list</a>
