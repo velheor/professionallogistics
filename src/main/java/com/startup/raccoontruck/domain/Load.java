@@ -20,11 +20,9 @@ public class Load {
 
     private Long driverId;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User customer;
-
 
     public Load() {
     }

@@ -28,7 +28,9 @@ public class UserLoadsController {
             @RequestParam(required = false) Load load
     ) {
         Set<Load> loads = user.getLoads();
-
+        if (currentUser.isDriver()) {
+            loads = loadRepo.findByDriverId(user.getId());
+        }
         model.addAttribute("loads", loads);
         model.addAttribute("load", load);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
