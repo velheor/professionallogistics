@@ -2,7 +2,7 @@ create sequence hibernate_sequence start 1 increment 1;
 
 ALTER USER postgres WITH SUPERUSER;
 
-create table trip
+create table load
 (
     id        int8          not null,
     city_from varchar(2048) not null,
@@ -12,12 +12,6 @@ create table trip
     driver_id int8,
     user_id   int8,
     primary key (id)
-);
-create table truck
-(
-    model      varchar(2048),
-    max_weight varchar(2048) not null,
-    user_id    int8 not null
 );
 
 create table user_role
@@ -37,12 +31,8 @@ create table usr
     primary key (id)
 );
 
-alter table if exists trip
+alter table if exists load
     add constraint trip_user_fk
-        foreign key (user_id) references usr;
-
-alter table if exists truck
-    add constraint truck_user_fk
         foreign key (user_id) references usr;
 
 alter table if exists user_role

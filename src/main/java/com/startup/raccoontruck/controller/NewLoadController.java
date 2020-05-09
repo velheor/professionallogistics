@@ -27,7 +27,7 @@ public class NewLoadController {
 
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @PostMapping("/create")
-    public String addTrip(
+    public String addLoad(
             @AuthenticationPrincipal User user,
             @Valid Load load,
             BindingResult bindingResult,

@@ -21,7 +21,9 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String cityFrom, String cityTo, String weight, String price, Model model) {
+    public String main(
+            @RequestParam(required = false, defaultValue = "")
+                    String cityFrom, String cityTo, String weight, String price, Model model) {
         Iterable<Load> loads = loadRepo.findByDriverId(null);
 
         if ((cityFrom != null && !cityFrom.isEmpty()) || (cityTo != null && !cityTo.isEmpty()) || (weight != null && !weight.isEmpty()) || (price != null && !price.isEmpty())) {

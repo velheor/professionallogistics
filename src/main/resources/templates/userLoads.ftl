@@ -6,15 +6,13 @@
         <h3 style="text-align: center; margin-top: 70px; margin-left: 20px ">My Loads</h3>
         <div class="col-md-12">
             <div class="col-md-5">
-                <#if isCustomer>
-                    <#if isCurrentUser>
-                        <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
-                           role="button"
-                           aria-expanded="false"
-                           aria-controls="collapseExample" style="font-size: 20px;margin-left: 382px;">
-                            Trip editor
-                        </a>
-                    </#if>
+                <#if isCurrentUser>
+                    <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapseExample" style="font-size: 20px;margin-left: 382px;">
+                        <#if isDriver>Attach check<#else>Trip editor</#if>
+                    </a>
                 </#if>
             </div>
             <div class="col-md-6">

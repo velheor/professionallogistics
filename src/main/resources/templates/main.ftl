@@ -39,17 +39,14 @@
                                    placeholder="Search by price" style="text-align: center">
                         </div>
                     </div>
+
                     <div class="col-md-8">
                         <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-left: 40px">
                             Search
                         </button>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
-
-
 </@c.page>

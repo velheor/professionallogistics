@@ -24,6 +24,9 @@ public class Load {
     @JoinColumn(name = "user_id")
     private User customer;
 
+
+    private String filename;
+
     public Load() {
     }
 
@@ -94,5 +97,13 @@ public class Load {
 
     public boolean driverExists() {
         return driverId != null;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }
