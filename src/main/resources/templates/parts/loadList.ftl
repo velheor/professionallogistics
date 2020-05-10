@@ -33,7 +33,7 @@
                             </#if>
                             <#if isDriver>
                                 <a class="btn btn-primary"
-                                   href="/user-loads/${load.driver}?load=${load.id}"
+                                   href="/user-loads/${сurrentUserId}?load=${load.id}"
                                    style="margin-left: 315px">
                                     Select
                                 </a>

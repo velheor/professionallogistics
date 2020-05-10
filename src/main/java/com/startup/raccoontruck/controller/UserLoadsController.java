@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -26,7 +26,7 @@ public class UserLoadsController {
     private LoadRepo loadRepo;
 
     @Value("${upload.path}")
-    private static String uploadPath;
+    private String uploadPath;
 
     @GetMapping("/user-loads/{user}")
     public String userTrips(
@@ -81,18 +81,20 @@ public class UserLoadsController {
         return "redirect:/user-loads/" + user;
     }
 
-    private void saveFile(@Valid Load load, @RequestParam("file") MultipartFile file) throws IOException {
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(String.format("%s%s%s", System.getProperty("user.dir"), File.separatorChar, uploadPath));
+    private void saveFile(@RequestParam("id") Load load, @RequestParam("file") MultipartFile file) throws IOException {
+        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            String currentPath = uploadDir.getPath();
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(currentPath + "/" + resultFileName));
 
-            load.setFilename(resultFileName);
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            load.setFilename(resultFilename);
         }
     }
 }
