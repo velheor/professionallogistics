@@ -35,8 +35,12 @@ public class SpecialLoadController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable Load load
     ) {
-        load.setDriver(currentUser.getId());
-        loadRepo.save(load);
+        if (currentUser.isDriver()) {
+            load.setDriver(currentUser.getId());
+            loadRepo.save(load);
+        } else {
+            loadRepo.delete(load);
+        }
         return "redirect:/special-loads/" + load.getId();
     }
 }

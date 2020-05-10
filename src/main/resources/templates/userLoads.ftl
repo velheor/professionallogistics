@@ -5,7 +5,7 @@
     <div>
         <h3 style="text-align: center; margin-top: 70px; margin-left: 20px ">My Loads</h3>
         <div class="col-md-12">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <#if isCurrentUser>
                     <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
                        role="button"
@@ -31,7 +31,6 @@
             <div class="col-md-7" style="margin-left: 150px">
                 <#include "parts/loadList.ftl" />
             </div>
-
         </div>
     </div>
 </@c.page>

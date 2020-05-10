@@ -27,14 +27,15 @@
                             <#if load.customer.id == сurrentUserId>
                                 <a class="btn btn-primary"
                                    href="/user-loads/${load.customer.id}?load=${load.id}"
-                                   style="margin-left: 315px">
+                                   style="margin-left: auto">
                                     Edit
                                 </a>
                             </#if>
+
                             <#if isDriver>
                                 <a class="btn btn-primary"
                                    href="/user-loads/${сurrentUserId}?load=${load.id}"
-                                   style="margin-left: 315px">
+                                   style="margin-left: auto">
                                     Select
                                 </a>
                             </#if>
