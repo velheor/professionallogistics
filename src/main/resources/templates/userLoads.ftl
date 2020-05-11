@@ -5,7 +5,7 @@
     <h3 style="text-align: center; margin-top: 70px;">My Loads</h3>
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-5" style="margin: auto">
+            <div class="col-md-6" style="margin: auto">
                 <div style="text-align: center">
                     <a>
                         <#if isDriver>

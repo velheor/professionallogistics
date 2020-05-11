@@ -10,7 +10,7 @@
 
             <div class="form-group" style="font-weight: bold; font-size: smaller">
                 <label class="col-md-2 col-form-label">Email:</label>
-                <div class="col-lg-12" style="font-size: medium">
+                <div class="col-md-12" style="font-size: medium">
                     <input type="email" name="email" class="form-control-lg" placeholder="some@some.com"
                            value="${email!''}" style="width: 300px"/>
                 </div>

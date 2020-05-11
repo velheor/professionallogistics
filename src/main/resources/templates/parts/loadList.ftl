@@ -2,17 +2,19 @@
 <div class="card-rows">
     <#list loads as load>
     <div class="card border-dark">
-        <a href="/special-loads/${load.id}" style="color: black">
-            <span style="margin-right: 18px;">${"From: " + load.cityFrom}</span>
-            <span style="margin-right: 18px">${"To: " + load.cityTo}</span>
-            <span style="margin-right: 18px">${"Weight: " + load.weight}</span>
-            <span>${"Price: " + load.price}</span>
-            <div>
-                <#if load.filename??>
-                    <img src="/img/${load.filename}">
-                </#if>
-            </div>
-        </a>
+        <div class="card">
+            <a href="/special-loads/${load.id}" style="color: black; margin: auto">
+                <span style="margin-right: 45px;">${"From: " + load.cityFrom}</span>
+                <span style="margin-right: 45px">${"To: " + load.cityTo}</span>
+                <span style="margin-right: 45px">${"Weight: " + load.weight}</span>
+                <span>${"Price: " + load.price}</span>
+                <div>
+                    <#if load.filename??>
+                        <img src="/img/${load.filename}">
+                    </#if>
+                </div>
+            </a>
+        </div>
         <div class="border-top border-dark">
             <div class="card-footer text-muted">
                 <p>Shipper:
@@ -28,7 +30,7 @@
                     </#if>
 
                     <#if isDriver>
-                        <a class="btn btn-primary"
+                        <a class="btn btn-primary btn-sm"
                            href="/user-loads/${сurrentUserId}?load=${load.id}"
                            style="margin-left: auto">
                             Select

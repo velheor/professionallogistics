@@ -1,27 +1,23 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <div class="col-md-7" style="margin-top: 150px; margin-left: 140px" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-6" style="margin-top: 150px;">
         <form method="post">
             <#include "parts/loadList.ftl" />
 
-            <#if isDriver>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg"
-                            style="margin-left: 230px; margin-top:-10px">
-                        Book
-                    </button>
-                </div>
-            </#if>
-            <#if isCustomer>
-                <button type="submit">
-                    <a class="btn btn-primary btn-lg"
-                       href="/user-loads/${сurrentUserId}"
-                       style="margin-left: 230px; margin-top:-10px">
+            <button type="submit">
+                <a class="btn btn-primary btn-lg"
+                   href="/user-loads/${сurrentUserId}"
+                   style="">
+                    <#if isCustomer>
                         Check as done
-                    </a>
-                </button>
-            </#if>
+                    </#if>
+
+                    <#if isDriver>
+                        Book
+                    </#if>
+                </a>
+            </button>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         </form>
     </div>
