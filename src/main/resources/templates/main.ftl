@@ -1,47 +1,35 @@
 <#import "parts/common.ftl" as c>
 <#include "parts/security.ftl">
 <@c.page>
-    <div>
-        <div class="form-row" style="margin-top: 70px">
-            <#include "parts/loadList.ftl"/>
-            <div class="form-group row " style="margin-left: 100px">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <#include "parts/loadList.ftl"/>
+            </div>
+
+            <div class="col-md-6">
                 <form method="get" action="/main">
-                    <div class="form-group row ">
-                        <div class="col-md-12">
-                            <div class="col text-center">
-                                <p style="font-size: 25px; font-weight: bold">Sort loads by</p>
-                            </div>
-                            <input type="text" name="cityFrom" class="form-control form-control-lg"
-                                   value="${cityFrom!}"
-                                   placeholder="Search by cityFrom" style="text-align: center">
-                        </div>
-                    </div>
+                    <div class="col-md-12">
 
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="text" name="cityTo" class="form-control  form-control-lg"
-                                   value="${cityTo!}"
-                                   placeholder="Search by cityTo" style="text-align: center">
-                        </div>
-                    </div>
+                        <p style="font-size: 25px;text-align: center; font-weight: bold">Sort loads by</p>
 
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="text" name="weight" class="form-control  form-control-lg"
-                                   value="${weight!}"
-                                   placeholder="Search by weight" style="text-align: center">
-                        </div>
-                    </div>
+                        <input type="text" name="cityFrom" class="form-control form-control-lg"
+                               value="${cityFrom!}"
+                               placeholder="Search by cityFrom" style="text-align: center">
 
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="text" name="price" class="form-control  form-control-lg" value="${price!}"
-                                   placeholder="Search by price" style="text-align: center">
-                        </div>
-                    </div>
+                        <input type="text" name="cityTo" class="form-control  form-control-lg"
+                               value="${cityTo!}"
+                               placeholder="Search by cityTo" style="text-align: center">
 
-                    <div class="col-md-8">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-left: 40px">
+                        <input type="text" name="weight" class="form-control  form-control-lg"
+                               value="${weight!}"
+                               placeholder="Search by weight" style="text-align: center">
+
+                        <input type="text" name="price" class="form-control  form-control-lg" value="${price!}"
+                               placeholder="Search by price" style="text-align: center">
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin:auto">
                             Search
                         </button>
                     </div>
