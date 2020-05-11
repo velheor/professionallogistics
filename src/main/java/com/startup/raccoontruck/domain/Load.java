@@ -24,15 +24,16 @@ public class Load {
     @JoinColumn(name = "user_id")
     private User customer;
 
+    private Boolean status;
 
     private String filename;
 
     public Load() {
+
     }
 
-    public Load(String cityFrom, String cityTo, String price, String weight, User customer, Long driverId) {
+    public Load(String cityFrom, String cityTo, String price, String weight, User customer) {
         this.customer = customer;
-        this.driverId = driverId;
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.price = price;
@@ -107,4 +108,11 @@ public class Load {
         this.filename = filename;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }

@@ -4,6 +4,20 @@
 <@c.page>
     <div>
         <h3 style="text-align: center; margin-top: 70px; margin-left: 20px ">My Loads</h3>
+        <div>
+            <a>
+                <#if isDriver>
+                    Booked
+                <#else>
+                    Active
+                </#if>
+            </a>
+
+            <a>
+                Past
+            </a>
+
+        </div>
         <div class="col-md-12">
             <div class="col-md-6">
                 <#if isCurrentUser>

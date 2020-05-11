@@ -37,10 +37,11 @@ public class SpecialLoadController {
     ) {
         if (currentUser.isDriver()) {
             load.setDriver(currentUser.getId());
-            loadRepo.save(load);
+            load.setStatus(true);
         } else {
-            loadRepo.delete(load);
+            load.setStatus(false);
         }
+        loadRepo.save(load);
         return "redirect:/special-loads/" + load.getId();
     }
 }
