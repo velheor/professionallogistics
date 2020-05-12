@@ -7,7 +7,8 @@
         <div class="col-md-12">
             <div class="col-md-6" style="margin: auto">
                 <div style="text-align: center">
-                    <a>
+                    <a href="/user-loads/booked/"
+                       style="color: black">
                         <#if isDriver>
                             Booked
                         <#else>
@@ -15,7 +16,8 @@
                         </#if>
                     </a>
 
-                    <a>
+                    <a href="/user-loads/past/"
+                       style="color: black">
                         Past
                     </a>
                 </div>
