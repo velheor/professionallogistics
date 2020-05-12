@@ -4,14 +4,14 @@
     <div class="container">
         <div class="row" style="margin-top: 50px">
 
+
             <div class="col-md-6" style="margin-top: 10px">
                 <#include "parts/loadList.ftl"/>
             </div>
-
             <div class="col-md-6">
-                <form method="get" action="/main">
-                    <div class="col-md-6" style="margin: auto">
-                        <div class="form-group">
+                <div class="col-md-6" style="margin: auto">
+                    <div class="form-group">
+                        <form method="get" action="/main">
                             <p style="font-size: 25px;text-align: center; font-weight: bold">Sort loads by</p>
 
                             <div style="margin-bottom:20px">
@@ -41,10 +41,11 @@
                             <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin:auto">
                                 Search
                             </button>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
         </div>
     </div>
 </@c.page>

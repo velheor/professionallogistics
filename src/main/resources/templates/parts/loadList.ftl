@@ -1,8 +1,7 @@
 <#include "security.ftl">
 <div class="card-rows">
     <#list loads as load>
-    <div class="card border-dark">
-        <div class="card">
+        <div class="card border-dark">
             <a href="/special-loads/${load.id}" style="color: black; margin: auto">
                 <span style="margin-right: 45px;">${"From: " + load.cityFrom}</span>
                 <span style="margin-right: 45px">${"To: " + load.cityTo}</span>
@@ -14,33 +13,33 @@
                     </#if>
                 </div>
             </a>
-        </div>
-        <div class="border-top border-dark">
-            <div class="card-footer text-muted">
-                <p>Shipper:
-                    <a href="/user-loads/${load.customer.id}"
-                       style="color: black">${load.customer.username}</a>
+            <div class="border-top border-dark">
+                <div class="card-footer text-muted">
+                    <p>Shipper:
+                        <a href="/user-loads/${load.customer.id}"
+                           style="color: black">${load.customer.username}</a>
 
-                    <#if load.customer.id == сurrentUserId>
-                        <a class="btn btn-primary"
-                           href="/user-loads/${load.customer.id}?load=${load.id}"
-                           style="margin-left: auto">
-                            Edit
-                        </a>
-                    </#if>
+                        <#if load.customer.id == сurrentUserId>
+                            <a class="btn btn-primary"
+                               href="/user-loads/${load.customer.id}?load=${load.id}"
+                               style="margin-left: auto">
+                                Edit
+                            </a>
+                        </#if>
 
-                    <#if isDriver>
-                        <a class="btn btn-primary btn-sm"
-                           href="/user-loads/${сurrentUserId}?load=${load.id}"
-                           style="margin-left: auto">
-                            Select
-                        </a>
-                    </#if>
-                </p>
+                        <#if isDriver>
+                            <a class="btn btn-primary btn-sm"
+                               href="/user-loads/${сurrentUserId}?load=${load.id}"
+                               style="margin-left: auto">
+                                Select
+                            </a>
+                        </#if>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    <#else>
+        No loads
+    </#list>
 </div>
-<#else>
-    No loads
-</#list>
+
