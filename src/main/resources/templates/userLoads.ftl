@@ -21,35 +21,25 @@
                         Past
                     </a>
                 </div>
-                <#if isCurrentUser>
-                    <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="collapseExample" style="font-size: 20px;">
-                        <#if isDriver>Attach check<#else>Trip editor</#if>
-                    </a>
-                </#if>
-                <#if isCustomer>
-                    <div class="collapse <#if load??>show</#if>" id="collapseExample">
-                        <#include "parts/loadEdit.ftl">
-                    </div>
-                </#if>
-                <#if isDriver>
-                    <div class="collapse <#if load??>show</#if>" id="collapseExample">
-                        <div class="form-group" style="margin-top: 10px">
-                            <div class="custom-file">
-                                <input type="file" name="file" id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                        </div>
-                    </div>
-                </#if>
+
+                <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
+                   role="button"
+                   aria-expanded="false"
+                   aria-controls="collapseExample" style="font-size: 20px;">
+                    <#if isDriver>Attach check<#else>Trip editor</#if>
+                </a>
+
+                <div class="collapse <#if load??>show</#if>" id="collapseExample">
+                    <#include "parts/loadEdit.ftl">
+                </div>
+
                 <#if isCustomer>
                     <a class="btn btn-primary btn-sm btn-block" href="/create"
-                       style="font-size: 20px; margin: auto; margin-top: 10px">
+                       style="font-size: 20px; margin: 10px auto auto;">
                         Publish new load
                     </a>
                 </#if>
+
                 <#include "parts/loadList.ftl" />
             </div>
         </div>

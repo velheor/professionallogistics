@@ -51,13 +51,13 @@ public class UserLoadsController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable Long user,
             @RequestParam("id") Load load,
-            @RequestParam("cityFrom") String cityFrom,
-            @RequestParam("cityTo") String cityTo,
-            @RequestParam("weight") String weight,
-            @RequestParam("price") String price,
-            @RequestParam("file") MultipartFile file
+            @RequestParam(required = false) String cityFrom,
+            @RequestParam(required = false) String cityTo,
+            @RequestParam(required = false) String weight,
+            @RequestParam(required = false) String price,
+            @RequestParam(required = false) MultipartFile file
     ) throws IOException {
-        if (load.getCustomer().equals(currentUser) || load.getDriver().equals(currentUser.getId())) {
+        if (load.getCustomer().equals(currentUser)) {
             if (!StringUtils.isEmpty(cityFrom)) {
                 load.setCityTo(cityFrom);
             }
@@ -73,11 +73,14 @@ public class UserLoadsController {
             if (!StringUtils.isEmpty(price)) {
                 load.setPrice(price);
             }
-
-            saveFile(load, file);
-
-            loadRepo.save(load);
         }
+
+        if ((load.getDriver().compareTo(currentUser.getId()) == 0)) {
+            saveFile(load, file);
+        }
+
+        loadRepo.save(load);
+
         return "redirect:/user-loads/" + user;
     }
 
