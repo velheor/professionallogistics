@@ -30,8 +30,8 @@
                 </li>
             </#if>
         </ul>
-
-        <div class="navbar-text mr-3" style="color: white">${name}</div>
-        <@l.logout />
+        <#if user??>
+            <div class="navbar-text mr-3" style="color: white">${name}</div>
+            <@l.logout /><#else><a class="btn btn-primary" href="/login" type="submit">Sign In</a></#if>
     </div>
 </nav>

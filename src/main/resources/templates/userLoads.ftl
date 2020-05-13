@@ -29,9 +29,21 @@
                         <#if isDriver>Attach check<#else>Trip editor</#if>
                     </a>
                 </#if>
-                <div class="collapse <#if load??>show</#if>" id="collapseExample">
-                    <#include "parts/loadEdit.ftl">
-                </div>
+                <#if isCustomer>
+                    <div class="collapse <#if load??>show</#if>" id="collapseExample">
+                        <#include "parts/loadEdit.ftl">
+                    </div>
+                </#if>
+                <#if isDriver>
+                    <div class="collapse <#if load??>show</#if>" id="collapseExample">
+                        <div class="form-group" style="margin-top: 10px">
+                            <div class="custom-file">
+                                <input type="file" name="file" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
                 <#if isCustomer>
                     <a class="btn btn-primary btn-sm btn-block" href="/create"
                        style="font-size: 20px; margin: auto; margin-top: 10px">

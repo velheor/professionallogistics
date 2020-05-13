@@ -44,4 +44,3 @@
         No loads
     </#list>
 </div>
-
