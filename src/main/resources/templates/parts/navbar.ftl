@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/main" style="color: white">Loads</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user-loads/${сurrentUserId}" style="color: white">My loads</a>
+                <a class="nav-link" href="/user-loads/booked/${сurrentUserId}" style="color: white">My loads</a>
             </li>
             <#if isAdmin>
                 <li class="nav-item">

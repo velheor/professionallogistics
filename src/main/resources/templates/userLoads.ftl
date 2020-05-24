@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="col-md-6" style="margin: auto">
                 <div style="text-align: center">
-                    <a href="/user-loads/booked/"
+                    <a href="/user-loads/booked/${user.id}"
                        style="color: black">
                         <#if isDriver>
                             Booked
@@ -16,7 +16,7 @@
                         </#if>
                     </a>
 
-                    <a href="/user-loads/past/"
+                    <a href="/user-loads/past/${user.id}"
                        style="color: black">
                         Past
                     </a>

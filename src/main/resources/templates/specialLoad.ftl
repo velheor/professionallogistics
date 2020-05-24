@@ -7,8 +7,7 @@
 
             <button type="submit">
                 <a class="btn btn-primary btn-lg"
-                   href="/user-loads/${сurrentUserId}"
-                   style="">
+                >
                     <#if isCustomer>
                         Check as done
                     </#if>

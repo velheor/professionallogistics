@@ -37,9 +37,8 @@ public class SpecialLoadController {
     ) {
         if (currentUser.isDriver()) {
             load.setDriver(currentUser.getId());
-            load.setStatus(true);
         } else {
-            load.setStatus(false);
+            load.setStatus(true);
         }
         loadRepo.save(load);
         return "redirect:/special-loads/" + load.getId();

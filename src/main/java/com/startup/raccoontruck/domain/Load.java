@@ -24,7 +24,7 @@ public class Load {
     @JoinColumn(name = "user_id")
     private User customer;
 
-    private Boolean status;
+    private Boolean status = false;
 
     private String filename;
 

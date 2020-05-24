@@ -3,8 +3,6 @@
 <@c.page>
     <div class="container">
         <div class="row" style="margin-top: 50px">
-
-
             <div class="col-md-6" style="margin-top: 10px">
                 <#include "parts/loadList.ftl"/>
             </div>
