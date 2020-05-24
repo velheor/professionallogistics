@@ -7,25 +7,28 @@
         <div class="col-md-12">
             <div class="col-md-6" style="margin: auto">
                 <div style="text-align: center">
-                    <a href="/user-loads/booked/${user.id}"
-                       style="color: black">
-                        <#if isDriver>
-                            Booked
-                        <#else>
-                            Active
-                        </#if>
-                    </a>
-
-                    <a href="/user-loads/past/${user.id}"
-                       style="color: black">
-                        Past
-                    </a>
+                    <button style="background-color: white">
+                        <a href="/user-loads/booked/${user.id}"
+                           style="color: black">
+                            <#if isDriver>
+                                Booked
+                            <#else>
+                                Active
+                            </#if>
+                        </a>
+                    </button>
+                    <button style="background-color: white">
+                        <a href="/user-loads/past/${user.id}"
+                           style="color: black">
+                            Past
+                        </a>
+                    </button>
                 </div>
 
                 <a class="btn btn-primary btn-sm  btn-block" data-toggle="collapse" href="#collapseExample"
                    role="button"
                    aria-expanded="false"
-                   aria-controls="collapseExample" style="font-size: 20px;">
+                   aria-controls="collapseExample" style="font-size: 20px; margin-top: 7px">
                     <#if isDriver>Attach check<#else>Trip editor</#if>
                 </a>
 

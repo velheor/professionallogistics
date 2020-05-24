@@ -84,7 +84,7 @@
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <button class="btn btn-primary btn-block"
+                            <button class="btn waves-effect waves-light btn-grd-warning btn-block"
                                     type="submit"
                                     style="margin-bottom: 10px"><#if isRegisterForm>Create your RaccoonTruck account<#else>Sign In </#if></button>
 

@@ -43,7 +43,7 @@ public class NewLoadController {
             loadRepo.save(load);
         }
 
-        return "redirect:/user-loads/" + user.getId();
+        return "redirect:/user-loads/booked/" + user.getId();
     }
 
 }

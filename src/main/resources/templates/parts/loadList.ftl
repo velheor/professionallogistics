@@ -22,7 +22,7 @@
 
                             <#if load.customer.id == сurrentUserId>
                                 <a class="btn btn-primary"
-                                   href="/user-loads/${load.customer.id}?load=${load.id}"
+                                   href="/user-loads/booked/${load.customer.id}?load=${load.id}"
                                    style="margin-left: auto">
                                     Edit
                                 </a>
@@ -30,7 +30,7 @@
 
                             <#if isDriver>
                                 <a class="btn btn-primary btn-sm"
-                                   href="/user-loads/${сurrentUserId}?load=${load.id}"
+                                   href="/user-loads/booked/${сurrentUserId}?load=${load.id}"
                                    style="margin-left: auto">
                                     Select
                                 </a>

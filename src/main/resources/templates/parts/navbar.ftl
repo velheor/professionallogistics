@@ -10,23 +10,20 @@
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ">
-            <li class="nav-item ">
-                <a class="nav-link " href="/" style="color: white">Home</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/main">Loads</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/main" style="color: white">Loads</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/user-loads/booked/${сurrentUserId}" style="color: white">My loads</a>
+                <a class="nav-link" href="/user-loads/booked/${сurrentUserId}" >My loads</a>
             </li>
             <#if isAdmin>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user" style="color: white">User list</a>
+                    <a class="nav-link" href="/user" >User list</a>
                 </li>
             </#if>
             <#if user??>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile" style="color: white">Profile</a>
+                    <a class="nav-link" href="/user/profile">Profile</a>
                 </li>
             </#if>
         </ul>
