@@ -1,14 +1,3 @@
+rootProject.name = 'raccoontruck'
 include 'backend:models'
-include 'backend:controllers'
 include 'backend:repository'
-include 'spring:security'
-include 'spring:mvc'
-include 'spring:hibernate'
-
-findProject(':backend:models')?.name = 'models'
-findProject(':backend:controllers')?.name = 'controllers'
-findProject(':backend:repository')?.name = 'repository'
-findProject(':spring:security')?.name = 'security'
-findProject(':spring:mvc')?.name = 'mvc'
-findProject(':spring:hibernate')?.name = 'hibernate'
-
