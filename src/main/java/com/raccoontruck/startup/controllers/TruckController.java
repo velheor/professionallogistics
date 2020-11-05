@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 public class TruckController {
-
     private final TruckRepository truckRepository;
 
     @Autowired

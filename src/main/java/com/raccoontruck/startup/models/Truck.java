@@ -2,7 +2,10 @@ package com.raccoontruck.startup.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Objects;
 
@@ -21,6 +24,10 @@ public class Truck {
 
     @Column(name = "max_weight")
     private Long maxWeight;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     public Long getId() {
         return id;
@@ -54,6 +61,14 @@ public class Truck {
         this.maxWeight = maxWeight;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,11 +77,12 @@ public class Truck {
         return Objects.equals(getId(), truck.getId()) &&
                 Objects.equals(getName(), truck.getName()) &&
                 Objects.equals(getRegNumber(), truck.getRegNumber()) &&
-                Objects.equals(getMaxWeight(), truck.getMaxWeight());
+                Objects.equals(getMaxWeight(), truck.getMaxWeight()) &&
+                Objects.equals(getUser(), truck.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getRegNumber(), getMaxWeight());
+        return Objects.hash(getId(), getName(), getRegNumber(), getMaxWeight(), getUser());
     }
 }
