@@ -2,7 +2,10 @@ package com.raccoontruck.startup.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
 import java.util.Objects;
@@ -40,6 +43,14 @@ public class Load {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drivers_id", referencedColumnName = "id", nullable = true)
+    private User driver;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customers_id", referencedColumnName = "id", nullable = false)
+    private User customer;
 
     public int getId() {
         return id;
@@ -121,6 +132,22 @@ public class Load {
         this.status = status;
     }
 
+    public User getDriver() {
+        return driver;
+    }
+
+    public void setDriver(User driver) {
+        this.driver = driver;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,22 +165,14 @@ public class Load {
         if (!Objects.equals(weight, load.weight)) return false;
         if (!Objects.equals(price, load.price)) return false;
         if (!Objects.equals(status, load.status)) return false;
+        if (!Objects.equals(driver, load.driver)) return false;
+        if (!Objects.equals(customer, load.customer)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (cityTo != null ? cityTo.hashCode() : 0);
-        result = 31 * result + (cityFrom != null ? cityFrom.hashCode() : 0);
-        result = 31 * result + (dateTo != null ? dateTo.hashCode() : 0);
-        result = 31 * result + (dateFrom != null ? dateFrom.hashCode() : 0);
-        result = 31 * result + (dateCheckIn != null ? dateCheckIn.hashCode() : 0);
-        result = 31 * result + (dateCheckOut != null ? dateCheckOut.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        return result;
+        return Objects.hash(getId(), getCityTo(), getCityTo(), getCityFrom(), getDateTo(), getDateFrom(), getDateCheckIn(), getDateCheckOut(),getWeight(), getPrice());
     }
 }
