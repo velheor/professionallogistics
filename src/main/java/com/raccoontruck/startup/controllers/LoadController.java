@@ -1,7 +1,7 @@
 package com.raccoontruck.startup.controllers;
 
-import com.raccoontruck.startup.models.Load;
-import com.raccoontruck.startup.repository.LoadRepository;
+import com.raccoontruck.startup.dto.LoadDTO;
+import com.raccoontruck.startup.service.api.ILoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,15 +10,15 @@ import java.util.List;
 
 @RestController
 public class LoadController {
-    private final LoadRepository loadRepository;
+    private final ILoadService loadService;
 
     @Autowired
-    LoadController(LoadRepository loadRepository) {
-        this.loadRepository = loadRepository;
+    LoadController(ILoadService loadService) {
+        this.loadService = loadService;
     }
 
     @GetMapping("/loads")
-    public List<Load> findAll() {
-        return loadRepository.findAll();
+    public List<LoadDTO> findAll() {
+        return loadService.findAll();
     }
 }

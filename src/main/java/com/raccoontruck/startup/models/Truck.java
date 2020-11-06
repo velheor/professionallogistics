@@ -23,7 +23,7 @@ public class Truck {
     private Integer regNumber;
 
     @Column(name = "max_weight")
-    private Long maxWeight;
+    private Double maxWeight;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = false)
@@ -53,11 +53,11 @@ public class Truck {
         this.regNumber = regNumber;
     }
 
-    public Long getMaxWeight() {
+    public Double getMaxWeight() {
         return maxWeight;
     }
 
-    public void setMaxWeight(Long maxWeight) {
+    public void setMaxWeight(Double maxWeight) {
         this.maxWeight = maxWeight;
     }
 

@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "loads")
@@ -36,13 +39,10 @@ public class Load {
     private Date dateCheckOut;
 
     @Column(name = "weight")
-    private Long weight;
+    private Double weight;
 
     @Column(name = "price")
-    private Long price;
-
-    @Column(name = "status")
-    private String status;
+    private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drivers_id", referencedColumnName = "id", nullable = true)
@@ -108,28 +108,20 @@ public class Load {
         this.dateCheckOut = dateCheckOut;
     }
 
-    public Long getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public User getDriver() {
@@ -164,7 +156,6 @@ public class Load {
         if (!Objects.equals(dateCheckOut, load.dateCheckOut)) return false;
         if (!Objects.equals(weight, load.weight)) return false;
         if (!Objects.equals(price, load.price)) return false;
-        if (!Objects.equals(status, load.status)) return false;
         if (!Objects.equals(driver, load.driver)) return false;
         if (!Objects.equals(customer, load.customer)) return false;
 
@@ -173,6 +164,8 @@ public class Load {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCityTo(), getCityTo(), getCityFrom(), getDateTo(), getDateFrom(), getDateCheckIn(), getDateCheckOut(),getWeight(), getPrice());
+        return Objects.hash(getId(), getCityTo(), getCityTo(), getCityFrom(),
+                getDateTo(), getDateFrom(), getDateCheckIn(),
+                getDateCheckOut(), getWeight(), getPrice());
     }
 }

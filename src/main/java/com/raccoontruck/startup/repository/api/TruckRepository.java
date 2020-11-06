@@ -1,4 +1,4 @@
-package com.raccoontruck.startup.repository;
+package com.raccoontruck.startup.repository.api;
 
 import com.raccoontruck.startup.models.Truck;
 import org.springframework.data.repository.CrudRepository;
