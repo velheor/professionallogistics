@@ -22,7 +22,7 @@ public class TruckService implements ITruckService {
 
     @Override
     public List<TruckDTO> findAll() {
-        return null;
+        return convertToDTO(truckRepository.findAll());
     }
 
     @Override

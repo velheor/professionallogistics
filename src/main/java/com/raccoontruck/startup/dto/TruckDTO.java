@@ -1,8 +1,5 @@
 package com.raccoontruck.startup.dto;
 
-import com.raccoontruck.startup.models.Truck;
-import com.raccoontruck.startup.models.User;
-
 public class TruckDTO {
     private Long id;
 

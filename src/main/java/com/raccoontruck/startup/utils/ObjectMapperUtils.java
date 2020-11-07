@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ObjectMapperUtils {
 
-    private static ModelMapper modelMapper;
+    private static final ModelMapper modelMapper;
 
     /**
      * Model mapper property setting are specified in the following block.

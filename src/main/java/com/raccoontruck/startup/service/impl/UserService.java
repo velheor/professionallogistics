@@ -22,7 +22,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<UserDTO> findAll() {
-        return null;
+        return convertToDTO(userRepository.findAll());
     }
 
     @Override

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,7 +17,7 @@ import java.util.Set;
 public class Load {
     @Id
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "city_to")
     private String cityTo;
@@ -45,18 +44,21 @@ public class Load {
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drivers_id", referencedColumnName = "id", nullable = true)
-    private User driver;
+    @JoinColumn(name = "drivers_id")
+    private Driver driver;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customers_id", referencedColumnName = "id", nullable = false)
-    private User customer;
+    @JoinColumn(name = "customers_id")
+    private Customer customer;
 
-    public int getId() {
+    @OneToMany(mappedBy = "load")
+    private Set<Status> status;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -128,7 +130,7 @@ public class Load {
         return driver;
     }
 
-    public void setDriver(User driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 
@@ -136,8 +138,16 @@ public class Load {
         return customer;
     }
 
-    public void setCustomer(User customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Set<Status> getStatus() {
+        return status;
+    }
+
+    public void setStatus(Set<Status> status) {
+        this.status = status;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.raccoontruck.startup.dto;
 
 import java.sql.Date;
+import java.util.Set;
 
 public class LoadDTO {
-
     private int id;
 
     private String cityTo;
@@ -27,6 +27,8 @@ public class LoadDTO {
     private UserDTO driverDTO;
 
     private UserDTO customerDTO;
+
+    private Set<StatusDTO> statusDTO;
 
     public int getId() {
         return id;
@@ -122,5 +124,13 @@ public class LoadDTO {
 
     public void setCustomerDTO(UserDTO customerDTO) {
         this.customerDTO = customerDTO;
+    }
+
+    public Set<StatusDTO> getStatusDTO() {
+        return statusDTO;
+    }
+
+    public void setStatusDTO(Set<StatusDTO> statusDTO) {
+        this.statusDTO = statusDTO;
     }
 }
