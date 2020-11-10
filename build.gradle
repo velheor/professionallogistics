@@ -29,6 +29,7 @@ dependencies {
 
     ////UTILS///
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+    compile group: 'com.google.guava', name: 'guava', version: '13.0-rc1'
     /////////////
 
 }

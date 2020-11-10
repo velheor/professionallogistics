@@ -2,7 +2,7 @@ package com.raccoontruck.startup.service.api;
 
 import java.util.List;
 
-public interface GenericService<DTO, Entity> {
+public interface IGenericService<DTO, Entity> {
     List<DTO> findAll();
 
     DTO findById(Long id);
