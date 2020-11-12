@@ -1,10 +1,10 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Objects;
@@ -13,21 +13,24 @@ import java.util.Objects;
 @Table(name = "trucks")
 public class Truck {
     @Id
+    @Basic
     @Column(name = "drivers_id")
     private Long id;
 
+    @Basic
     @Column(name = "name")
     private String name;
 
+    @Basic
     @Column(name = "registration_number")
     private Integer regNumber;
 
+    @Basic
     @Column(name = "max_weight")
     private Double maxWeight;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "drivers_id")
+    @JoinColumn(name = "drivers_id", referencedColumnName = "id", nullable = false)
     private Driver driver;
 
     public Long getId() {

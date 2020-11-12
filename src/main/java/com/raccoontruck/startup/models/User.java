@@ -1,5 +1,6 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
@@ -23,18 +22,23 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
+    @Basic
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Basic
     @Column(name = "first_name")
     private String firstName;
 
+    @Basic
     @Column(name = "second_name")
     private String secondName;
 
+    @Basic
     @Column(name = "email")
     private String email;
 
+    @Basic
     @Column(name = "password")
     private String password;
 
@@ -45,7 +49,6 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
     private List<Comment> comments;
 
     public User() {

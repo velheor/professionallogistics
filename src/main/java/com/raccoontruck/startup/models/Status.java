@@ -1,5 +1,6 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,18 +15,21 @@ import java.sql.Date;
 @Table(name = "status_history")
 public class Status {
     @Id
+    @Basic
     @Column(name = "loads_id")
     private Long id;
 
+    @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "status_name")
     private EStatus name;
 
+    @Basic
     @Column(name = "status_date")
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "loads_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "loads_id", insertable = false, updatable = false, referencedColumnName = "id", nullable = false)
     private Load load;
 
     public Long getId() {

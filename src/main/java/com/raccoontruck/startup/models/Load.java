@@ -1,5 +1,6 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,39 +17,48 @@ import java.util.Set;
 @Table(name = "loads")
 public class Load {
     @Id
+    @Basic
     @Column(name = "id")
     private Long id;
 
+    @Basic
     @Column(name = "city_to")
     private String cityTo;
 
+    @Basic
     @Column(name = "city_from")
     private String cityFrom;
 
+    @Basic
     @Column(name = "date_to")
     private Date dateTo;
 
+    @Basic
     @Column(name = "date_from")
     private Date dateFrom;
 
+    @Basic
     @Column(name = "date_checkin")
     private Date dateCheckIn;
 
+    @Basic
     @Column(name = "date_checkout")
     private Date dateCheckOut;
 
+    @Basic
     @Column(name = "weight")
     private Double weight;
 
+    @Basic
     @Column(name = "price")
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drivers_id")
+    @JoinColumn(name = "drivers_id", referencedColumnName = "id", nullable = false)
     private Driver driver;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customers_id")
+    @JoinColumn(name = "customers_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
 
     @OneToMany(mappedBy = "load")

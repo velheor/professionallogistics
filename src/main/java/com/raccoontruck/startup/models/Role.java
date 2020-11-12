@@ -1,5 +1,6 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "roles")
 public class Role {
     @Id
+    @Basic
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

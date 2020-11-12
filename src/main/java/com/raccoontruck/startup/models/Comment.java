@@ -1,12 +1,11 @@
 package com.raccoontruck.startup.models;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -14,18 +13,20 @@ import javax.persistence.Table;
 @Table(name = "comments")
 public class Comment {
     @Id
-    @Column(name = "users_id")
+    @Basic
+    @Column(name = "id")
     private Long id;
 
+    @Basic
     @Column(name = "text")
     private String text;
 
+    @Basic
     @Column(name = "stars")
     private Integer stars;
 
     @ManyToOne
-    @MapsId
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "id", insertable = false, updatable = false, referencedColumnName = "id", nullable = false)
     private User user;
 
     public Long getId() {
