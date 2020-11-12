@@ -1,0 +1,15 @@
+dependencies {
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation project(':models'), project(':dto'), project(':utils'),
+            project(':repository:repositoryApi'), project(':service:serviceApi')
+
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}

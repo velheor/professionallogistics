@@ -1,0 +1,12 @@
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}

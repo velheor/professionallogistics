@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':models'), project(':dto')
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}

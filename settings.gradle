@@ -1,1 +1,14 @@
 rootProject.name = 'raccoontruck'
+include 'utils'
+include 'controllers'
+include 'dto'
+include 'models'
+
+include 'service:api'
+findProject(':service:api')?.name = 'serviceApi'
+
+include 'service:impl'
+findProject(':service:impl')?.name = 'serviceImpl'
+
+include 'repository:api'
+findProject(':repository:api')?.name = 'repositoryApi'
