@@ -2,6 +2,7 @@ package com.raccoontruck.startup.security.jwt;
 
 import com.raccoontruck.startup.Role;
 import com.raccoontruck.startup.User;
+import com.raccoontruck.startup.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -17,7 +18,10 @@ public final class JwtUserFactory {
         return new JwtUser(
                 user.getId(),
                 user.getEmail(),
+                user.getFirstName(),
+                user.getSecondName(),
                 user.getPassword(),
+                user.getStatus().equals(UserStatus.ACTIVE),
                 mapToGrantedAuthorities(user.getRoles())
         );
     }

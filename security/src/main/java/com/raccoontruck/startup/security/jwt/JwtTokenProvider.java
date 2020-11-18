@@ -9,7 +9,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
@@ -31,13 +30,13 @@ import java.util.List;
 @PropertySource("classpath:/token.properties")
 public class JwtTokenProvider {
 
+    private final UserDetailsService userDetailsService;
+
     @Value("${jwtSecret}")
     private String secret;
 
     @Value("${jwtExpirationMs}")
     private long validityInMilliseconds;
-
-    private final UserDetailsService userDetailsService;
 
     @Autowired
     public JwtTokenProvider(UserDetailsService userDetailsService) {

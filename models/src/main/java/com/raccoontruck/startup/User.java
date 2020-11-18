@@ -3,6 +3,8 @@ package com.raccoontruck.startup;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -41,6 +42,11 @@ public class User {
     @Basic
     @Column(name = "password")
     private String password;
+
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
@@ -99,6 +105,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public List<Role> getRoles() {
