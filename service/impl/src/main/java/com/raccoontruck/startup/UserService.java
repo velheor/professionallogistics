@@ -22,17 +22,17 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO findById(Long id) {
-        return null;
+         return convertToDTO(userRepository.findById(id).orElse(null));
     }
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        return null;
+        return convertToDTO(userRepository.save(convertFromDTO(userDTO)));
     }
 
     @Override
     public void delete(Long id) {
-
+        userRepository.delete(convertFromDTO(findById(id)));
     }
 
     @Override
@@ -53,5 +53,5 @@ public class UserService implements IUserService {
     @Override
     public List<User> convertFromDTO(List<UserDTO> UserDTOS) {
         return ObjectMapperUtils.mapAll(UserDTOS, User.class);
-    }
+     }
 }

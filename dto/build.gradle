@@ -2,6 +2,10 @@ dependencies {
     implementation project(':models')
 }
 
+bootWar {
+    enabled = false
+}
+
 bootJar {
     enabled = false
 }

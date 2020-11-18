@@ -3,7 +3,6 @@ package com.raccoontruck.startup;
 import java.util.List;
 
 public class CustomerDTO extends UserDTO {
-
     private List<LoadDTO> loads;
 
     public List<LoadDTO> getLoads() {

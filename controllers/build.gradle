@@ -3,10 +3,13 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
 
     implementation project(':service:serviceImpl'), project(':service:serviceApi'),
-            project(':dto'),  project(':models')
+            project(':dto'),  project(':models'), project(':security')
+}
+
+bootWar {
+    enabled = false
 }
 
 bootJar {

@@ -22,17 +22,17 @@ public class TruckService implements ITruckService {
 
     @Override
     public TruckDTO findById(Long id) {
-        return null;
+        return convertToDTO(truckRepository.findById(id).orElse(null));
     }
 
     @Override
     public TruckDTO update(TruckDTO truckDTO) {
-        return null;
+        return convertToDTO(truckRepository.save(convertFromDTO(truckDTO)));
     }
 
     @Override
     public void delete(Long id) {
-
+        truckRepository.delete(convertFromDTO(findById(id)));
     }
 
     @Override

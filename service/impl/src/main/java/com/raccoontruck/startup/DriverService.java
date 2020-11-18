@@ -22,9 +22,6 @@ public class DriverService implements IDriverService {
 
     @Override
     public DriverDTO findById(Long id) {
-        if (!driverRepository.findById(id).isPresent()) {
-            return null;
-        }
         return convertToDTO(driverRepository.findById(id).orElse(null));
     }
 

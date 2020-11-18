@@ -22,9 +22,6 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public CustomerDTO findById(Long id) {
-        if (!customerRepository.findById(id).isPresent()) {
-            return null;
-        }
         return convertToDTO(customerRepository.findById(id).orElse(null));
     }
 
@@ -35,7 +32,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void delete(Long id) {
-
+        customerRepository.delete(convertFromDTO(findById(id)));
     }
 
     @Override

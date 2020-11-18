@@ -22,9 +22,6 @@ public class LoadService implements ILoadService {
 
     @Override
     public LoadDTO findById(Long id) {
-        if (!loadRepository.findById(id).isPresent()) {
-            return null;
-        }
         return convertToDTO(loadRepository.findById(id).orElse(null));
     }
 

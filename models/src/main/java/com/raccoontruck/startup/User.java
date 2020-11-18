@@ -46,7 +46,7 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
@@ -101,11 +101,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

@@ -1,7 +1,6 @@
 package com.raccoontruck.startup;
 
 public class CommentDTO {
-
     private Long id;
 
     private String text;

@@ -1,6 +1,7 @@
 package com.raccoontruck.startup;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ public class LoadController {
     }
 
     @GetMapping("/loads")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<LoadDTO> findAll() {
         return loadService.findAll();
     }

@@ -10,3 +10,7 @@ bootJar {
 jar {
     enabled = true
 }
+
+bootWar {
+    enabled = false
+}

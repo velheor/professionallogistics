@@ -12,3 +12,4 @@ findProject(':service:impl')?.name = 'serviceImpl'
 
 include 'repository:api'
 findProject(':repository:api')?.name = 'repositoryApi'
+include 'security'

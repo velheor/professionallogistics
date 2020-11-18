@@ -2,6 +2,10 @@ dependencies {
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }
 
+bootWar {
+    enabled = false
+}
+
 bootJar {
     enabled = false
 }
