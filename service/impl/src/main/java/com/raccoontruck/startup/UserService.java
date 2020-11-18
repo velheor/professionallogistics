@@ -22,7 +22,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO findById(Long id) {
-         return convertToDTO(userRepository.findById(id).orElse(null));
+        return convertToDTO(userRepository.findById(id).orElse(null));
     }
 
     @Override
@@ -33,6 +33,11 @@ public class UserService implements IUserService {
     @Override
     public void delete(Long id) {
         userRepository.delete(convertFromDTO(findById(id)));
+    }
+
+    @Override
+    public UserDTO findByEmail(String email) {
+        return convertToDTO(userRepository.findByEmail(email));
     }
 
     @Override
@@ -53,5 +58,5 @@ public class UserService implements IUserService {
     @Override
     public List<User> convertFromDTO(List<UserDTO> UserDTOS) {
         return ObjectMapperUtils.mapAll(UserDTOS, User.class);
-     }
+    }
 }

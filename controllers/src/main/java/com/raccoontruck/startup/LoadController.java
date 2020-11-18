@@ -17,7 +17,6 @@ public class LoadController {
     }
 
     @GetMapping("/loads")
-    @PreAuthorize("hasRole('ADMIN')")
     public List<LoadDTO> findAll() {
         return loadService.findAll();
     }
