@@ -1,5 +1,7 @@
 package com.raccoontruck.startup;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class RoleDTO {
@@ -7,6 +9,7 @@ public class RoleDTO {
 
     private ERole name;
 
+    @JsonIgnore
     private List<UserDTO> users;
 
     public Integer getId() {

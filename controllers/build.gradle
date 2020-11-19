@@ -1,11 +1,9 @@
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBoot}"
 
-    implementation project(':service:serviceImpl'), project(':service:serviceApi'),
-            project(':dto'),  project(':models'), project(':security')
+    compile project(':service:serviceImpl'), project(':service:serviceApi'),
+            project(':dto'), project(':models'), project(':security'), project(':view')
 }
 
 bootWar {

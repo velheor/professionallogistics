@@ -12,7 +12,6 @@ public class JwtUser implements UserDetails {
     private final String firstName;
     private final String secondName;
     private final String password;
-    private final Boolean enabled;
     private final Collection<? extends GrantedAuthority> authorities;
 
     public JwtUser(
@@ -21,14 +20,12 @@ public class JwtUser implements UserDetails {
             String firstName,
             String secondName,
             String password,
-            Boolean enabled,
             Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.secondName = secondName;
         this.password = password;
-        this.enabled = enabled;
         this.authorities = authorities;
     }
 
@@ -86,9 +83,5 @@ public class JwtUser implements UserDetails {
 
     public String getSecondName() {
         return secondName;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
     }
 }

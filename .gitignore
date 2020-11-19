@@ -1,8 +1,7 @@
 # Project exclude paths
 /.idea/
 /.gradle/
-/build/
-/build/classes/java/main/
+**/build*
 gradlew.bat
 gradlew
 resources/application.properties
@@ -14,3 +13,7 @@ raccoontruck.mwb.bak
 controllers-1.0-snapshot.jar
 models-1.0-snapshot.jar
 repository-1.0-snapshot.jar
+security-0.0.1-snapshot.jar
+exception-0.0.1-snapshot.jar
+view-0.0.1-snapshot.jar
+view-0.0.1-snapshot.war

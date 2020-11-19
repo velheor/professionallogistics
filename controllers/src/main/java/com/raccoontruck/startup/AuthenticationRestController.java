@@ -8,12 +8,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping(value = "/auth/")
 public class AuthenticationRestController {
     @Autowired
@@ -28,8 +29,8 @@ public class AuthenticationRestController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping("/signin")
-    public AuthenticationRequestDTO login(@RequestBody AuthenticationRequestDTO authRequestDTO) {
+    @PostMapping("/login")
+    public String login(@RequestBody AuthenticationRequestDTO authRequestDTO) {
         try {
             String email = authRequestDTO.getUsername();
 
@@ -43,15 +44,16 @@ public class AuthenticationRestController {
 
             authRequestDTO.setToken(jwtTokenProvider.createTokenFromDTO(email, user.getRoles()));
 
-            return authRequestDTO;
+            return "registration";
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password" + e.getMessage());
         }
     }
 
-    @PostMapping("/signup")
-    public UserDTO createAccount(@RequestBody UserDTO userDTO) {
+    @PutMapping("/registration")
+    public String createAccount(@RequestBody UserDTO userDTO) {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        return userService.update(userDTO);
+        userService.update(userDTO);
+        return "registration";
     }
 }

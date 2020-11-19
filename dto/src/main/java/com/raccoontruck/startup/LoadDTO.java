@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Set;
 
 public class LoadDTO {
-    private int id;
+    private Long id;
 
     private String cityTo;
 
@@ -30,11 +30,11 @@ public class LoadDTO {
 
     private Set<StatusDTO> statusDTO;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
