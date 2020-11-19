@@ -3,3 +3,7 @@
 /.gradle/
 build/
 */jar
+gradlew
+gradlew.bat
+raccoontruck.mwb
+raccoontruck.mwb.bak

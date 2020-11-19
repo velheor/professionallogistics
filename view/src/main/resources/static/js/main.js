@@ -14,39 +14,75 @@ Vue.component('load-form', {
     props: ['loads', 'loadAttr'],
     data: function () {
         return {
-            text: '',
-            id: ''
+            id: '',
+            cityTo: '',
+            cityFrom: '',
+            dateTo: '',
+            dateFrom: '',
+            dateCheckIn: '',
+            dateCheckOut: '',
+            weight: '',
+            price: ''
         }
     },
     watch: {
         loadAttr: function (newVal, oldVal) {
-            this.text = newVal.text;
             this.id = newVal.id;
+            this.cityTo = newVal.cityTo;
+            this.cityFrom = newVal.cityFrom;
+            this.dateTo = newVal.dateTo;
+            this.dateFrom = newVal.dateFrom;
+            this.dateCheckIn = newVal.dateCheckIn;
+            this.dateCheckOut = newVal.dateCheckOut;
+            this.weight = newVal.weight;
+            this.price = newVal.price;
         }
     },
     template:
         '<div>' +
-        '<input type="text" placeholder="Write something" v-model="text" />' +
+        '<input type="text" placeholder="City to" v-model="text" />' +
+        '<input type="text" placeholder="City from" v-model="text" />' +
+        '<input type="date" placeholder="Date to" v-model="date" />' +
+        '<input type="date" placeholder="Date from" v-model="date" />' +
+        '<input type="date" placeholder="Date checkin" v-model="date" />' +
+        '<input type="date" placeholder="Date checkout" v-model="date" />' +
+        '<input type="number" placeholder="Weight" v-model="number" />' +
+        '<input type="number" placeholder="Price" v-model="number" />' +
         '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function () {
-            var load = {text: this.text};
+            var load = {
+                cityTo: this.cityTo,
+                cityFrom: this.cityFrom,
+                dateTO: this.dateTO,
+                dateFrom: this.dateFrom,
+                dateCheckIn: this.dateCheckIn,
+                dateCheckOut: this.dateCheckOut,
+                weight: this.weight,
+                price: this.price
+            };
 
             if (this.id) {
                 loadApi.update({id: this.id}, load).then(result =>
                     result.json().then(data => {
                         var index = getIndex(this.loads, data.id);
                         this.loads.splice(index, 1, data);
-                        this.text = ''
                         this.id = ''
+                        this.cityTo = ''
+                        this.cityFrom = ''
+                        this.dateTo = ''
+                        this.dateFrom = ''
+                        this.dateCheckIn = ''
+                        this.dateCheckOut = ''
+                        this.weight = ''
+                        this.price = ''
                     })
                 )
             } else {
                 loadApi.save({}, load).then(result =>
                     result.json().then(data => {
                         this.loads.push(data);
-                        this.text = ''
                     })
                 )
             }
@@ -57,7 +93,11 @@ Vue.component('load-form', {
 Vue.component('load-row', {
     props: ['load', 'editMethod', 'loads'],
     template: '<div>' +
-        '<i>({{ load.id }})</i> {{ load.text }}' +
+        '<i>({{ load.id }})</i> {{ load.cityTo }}, {{load.cityFrom}}' +
+        '{{load.dateTo}}, {{load.dateFrom}}' +
+        '{{load.dateCheckIn}}, {{load.dateCheckOut}}' +
+        '{{load.weight}}, {{load.price}}' +
+        '{{load.customerDTO}}, {{load.driverDTO}}' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="X" @click="del" />' +
@@ -85,7 +125,7 @@ Vue.component('loads-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 300px;">' +
+        '<div style="position: relative; width: 800px;">' +
         '<load-form :loads="loads" :loadAttr="load" />' +
         '<load-row v-for="load in loads" :key="load.id" :load="load" ' +
         ':editMethod="editMethod" :loads="loads" />' +
