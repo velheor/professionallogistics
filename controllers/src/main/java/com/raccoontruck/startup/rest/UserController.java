@@ -1,5 +1,7 @@
-package com.raccoontruck.startup;
+package com.raccoontruck.startup.rest;
 
+import com.raccoontruck.startup.IUserService;
+import com.raccoontruck.startup.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

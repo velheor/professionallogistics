@@ -1,6 +1,6 @@
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBoot}"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: "${springBoot}"
 
     compile project(':service:serviceImpl'), project(':service:serviceApi'),
             project(':dto'), project(':models'), project(':security'), project(':view')

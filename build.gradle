@@ -39,3 +39,7 @@ test {
 bootJar {
     enabled = false
 }
+
+bootWar {
+    enabled = false
+}
