@@ -1,4 +1,4 @@
-rootProject.name = 'raccoontruck'
+rootProject.name = 'professionallogistics'
 include 'utils'
 include 'controllers'
 include 'dto'
@@ -14,5 +14,4 @@ include 'repository:api'
 findProject(':repository:api')?.name = 'repositoryApi'
 include 'security'
 include 'exception'
-include 'view'
 
