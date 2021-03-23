@@ -1,6 +1,7 @@
-package com.prolog.internship.models;
+package com.velheor.internship.models;
 
-import com.prolog.internship.models.enums.ERole;
+import com.velheor.internship.models.enums.EStatusHistory;
+import java.sql.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "roles", schema = "prolog")
-public class Role {
+@Table(name = "status_history", schema = "prolog")
+public class StatusHistory {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -25,11 +25,14 @@ public class Role {
 
     @Basic
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_name", nullable = false, length = 45)
-    private ERole name;
+    @Column(name = "status_name", nullable = false, length = 45)
+    private EStatusHistory name;
+
+    @Basic
+    @Column(name = "status_date", nullable = false)
+    private Date statusDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id")
-    private User user;
+    @JoinColumn(name = "orders_id", referencedColumnName = "id", nullable = false)
+    private Order order;
 }

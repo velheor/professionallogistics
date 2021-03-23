@@ -1,4 +1,4 @@
-package com.prolog.internship.models.enums;
+package com.velheor.internship.models.enums;
 
 public enum EStatusHistory {
     CANCELED, ACTIVE

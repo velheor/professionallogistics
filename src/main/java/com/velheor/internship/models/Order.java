@@ -1,8 +1,7 @@
-package com.prolog.internship.models;
+package com.velheor.internship.models;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.function.DoubleBinaryOperator;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

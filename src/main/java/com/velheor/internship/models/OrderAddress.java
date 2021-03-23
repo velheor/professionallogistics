@@ -1,4 +1,4 @@
-package com.prolog.internship.models;
+package com.velheor.internship.models;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

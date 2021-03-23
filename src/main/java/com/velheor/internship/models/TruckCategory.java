@@ -1,4 +1,4 @@
-package com.prolog.internship.models;
+package com.velheor.internship.models;
 
 import java.util.List;
 import javax.persistence.Basic;
@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 @Entity

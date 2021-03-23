@@ -3,7 +3,7 @@ plugins {
     id 'war'
 }
 
-group = 'com.prolog.internship'
+group = 'com.velheor.internship'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -25,6 +25,14 @@ dependencies {
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: "${springDataVersion}"
 
+    //hibernate
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.21.Final'
+    compile group: 'org.springframework', name: 'spring-core', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-beans', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-tx', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-orm', version: "${springVersion}"
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 }
 
 test {
