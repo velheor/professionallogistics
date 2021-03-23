@@ -1,8 +1,11 @@
 package com.prolog.internship.models;
 
+import com.prolog.internship.models.enums.ERole;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,8 +24,9 @@ public class Role {
     private Long id;
 
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, length = 45)
-    private String name;
+    private ERole name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId

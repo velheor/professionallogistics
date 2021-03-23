@@ -1,9 +1,13 @@
 package com.prolog.internship.models;
 
+import com.prolog.internship.models.enums.ERole;
+import com.prolog.internship.models.enums.EStatusHistory;
 import java.sql.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,10 +25,10 @@ public class StatusHistory {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NonNull
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_name", nullable = false, length = 45)
-    private String statusName;
+    private EStatusHistory name;
 
     @Basic
     @Column(name = "status_date", nullable = false)
