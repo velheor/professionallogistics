@@ -1,32 +1,33 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 plugins {
-    id 'war'
     id 'java'
+    id 'war'
 }
 
-allprojects {
-    group = 'com.prolog.startup'
-    version = '0.0.1-SNAPSHOT'
+group = 'com.prolog.internship'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
 }
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'war'
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    repositories {
-        mavenCentral()
-    }
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    test {
-        useJUnitPlatform()
-    }
+    compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+
+    //data
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: "${springDataVersion}"
+
 }
 
 test {
     useJUnitPlatform()
 }
+
