@@ -1,27 +1,36 @@
 package com.velheor.internship.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.UUID;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "orders_address", schema = "prolog")
 public class OrderAddress {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @TableGenerator(
+        name = "table_gen",
+        table = "sequence_table",
+        pkColumnName = "seq_name",
+        valueColumnName = "seq_count",
+        pkColumnValue = "order_address_seq"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_gen")
+    private UUID id;
 
-    @Basic
-    @Column(name = "address_to", nullable = false, length = 45)
     private String addressTo;
 
-    @Basic
-    @Column(name = "address_from", nullable = false, length = 45)
     private String addressFrom;
 
     @ManyToOne

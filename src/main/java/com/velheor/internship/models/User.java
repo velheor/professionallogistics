@@ -1,8 +1,7 @@
 package com.velheor.internship.models;
 
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,36 +14,35 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "prolog")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @TableGenerator(
+        name = "table_gen",
+        table = "sequence_table",
+        pkColumnName = "seq_name",
+        valueColumnName = "seq_count",
+        pkColumnValue = "user_seq"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_gen")
+    private UUID id;
 
-    @Basic
-    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @Basic
-    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 45)
     private String email;
 
-    @Basic
-    @Column(name = "phone_number", nullable = false)
     private Long phoneNumber;
 
-    @Basic
-    @Column(name = "password", nullable = false, length = 52)
     private String password;
 
     @ManyToMany

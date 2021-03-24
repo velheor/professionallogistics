@@ -1,7 +1,7 @@
 package com.velheor.internship.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.math.BigDecimal;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -11,31 +11,22 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "trucks", schema = "prolog")
 public class Truck {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    private UUID id;
 
-    @NonNull
-    @Basic
-    @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @NonNull
-    @Basic
-    @Column(name = "registration_number", nullable = false, length = 45)
     private String registrationNumber;
 
-    @NonNull
-    @Basic
-    @Column(name = "max_weight", nullable = false)
-    private Double maxWeight;
+    private BigDecimal maxWeight;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId

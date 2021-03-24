@@ -1,7 +1,7 @@
 package com.velheor.internship.models;
 
 import java.util.List;
-import javax.persistence.Basic;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,18 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "loads_categories", schema = "prolog")
 public class LoadCategory {
 
     @Id
     @Column(name = "id", nullable = false)
-    private Long id;
+    private UUID id;
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 45)
     private String name;
 
     @OneToMany(mappedBy = "loadCategory")

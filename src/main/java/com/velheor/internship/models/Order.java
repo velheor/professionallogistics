@@ -1,42 +1,46 @@
 package com.velheor.internship.models;
 
-import java.sql.Date;
+import static javax.persistence.GenerationType.SEQUENCE;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "orders", schema = "prolog")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @TableGenerator(
+        name = "table_gen",
+        table = "sequence_table",
+        pkColumnName = "seq_name",
+        valueColumnName = "seq_count",
+        pkColumnValue = "order_seq"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_gen")
+    private UUID id;
 
-    @Basic
-    @Column(name = "date_to", nullable = false)
-    private Date dateTo;
+    private LocalDateTime dateTo;
 
-    @Basic
-    @Column(name = "date_from", nullable = false)
-    private Date dateFrom;
+    private LocalDateTime dateFrom;
 
-    @Basic
-    @Column(name = "price", nullable = false)
-    private Double price;
+    private BigDecimal price;
 
-    @Basic
-    @Column(name = "voucher", nullable = false, length = 45)
     private String voucher;
 
     @OneToMany(mappedBy = "order")
