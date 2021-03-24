@@ -1,21 +1,18 @@
 package com.velheor.internship.models;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.util.List;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import java.util.List;
-import java.util.UUID;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -24,14 +21,7 @@ import java.util.UUID;
 public class Load {
 
     @Id
-    @TableGenerator(
-            name = "table_gen",
-            table = "sequence_table",
-            pkColumnName = "seq_name",
-            valueColumnName = "seq_count",
-            pkColumnValue = "load_seq"
-    )
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_gen")
+    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     private String name;
@@ -50,8 +40,8 @@ public class Load {
 
     @ManyToMany
     @JoinTable(
-            name = "trucks_categories_has_loads",
-            joinColumns = @JoinColumn(name = "trucks_categories_id"),
-            inverseJoinColumns = @JoinColumn(name = "loads_id"))
+        name = "trucks_categories_has_loads",
+        joinColumns = @JoinColumn(name = "trucks_categories_id"),
+        inverseJoinColumns = @JoinColumn(name = "loads_id"))
     private List<TruckCategory> truckCategories;
 }

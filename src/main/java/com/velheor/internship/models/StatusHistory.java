@@ -8,12 +8,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,14 +22,7 @@ import lombok.NoArgsConstructor;
 public class StatusHistory {
 
     @Id
-    @TableGenerator(
-        name = "table_gen",
-        table = "sequence_table",
-        pkColumnName = "seq_name",
-        valueColumnName = "seq_count",
-        pkColumnValue = "status_history_seq"
-    )
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_gen")
+    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     @Enumerated(EnumType.STRING)
