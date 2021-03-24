@@ -48,6 +48,5 @@ public class User {
     private Truck truck;
 
     @OneToMany(mappedBy = "user")
-    @PrimaryKeyJoinColumn
     private List<Role> role;
 }

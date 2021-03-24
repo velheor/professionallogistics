@@ -8,12 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO need to change db for roles
 @Data
 @NoArgsConstructor
 @Entity
@@ -27,7 +25,6 @@ public class Role {
     private ERole name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
     private User user;
 }
