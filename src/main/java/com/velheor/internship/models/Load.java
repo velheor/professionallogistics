@@ -1,12 +1,5 @@
 package com.velheor.internship.models;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
-import java.util.UUID;
-import javax.persistence.SequenceGenerator;
-
-import javax.persistence.TableGenerator;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
