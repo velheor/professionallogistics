@@ -1,15 +1,15 @@
 package com.velheor.internship.conf;
 
-import com.google.common.base.Preconditions;
+import java.util.Objects;
 import java.util.Properties;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,30 +18,22 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@PropertySource("classpath:persistence.properties")
 @EnableTransactionManagement
-@PropertySource({"classpath:application.properties"})
-@ComponentScan({"com.velheor.internship"})
+@EnableJpaRepositories(basePackages = "com.velheor.internship.repository")
+@NoArgsConstructor
+@AllArgsConstructor
 public class PersistenceConfig {
 
     private Environment env;
-
-    @Autowired
-    PersistenceConfig(Environment env) {
-        this.env = env;
-    }
-
-    public PersistenceConfig() {
-        super();
-    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.senla.training.models");
-        em.setPersistenceUnitName("org.hibernate.jpa.HibernatePersistenceProvider");
+        em.setPackagesToScan("com.velheor.internship.models");
+
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(false);
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
 
@@ -52,13 +44,21 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(
-            Preconditions.checkNotNull(env.getProperty("connection.driver_class")));
-        dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("connection.url")));
-        dataSource.setUsername(
-            Preconditions.checkNotNull(env.getProperty("hibernate.connection.username")));
-        dataSource.setPassword(
-            Preconditions.checkNotNull(env.getProperty("hibernate.connection.password")));
+            Objects.requireNonNull(env.getProperty("jdbc.driverClassName")));
+        dataSource.setUrl(env.getProperty("jdbc.url"));
+        dataSource.setUsername(env.getProperty("jdbc.user"));
+        dataSource.setPassword(env.getProperty("jdbc.pass"));
+
         return dataSource;
+    }
+
+    final Properties additionalProperties() {
+        final Properties hibernateProperties = new Properties();
+        hibernateProperties
+            .setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+
+        return hibernateProperties;
     }
 
     @Bean
@@ -67,16 +67,5 @@ public class PersistenceConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
-    }
-
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
-
-    final Properties additionalProperties() {
-        final Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        return hibernateProperties;
     }
 }
