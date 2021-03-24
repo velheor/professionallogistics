@@ -1,8 +1,6 @@
 package com.velheor.internship.models;
 
 import java.util.List;
-import java.util.UUID;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -20,8 +18,7 @@ import lombok.NoArgsConstructor;
 public class LoadCategory {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     private String name;
 

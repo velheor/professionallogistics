@@ -1,8 +1,6 @@
 package com.velheor.internship.models;
 
 import com.velheor.internship.models.enums.ERole;
-import java.util.UUID;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +13,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//TODO need to change db for roles
 @Data
 @NoArgsConstructor
 @Entity
@@ -22,8 +21,7 @@ import lombok.NoArgsConstructor;
 public class Role {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private ERole name;

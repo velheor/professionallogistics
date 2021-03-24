@@ -1,7 +1,6 @@
 package com.velheor.internship.models;
 
 import java.util.List;
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class TruckCategory {
 
     @Id
-    private UUID id;
+    private Long id;
 
     private String name;
 
