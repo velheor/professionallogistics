@@ -31,6 +31,6 @@ public class StatusHistory {
     private LocalDateTime statusDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
 }

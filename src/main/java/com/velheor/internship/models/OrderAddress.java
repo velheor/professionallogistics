@@ -25,6 +25,6 @@ public class OrderAddress {
     private String addressFrom;
 
     @ManyToOne
-    @JoinColumn(name = "orders_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
 }
