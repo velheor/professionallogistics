@@ -3,7 +3,7 @@ package com.velheor.internship.conf;
 import java.util.Objects;
 import java.util.Properties;
 import javax.sql.DataSource;
-import lombok.AllArgsConstructor;
+import liquibase.integration.spring.SpringLiquibase;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.velheor.internship.repository")
 @NoArgsConstructor
-@AllArgsConstructor
 public class PersistenceConfig {
 
     private Environment env;
@@ -67,5 +66,13 @@ public class PersistenceConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
+    }
+
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:myChangelog.json");
+        liquibase.setDataSource(dataSource());
+        return liquibase;
     }
 }
