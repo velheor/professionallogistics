@@ -1,8 +1,12 @@
 package com.velheor.internship.models;
 
+import com.velheor.internship.models.enums.ERole;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,15 +27,21 @@ public class User {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
     private String email;
 
+    @Column(name = "phone_number")
     private Long phoneNumber;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private ERole role;
 
     @ManyToMany
     @JoinTable(

@@ -2,6 +2,7 @@ package com.velheor.internship.models;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -22,8 +23,10 @@ public class Truck {
 
     private String name;
 
+    @Column(name = "registration_number")
     private String registrationNumber;
 
+    @Column(name = "max_weight")
     private BigDecimal maxWeight;
 
     @OneToOne(fetch = FetchType.LAZY)

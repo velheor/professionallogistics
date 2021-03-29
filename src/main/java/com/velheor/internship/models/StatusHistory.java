@@ -3,6 +3,7 @@ package com.velheor.internship.models;
 import com.velheor.internship.models.enums.EStatusHistory;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,6 +27,7 @@ public class StatusHistory {
     @Enumerated(EnumType.STRING)
     private EStatusHistory name;
 
+    @Column(name = "status_date")
     private LocalDateTime statusDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

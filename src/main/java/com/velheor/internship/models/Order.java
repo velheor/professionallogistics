@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,8 +22,10 @@ public class Order {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
+    @Column(name = "date_to")
     private LocalDateTime dateTo;
 
+    @Column(name = "date_from")
     private LocalDateTime dateFrom;
 
     private BigDecimal price;

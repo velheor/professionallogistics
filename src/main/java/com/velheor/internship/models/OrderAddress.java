@@ -1,6 +1,7 @@
 package com.velheor.internship.models;
 
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,8 +19,10 @@ public class OrderAddress {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
+    @Column(name = "address_to")
     private String addressTo;
 
+    @Column(name = "address_from")
     private String addressFrom;
 
     @ManyToOne
