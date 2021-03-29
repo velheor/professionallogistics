@@ -9,15 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "prolog")
 public class User {
@@ -46,7 +43,4 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     @PrimaryKeyJoinColumn
     private Truck truck;
-
-    @OneToMany(mappedBy = "user")
-    private List<Role> role;
 }
