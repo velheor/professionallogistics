@@ -1,5 +1,6 @@
 package com.velheor.internship.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -12,10 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "loads", schema = "prolog")
 public class Load {
@@ -26,22 +25,22 @@ public class Load {
 
     private String name;
 
-    private Double weight;
+    private BigDecimal weight;
 
     private String details;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categories_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "loads_categories_id", referencedColumnName = "id")
     private LoadCategory loadCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
 
     @ManyToMany
     @JoinTable(
-        name = "trucks_categories_has_loads",
-        joinColumns = @JoinColumn(name = "trucks_categories_id"),
-        inverseJoinColumns = @JoinColumn(name = "loads_id"))
+        name = "loads_has_trucks_categories",
+        joinColumns = @JoinColumn(name = "loads_id"),
+        inverseJoinColumns = @JoinColumn(name = "trucks_categories_id"))
     private List<TruckCategory> truckCategories;
 }
