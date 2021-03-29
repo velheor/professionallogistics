@@ -10,16 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "trucks_categories", schema = "prolog")
 public class TruckCategory {
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String name;
 
