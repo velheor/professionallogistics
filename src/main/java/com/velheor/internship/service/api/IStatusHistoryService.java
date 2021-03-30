@@ -5,5 +5,5 @@ import java.util.UUID;
 
 public interface IStatusHistoryService extends Crud<StatusHistory> {
 
-    IStatusHistoryService findById(UUID id);
+    StatusHistory findById(UUID id);
 }
