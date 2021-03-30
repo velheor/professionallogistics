@@ -1,10 +1,9 @@
 package com.velheor.internship.conf;
 
 import java.util.Objects;
-import java.util.Properties;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -21,10 +20,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:persistence.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.velheor.internship.repository")
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class PersistenceConfig {
 
-    private Environment env;
+    private final Environment env;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -34,7 +33,6 @@ public class PersistenceConfig {
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
 
         return em;
     }
@@ -51,15 +49,6 @@ public class PersistenceConfig {
         return dataSource;
     }
 
-    final Properties additionalProperties() {
-        final Properties hibernateProperties = new Properties();
-        hibernateProperties
-            .setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
-        return hibernateProperties;
-    }
-
     @Bean
     public PlatformTransactionManager transactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -71,7 +60,7 @@ public class PersistenceConfig {
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:myChangelog.json");
+        liquibase.setChangeLog("classpath:liquibase/myChangelog.xml");
         liquibase.setDataSource(dataSource());
         return liquibase;
     }
