@@ -5,33 +5,38 @@ plugins {
 
 group = 'com.velheor.internship'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.16'
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.16'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
 
-    implementation group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
-    implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+    implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
 
 
     //persistence
-    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: "${springDataVersion}"
-    implementation group: 'org.springframework', name: 'spring-orm', version: '3.0.6.RELEASE'
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.21.Final'
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
-    implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.3.2'
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: "${springData}"
+    implementation group: 'org.springframework', name: 'spring-orm', version: "${springOrm}"
+    runtime group: 'org.hibernate', name: 'hibernate-core', version: "${hibernate}"
+    runtime group: 'mysql', name: 'mysql-connector-java', version: "${mysql}"
+    implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
+
+    implementation group: 'org.liquibase', name: 'liquibase-core', version: "${liquibase}"
+
+    //test
+    testImplementation group: 'com.h2database', name: 'h2', version: "${h2database}"
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "${jupiterTest}"
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${jupiterTest}"
+    testImplementation group: 'org.springframework', name: 'spring-test', version: "${spring}"
 }
 
 test {
     useJUnitPlatform()
 }
-
