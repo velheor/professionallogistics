@@ -2,13 +2,13 @@ package com.velheor.internship.service.api;
 
 import java.util.List;
 
-public interface Crud<Entity> {
+public interface Crud<T> {
 
-    Entity create(Entity entity);
+    T create(T t);
 
-    Entity update(Entity entity);
+    T update(T t);
 
-    List<Entity> getAll();
+    List<T> getAll();
 
-    void delete(Entity entity);
+    void delete(T t);
 }
