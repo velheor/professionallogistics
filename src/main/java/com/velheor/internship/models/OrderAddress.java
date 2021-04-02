@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 @Data
 @Entity
@@ -16,7 +17,8 @@ import lombok.Data;
 public class OrderAddress {
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(generator = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(name = "address_to")

@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 @Data
 @Entity
@@ -24,7 +25,8 @@ import lombok.Data;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(generator = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(name = "first_name")
@@ -36,7 +38,7 @@ public class User {
     private String email;
 
     @Column(name = "phone_number")
-    private Long phoneNumber;
+    private String phoneNumber;
 
     private String password;
 

@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 @Data
 @Entity
@@ -19,6 +20,7 @@ import lombok.Data;
 public class Truck {
 
     @Id
+    @Type(type = "uuid-char")
     private UUID id;
 
     private String name;
