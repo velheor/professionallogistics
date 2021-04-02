@@ -4,27 +4,28 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
   <changeSet author="vlad.atsman" id="1">
     <sql>
+      CREATE SCHEMA IF NOT EXISTS prolog;
 
-      CREATE TABLE users (
-      `id` BINARY(16) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.users (
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `first_name` VARCHAR(45) NOT NULL,
       `last_name` VARCHAR(45) NOT NULL,
-      `email` VARCHAR(45) NOT NULL,
-      `phone_number` BIGINT UNIQUE NOT NULL,
+      `email` VARCHAR(45) UNIQUE NOT NULL,
+      `phone_number` VARCHAR(45) UNIQUE NOT NULL,
       `password` VARCHAR(52) NOT NULL,
       `role` VARCHAR(45) NOT NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE trucks_categories (
+      CREATE TABLE IF NOT EXISTS prolog.trucks_categories (
       `id` TINYINT UNSIGNED UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `categories_id` TINYINT UNSIGNED NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE trucks (
-      `id` BINARY(16) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.trucks (
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `registration_number` VARCHAR(45) NOT NULL,
       `max_weight` DOUBLE NOT NULL,
@@ -32,8 +33,8 @@
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE orders (
-      `id` BINARY(16) NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.orders (
+      `id` VARCHAR(36) NOT NULL,
       `date_to` DATE NOT NULL,
       `date_from` DATE NOT NULL,
       `price` DOUBLE NOT NULL,
@@ -41,47 +42,47 @@
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE status_history (
-      `id` BINARY(16) NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.status_history (
+      `id` VARCHAR(36) NOT NULL,
       `status_name` VARCHAR(45) NOT NULL,
       `status_date` DATE NOT NULL,
-      `orders_id` BINARY(16) NOT NULL,
+      `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE loads_categories (
+      CREATE TABLE IF NOT EXISTS prolog.loads_categories (
       `id` TINYINT UNSIGNED UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `categories_id` TINYINT UNSIGNED NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE loads (
-      `id` BINARY(16) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.loads (
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `weight` DOUBLE NOT NULL,
       `details` VARCHAR(45) NOT NULL,
       `loads_categories_id` TINYINT UNSIGNED NOT NULL,
-      `orders_id` BINARY(16) NOT NULL,
+      `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE users_has_orders (
-      `users_id` BINARY(16) NOT NULL,
-      `orders_id` BINARY(16) NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.users_has_orders (
+      `users_id` VARCHAR(36) NOT NULL,
+      `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`users_id`, `orders_id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE orders_address (
-      `id` BINARY(16) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.orders_address (
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `address_to` VARCHAR(45) NOT NULL,
       `address_from` VARCHAR(45) NOT NULL,
-      `orders_id` BINARY(16) NOT NULL,
+      `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE loads_has_trucks_categories (
-      `loads_id` BINARY(16) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.loads_has_trucks_categories (
+      `loads_id` VARCHAR(36) UNIQUE NOT NULL,
       `trucks_categories_id` TINYINT UNSIGNED NOT NULL,
       PRIMARY KEY (`loads_id`, `trucks_categories_id`))
       ENGINE = InnoDB;
