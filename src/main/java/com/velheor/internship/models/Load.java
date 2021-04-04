@@ -32,10 +32,6 @@ public class Load {
     private String details;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "loads_categories_id", referencedColumnName = "id")
-    private LoadCategory loadCategory;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
 
