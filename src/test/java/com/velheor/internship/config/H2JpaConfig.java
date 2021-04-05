@@ -4,11 +4,13 @@ import com.velheor.internship.conf.DataSourceConfig;
 import com.velheor.internship.conf.LiquiBaseConfig;
 import java.util.Properties;
 import javax.sql.DataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,7 +24,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:h2.properties")
 @EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
 @Import({DataSourceConfig.class, LiquiBaseConfig.class})
+@RequiredArgsConstructor
 public class H2JpaConfig {
+
+    private final Environment environment;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
@@ -47,9 +52,7 @@ public class H2JpaConfig {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("spring.jpa.show-sql", "true");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
 
         return properties;
     }
