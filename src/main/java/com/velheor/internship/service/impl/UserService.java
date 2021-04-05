@@ -19,7 +19,7 @@ public class UserService implements IUserService {
     public User findById(UUID id) {
         return userRepository.findById(id)
             .orElseThrow(
-                () -> new EntityNotFoundException(id.toString()));
+                () -> new EntityNotFoundException("User with id " + id.toString() + "was not found"));
     }
 
     @Override
