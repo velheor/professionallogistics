@@ -50,19 +50,11 @@
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE IF NOT EXISTS prolog.loads_categories (
-      `id` TINYINT UNSIGNED UNIQUE NOT NULL,
-      `name` VARCHAR(45) NOT NULL,
-      `categories_id` TINYINT UNSIGNED NULL,
-      PRIMARY KEY (`id`))
-      ENGINE = InnoDB;
-
       CREATE TABLE IF NOT EXISTS prolog.loads (
       `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `weight` DOUBLE NOT NULL,
       `details` VARCHAR(45) NOT NULL,
-      `loads_categories_id` TINYINT UNSIGNED NOT NULL,
       `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
