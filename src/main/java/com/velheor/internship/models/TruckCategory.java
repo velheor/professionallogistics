@@ -1,6 +1,7 @@
 package com.velheor.internship.models;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -30,4 +31,29 @@ public class TruckCategory {
 
     @OneToMany(mappedBy = "truckCategory")
     private List<Truck> trucks;
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        TruckCategory other = (TruckCategory) obj;
+        return Objects.equals(id, other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "TruckCategory(id=" + this.getId() + ", name=" + this.getName() + ")";
+    }
 }

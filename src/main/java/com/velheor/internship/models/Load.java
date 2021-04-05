@@ -2,28 +2,23 @@ package com.velheor.internship.models;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Data;
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @Entity
 @Table(name = "loads", schema = "prolog")
-public class Load {
-
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @Type(type = "uuid-char")
-    private UUID id;
+@Getter
+@Setter
+@NoArgsConstructor
+public class Load extends BaseEntity {
 
     private String name;
 
@@ -41,4 +36,10 @@ public class Load {
         joinColumns = @JoinColumn(name = "loads_id"),
         inverseJoinColumns = @JoinColumn(name = "trucks_categories_id"))
     private List<TruckCategory> truckCategories;
+
+    @Override
+    public String toString() {
+        return "Load(name=" + this.getName() + ", weight=" + this.getWeight() + ", details=" + this
+            .getDetails() + ")";
+    }
 }
