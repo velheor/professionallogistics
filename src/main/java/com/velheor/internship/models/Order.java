@@ -19,11 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Order extends BaseEntity {
 
-    @Column(name = "date_to")
-    private LocalDateTime dateTo;
+    @Column(name = "date_pickup")
+    private LocalDateTime datePickup;
 
-    @Column(name = "date_from")
-    private LocalDateTime dateFrom;
+    @Column(name = "date_delivery")
+    private LocalDateTime dateDelivery;
 
     private BigDecimal price;
 
@@ -43,8 +43,9 @@ public class Order extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Order(id=" + this.getId() + ", dateTo=" + this.getDateTo() + ", dateFrom=" + this
-            .getDateFrom() + ", price=" + this.getPrice() + ", voucher=" + this.getVoucher()
+        return "Order(id=" + this.getId() + ", datePickUp=" + this.getDatePickup()
+            + ", dateDelivery=" + this
+            .getDateDelivery() + ", price=" + this.getPrice() + ", voucher=" + this.getVoucher()
             + ")";
     }
 }
