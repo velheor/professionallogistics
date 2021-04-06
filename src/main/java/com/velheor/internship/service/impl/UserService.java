@@ -15,11 +15,13 @@ public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
+
     @Override
     public User findById(UUID id) {
         return userRepository.findById(id)
             .orElseThrow(
-                () -> new EntityNotFoundException("User with id " + id.toString() + "was not found"));
+                () -> new EntityNotFoundException(
+                    "User with id " + id.toString() + "was not found"));
     }
 
     @Override
