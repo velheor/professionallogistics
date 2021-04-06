@@ -1,7 +1,8 @@
 package com.velheor.internship.models;
 
 import com.velheor.internship.models.enums.ERole;
-import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -41,12 +42,13 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-        name = "users_has_orders",
+        name = "prolog.users_has_orders",
         joinColumns = @JoinColumn(name = "users_id"),
         inverseJoinColumns = @JoinColumn(name = "orders_id"))
-    private List<Order> orders;
+    private Set<Order> orders;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "trucks_id", referencedColumnName = "id")
     private Truck truck;
 
     @Override
