@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,7 +47,6 @@ public class User extends BaseEntity {
     private List<Order> orders;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    @PrimaryKeyJoinColumn
     private Truck truck;
 
     @Override
