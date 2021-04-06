@@ -6,4 +6,5 @@ import java.util.UUID;
 public interface ILoadService extends Crud<Load> {
 
     Load findById(UUID id);
+
 }
