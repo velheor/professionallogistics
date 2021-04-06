@@ -53,7 +53,7 @@ public class H2JpaConfig {
     private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-
+        properties.setProperty("hibernate.show_sql", "true");
         return properties;
     }
 }
