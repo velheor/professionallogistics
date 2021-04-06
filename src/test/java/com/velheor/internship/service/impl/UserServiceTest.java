@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.ERole;
+import com.velheor.internship.service.api.IUserService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     private User expected;
 
