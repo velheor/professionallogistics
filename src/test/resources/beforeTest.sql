@@ -36,11 +36,7 @@ VALUES ('377514cc-958b-11eb-a8b3-0242ac130003',
 
        ('3a424170-958b-11eb-a8b3-0242ac130003',
         parsedatetime('2021.02.10 12:00', 'yyyy.MM.dd hh:mm'),
-        parsedatetime('2021.02.12 06:00', 'yyyy.MM.dd hh:mm'), 5000, ''),
-
-       ('3d19295e-958b-11eb-a8b3-0242ac130003',
-        parsedatetime('2021.03.05 15:00', 'yyyy.MM.dd hh:mm'),
-        parsedatetime('2021.03.06 19:30', 'yyyy.MM.dd hh:mm'), 1400, '');
+        parsedatetime('2021.02.12 06:00', 'yyyy.MM.dd hh:mm'), 5000, '');
 
 INSERT INTO prolog.status_history
 VALUES ('377514cc-958b-11eb-a8b3-0242ac130003', 'STARTED',
