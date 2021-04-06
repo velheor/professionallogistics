@@ -2,7 +2,7 @@ package com.velheor.internship.service.impl;
 
 import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.repository.TruckCategoryRepository;
-import com.velheor.internship.service.api.ITruckCategory;
+import com.velheor.internship.service.api.ITruckCategoryService;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TruckCategoryService implements ITruckCategory {
+public class TruckCategoryService implements ITruckCategoryService {
 
     private final TruckCategoryRepository truckCategoryRepository;
 
