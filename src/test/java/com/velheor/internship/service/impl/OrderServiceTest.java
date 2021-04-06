@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @SpringJUnitConfig(classes = {H2JpaConfig.class})
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
-    "classpath:beforeOrderTest.sql"})
+    "classpath:beforeTest.sql"})
 class OrderServiceTest {
 
     @Autowired
@@ -42,10 +42,13 @@ class OrderServiceTest {
     }
 
     @Test
-    void findById() {
+    void findByIdReturnsUser() {
         Order actual = orderService.findById(id);
         assertEquals(expected, actual);
+    }
 
+    @Test
+    void findByIdThrowsEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
         assertThrows(EntityNotFoundException.class,
             () -> orderService.findById(notExistsId));
@@ -72,19 +75,13 @@ class OrderServiceTest {
 
     @Test
     void getAll() {
-        Order order = new Order();
-        order.setId(UUID.fromString("3a424170.958b.11eb.a8b3.0242ac130003"));
-        order.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
-        order.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
-        order.setPrice(new BigDecimal(5000));
-
         Order order1 = new Order();
-        order.setId(UUID.fromString("3d19295e.958b.11eb.a8b3.0242ac130003"));
-        order.setDatePickup(LocalDateTime.of(2021, 3, 5, 15, 0));
-        order.setDateDelivery(LocalDateTime.of(2021, 3, 6, 19, 30));
-        order.setPrice(new BigDecimal(1400));
+        order1.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
+        order1.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
+        order1.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
+        order1.setPrice(new BigDecimal(5000));
 
-        List<Order> expectedOrders = Arrays.asList(expected, order, order1);
+        List<Order> expectedOrders = Arrays.asList(expected, order1);
 
         List<Order> actualOrders = orderService.getAll();
 
@@ -92,9 +89,16 @@ class OrderServiceTest {
     }
 
     @Test
-    void delete() {
+    void deleteCheckForNotFoundUserAfterDelete() {
         orderService.delete(expected);
-
         assertThrows(EntityNotFoundException.class, () -> orderService.findById(id));
+    }
+
+    @Test
+    void deleteCheckForCountAfterDelete() {
+        int expectedCount = orderService.getAll().size() - 1;
+        orderService.delete(expected);
+        int actualCount = orderService.getAll().size();
+        assertEquals(expectedCount, actualCount);
     }
 }

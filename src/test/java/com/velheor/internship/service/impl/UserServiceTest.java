@@ -50,7 +50,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findByIdThrowsNotFounException() {
+    void findByIdThrowsNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(notExistsId));
@@ -83,24 +83,25 @@ class UserServiceTest {
 
     @Test
     void getAll() {
-        User user2 = new User();
-        user2.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
-        user2.setFirstName("Petr");
-        user2.setLastName("Petrov");
-        user2.setEmail("petr@gmail.com");
-        user2.setPhoneNumber("+375296888258");
-        user2.setPassword("pass2");
-        user2.setRole(ERole.SHIPPER);
+        User user = new User();
+        user.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
+        user.setFirstName("Petr");
+        user.setLastName("Petrov");
+        user.setEmail("petr@gmail.com");
+        user.setPhoneNumber("+375296888258");
+        user.setPassword("pass2");
+        user.setRole(ERole.CARRIER);
 
         List<User> actual = userService.getAll();
         List<User> expectedGetAll = Arrays
-            .asList(expected, user2);
+            .asList(expected, user);
 
         assertEquals(expectedGetAll, actual);
     }
 
     @Test
-    void deleteCheckForNotFoundUser() {
+    void deleteCheckForNotFoundUserAfterDelete() {
+        User expected = userService.findById(id);
         userService.delete(expected);
         assertThrows(EntityNotFoundException.class, () -> userService.findById(id));
     }
