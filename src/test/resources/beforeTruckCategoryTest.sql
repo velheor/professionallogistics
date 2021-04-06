@@ -1,12 +1,12 @@
 INSERT INTO prolog.trucks_categories VALUES
-('1', 'COVERED', 0),
-('2', 'AWNING', 1),
-('3', 'CURTAIN', 1),
-('4', 'ALL-METAL', 1),
-('5', 'OPEN', 0),
-('6', 'ONBOARD', 5),
-('7', 'OVERSIZED', 5),
-('8', 'DUMP', 5),
-('9', 'SPECIAL', 0),
-('10', 'WOOD', 9),
-('11', 'TANKER', 9);
+(0, 'COVERED', null),
+(1, 'OPEN', null),
+(2, 'SPECIAL', null),
+(3, 'AWNING', 0),
+(4, 'CURTAIN', 0),
+(5, 'ALL-METAL', 0),
+(6, 'ONBOARD', 1),
+(7, 'OVERSIZED', 1),
+(8, 'DUMP', 1),
+(9, 'WOOD', 2),
+(10, 'TANKER', 2);

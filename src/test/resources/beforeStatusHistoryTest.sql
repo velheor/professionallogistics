@@ -15,16 +15,4 @@ VALUES ('58fed484-9590-11eb-a8b3-0242ac130003', 'STARTED',
         FORMATDATETIME('2021.06.22', 'yyyy.MM.dd'), 1337, '42af9b14-958b-11eb-a8b3-0242ac130003'),
 
        ('6cc0accc-9590-11eb-a8b3-0242ac130003', 'STARTED',
-        FORMATDATETIME('2021.07.16', 'yyyy.MM.dd'), 2134, '4624ba7c-958b-11eb-a8b3-0242ac130003'),
-
-       ('704816e6-9590-11eb-a8b3-0242ac130003', 'STARTED',
-        FORMATDATETIME('2021.08.22', 'yyyy.MM.dd'), 4444, '4856b926-958b-11eb-a8b3-0242ac130003'),
-
-       ('7485c3fc-9590-11eb-a8b3-0242ac130003', 'STARTED',
-        FORMATDATETIME('2021.09.04', 'yyyy.MM.dd'), 5555, '4b5502d6-958b-11eb-a8b3-0242ac130003'),
-
-       ('79efafba-9590-11eb-a8b3-0242ac130003', 'STARTED',
-        FORMATDATETIME('2021.10.15', 'yyyy.MM.dd'), 12344, '4d9b8d62-958b-11eb-a8b3-0242ac130003'),
-
-       ('7f99a8da-9590-11eb-a8b3-0242ac130003', 'STARTED',
-        FORMATDATETIME('2021.11.22', 'yyyy.MM.dd'), 12345, '4ff4193a-958b-11eb-a8b3-0242ac130003');
+        FORMATDATETIME('2021.07.16', 'yyyy.MM.dd'), 2134, '4624ba7c-958b-11eb-a8b3-0242ac130003');
