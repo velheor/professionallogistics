@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 
 @SpringJUnitConfig(classes = {H2JpaConfig.class})
-@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:beforeUserTest.sql"})
+@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:beforeTest.sql"})
 class UserServiceTest {
 
     @Autowired
@@ -39,17 +39,18 @@ class UserServiceTest {
         expected.setLastName("Ivanov");
         expected.setEmail("ivan@gmail.com");
         expected.setPhoneNumber("+375331234567");
-        expected.setPassword("pass");
+        expected.setPassword("pass1");
         expected.setRole(ERole.CARRIER);
     }
 
     @Test
-    void findById() {
-
+    void findByIdReturnsUser() {
         User actual = userService.findById(id);
-
         assertEquals(expected, actual);
+    }
 
+    @Test
+    void findByIdThrowsNotFounException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(notExistsId));
@@ -91,35 +92,36 @@ class UserServiceTest {
         user2.setPassword("pass2");
         user2.setRole(ERole.SHIPPER);
 
-        User user3 = new User();
-        user3.setId(UUID.fromString("4de5a6c0-9565-11eb-a8b3-0242ac130003"));
-        user3.setFirstName("Kirill");
-        user3.setLastName("Kirillov");
-        user3.setEmail("kirill@gmail.com");
-        user3.setPhoneNumber("+375291448939");
-        user3.setPassword("pass3");
-        user3.setRole(ERole.CARRIER);
-
         List<User> actual = userService.getAll();
         List<User> expectedGetAll = Arrays
-            .asList(expected, user2, user3);
+            .asList(expected, user2);
 
         assertEquals(expectedGetAll, actual);
     }
 
     @Test
-    void delete() {
-        User expected = userService.findById(id);
+    void deleteCheckForNotFoundUser() {
         userService.delete(expected);
-        assertThrows(EntityNotFoundException.class, () -> userService.findById(expected.getId()));
+        assertThrows(EntityNotFoundException.class, () -> userService.findById(id));
     }
 
     @Test
-    void findByEmail() {
+    void deleteCheckForCountAfterDelete() {
+        int expectedCount = userService.getAll().size() - 1;
+        userService.delete(expected);
+        int actualCount = userService.getAll().size();
+        assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    void findByEmailReturnsUser() {
         User actual = userService.findByEmail(expected.getEmail());
 
         assertEquals(expected, actual);
+    }
 
+    @Test
+    void findByEmailThrowsEntityNotFoundException() {
         String notExistsEmail = "notExistEmail";
         assertThrows(EntityNotFoundException.class,
             () -> userService.findByEmail(notExistsEmail));
