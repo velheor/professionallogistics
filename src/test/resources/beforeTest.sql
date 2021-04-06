@@ -5,12 +5,13 @@ TRUNCATE TABLE prolog.orders;
 TRUNCATE TABLE prolog.status_history;
 TRUNCATE TABLE prolog.orders_address;
 TRUNCATE TABLE prolog.loads;
+TRUNCATE TABLE prolog.users_has_orders;
 
 INSERT INTO prolog.users
 VALUES ('47a07384-93b8-11eb-a8b3-0242ac130003', 'Ivan', 'Ivanov', 'ivan@gmail.com', '+375331234567',
-        'pass1', 'CARRIER'),
+        'pass1', 'CARRIER', 'a0a81b2e-9725-11eb-a8b3-0242ac130003'),
        ('45caf4c2-9565-11eb-a8b3-0242ac130003', 'Petr', 'Petrov', 'petr@gmail.com', '+375296888258',
-        'pass2', 'SHIPPER');
+        'pass2', 'CARRIER', null);
 
 INSERT INTO prolog.trucks_categories
 VALUES (0, 'COVERED', null),
@@ -26,8 +27,8 @@ VALUES (0, 'COVERED', null),
        (10, 'TANKER', 2);
 
 INSERT INTO prolog.trucks
-VALUES ('47a07384-93b8-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 10, 4),
-       ('45caf4c2-9565-11eb-a8b3-0242ac130003', 'MAN', '4171AK-4', 20, 5);
+VALUES ('a0a81b2e-9725-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 10, 4),
+       ('886c0c76-9727-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 11, 5);
 
 INSERT INTO prolog.orders
 VALUES ('377514cc-958b-11eb-a8b3-0242ac130003',
@@ -40,10 +41,12 @@ VALUES ('377514cc-958b-11eb-a8b3-0242ac130003',
 
 INSERT INTO prolog.status_history
 VALUES ('377514cc-958b-11eb-a8b3-0242ac130003', 'STARTED',
-        parsedatetime('2021.01.04 11:30', 'yyyy.MM.dd hh:mm'), '377514cc-958b-11eb-a8b3-0242ac130003'),
+        parsedatetime('2021.01.04 11:30', 'yyyy.MM.dd hh:mm'),
+        '377514cc-958b-11eb-a8b3-0242ac130003'),
 
        ('811f7588-96d8-11eb-a8b3-0242ac130003', 'ENDED',
-        parsedatetime('2021.01.10 10:00', 'yyyy.MM.dd hh:mm'), '377514cc-958b-11eb-a8b3-0242ac130003');
+        parsedatetime('2021.01.10 10:00', 'yyyy.MM.dd hh:mm'),
+        '377514cc-958b-11eb-a8b3-0242ac130003');
 
 INSERT INTO prolog.orders_address
 VALUES ('a12ee7be-9589-11eb-a8b3-0242ac130003', 'HRODNO', 'MINSK',
@@ -58,4 +61,3 @@ VALUES ('5942070a-957b-11eb-a8b3-0242ac130003', 'FURNITURE', 0.5, 'Just furnitur
 
        ('60b523b4-957b-11eb-a8b3-0242ac130003', 'BEER', 23, 'HEINEKEN',
         '3a424170-958b-11eb-a8b3-0242ac130003');
-
