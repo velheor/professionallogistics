@@ -3,6 +3,8 @@ package com.velheor.internship.models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,13 +33,13 @@ public class Order extends BaseEntity {
 
     private String voucher;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderAddress> orderAddress;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Load> loads;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<StatusHistory> statusHistories;
 
     @ManyToMany(mappedBy = "orders")
@@ -49,7 +51,7 @@ public class Order extends BaseEntity {
         name = "orders_has_trucks_categories",
         joinColumns = @JoinColumn(name = "orders_id"),
         inverseJoinColumns = @JoinColumn(name = "trucks_categories_id"))
-    private List<TruckCategory> truckCategories;
+    private Set<TruckCategory> truckCategories;
 
     @Override
     public String toString() {
