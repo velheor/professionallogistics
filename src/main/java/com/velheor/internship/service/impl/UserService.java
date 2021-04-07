@@ -21,7 +21,7 @@ public class UserService implements IUserService {
         return userRepository.findById(id)
             .orElseThrow(
                 () -> new EntityNotFoundException(
-                    "User with id " + id.toString() + "was not found"));
+                    "User with id: " + id.toString() + " was not found."));
     }
 
     @Override
@@ -47,6 +47,7 @@ public class UserService implements IUserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-            .orElseThrow(() -> new EntityNotFoundException("Cannot find with email: " + email));
+            .orElseThrow(
+                () -> new EntityNotFoundException("User with email: " + email + " was not found."));
     }
 }

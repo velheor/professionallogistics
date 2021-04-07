@@ -18,7 +18,8 @@ public class OrderService implements IOrderService {
     @Override
     public Order findById(UUID id) {
         return orderRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "Order with id: " + id.toString() + "was not found."));
     }
 
     @Override

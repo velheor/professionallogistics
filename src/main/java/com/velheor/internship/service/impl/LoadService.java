@@ -18,7 +18,8 @@ public class LoadService implements ILoadService {
     @Override
     public Load findById(UUID id) {
         return loadRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "Load with id: " + id.toString() + " was not found."));
     }
 
     @Override

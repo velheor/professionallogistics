@@ -18,7 +18,8 @@ public class StatusHistoryService implements IStatusHistoryService {
     @Override
     public StatusHistory findById(UUID id) {
         return statusHistoryRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "StatusHistory with id: " + id.toString() + " was not found."));
     }
 
     @Override

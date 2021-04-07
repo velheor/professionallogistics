@@ -17,7 +17,8 @@ public class TruckCategoryService implements ITruckCategoryService {
     @Override
     public TruckCategory findById(Integer id) {
         return truckCategoryRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "TruckCategory with id: " + id + " was not found."));
     }
 
     @Override

@@ -18,7 +18,8 @@ public class TruckService implements ITruckService {
     @Override
     public Truck findById(UUID id) {
         return truckRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+            .orElseThrow(
+                () -> new EntityNotFoundException("Truck with id: " + id.toString() + " was not found."));
     }
 
     @Override

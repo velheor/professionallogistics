@@ -101,7 +101,6 @@ class UserServiceTest {
 
     @Test
     void deleteCheckForNotFoundUserAfterDelete() {
-        User expected = userService.findById(id);
         userService.delete(expected);
         assertThrows(EntityNotFoundException.class, () -> userService.findById(id));
     }
@@ -117,13 +116,12 @@ class UserServiceTest {
     @Test
     void findByEmailReturnsUser() {
         User actual = userService.findByEmail(expected.getEmail());
-
         assertEquals(expected, actual);
     }
 
     @Test
     void findByEmailThrowsEntityNotFoundException() {
-        String notExistsEmail = "notExistEmail";
+        String notExistsEmail = "notExistsEmail";
         assertThrows(EntityNotFoundException.class,
             () -> userService.findByEmail(notExistsEmail));
     }
