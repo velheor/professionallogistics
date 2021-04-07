@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -22,29 +21,15 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @SpringJUnitConfig(classes = {H2JpaConfig.class})
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
     "classpath:beforeTest.sql"})
-class OrderServiceTest {
+class OrderServiceTest extends BaseTest {
 
     @Autowired
     private IOrderService orderService;
 
-    private Order expected;
-
-    private UUID id;
-
-    @BeforeEach
-    void setUp() {
-        expected = new Order();
-        id = UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003");
-        expected.setId(id);
-        expected.setDatePickup(LocalDateTime.of(2021, 1, 3, 11, 30));
-        expected.setDateDelivery(LocalDateTime.of(2021, 1, 10, 10, 0));
-        expected.setPrice(new BigDecimal(4000));
-    }
-
     @Test
     void findByIdReturnsUser() {
-        Order actual = orderService.findById(id);
-        assertEquals(expected, actual);
+        Order actual = orderService.findById(orderExpected.getId());
+        assertEquals(orderExpected, actual);
     }
 
     @Test
@@ -66,21 +51,15 @@ class OrderServiceTest {
 
     @Test
     void update() {
-        expected.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
-        expected.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
-        Order actual = orderService.update(expected);
-        assertEquals(expected, actual);
+        orderExpected.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
+        orderExpected.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
+        Order actual = orderService.update(orderExpected);
+        assertEquals(orderExpected, actual);
     }
 
     @Test
     void getAll() {
-        Order order1 = new Order();
-        order1.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
-        order1.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
-        order1.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
-        order1.setPrice(new BigDecimal(5000));
-
-        List<Order> expectedOrders = Arrays.asList(expected, order1);
+        List<Order> expectedOrders = Arrays.asList(orderExpected, orderTest);
 
         List<Order> actualOrders = orderService.getAll();
 
@@ -89,14 +68,15 @@ class OrderServiceTest {
 
     @Test
     void deleteCheckForNotFoundUserAfterDelete() {
-        orderService.delete(expected);
-        assertThrows(EntityNotFoundException.class, () -> orderService.findById(id));
+        orderService.delete(orderExpected);
+        assertThrows(EntityNotFoundException.class,
+            () -> orderService.findById(orderExpected.getId()));
     }
 
     @Test
     void deleteCheckForCountAfterDelete() {
         int expectedCount = orderService.getAll().size() - 1;
-        orderService.delete(expected);
+        orderService.delete(orderExpected);
         int actualCount = orderService.getAll().size();
         assertEquals(expectedCount, actualCount);
     }
