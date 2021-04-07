@@ -15,20 +15,11 @@ VALUES ('47a07384-93b8-11eb-a8b3-0242ac130003', 'Ivan', 'Ivanov', 'ivan@gmail.co
 
 INSERT INTO prolog.trucks_categories
 VALUES (0, 'COVERED', null),
-       (1, 'OPEN', null),
-       (2, 'SPECIAL', null),
-       (3, 'AWNING', 0),
-       (4, 'CURTAIN', 0),
-       (5, 'ALL-METAL', 0),
-       (6, 'ONBOARD', 1),
-       (7, 'OVERSIZED', 1),
-       (8, 'DUMP', 1),
-       (9, 'WOOD', 2),
-       (10, 'TANKER', 2);
+       (1, 'ALL-METAL', 0);
 
 INSERT INTO prolog.trucks
-VALUES ('a0a81b2e-9725-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 10, 4),
-       ('886c0c76-9727-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 11, 5);
+VALUES ('a0a81b2e-9725-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 10, 1),
+       ('886c0c76-9727-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 11, 1);
 
 INSERT INTO prolog.orders
 VALUES ('377514cc-958b-11eb-a8b3-0242ac130003',

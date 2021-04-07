@@ -41,7 +41,7 @@ class TruckServiceTest {
         expected.setName("VOLVO");
         expected.setRegistrationNumber("1234VA-5");
         expected.setMaxWeight(new BigDecimal(10));
-        expected.setTruckCategory(truckCategoryService.findById(4));
+        expected.setTruckCategory(truckCategoryService.findById(1));
     }
 
     @Test
@@ -63,7 +63,7 @@ class TruckServiceTest {
         expected.setName("SCANIA");
         expected.setRegistrationNumber("66666-5");
         expected.setMaxWeight(new BigDecimal(10));
-        expected.setTruckCategory(truckCategoryService.findById(5));
+        expected.setTruckCategory(truckCategoryService.findById(1));
         Truck actual = truckService.create(expected);
 
         assertEquals(expected, actual);
@@ -85,7 +85,7 @@ class TruckServiceTest {
         truck1.setName("SCANIA");
         truck1.setRegistrationNumber("2345AV-6");
         truck1.setMaxWeight(new BigDecimal(11));
-        truck1.setTruckCategory(truckCategoryService.findById(5));
+        truck1.setTruckCategory(truckCategoryService.findById(1));
 
         List<Truck> expectedTrucks = List.of(expected, truck1);
         List<Truck> actualTrucks = truckService.getAll();
