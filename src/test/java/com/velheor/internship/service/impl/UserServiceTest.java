@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.ERole;
+import com.velheor.internship.service.api.IOrderService;
 import com.velheor.internship.service.api.IUserService;
 import java.util.Arrays;
 import java.util.List;
@@ -70,7 +71,7 @@ class UserServiceTest extends BaseTest {
     void getAll() {
         List<User> actualAll = userService.getAll();
         List<User> expectedAll = Arrays
-            .asList(userExpected, userTest);
+            .asList(userExpected, userExistsInDB);
 
         assertEquals(expectedAll, actualAll);
     }

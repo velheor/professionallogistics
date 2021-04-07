@@ -64,7 +64,7 @@ class StatusHistoryServiceTest extends BaseTest {
 
     @Test
     void getAll() {
-        List<StatusHistory> expectedAll = List.of(statusHistoryExpected, statusHistoryTest);
+        List<StatusHistory> expectedAll = List.of(statusHistoryExpected, statusHistoryExistsInDB);
         List<StatusHistory> actualAll = statusHistoryService.getAll();
 
         assertEquals(expectedAll, actualAll);

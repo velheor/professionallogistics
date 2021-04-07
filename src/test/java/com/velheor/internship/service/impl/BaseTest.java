@@ -16,25 +16,25 @@ import java.util.UUID;
 public class BaseTest {
 
     static User userExpected;
-    static User userTest;
+    static User userExistsInDB;
 
     static TruckCategory truckCategoryExpected;
-    static TruckCategory truckCategoryTest;
+    static TruckCategory truckCategoryExistsInDB;
 
     static Truck truckExpected;
-    static Truck truckTest;
+    static Truck truckExistsInDB;
 
     static Order orderExpected;
-    static Order orderTest;
+    static Order orderExistsInDB;
 
     static Load loadExpected;
-    static Load loadTest;
+    static Load loadExistsInDB;
 
     static StatusHistory statusHistoryExpected;
-    static StatusHistory statusHistoryTest;
+    static StatusHistory statusHistoryExistsInDB;
 
     static OrderAddress orderAddressExpected;
-    static OrderAddress orderAddressTest;
+    static OrderAddress orderAddressExistInDB;
 
     static {
         setUpUser();
@@ -56,14 +56,14 @@ public class BaseTest {
         userExpected.setPassword("pass1");
         userExpected.setRole(ERole.CARRIER);
 
-        userTest = new User();
-        userTest.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
-        userTest.setFirstName("Petr");
-        userTest.setLastName("Petrov");
-        userTest.setEmail("petr@gmail.com");
-        userTest.setPhoneNumber("+375296888258");
-        userTest.setPassword("pass2");
-        userTest.setRole(ERole.CARRIER);
+        userExistsInDB = new User();
+        userExistsInDB.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
+        userExistsInDB.setFirstName("Petr");
+        userExistsInDB.setLastName("Petrov");
+        userExistsInDB.setEmail("petr@gmail.com");
+        userExistsInDB.setPhoneNumber("+375296888258");
+        userExistsInDB.setPassword("pass2");
+        userExistsInDB.setRole(ERole.CARRIER);
     }
 
     static void setUpTruckCategory() {
@@ -71,10 +71,10 @@ public class BaseTest {
         truckCategoryExpected.setId(0);
         truckCategoryExpected.setName("COVERED");
 
-        truckCategoryTest = new TruckCategory();
-        truckCategoryTest.setId(1);
-        truckCategoryTest.setName("ALL-METAL");
-        truckCategoryTest.setTruckCategory(truckCategoryExpected);
+        truckCategoryExistsInDB = new TruckCategory();
+        truckCategoryExistsInDB.setId(1);
+        truckCategoryExistsInDB.setName("ALL-METAL");
+        truckCategoryExistsInDB.setTruckCategory(truckCategoryExpected);
     }
 
     static void setUpTruck() {
@@ -83,14 +83,14 @@ public class BaseTest {
         truckExpected.setName("VOLVO");
         truckExpected.setRegistrationNumber("1234VA-5");
         truckExpected.setMaxWeight(new BigDecimal(10));
-        truckExpected.setTruckCategory(truckCategoryTest);
+        truckExpected.setTruckCategory(truckCategoryExistsInDB);
 
-        truckTest = new Truck();
-        truckTest.setId(UUID.fromString("886c0c76-9727-11eb-a8b3-0242ac130003"));
-        truckTest.setName("SCANIA");
-        truckTest.setRegistrationNumber("2345AV-6");
-        truckTest.setMaxWeight(new BigDecimal(11));
-        truckTest.setTruckCategory(truckCategoryTest);
+        truckExistsInDB = new Truck();
+        truckExistsInDB.setId(UUID.fromString("886c0c76-9727-11eb-a8b3-0242ac130003"));
+        truckExistsInDB.setName("SCANIA");
+        truckExistsInDB.setRegistrationNumber("2345AV-6");
+        truckExistsInDB.setMaxWeight(new BigDecimal(11));
+        truckExistsInDB.setTruckCategory(truckCategoryExistsInDB);
     }
 
     static void setUpOrder() {
@@ -100,11 +100,11 @@ public class BaseTest {
         orderExpected.setDateDelivery(LocalDateTime.of(2021, 1, 10, 10, 0));
         orderExpected.setPrice(new BigDecimal(4000));
 
-        orderTest = new Order();
-        orderTest.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
-        orderTest.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
-        orderTest.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
-        orderTest.setPrice(new BigDecimal(5000));
+        orderExistsInDB = new Order();
+        orderExistsInDB.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
+        orderExistsInDB.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
+        orderExistsInDB.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
+        orderExistsInDB.setPrice(new BigDecimal(5000));
     }
 
     static void setUpLoad() {
@@ -115,12 +115,12 @@ public class BaseTest {
         loadExpected.setDetails("Just furniture");
         loadExpected.setOrder(orderExpected);
 
-        loadTest = new Load();
-        loadTest.setId(UUID.fromString("60b523b4-957b-11eb-a8b3-0242ac130003"));
-        loadTest.setName("BEER");
-        loadTest.setWeight(new BigDecimal(23));
-        loadTest.setDetails("HEINEKEN");
-        loadTest.setOrder(orderTest);
+        loadExistsInDB = new Load();
+        loadExistsInDB.setId(UUID.fromString("60b523b4-957b-11eb-a8b3-0242ac130003"));
+        loadExistsInDB.setName("BEER");
+        loadExistsInDB.setWeight(new BigDecimal(23));
+        loadExistsInDB.setDetails("HEINEKEN");
+        loadExistsInDB.setOrder(orderExistsInDB);
     }
 
     static void setUpStatusHistory() {
@@ -130,11 +130,11 @@ public class BaseTest {
         statusHistoryExpected.setStatusDate(LocalDateTime.of(2020, 1, 4, 11, 30));
         statusHistoryExpected.setOrder(orderExpected);
 
-        statusHistoryTest = new StatusHistory();
-        statusHistoryTest.setId(UUID.fromString("811f7588-96d8-11eb-a8b3-0242ac130003"));
-        statusHistoryTest.setName(EStatusHistory.ENDED);
-        statusHistoryTest.setStatusDate(LocalDateTime.of(2021, 1, 4, 11, 30));
-        statusHistoryTest.setOrder(orderTest);
+        statusHistoryExistsInDB = new StatusHistory();
+        statusHistoryExistsInDB.setId(UUID.fromString("811f7588-96d8-11eb-a8b3-0242ac130003"));
+        statusHistoryExistsInDB.setName(EStatusHistory.ENDED);
+        statusHistoryExistsInDB.setStatusDate(LocalDateTime.of(2021, 1, 4, 11, 30));
+        statusHistoryExistsInDB.setOrder(orderExistsInDB);
     }
 
     static void setUpOrderAddress() {
@@ -144,10 +144,10 @@ public class BaseTest {
         orderAddressExpected.setAddressFrom("MINSK");
         orderAddressExpected.setOrder(orderExpected);
 
-        orderAddressTest = new OrderAddress();
-        orderAddressTest.setId(UUID.fromString("a678774e-9589-11eb-a8b3-0242ac130003"));
-        orderAddressTest.setAddressTo("VITEBSK");
-        orderAddressTest.setAddressFrom("BREST");
-        orderAddressTest.setOrder(orderTest);
+        orderAddressExistInDB = new OrderAddress();
+        orderAddressExistInDB.setId(UUID.fromString("a678774e-9589-11eb-a8b3-0242ac130003"));
+        orderAddressExistInDB.setAddressTo("VITEBSK");
+        orderAddressExistInDB.setAddressFrom("BREST");
+        orderAddressExistInDB.setOrder(orderExistsInDB);
     }
 }

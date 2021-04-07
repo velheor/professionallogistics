@@ -43,7 +43,7 @@ class LoadServiceTest extends BaseTest {
         Load expected = new Load();
         expected.setName("CEMENT");
         expected.setWeight(new BigDecimal("1.5"));
-        expected.setOrder(orderTest);
+        expected.setOrder(orderExistsInDB);
         expected.setDetails("FOR BUILDING");
         Load actual = loadService.create(expected);
 
@@ -62,7 +62,7 @@ class LoadServiceTest extends BaseTest {
 
     @Test
     void getAll() {
-        List<Load> expectedAll = List.of(loadExpected, loadTest);
+        List<Load> expectedAll = List.of(loadExpected, loadExistsInDB);
         List<Load> actualAll = loadService.getAll();
 
         assertEquals(expectedAll, actualAll);

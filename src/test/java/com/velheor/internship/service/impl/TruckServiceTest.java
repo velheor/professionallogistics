@@ -45,7 +45,7 @@ class TruckServiceTest extends BaseTest {
         expected.setName("SCANIA");
         expected.setRegistrationNumber("66666-5");
         expected.setMaxWeight(new BigDecimal(10));
-        expected.setTruckCategory(truckCategoryTest);
+        expected.setTruckCategory(truckCategoryExistsInDB);
         Truck actual = truckService.create(expected);
 
         assertEquals(expected, actual);
@@ -62,7 +62,7 @@ class TruckServiceTest extends BaseTest {
 
     @Test
     void getAll() {
-        List<Truck> expectedTrucks = List.of(truckExpected, truckTest);
+        List<Truck> expectedTrucks = List.of(truckExpected, truckExistsInDB);
         List<Truck> actualTrucks = truckService.getAll();
 
         assertEquals(expectedTrucks, actualTrucks);

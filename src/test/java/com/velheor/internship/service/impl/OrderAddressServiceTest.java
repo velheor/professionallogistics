@@ -61,7 +61,7 @@ class OrderAddressServiceTest extends BaseTest {
 
     @Test
     void getAll() {
-        List<OrderAddress> expectedAll = List.of(orderAddressExpected, orderAddressTest);
+        List<OrderAddress> expectedAll = List.of(orderAddressExpected, orderAddressExistInDB);
 
         List<OrderAddress> actualAll = orderAddressService.getAll();
 

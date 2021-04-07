@@ -62,7 +62,7 @@ class TruckCategoryServiceTest extends BaseTest {
     @Test
     void getAll() {
         List<TruckCategory> expectedGetAll = Arrays
-            .asList(truckCategoryExpected, truckCategoryTest);
+            .asList(truckCategoryExpected, truckCategoryExistsInDB);
         List<TruckCategory> actual = truckCategoryService.getAll();
 
         assertEquals(expectedGetAll, actual);

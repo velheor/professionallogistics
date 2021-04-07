@@ -63,7 +63,7 @@ class OrderServiceTest extends BaseTest {
 
     @Test
     void getAll() {
-        List<Order> expectedOrders = Arrays.asList(orderExpected, orderTest);
+        List<Order> expectedOrders = Arrays.asList(orderExpected, orderExistsInDB);
 
         List<Order> actualOrders = orderService.getAll();
 
