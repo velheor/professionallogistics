@@ -73,6 +73,5 @@ class TruckCategoryServiceTest extends BaseTest {
         assertThrows(EntityNotFoundException.class,
             () -> truckCategoryService.findById(truckCategoryExpected.getId()));
         assertEquals(expectedCount, actualCount);
-
     }
 }

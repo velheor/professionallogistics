@@ -150,7 +150,4 @@ public class BaseTest {
         orderAddressTest.setAddressFrom("BREST");
         orderAddressTest.setOrder(orderTest);
     }
-
-    public static void init() {
-    }
 }

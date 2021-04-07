@@ -82,7 +82,6 @@ class UserServiceTest extends BaseTest {
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(userExpected.getId()));
         assertEquals(expectedCount, actualCount);
-
     }
 
     @Test
