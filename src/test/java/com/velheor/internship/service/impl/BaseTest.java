@@ -1,5 +1,6 @@
 package com.velheor.internship.service.impl;
 
+import com.velheor.internship.models.Load;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.models.User;
@@ -19,10 +20,14 @@ public class BaseTest {
     static Order orderExpected;
     static Order orderTest;
 
+    static Load loadExpected;
+    static Load loadTest;
+
     static {
         setUpUser();
         setUpTruckCategory();
         setUpOrder();
+        setUpLoad();
     }
 
     static void setUpUser() {
@@ -56,7 +61,7 @@ public class BaseTest {
         truckCategoryTest.setTruckCategory(truckCategoryExpected);
     }
 
-    static void setUpOrder(){
+    static void setUpOrder() {
         orderExpected = new Order();
         orderExpected.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
         orderExpected.setDatePickup(LocalDateTime.of(2021, 1, 3, 11, 30));
@@ -68,6 +73,22 @@ public class BaseTest {
         orderTest.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
         orderTest.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
         orderTest.setPrice(new BigDecimal(5000));
+    }
+
+    static void setUpLoad() {
+        loadExpected = new Load();
+        loadExpected.setId(UUID.fromString("5942070a-957b-11eb-a8b3-0242ac130003"));
+        loadExpected.setName("FURNITURE");
+        loadExpected.setWeight(new BigDecimal("0.5"));
+        loadExpected.setDetails("Just furniture");
+        loadExpected.setOrder(orderExpected);
+
+        loadTest = new Load();
+        loadTest.setId(UUID.fromString("60b523b4-957b-11eb-a8b3-0242ac130003"));
+        loadTest.setName("BEER");
+        loadTest.setWeight(new BigDecimal(23));
+        loadTest.setDetails("HEINEKEN");
+        loadTest.setOrder(orderTest);
     }
 
     public static void init() {
