@@ -2,6 +2,7 @@ package com.velheor.internship.service.impl;
 
 import com.velheor.internship.models.Load;
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.ERole;
@@ -17,6 +18,9 @@ public class BaseTest {
     static TruckCategory truckCategoryExpected;
     static TruckCategory truckCategoryTest;
 
+    static Truck truckExpected;
+    static Truck truckTest;
+
     static Order orderExpected;
     static Order orderTest;
 
@@ -26,6 +30,7 @@ public class BaseTest {
     static {
         setUpUser();
         setUpTruckCategory();
+        setUpTruck();
         setUpOrder();
         setUpLoad();
     }
@@ -59,6 +64,22 @@ public class BaseTest {
         truckCategoryTest.setId(1);
         truckCategoryTest.setName("ALL-METAL");
         truckCategoryTest.setTruckCategory(truckCategoryExpected);
+    }
+
+    static void setUpTruck() {
+        truckExpected = new Truck();
+        truckExpected.setId(UUID.fromString("a0a81b2e-9725-11eb-a8b3-0242ac130003"));
+        truckExpected.setName("VOLVO");
+        truckExpected.setRegistrationNumber("1234VA-5");
+        truckExpected.setMaxWeight(new BigDecimal(10));
+        truckExpected.setTruckCategory(truckCategoryTest);
+
+        truckTest = new Truck();
+        truckTest.setId(UUID.fromString("886c0c76-9727-11eb-a8b3-0242ac130003"));
+        truckTest.setName("SCANIA");
+        truckTest.setRegistrationNumber("2345AV-6");
+        truckTest.setMaxWeight(new BigDecimal(11));
+        truckTest.setTruckCategory(truckCategoryTest);
     }
 
     static void setUpOrder() {
