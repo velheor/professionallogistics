@@ -9,7 +9,6 @@ import com.velheor.internship.service.api.ITruckCategoryService;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -19,27 +18,15 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @SpringJUnitConfig(classes = {H2JpaConfig.class})
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
     "classpath:beforeTest.sql"})
-class TruckCategoryServiceTest {
+class TruckCategoryServiceTest extends BaseTest {
 
     @Autowired
     private ITruckCategoryService truckCategoryService;
 
-    private TruckCategory expected;
-
-    private Integer id;
-
-    @BeforeEach
-    void setUp() {
-        expected = new TruckCategory();
-        id = 0;
-        expected.setId(id);
-        expected.setName("COVERED");
-    }
-
     @Test
     void findByIdReturnsTruckCategory() {
-        TruckCategory actual = truckCategoryService.findById(id);
-        assertEquals(expected, actual);
+        TruckCategory actual = truckCategoryService.findById(truckCategoryExpected.getId());
+        assertEquals(truckCategoryExpected, actual);
     }
 
     @Test
@@ -54,7 +41,7 @@ class TruckCategoryServiceTest {
         TruckCategory expected = new TruckCategory();
         expected.setId(3);
         expected.setName("TANKER");
-        expected.setTruckCategory(truckCategoryService.findById(id));
+        expected.setTruckCategory(truckCategoryService.findById(truckCategoryExpected.getId()));
 
         TruckCategory actual = truckCategoryService.create(expected);
 
@@ -63,6 +50,7 @@ class TruckCategoryServiceTest {
 
     @Test
     void update() {
+        TruckCategory expected = truckCategoryService.findById(truckCategoryExpected.getId());
         expected.setName("OVERCOVERED");
         TruckCategory actual = truckCategoryService.update(expected);
         assertEquals(expected, actual);
@@ -70,28 +58,21 @@ class TruckCategoryServiceTest {
 
     @Test
     void getAll() {
-        TruckCategory truckCategory = new TruckCategory();
-        truckCategory.setId(1);
-        truckCategory.setName("ALL-METAL");
-        truckCategory.setTruckCategory(expected);
-
-        List<TruckCategory> expectedGetAll = Arrays.asList(expected, truckCategory);
+        List<TruckCategory> expectedGetAll = Arrays
+            .asList(truckCategoryExpected, truckCategoryTest);
         List<TruckCategory> actual = truckCategoryService.getAll();
 
         assertEquals(expectedGetAll, actual);
     }
 
     @Test
-    void deleteCheckForNotFoundTruckCategoryAfterDelete() {
-        truckCategoryService.delete(expected);
-        assertThrows(EntityNotFoundException.class, () -> truckCategoryService.findById(id));
-    }
-
-    @Test
-    void deleteCheckForCountAfterDelete() {
+    void delete() {
         int expectedCount = truckCategoryService.getAll().size() - 1;
-        truckCategoryService.delete(expected);
+        truckCategoryService.delete(truckCategoryExpected);
         int actualCount = truckCategoryService.getAll().size();
+        assertThrows(EntityNotFoundException.class,
+            () -> truckCategoryService.findById(truckCategoryExpected.getId()));
         assertEquals(expectedCount, actualCount);
+
     }
 }
