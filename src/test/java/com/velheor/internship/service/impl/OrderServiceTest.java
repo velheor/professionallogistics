@@ -66,7 +66,6 @@ class OrderServiceTest {
 
     @Test
     void update() {
-        Order expected = orderService.findById(id);
         expected.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
         expected.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
         Order actual = orderService.update(expected);

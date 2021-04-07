@@ -71,7 +71,6 @@ class TruckServiceTest {
 
     @Test
     void update() {
-        Truck expected = truckService.findById(id);
         expected.setName("DAF");
         expected.setMaxWeight(new BigDecimal(5));
         Truck actual = truckService.update(expected);

@@ -72,7 +72,6 @@ class UserServiceTest {
 
     @Test
     void update() {
-        User expected = userService.findById(id);
         expected.setFirstName("Dima");
         expected.setLastName("Bilan");
 
