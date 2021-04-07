@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,6 +42,14 @@ public class Order extends BaseEntity {
 
     @ManyToMany(mappedBy = "orders")
     private List<User> user;
+
+    @ManyToMany
+    @JoinTable(
+        schema = "prolog",
+        name = "orders_has_trucks_categories",
+        joinColumns = @JoinColumn(name = "orders_id"),
+        inverseJoinColumns = @JoinColumn(name = "trucks_categories_id"))
+    private List<TruckCategory> truckCategories;
 
     @Override
     public String toString() {

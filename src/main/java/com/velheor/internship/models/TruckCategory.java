@@ -27,7 +27,7 @@ public class TruckCategory {
     private TruckCategory truckCategory;
 
     @ManyToMany(mappedBy = "truckCategories")
-    private List<Load> load;
+    private List<Order> orders;
 
     @OneToMany(mappedBy = "truckCategory")
     private List<Truck> trucks;

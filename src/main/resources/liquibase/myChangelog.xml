@@ -74,10 +74,10 @@
       PRIMARY KEY (`id`))
       ENGINE = InnoDB;
 
-      CREATE TABLE IF NOT EXISTS prolog.loads_has_trucks_categories (
-      `loads_id` VARCHAR(36) UNIQUE NOT NULL,
+      CREATE TABLE IF NOT EXISTS prolog.orders_has_trucks_categories (
+      `orders_id` VARCHAR(36) NOT NULL,
       `trucks_categories_id` TINYINT UNSIGNED NOT NULL,
-      PRIMARY KEY (`loads_id`, `trucks_categories_id`))
+      PRIMARY KEY (`orders_id`, `trucks_categories_id`))
       ENGINE = InnoDB;
     </sql>
   </changeSet>
