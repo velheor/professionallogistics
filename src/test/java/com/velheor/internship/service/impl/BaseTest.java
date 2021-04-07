@@ -2,10 +2,12 @@ package com.velheor.internship.service.impl;
 
 import com.velheor.internship.models.Load;
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.StatusHistory;
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.ERole;
+import com.velheor.internship.models.enums.EStatusHistory;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -27,12 +29,16 @@ public class BaseTest {
     static Load loadExpected;
     static Load loadTest;
 
+    static StatusHistory statusHistoryExpected;
+    static StatusHistory statusHistoryTest;
+
     static {
         setUpUser();
         setUpTruckCategory();
         setUpTruck();
         setUpOrder();
         setUpLoad();
+        setUpStatusHistory();
     }
 
     static void setUpUser() {
@@ -110,6 +116,20 @@ public class BaseTest {
         loadTest.setWeight(new BigDecimal(23));
         loadTest.setDetails("HEINEKEN");
         loadTest.setOrder(orderTest);
+    }
+
+    static void setUpStatusHistory() {
+        statusHistoryExpected = new StatusHistory();
+        statusHistoryExpected.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
+        statusHistoryExpected.setName(EStatusHistory.STARTED);
+        statusHistoryExpected.setStatusDate(LocalDateTime.of(2020, 1, 4, 11, 30));
+        statusHistoryExpected.setOrder(orderExpected);
+
+        statusHistoryTest = new StatusHistory();
+        statusHistoryTest.setId(UUID.fromString("811f7588-96d8-11eb-a8b3-0242ac130003"));
+        statusHistoryTest.setName(EStatusHistory.ENDED);
+        statusHistoryTest.setStatusDate(LocalDateTime.of(2021, 1, 4, 11, 30));
+        statusHistoryTest.setOrder(orderTest);
     }
 
     public static void init() {
