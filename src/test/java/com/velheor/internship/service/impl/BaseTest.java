@@ -2,6 +2,7 @@ package com.velheor.internship.service.impl;
 
 import com.velheor.internship.models.Load;
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.OrderAddress;
 import com.velheor.internship.models.StatusHistory;
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.TruckCategory;
@@ -32,6 +33,9 @@ public class BaseTest {
     static StatusHistory statusHistoryExpected;
     static StatusHistory statusHistoryTest;
 
+    static OrderAddress orderAddressExpected;
+    static OrderAddress orderAddressTest;
+
     static {
         setUpUser();
         setUpTruckCategory();
@@ -39,6 +43,7 @@ public class BaseTest {
         setUpOrder();
         setUpLoad();
         setUpStatusHistory();
+        setUpOrderAddress();
     }
 
     static void setUpUser() {
@@ -130,6 +135,20 @@ public class BaseTest {
         statusHistoryTest.setName(EStatusHistory.ENDED);
         statusHistoryTest.setStatusDate(LocalDateTime.of(2021, 1, 4, 11, 30));
         statusHistoryTest.setOrder(orderTest);
+    }
+
+    static void setUpOrderAddress() {
+        orderAddressExpected = new OrderAddress();
+        orderAddressExpected.setId(UUID.fromString("a12ee7be-9589-11eb-a8b3-0242ac130003"));
+        orderAddressExpected.setAddressTo("HRODNO");
+        orderAddressExpected.setAddressFrom("MINSK");
+        orderAddressExpected.setOrder(orderExpected);
+
+        orderAddressTest = new OrderAddress();
+        orderAddressTest.setId(UUID.fromString("a678774e-9589-11eb-a8b3-0242ac130003"));
+        orderAddressTest.setAddressTo("VITEBSK");
+        orderAddressTest.setAddressFrom("BREST");
+        orderAddressTest.setOrder(orderTest);
     }
 
     public static void init() {
