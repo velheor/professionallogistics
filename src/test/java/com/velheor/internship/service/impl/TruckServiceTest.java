@@ -27,12 +27,14 @@ class TruckServiceTest extends BaseTest {
     @Test
     void findByIdReturnsTruck() {
         Truck actual = truckService.findById(truckExpected.getId());
+
         assertEquals(truckExpected, actual);
     }
 
     @Test
     void findByIdReturnsEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
+
         assertThrows(EntityNotFoundException.class,
             () -> truckService.findById(notExistsId));
     }
@@ -67,17 +69,14 @@ class TruckServiceTest extends BaseTest {
     }
 
     @Test
-    void deleteCheckForNotFoundUserAfterDelete() {
-        truckService.delete(truckExpected);
-        assertThrows(EntityNotFoundException.class,
-            () -> truckService.findById(truckExpected.getId()));
-    }
-
-    @Test
-    void deleteCheckForCountAfterDelete() {
+    void delete() {
         int expectedCount = truckService.getAll().size() - 1;
         truckService.delete(truckExpected);
         int actualCount = truckService.getAll().size();
+
+        assertThrows(EntityNotFoundException.class,
+            () -> truckService.findById(truckExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }

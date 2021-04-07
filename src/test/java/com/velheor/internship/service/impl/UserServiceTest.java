@@ -28,12 +28,14 @@ class UserServiceTest extends BaseTest {
     @Test
     void findByIdReturnsUser() {
         User actual = userService.findById(userExpected.getId());
+
         assertEquals(userExpected, actual);
     }
 
     @Test
     void findByIdThrowsNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
+
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(notExistsId));
     }
@@ -81,18 +83,21 @@ class UserServiceTest extends BaseTest {
 
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(userExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 
     @Test
     void findByEmailReturnsUser() {
         User actual = userService.findByEmail(userExpected.getEmail());
+
         assertEquals(userExpected, actual);
     }
 
     @Test
     void findByEmailThrowsEntityNotFoundException() {
         String notExistsEmail = "notExistsEmail";
+
         assertThrows(EntityNotFoundException.class,
             () -> userService.findByEmail(notExistsEmail));
     }

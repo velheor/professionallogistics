@@ -29,12 +29,14 @@ class OrderServiceTest extends BaseTest {
     @Test
     void findByIdReturnsUser() {
         Order actual = orderService.findById(orderExpected.getId());
+
         assertEquals(orderExpected, actual);
     }
 
     @Test
     void findByIdThrowsEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
+
         assertThrows(EntityNotFoundException.class,
             () -> orderService.findById(notExistsId));
     }
@@ -46,6 +48,7 @@ class OrderServiceTest extends BaseTest {
         expected.setDateDelivery(LocalDateTime.of(2021, 2, 10, 10, 0));
         expected.setPrice(new BigDecimal(1337));
         Order actual = orderService.create(expected);
+
         assertEquals(expected, actual);
     }
 
@@ -54,6 +57,7 @@ class OrderServiceTest extends BaseTest {
         orderExpected.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
         orderExpected.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
         Order actual = orderService.update(orderExpected);
+
         assertEquals(orderExpected, actual);
     }
 
@@ -68,16 +72,13 @@ class OrderServiceTest extends BaseTest {
 
     @Test
     void deleteCheckForNotFoundUserAfterDelete() {
-        orderService.delete(orderExpected);
-        assertThrows(EntityNotFoundException.class,
-            () -> orderService.findById(orderExpected.getId()));
-    }
-
-    @Test
-    void deleteCheckForCountAfterDelete() {
         int expectedCount = orderService.getAll().size() - 1;
         orderService.delete(orderExpected);
         int actualCount = orderService.getAll().size();
+
+        assertThrows(EntityNotFoundException.class,
+            () -> orderService.findById(orderExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }

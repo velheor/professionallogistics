@@ -26,12 +26,14 @@ class OrderAddressServiceTest extends BaseTest {
     @Test
     void findByIdReturnsOrderAddress() {
         OrderAddress actual = orderAddressService.findById(orderAddressExpected.getId());
+
         assertEquals(orderAddressExpected, actual);
     }
 
     @Test
     void findByIdThrowsEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("12345678-9589-11eb-a8b3-0242ac130003");
+
         assertThrows(EntityNotFoundException.class,
             () -> orderAddressService.findById(notExistsId));
     }
@@ -68,16 +70,13 @@ class OrderAddressServiceTest extends BaseTest {
 
     @Test
     void deleteCheckForNotFoundOrderAddressAfterDelete() {
-        orderAddressService.delete(orderAddressExpected);
-        assertThrows(EntityNotFoundException.class,
-            () -> orderAddressService.findById(orderAddressExpected.getId()));
-    }
-
-    @Test
-    void deleteCheckForCountAfterDelete() {
         int expectedCount = orderAddressService.getAll().size() - 1;
         orderAddressService.delete(orderAddressExpected);
         int actualCount = orderAddressService.getAll().size();
+
+        assertThrows(EntityNotFoundException.class,
+            () -> orderAddressService.findById(orderAddressExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }

@@ -27,12 +27,14 @@ class LoadServiceTest extends BaseTest {
     @Test
     void findByIdReturnsLoad() {
         Load actual = loadService.findById(loadExpected.getId());
+
         assertEquals(loadExpected, actual);
     }
 
     @Test
     void findByThrowsEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("12345678-958b-11eb-a8b3-0242ac130003");
+
         assertThrows(EntityNotFoundException.class, () -> loadService.findById(notExistsId));
     }
 
@@ -74,6 +76,7 @@ class LoadServiceTest extends BaseTest {
 
         assertThrows(EntityNotFoundException.class,
             () -> loadService.findById(loadExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }

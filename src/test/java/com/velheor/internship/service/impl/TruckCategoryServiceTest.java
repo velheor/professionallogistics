@@ -26,12 +26,14 @@ class TruckCategoryServiceTest extends BaseTest {
     @Test
     void findByIdReturnsTruckCategory() {
         TruckCategory actual = truckCategoryService.findById(truckCategoryExpected.getId());
+
         assertEquals(truckCategoryExpected, actual);
     }
 
     @Test
     void findByIdThrowsEntityNotFoundException() {
         int notExistsId = 999;
+
         assertThrows(EntityNotFoundException.class,
             () -> truckCategoryService.findById(notExistsId));
     }
@@ -53,6 +55,7 @@ class TruckCategoryServiceTest extends BaseTest {
         TruckCategory expected = truckCategoryService.findById(truckCategoryExpected.getId());
         expected.setName("OVERCOVERED");
         TruckCategory actual = truckCategoryService.update(expected);
+
         assertEquals(expected, actual);
     }
 
@@ -70,8 +73,10 @@ class TruckCategoryServiceTest extends BaseTest {
         int expectedCount = truckCategoryService.getAll().size() - 1;
         truckCategoryService.delete(truckCategoryExpected);
         int actualCount = truckCategoryService.getAll().size();
+
         assertThrows(EntityNotFoundException.class,
             () -> truckCategoryService.findById(truckCategoryExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }

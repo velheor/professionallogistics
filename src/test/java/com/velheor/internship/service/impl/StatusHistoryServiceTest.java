@@ -28,6 +28,7 @@ class StatusHistoryServiceTest extends BaseTest {
     @Test
     void findByIdReturnsStatusHistory() {
         StatusHistory actual = statusHistoryService.findById(statusHistoryExpected.getId());
+
         assertEquals(statusHistoryExpected, actual);
     }
 
@@ -57,6 +58,7 @@ class StatusHistoryServiceTest extends BaseTest {
         StatusHistory expected = statusHistoryService.findById(statusHistoryExpected.getId());
         expected.setName(EStatusHistory.CANCELED);
         StatusHistory actual = statusHistoryService.update(expected);
+
         assertEquals(expected, actual);
     }
 
@@ -70,16 +72,13 @@ class StatusHistoryServiceTest extends BaseTest {
 
     @Test
     void deleteCheckForNotFoundUserAfterDelete() {
-        statusHistoryService.delete(statusHistoryExpected);
-        assertThrows(EntityNotFoundException.class,
-            () -> statusHistoryService.findById(statusHistoryExpected.getId()));
-    }
-
-    @Test
-    void deleteCheckForCountAfterDelete() {
         int expectedCount = statusHistoryService.getAll().size() - 1;
         statusHistoryService.delete(statusHistoryExpected);
         int actualCount = statusHistoryService.getAll().size();
+
+        assertThrows(EntityNotFoundException.class,
+            () -> statusHistoryService.findById(statusHistoryExpected.getId()));
+
         assertEquals(expectedCount, actualCount);
     }
 }
