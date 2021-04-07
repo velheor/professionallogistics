@@ -42,7 +42,8 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-        name = "prolog.users_has_orders",
+        schema = "prolog",
+        name = "users_has_orders",
         joinColumns = @JoinColumn(name = "users_id"),
         inverseJoinColumns = @JoinColumn(name = "orders_id"))
     private Set<Order> orders;
