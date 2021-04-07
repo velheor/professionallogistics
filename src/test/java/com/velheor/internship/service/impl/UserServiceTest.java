@@ -18,13 +18,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-
 @SpringJUnitConfig(classes = {H2JpaConfig.class})
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:beforeTest.sql"})
 class UserServiceTest extends BaseTest {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
 
     @Test
     void findByIdReturnsUser() {
@@ -101,5 +103,13 @@ class UserServiceTest extends BaseTest {
 
         assertThrows(EntityNotFoundException.class,
             () -> userService.findByEmail(notExistsEmail));
+    }
+
+    @Test
+    void checkForCorrectDeleteInManyToMany() {
+        userService.delete(userExpected);
+        assertThrows(EntityNotFoundException.class,
+            () -> userService.findById(userExpected.getId()));
+        assertEquals(orderExpected, orderService.findById(orderExpected.getId()));
     }
 }

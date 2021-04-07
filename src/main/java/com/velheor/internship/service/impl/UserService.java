@@ -1,5 +1,6 @@
 package com.velheor.internship.service.impl;
 
+import com.velheor.internship.models.Order;
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.service.api.IUserService;
@@ -8,13 +9,14 @@ import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-
 
     @Override
     public User findById(UUID id) {
@@ -41,6 +43,11 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(User user) {
+        if (user.getOrders() != null) {
+            for (Order order : user.getOrders()) {
+                order.deleteUser(user);
+            }
+        }
         userRepository.delete(user);
     }
 

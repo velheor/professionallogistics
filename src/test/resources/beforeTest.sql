@@ -52,3 +52,7 @@ VALUES ('5942070a-957b-11eb-a8b3-0242ac130003', 'FURNITURE', 0.5, 'Just furnitur
 
        ('60b523b4-957b-11eb-a8b3-0242ac130003', 'BEER', 23, 'HEINEKEN',
         '3a424170-958b-11eb-a8b3-0242ac130003');
+
+INSERT INTO prolog.users_has_orders
+values ('47a07384-93b8-11eb-a8b3-0242ac130003', '377514cc-958b-11eb-a8b3-0242ac130003'),
+       ('45caf4c2-9565-11eb-a8b3-0242ac130003', '377514cc-958b-11eb-a8b3-0242ac130003');

@@ -43,7 +43,7 @@ public class Order extends BaseEntity {
     private List<StatusHistory> statusHistories;
 
     @ManyToMany(mappedBy = "orders")
-    private List<User> user;
+    private List<User> users;
 
     @ManyToMany
     @JoinTable(
@@ -52,6 +52,16 @@ public class Order extends BaseEntity {
         joinColumns = @JoinColumn(name = "orders_id"),
         inverseJoinColumns = @JoinColumn(name = "trucks_categories_id"))
     private Set<TruckCategory> truckCategories;
+
+    public void addUser(User user) {
+        this.users.add(user);
+        user.getOrders().add(this);
+    }
+
+    public void deleteUser(User user) {
+        this.users.remove(user);
+        user.getOrders().remove(this);
+    }
 
     @Override
     public String toString() {
