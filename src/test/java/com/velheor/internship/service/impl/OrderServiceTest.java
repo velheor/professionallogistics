@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.service.api.IOrderService;
+import com.velheor.internship.service.api.ITruckCategoryService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -25,6 +27,9 @@ class OrderServiceTest extends BaseTest {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private ITruckCategoryService truckCategoryService;
 
     @Test
     void findByIdReturnsUser() {
@@ -80,5 +85,15 @@ class OrderServiceTest extends BaseTest {
             () -> orderService.findById(orderExpected.getId()));
 
         assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    @Transactional
+    public void checkForCorrectDeleteManyToMany() {
+        orderService.delete(orderService.findById(orderExpected.getId()));
+        assertThrows(EntityNotFoundException.class,
+            () -> orderService.findById(userExpected.getId()));
+        assertEquals(truckCategoryExistsInDB,
+            truckCategoryService.findById(truckCategoryExistsInDB.getId()));
     }
 }

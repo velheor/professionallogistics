@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -79,7 +80,7 @@ class UserServiceTest extends BaseTest {
     }
 
     @Test
-    void delete() {
+    public void delete() {
         int expectedCount = userService.getAll().size() - 1;
         userService.delete(userExpected);
         int actualCount = userService.getAll().size();
@@ -106,8 +107,9 @@ class UserServiceTest extends BaseTest {
     }
 
     @Test
-    void checkForCorrectDeleteInManyToMany() {
-        userService.delete(userExpected);
+    @Transactional
+    public void checkForCorrectDeleteInManyToMany() {
+        userService.delete(userService.findById(userExpected.getId()));
         assertThrows(EntityNotFoundException.class,
             () -> userService.findById(userExpected.getId()));
         assertEquals(orderExpected, orderService.findById(orderExpected.getId()));
