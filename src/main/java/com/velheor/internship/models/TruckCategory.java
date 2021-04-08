@@ -32,6 +32,16 @@ public class TruckCategory {
     @OneToMany(mappedBy = "truckCategory")
     private List<Truck> trucks;
 
+    public void addOrder(Order order) {
+        this.orders.add(order);
+        order.getTruckCategories().add(this);
+    }
+
+    public void deleteOrder(Order order) {
+        this.orders.remove(order);
+        order.getTruckCategories().remove(this);
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

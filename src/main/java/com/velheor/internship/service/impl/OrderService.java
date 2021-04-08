@@ -1,6 +1,7 @@
 package com.velheor.internship.service.impl;
 
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.repository.OrderRepository;
 import com.velheor.internship.service.api.IOrderService;
 import java.util.List;
@@ -39,6 +40,11 @@ public class OrderService implements IOrderService {
 
     @Override
     public void delete(Order order) {
+        if (order.getTruckCategories() != null) {
+            for (TruckCategory truckCategory : order.getTruckCategories()) {
+                truckCategory.deleteOrder(order);
+            }
+        }
         orderRepository.delete(order);
     }
 }
