@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "trucks", schema = "prolog")
+@Table(name = "trucks")
 @Getter
 @Setter
 @NoArgsConstructor

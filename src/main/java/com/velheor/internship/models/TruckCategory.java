@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "trucks_categories", schema = "prolog")
+@Table(name = "trucks_categories")
 public class TruckCategory {
 
     @Id

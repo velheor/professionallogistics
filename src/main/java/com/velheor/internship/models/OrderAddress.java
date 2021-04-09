@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "orders_address", schema = "prolog")
+@Table(name = "orders_address")
 @Getter
 @Setter
 @NoArgsConstructor

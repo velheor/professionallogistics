@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users", schema = "prolog")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -42,7 +42,6 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-        schema = "prolog",
         name = "users_has_orders",
         joinColumns = @JoinColumn(name = "users_id"),
         inverseJoinColumns = @JoinColumn(name = "orders_id"))
