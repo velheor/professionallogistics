@@ -40,7 +40,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ERole role;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name = "users_has_orders",
         joinColumns = @JoinColumn(name = "users_id"),
