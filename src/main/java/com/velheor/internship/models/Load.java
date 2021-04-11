@@ -7,14 +7,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "loads")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Load extends BaseEntity {
 
     private String name;

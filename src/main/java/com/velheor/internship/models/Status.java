@@ -11,15 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "status_history")
 @Getter
 @Setter
-@NoArgsConstructor
-public class StatusHistory extends BaseEntity {
+public class Status extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private EStatusHistory name;
