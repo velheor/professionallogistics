@@ -1,9 +1,9 @@
 package com.velheor.internship.repository;
 
-import com.velheor.internship.models.Order;
+import com.velheor.internship.models.Route;
 import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepository extends CrudRepository<Order, UUID> {
+public interface RouteRepository extends CrudRepository<Route, UUID> {
 
 }
