@@ -1,9 +1,8 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.repository.OrderRepository;
-import com.velheor.internship.service.api.IOrderService;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
@@ -12,33 +11,28 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService implements IOrderService {
+public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    @Override
     public Order findById(UUID id) {
         return orderRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(
                 "Order with id: " + id.toString() + "was not found."));
     }
 
-    @Override
     public Order create(Order order) {
         return orderRepository.save(order);
     }
 
-    @Override
     public Order update(Order order) {
         return orderRepository.save(order);
     }
 
-    @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
 
-    @Override
     public void delete(Order order) {
         if (order.getTruckCategories() != null) {
             for (TruckCategory truckCategory : order.getTruckCategories()) {

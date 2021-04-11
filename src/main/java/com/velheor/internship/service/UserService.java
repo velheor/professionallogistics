@@ -1,22 +1,21 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
-import com.velheor.internship.service.api.IUserService;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService {
+public class UserService {
 
     private final UserRepository userRepository;
 
-    @Override
     public User findById(UUID id) {
         return userRepository.findById(id)
             .orElseThrow(
@@ -24,24 +23,20 @@ public class UserService implements IUserService {
                     "User with id: " + id.toString() + " was not found."));
     }
 
-    @Override
     public User create(User user) {
         return userRepository.save(user);
     }
 
-    @Override
     public User update(User user) {
         return userRepository.save(user);
     }
 
-    @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    @Override
     public void delete(User user) {
-        if (user.getOrders() != null) {
+        if (!CollectionUtils.isEmpty(user.getOrders())) {
             for (Order order : user.getOrders()) {
                 order.deleteUser(user);
             }
@@ -49,7 +44,6 @@ public class UserService implements IUserService {
         userRepository.delete(user);
     }
 
-    @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
             .orElseThrow(
