@@ -2,7 +2,6 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.repository.TruckRepository;
-import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class TruckService {
         return truckRepository.save(truck);
     }
 
-    public List<Truck> getAll() {
+    public Iterable<Truck> getAll() {
         return truckRepository.findAll();
     }
 

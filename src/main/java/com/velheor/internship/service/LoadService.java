@@ -2,7 +2,6 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.Load;
 import com.velheor.internship.repository.LoadRepository;
-import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class LoadService {
         return loadRepository.save(load);
     }
 
-    public List<Load> getAll() {
+    public Iterable<Load> getAll() {
         return loadRepository.findAll();
     }
 

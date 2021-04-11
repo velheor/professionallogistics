@@ -3,7 +3,6 @@ package com.velheor.internship.service;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
-import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAll() {
+    public Iterable<User> getAll() {
         return userRepository.findAll();
     }
 

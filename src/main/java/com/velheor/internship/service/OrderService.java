@@ -1,9 +1,7 @@
 package com.velheor.internship.service;
 
 import com.velheor.internship.models.Order;
-import com.velheor.internship.models.TruckCategory;
 import com.velheor.internship.repository.OrderRepository;
-import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,16 +27,11 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public List<Order> getAll() {
+    public Iterable<Order> getAll() {
         return orderRepository.findAll();
     }
 
     public void delete(Order order) {
-        if (order.getTruckCategories() != null) {
-            for (TruckCategory truckCategory : order.getTruckCategories()) {
-                truckCategory.deleteOrder(order);
-            }
-        }
         orderRepository.delete(order);
     }
 }
