@@ -19,11 +19,7 @@ public class OrderService {
                 "Order with id: " + id.toString() + "was not found."));
     }
 
-    public Order create(Order order) {
-        return orderRepository.save(order);
-    }
-
-    public Order update(Order order) {
+    public Order save(Order order) {
         return orderRepository.save(order);
     }
 
@@ -31,7 +27,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public void delete(Order order) {
-        orderRepository.delete(order);
+    public void deleteById(UUID id) {
+        orderRepository.deleteById(id);
     }
 }

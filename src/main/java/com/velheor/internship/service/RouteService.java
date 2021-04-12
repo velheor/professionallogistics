@@ -19,11 +19,7 @@ public class RouteService {
                 "OrderAdress with id: " + id.toString() + " was not found."));
     }
 
-    public Route create(Route route) {
-        return routeRepository.save(route);
-    }
-
-    public Route update(Route route) {
+    public Route save(Route route) {
         return routeRepository.save(route);
     }
 
@@ -31,7 +27,7 @@ public class RouteService {
         return routeRepository.findAll();
     }
 
-    public void delete(Route route) {
-        routeRepository.delete(route);
+    public void deleteById(UUID id) {
+        routeRepository.deleteById(id);
     }
 }

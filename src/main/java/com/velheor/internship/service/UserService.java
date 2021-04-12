@@ -1,13 +1,11 @@
 package com.velheor.internship.service;
 
-import com.velheor.internship.models.Order;
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -22,11 +20,7 @@ public class UserService {
                     "User with id: " + id.toString() + " was not found."));
     }
 
-    public User create(User user) {
-        return userRepository.save(user);
-    }
-
-    public User update(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
@@ -34,13 +28,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void delete(User user) {
-        if (!CollectionUtils.isEmpty(user.getOrders())) {
-            for (Order order : user.getOrders()) {
-                order.deleteUser(user);
-            }
-        }
-        userRepository.delete(user);
+    public void deleteById(UUID id) {
+        userRepository.deleteById(id);
     }
 
     public User findByEmail(String email) {

@@ -20,11 +20,7 @@ public class TruckService {
                     "Truck with id: " + id.toString() + " was not found."));
     }
 
-    public Truck create(Truck truck) {
-        return truckRepository.save(truck);
-    }
-
-    public Truck update(Truck truck) {
+    public Truck save(Truck truck) {
         return truckRepository.save(truck);
     }
 
@@ -32,7 +28,7 @@ public class TruckService {
         return truckRepository.findAll();
     }
 
-    public void delete(Truck truck) {
-        truckRepository.delete(truck);
+    public void deleteById(UUID id) {
+        truckRepository.deleteById(id);
     }
 }

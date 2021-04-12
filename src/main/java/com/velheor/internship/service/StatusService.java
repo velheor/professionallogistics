@@ -19,11 +19,7 @@ public class StatusService {
                 "StatusHistory with id: " + id.toString() + " was not found."));
     }
 
-    public Status create(Status status) {
-        return statusRepository.save(status);
-    }
-
-    public Status update(Status status) {
+    public Status save(Status status) {
         return statusRepository.save(status);
     }
 
@@ -31,7 +27,7 @@ public class StatusService {
         return statusRepository.findAll();
     }
 
-    public void delete(Status status) {
-        statusRepository.delete(status);
+    public void deleteById(UUID id) {
+        statusRepository.deleteById(id);
     }
 }

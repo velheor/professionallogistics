@@ -19,11 +19,7 @@ public class LoadService {
                 "Load with id: " + id.toString() + " was not found."));
     }
 
-    public Load create(Load load) {
-        return loadRepository.save(load);
-    }
-
-    public Load update(Load load) {
+    public Load save(Load load) {
         return loadRepository.save(load);
     }
 
@@ -31,7 +27,7 @@ public class LoadService {
         return loadRepository.findAll();
     }
 
-    public void delete(Load load) {
-        loadRepository.delete(load);
+    public void deleteById(UUID id) {
+        loadRepository.deleteById(id);
     }
 }
