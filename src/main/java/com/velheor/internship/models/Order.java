@@ -50,11 +50,11 @@ public class Order extends BaseEntity {
     private List<Status> statusHistories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", referencedColumnName = "id")
+    @JoinColumn(name = "carrier_id", referencedColumnName = "id")
     private User carrier;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_id", referencedColumnName = "id")
+    @JoinColumn(name = "shipper_id", referencedColumnName = "id")
     private User shipper;
 
     public Order(Order order) {
