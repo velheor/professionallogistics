@@ -29,6 +29,12 @@ public class Status extends BaseEntity {
     @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
 
+    public Status(Status status) {
+        super.setId(status.getId());
+        this.setName(status.getName());
+        this.setStatusDate(status.getStatusDate());
+    }
+
     public String toString() {
         return "StatusHistory(name=" + this.getName() + ", statusDate=" + this.getStatusDate()
             + ")";

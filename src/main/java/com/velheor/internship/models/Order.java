@@ -7,7 +7,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -27,7 +29,11 @@ public class Order extends BaseEntity {
 
     private BigDecimal price;
 
-    private String voucher;
+    @Column(name = "voucher_pickup")
+    private String voucherPickup;
+
+    @Column(name = "voucher_delivery")
+    private String voucherDelivery;
 
     @Column(name = "truck_category")
     private ETruckCategory truckCategory;
@@ -41,24 +47,26 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Status> statusHistories;
 
-    @ManyToMany(mappedBy = "orders")
-    private List<User> users;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
+    private User carrier;
 
-    public void addUser(User user) {
-        this.users.add(user);
-        user.getOrders().add(this);
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
+    private User shipper;
+
+    public Order(Order order) {
+        super.setId(order.getId());
+        this.setDatePickup(order.getDatePickup());
+        this.setDateDelivery(order.getDateDelivery());
+        this.setPrice(order.getPrice());
+        this.setVoucherPickup(order.getVoucherPickup());
     }
 
-    public void deleteUser(User user) {
-        this.users.remove(user);
-        user.getOrders().remove(this);
-    }
-
-    @Override
     public String toString() {
-        return "Order(id=" + this.getId() + ", datePickUp=" + this.getDatePickup()
-            + ", dateDelivery=" + this
-            .getDateDelivery() + ", price=" + this.getPrice() + ", voucher=" + this.getVoucher()
-            +  ")";
+        return "Order(datePickup=" + this.getDatePickup() + ", dateDelivery=" + this
+            .getDateDelivery() + ", price=" + this.getPrice() + ", voucherPickup=" + this
+            .getVoucherPickup() + ", voucherDelivery=" + this.getVoucherDelivery()
+            + ", truckCategory=" + this.getTruckCategory() + ")";
     }
 }

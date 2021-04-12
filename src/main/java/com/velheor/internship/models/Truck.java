@@ -30,6 +30,14 @@ public class Truck extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "truck")
     private User user;
 
+    public Truck(Truck truck) {
+        super.setId(truck.getId());
+        this.setName(truck.getName());
+        this.setRegistrationNumber(truck.getRegistrationNumber());
+        this.setMaxWeight(truck.getMaxWeight());
+        this.setTruckCategory(truck.getTruckCategory());
+    }
+
     @Override
     public String toString() {
         return "Truck(id=" + this.getId() + ", name=" + this.getName() + ", registrationNumber="
