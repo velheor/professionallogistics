@@ -1,10 +1,10 @@
 package com.velheor.internship.service.impl;
 
-import static com.velheor.internship.service.impl.UtilTest.EXPECTED_SIZE;
-import static com.velheor.internship.service.impl.UtilTest.LOAD1;
-import static com.velheor.internship.service.impl.UtilTest.LOAD2;
-import static com.velheor.internship.service.impl.UtilTest.ORDER2;
-import static com.velheor.internship.service.impl.UtilTest.TRUCK1;
+import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.service.impl.TestUtils.LOAD1;
+import static com.velheor.internship.service.impl.TestUtils.LOAD2;
+import static com.velheor.internship.service.impl.TestUtils.ORDER2;
+import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

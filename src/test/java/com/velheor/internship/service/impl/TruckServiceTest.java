@@ -1,8 +1,8 @@
 package com.velheor.internship.service.impl;
 
-import static com.velheor.internship.service.impl.UtilTest.EXPECTED_SIZE;
-import static com.velheor.internship.service.impl.UtilTest.TRUCK1;
-import static com.velheor.internship.service.impl.UtilTest.TRUCK2;
+import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
+import static com.velheor.internship.service.impl.TestUtils.TRUCK2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

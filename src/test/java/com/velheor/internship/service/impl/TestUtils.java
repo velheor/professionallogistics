@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public final class UtilTest {
+public final class TestUtils {
 
     static User USER1;
     static User USER2;
@@ -38,7 +38,7 @@ public final class UtilTest {
         setUpOrderAddress();
     }
 
-    private UtilTest() {
+    private TestUtils() {
     }
 
     static void setUpUser() {
