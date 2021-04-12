@@ -13,12 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Order extends BaseEntity {
 
     @Column(name = "date_pickup")
@@ -61,6 +63,8 @@ public class Order extends BaseEntity {
         this.setDateDelivery(order.getDateDelivery());
         this.setPrice(order.getPrice());
         this.setVoucherPickup(order.getVoucherPickup());
+        this.setVoucherDelivery(order.getVoucherDelivery());
+        this.setTruckCategory(order.getTruckCategory());
     }
 
     public String toString() {

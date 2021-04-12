@@ -8,12 +8,14 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "trucks")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Truck extends BaseEntity {
 
     private String name;
