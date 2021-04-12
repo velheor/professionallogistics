@@ -1,41 +1,34 @@
 package com.velheor.internship.service.impl;
 
+import static com.velheor.internship.service.impl.UtilTest.EXPECTED_SIZE;
+import static com.velheor.internship.service.impl.UtilTest.ORDER1;
+import static com.velheor.internship.service.impl.UtilTest.ORDER2;
+import static com.velheor.internship.service.impl.UtilTest.TRUCK1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.Order;
-import com.velheor.internship.service.api.IOrderService;
-import com.velheor.internship.service.api.ITruckCategoryService;
+import com.velheor.internship.service.OrderService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@SpringJUnitConfig(classes = {H2JpaConfig.class})
-@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
-    "classpath:beforeTest.sql"})
-class OrderServiceTest extends BaseTest {
+class OrderServiceTest implements BaseServiceTest {
 
     @Autowired
-    private IOrderService orderService;
-
-    @Autowired
-    private ITruckCategoryService truckCategoryService;
+    private OrderService orderService;
 
     @Test
     void findByIdReturnsUser() {
-        Order actual = orderService.findById(orderExpected.getId());
+        Order actual = orderService.findById(ORDER1.getId());
 
-        assertEquals(orderExpected, actual);
+        assertEquals(ORDER1, actual);
     }
 
     @Test
@@ -52,48 +45,39 @@ class OrderServiceTest extends BaseTest {
         expected.setDatePickup(LocalDateTime.of(2021, 2, 3, 11, 30));
         expected.setDateDelivery(LocalDateTime.of(2021, 2, 10, 10, 0));
         expected.setPrice(new BigDecimal(1337));
-        Order actual = orderService.create(expected);
+        Order actual = orderService.save(expected);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void update() {
-        orderExpected.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
-        orderExpected.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
-        Order actual = orderService.update(orderExpected);
+        ORDER1.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
+        ORDER1.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
+        Order actual = orderService.save(ORDER1);
 
-        assertEquals(orderExpected, actual);
+        assertEquals(ORDER1, actual);
     }
 
     @Test
     void getAll() {
-        List<Order> expectedOrders = Arrays.asList(orderExpected, orderExistsInDB);
+        List<Order> expectedALL = Arrays.asList(ORDER1, ORDER2);
+        List<Order> actualAll = new ArrayList<>();
+        orderService.getAll().forEach(actualAll::add);
 
-        List<Order> actualOrders = orderService.getAll();
-
-        assertEquals(expectedOrders, actualOrders);
+        assertEquals(expectedALL, actualAll);
     }
 
     @Test
     void deleteCheckForNotFoundUserAfterDelete() {
-        int expectedCount = orderService.getAll().size() - 1;
-        orderService.delete(orderExpected);
-        int actualCount = orderService.getAll().size();
+        orderService.deleteById(ORDER1.getId());
+        int actualSize = 0;
+        for (Object i : orderService.getAll()) {
+            actualSize++;
+        }
+        assertEquals(EXPECTED_SIZE, actualSize);
 
         assertThrows(EntityNotFoundException.class,
-            () -> orderService.findById(orderExpected.getId()));
-
-        assertEquals(expectedCount, actualCount);
-    }
-
-    @Test
-    @Transactional
-    public void checkForCorrectDeleteManyToMany() {
-        orderService.delete(orderService.findById(orderExpected.getId()));
-        assertThrows(EntityNotFoundException.class,
-            () -> orderService.findById(userExpected.getId()));
-        assertEquals(truckCategoryExistsInDB,
-            truckCategoryService.findById(truckCategoryExistsInDB.getId()));
+            () -> orderService.findById(TRUCK1.getId()));
     }
 }

@@ -1,39 +1,32 @@
 package com.velheor.internship.service.impl;
 
+import static com.velheor.internship.service.impl.UtilTest.EXPECTED_SIZE;
+import static com.velheor.internship.service.impl.UtilTest.USER1;
+import static com.velheor.internship.service.impl.UtilTest.USER2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.ERole;
-import com.velheor.internship.service.api.IOrderService;
-import com.velheor.internship.service.api.IUserService;
+import com.velheor.internship.service.UserService;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@SpringJUnitConfig(classes = {H2JpaConfig.class})
-@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:beforeTest.sql"})
-class UserServiceTest extends BaseTest {
+class UserServiceTest implements BaseServiceTest {
 
     @Autowired
-    private IUserService userService;
-
-    @Autowired
-    private IOrderService orderService;
+    private UserService userService;
 
     @Test
     void findByIdReturnsUser() {
-        User actual = userService.findById(userExpected.getId());
+        User actual = userService.findById(USER1.getId());
 
-        assertEquals(userExpected, actual);
+        assertEquals(USER1, actual);
     }
 
     @Test
@@ -54,48 +47,51 @@ class UserServiceTest extends BaseTest {
         expected.setPassword("notpass");
         expected.setRole(ERole.CARRIER);
 
-        User actual = userService.create(expected);
+        User actual = userService.save(expected);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void update() {
-        User expected = userService.findById(userExpected.getId());
+        User expected = userService.findById(USER1.getId());
         expected.setFirstName("Dima");
         expected.setLastName("Bilan");
 
-        User actual = userService.update(expected);
+        User actual = userService.save(expected);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void getAll() {
-        List<User> actualAll = userService.getAll();
+        List<User> actualAll = new ArrayList<>();
+        userService.getAll().forEach(actualAll::add);
         List<User> expectedAll = Arrays
-            .asList(userExpected, userExistsInDB);
+            .asList(USER1, USER2);
 
         assertEquals(expectedAll, actualAll);
     }
 
     @Test
-    public void delete() {
-        int expectedCount = userService.getAll().size() - 1;
-        userService.delete(userExpected);
-        int actualCount = userService.getAll().size();
+    public void deleteById() {
+        userService.deleteById(USER1.getId());
+        int actualSize = 0;
+        for (Object i : userService.getAll()) {
+            actualSize++;
+        }
+        assertEquals(EXPECTED_SIZE, actualSize);
 
         assertThrows(EntityNotFoundException.class,
-            () -> userService.findById(userExpected.getId()));
+            () -> userService.findById(USER1.getId()));
 
-        assertEquals(expectedCount, actualCount);
     }
 
     @Test
     void findByEmailReturnsUser() {
-        User actual = userService.findByEmail(userExpected.getEmail());
+        User actual = userService.findByEmail(USER1.getEmail());
 
-        assertEquals(userExpected, actual);
+        assertEquals(USER1, actual);
     }
 
     @Test
@@ -104,14 +100,5 @@ class UserServiceTest extends BaseTest {
 
         assertThrows(EntityNotFoundException.class,
             () -> userService.findByEmail(notExistsEmail));
-    }
-
-    @Test
-    @Transactional
-    public void checkForCorrectDeleteInManyToMany() {
-        userService.delete(userService.findById(userExpected.getId()));
-        assertThrows(EntityNotFoundException.class,
-            () -> userService.findById(userExpected.getId()));
-        assertEquals(orderExpected, orderService.findById(orderExpected.getId()));
     }
 }

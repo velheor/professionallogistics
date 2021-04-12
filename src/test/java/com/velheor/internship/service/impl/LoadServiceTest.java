@@ -1,34 +1,33 @@
 package com.velheor.internship.service.impl;
 
+import static com.velheor.internship.service.impl.UtilTest.EXPECTED_SIZE;
+import static com.velheor.internship.service.impl.UtilTest.LOAD1;
+import static com.velheor.internship.service.impl.UtilTest.LOAD2;
+import static com.velheor.internship.service.impl.UtilTest.ORDER2;
+import static com.velheor.internship.service.impl.UtilTest.TRUCK1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.velheor.internship.config.H2JpaConfig;
 import com.velheor.internship.models.Load;
-import com.velheor.internship.service.api.ILoadService;
+import com.velheor.internship.service.LoadService;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@SpringJUnitConfig(classes = {H2JpaConfig.class})
-@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
-    "classpath:beforeTest.sql"})
-class LoadServiceTest extends BaseTest {
+class LoadServiceTest implements BaseServiceTest {
 
     @Autowired
-    private ILoadService loadService;
+    private LoadService loadService;
 
     @Test
     void findByIdReturnsLoad() {
-        Load actual = loadService.findById(loadExpected.getId());
+        Load actual = loadService.findById(LOAD1.getId());
 
-        assertEquals(loadExpected, actual);
+        assertEquals(LOAD1, actual);
     }
 
     @Test
@@ -43,40 +42,42 @@ class LoadServiceTest extends BaseTest {
         Load expected = new Load();
         expected.setName("CEMENT");
         expected.setWeight(new BigDecimal("1.5"));
-        expected.setOrder(orderExistsInDB);
+        expected.setOrder(ORDER2);
         expected.setDetails("FOR BUILDING");
-        Load actual = loadService.create(expected);
+        Load actual = loadService.save(expected);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void update() {
-        Load expected = loadService.findById(loadExpected.getId());
+        Load expected = loadService.findById(LOAD1.getId());
         expected.setName("VEGETABLES");
 
-        Load actual = loadService.update(expected);
+        Load actual = loadService.save(expected);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void getAll() {
-        List<Load> expectedAll = List.of(loadExpected, loadExistsInDB);
-        List<Load> actualAll = loadService.getAll();
+        List<Load> expectedAll = List.of(LOAD1, LOAD2);
+        List<Load> actualAll = new ArrayList<>();
+        loadService.getAll().forEach(actualAll::add);
 
         assertEquals(expectedAll, actualAll);
     }
 
     @Test
     void delete() {
-        int expectedCount = loadService.getAll().size() - 1;
-        loadService.delete(loadExpected);
-        int actualCount = loadService.getAll().size();
+        loadService.deleteById(LOAD1.getId());
+        int actualSize = 0;
+        for (Object i : loadService.getAll()) {
+            actualSize++;
+        }
+        assertEquals(EXPECTED_SIZE, actualSize);
 
         assertThrows(EntityNotFoundException.class,
-            () -> loadService.findById(loadExpected.getId()));
-
-        assertEquals(expectedCount, actualCount);
+            () -> loadService.findById(TRUCK1.getId()));
     }
 }
