@@ -1,6 +1,6 @@
 package com.velheor.internship.config;
 
-import com.velheor.internship.conf.DataSourceConfig;
+import com.velheor.internship.conf.PersistenceConfig;
 import com.velheor.internship.conf.LiquiBaseConfig;
 import java.util.Properties;
 import javax.sql.DataSource;
@@ -23,9 +23,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
 @EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
-@Import({DataSourceConfig.class, LiquiBaseConfig.class})
+@Import({PersistenceConfig.class, LiquiBaseConfig.class})
 @RequiredArgsConstructor
-public class H2JpaConfig {
+public class PersistenceTestConfig {
 
     private final Environment environment;
 
