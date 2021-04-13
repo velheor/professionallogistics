@@ -1,7 +1,7 @@
 package com.velheor.internship;
 
 import com.velheor.internship.conf.ApplicationConfig;
-import com.velheor.internship.service.impl.UserService;
+import com.velheor.internship.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
