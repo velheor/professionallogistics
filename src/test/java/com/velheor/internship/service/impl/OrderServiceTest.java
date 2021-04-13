@@ -3,81 +3,91 @@ package com.velheor.internship.service.impl;
 import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.service.impl.TestUtils.ORDER1;
 import static com.velheor.internship.service.impl.TestUtils.ORDER2;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.velheor.internship.service.impl.TestUtils.ORDER_IGNORE;
+import static com.velheor.internship.service.impl.TestUtils.USER2;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.enums.ETruckCategory;
 import com.velheor.internship.service.OrderService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class OrderServiceTest implements BaseServiceTest {
+class OrderServiceTest extends BaseServiceTest {
 
     @Autowired
     private OrderService orderService;
 
     @Test
-    void findByIdReturnsUser() {
+    void findById() {
         Order actual = orderService.findById(ORDER1.getId());
 
-        assertEquals(ORDER1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(ORDER1, ORDER_IGNORE);
     }
 
     @Test
-    void findByIdThrowsEntityNotFoundException() {
+    void findByIdThrownEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
-        assertThrows(EntityNotFoundException.class,
-            () -> orderService.findById(notExistsId));
+        assertThatThrownBy(() -> orderService.findById(notExistsId))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
     void create() {
         Order expected = new Order();
-        expected.setDatePickup(LocalDateTime.of(2021, 2, 3, 11, 30));
-        expected.setDateDelivery(LocalDateTime.of(2021, 2, 10, 10, 0));
-        expected.setPrice(new BigDecimal(1337));
+        expected.setDateDelivery(LocalDateTime.of(2021, 1, 10, 12, 0));
+        expected.setDatePickup(LocalDateTime.of(2021, 1, 12, 6, 0));
+        expected.setPrice(new BigDecimal("300"));
+        expected.setTruckCategory(ETruckCategory.ALL_METAL);
+        expected.setShipper(USER2);
         Order actual = orderService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
     }
 
     @Test
     void update() {
-        ORDER1.setDatePickup(LocalDateTime.of(2020, 2, 3, 11, 30));
-        ORDER1.setDateDelivery(LocalDateTime.of(2021, 3, 3, 11, 30));
-        Order actual = orderService.save(ORDER1);
+        Order expected = new Order(ORDER1);
+        expected.setTruckCategory(ETruckCategory.COVERED);
+        Order actual = orderService.save(expected);
 
-        assertEquals(ORDER1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
     }
 
     @Test
     void getAll() {
-        List<Order> expectedALL = Arrays.asList(ORDER1, ORDER2);
+        List<Order> expectedAll = List.of(ORDER1, ORDER2);
         List<Order> actualAll = new ArrayList<>();
         orderService.getAll().forEach(actualAll::add);
 
-        assertEquals(expectedALL, actualAll);
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(ORDER_IGNORE)
+            .isEqualTo(actualAll);
+
     }
 
     @Test
-    void deleteCheckForNotFoundUserAfterDelete() {
+    void deleteById() {
         orderService.deleteById(ORDER1.getId());
+
         int actualSize = 0;
-        for (Object i : orderService.getAll()) {
+        for (Object ignored : orderService.getAll()) {
             actualSize++;
         }
-        assertEquals(EXPECTED_SIZE, actualSize);
 
-        assertThrows(EntityNotFoundException.class,
-            () -> orderService.findById(TRUCK1.getId()));
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+
+        assertThatThrownBy(() -> orderService.findById(ORDER1.getId()))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 }

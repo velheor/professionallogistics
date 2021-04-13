@@ -1,48 +1,38 @@
 TRUNCATE TABLE users;
-TRUNCATE TABLE trucks_categories;
 TRUNCATE TABLE trucks;
 TRUNCATE TABLE orders;
-TRUNCATE TABLE status_history;
-TRUNCATE TABLE orders_address;
+TRUNCATE TABLE statuses;
+TRUNCATE TABLE addresses;
 TRUNCATE TABLE loads;
-TRUNCATE TABLE users_has_orders;
+TRUNCATE TABLE routes;
+TRUNCATE TABLE roles;
 
 INSERT INTO users
 VALUES ('47a07384-93b8-11eb-a8b3-0242ac130003', 'Ivan', 'Ivanov', 'ivan@gmail.com', '+375331234567',
-        'pass1', 'CARRIER', 'a0a81b2e-9725-11eb-a8b3-0242ac130003'),
+        'pass1'),
        ('45caf4c2-9565-11eb-a8b3-0242ac130003', 'Petr', 'Petrov', 'petr@gmail.com', '+375296888258',
-        'pass2', 'SHIPPER', null);
+        'pass2');
 
 INSERT INTO trucks
-VALUES ('a0a81b2e-9725-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 4000, 'ALL_METAL'),
-       ('886c0c76-9727-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 3500, 'ALL_METAL');
+VALUES ('2da16836-9c4a-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 4000, 'ALL_METAL',
+        '47a07384-93b8-11eb-a8b3-0242ac130003'),
+       ('365e1fdc-9c4a-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 3500, 'ALL_METAL', null);
+
+INSERT INTO roles
+values ('cd2d4abe-9c4a-11eb-a8b3-0242ac130003', 'CARRIER', '47a07384-93b8-11eb-a8b3-0242ac130003'),
+       ('faf2d93a-9c4c-11eb-a8b3-0242ac130003', 'SHIPPER', '45caf4c2-9565-11eb-a8b3-0242ac130003');
 
 INSERT INTO orders
 VALUES ('377514cc-958b-11eb-a8b3-0242ac130003',
         parsedatetime('2021.01.04 11:30', 'yyyy.MM.dd hh:mm'),
-        parsedatetime('2021.01.10 10:00', 'yyyy.MM.dd hh:mm'), 4000, 'ALL_METAL',
-        '47a07384-93b8-11eb-a8b3-0242ac130003', '45caf4c2-9565-11eb-a8b3-0242ac130003'),
+        parsedatetime('2021.01.10 10:00', 'yyyy.MM.dd hh:mm'), null, null, 4000, 'ALL_METAL',
+        '47a07384-93b8-11eb-a8b3-0242ac130003',
+        '45caf4c2-9565-11eb-a8b3-0242ac130003'),
 
        ('3a424170-958b-11eb-a8b3-0242ac130003',
-        parsedatetime('2021.02.10 12:00', 'yyyy.MM.dd hh:mm'),
-        parsedatetime('2021.02.12 06:00', 'yyyy.MM.dd hh:mm'), 5000, 'ALL_METAL',
-        '', '45caf4c2-9565-11eb-a8b3-0242ac130003');
-
-INSERT INTO status_history
-VALUES ('377514cc-958b-11eb-a8b3-0242ac130003', 'STARTED',
-        parsedatetime('2021.01.04 11:30', 'yyyy.MM.dd hh:mm'),
-        '377514cc-958b-11eb-a8b3-0242ac130003'),
-
-       ('811f7588-96d8-11eb-a8b3-0242ac130003', 'ENDED',
-        parsedatetime('2021.01.10 10:00', 'yyyy.MM.dd hh:mm'),
-        '377514cc-958b-11eb-a8b3-0242ac130003');
-
-INSERT INTO orders_address
-VALUES ('a12ee7be-9589-11eb-a8b3-0242ac130003', 'HRODNO', 'MINSK',
-        '377514cc-958b-11eb-a8b3-0242ac130003'),
-
-       ('a678774e-9589-11eb-a8b3-0242ac130003', 'VITEBSK', 'BREST',
-        '3a424170-958b-11eb-a8b3-0242ac130003');
+        parsedatetime('2021.02.10 11:00', 'yyyy.MM.dd hh:mm'),
+        parsedatetime('2021.02.12 06:00', 'yyyy.MM.dd hh:mm'), null, null, 5000, 'ALL_METAL', null,
+        '45caf4c2-9565-11eb-a8b3-0242ac130003');
 
 INSERT INTO loads
 VALUES ('5942070a-957b-11eb-a8b3-0242ac130003', 'FURNITURE', 0.5, 'Just furniture',
@@ -50,3 +40,25 @@ VALUES ('5942070a-957b-11eb-a8b3-0242ac130003', 'FURNITURE', 0.5, 'Just furnitur
 
        ('60b523b4-957b-11eb-a8b3-0242ac130003', 'BEER', 23, 'HEINEKEN',
         '3a424170-958b-11eb-a8b3-0242ac130003');
+
+INSERT INTO statuses
+VALUES ('377514cc-958b-11eb-a8b3-0242ac130003', 'WAITING_FOR_CARRIER',
+        parsedatetime('2021.01.03 11:30', 'yyyy.MM.dd hh:mm'),
+        '377514cc-958b-11eb-a8b3-0242ac130003'),
+
+       ('811f7588-96d8-11eb-a8b3-0242ac130003', 'WAITING_FOR_LOADING',
+        parsedatetime('2021.01.03 11:45', 'yyyy.MM.dd hh:mm'),
+        '377514cc-958b-11eb-a8b3-0242ac130003');
+
+INSERT INTO addresses
+VALUES ('fe8866ce-9c4b-11eb-a8b3-0242ac130003', 'BELARUS', 'HRODNO', 'STREET', '1337-A'),
+       ('446d6234-9c4c-11eb-a8b3-0242ac130003', 'BELARUS', 'MINSK', 'STREETS', '1373-B');
+
+INSERT INTO routes
+VALUES ('6db382c2-9c4c-11eb-a8b3-0242ac130003', '377514cc-958b-11eb-a8b3-0242ac130003',
+        'fe8866ce-9c4b-11eb-a8b3-0242ac130003',
+        '446d6234-9c4c-11eb-a8b3-0242ac130003'),
+
+       ('38aea24a-9c4d-11eb-a8b3-0242ac130003', '3a424170-958b-11eb-a8b3-0242ac130003',
+        'fe8866ce-9c4b-11eb-a8b3-0242ac130003',
+        '446d6234-9c4c-11eb-a8b3-0242ac130003');

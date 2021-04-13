@@ -3,10 +3,12 @@ package com.velheor.internship.service.impl;
 import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
 import static com.velheor.internship.service.impl.TestUtils.TRUCK2;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.velheor.internship.service.impl.TestUtils.TRUCK_IGNORE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Truck;
+import com.velheor.internship.models.enums.ETruckCategory;
 import com.velheor.internship.service.TruckService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,24 +18,25 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class TruckServiceTest implements BaseServiceTest {
+class TruckServiceTest extends BaseServiceTest {
 
     @Autowired
     private TruckService truckService;
 
     @Test
-    void findByIdReturnsTruck() {
+    void findById() {
         Truck actual = truckService.findById(TRUCK1.getId());
 
-        assertEquals(TRUCK1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(TRUCK1, TRUCK_IGNORE);
     }
 
     @Test
-    void findByIdReturnsEntityNotFoundException() {
+    void findByIdThrownEntityNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
-        assertThrows(EntityNotFoundException.class,
-            () -> truckService.findById(notExistsId));
+        assertThatThrownBy(() -> truckService.findById(notExistsId))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -41,19 +44,23 @@ class TruckServiceTest implements BaseServiceTest {
         Truck expected = new Truck();
         expected.setName("SCANIA");
         expected.setRegistrationNumber("66666-5");
-        expected.setMaxWeight(new BigDecimal(10));
+        expected.setMaxWeight(new BigDecimal("10"));
+        expected.setTruckCategory(ETruckCategory.ALL_METAL);
         Truck actual = truckService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
     }
 
     @Test
     void update() {
-        TRUCK1.setName("DAF");
-        TRUCK1.setMaxWeight(new BigDecimal(5));
-        Truck actual = truckService.save(TRUCK1);
+        Truck expected = new Truck(TRUCK1);
+        expected.setName("DAF");
+        expected.setMaxWeight(new BigDecimal("5.0"));
+        Truck actual = truckService.save(expected);
 
-        assertEquals(TRUCK1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
     }
 
     @Test
@@ -62,20 +69,22 @@ class TruckServiceTest implements BaseServiceTest {
         List<Truck> actualAll = new ArrayList<>();
         truckService.getAll().forEach(actualAll::add);
 
-        assertEquals(expectedAll, actualAll);
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(TRUCK_IGNORE)
+            .isEqualTo(actualAll);
     }
 
     @Test
     void deleteById() {
         truckService.deleteById(TRUCK1.getId());
+
         int actualSize = 0;
-        for (Object i : truckService.getAll()) {
+        for (Object ignored : truckService.getAll()) {
             actualSize++;
         }
-        assertEquals(EXPECTED_SIZE, actualSize);
 
-        assertThrows(EntityNotFoundException.class,
-            () -> truckService.findById(TRUCK1.getId()));
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
+        assertThatThrownBy(() -> truckService.findById(TRUCK1.getId()))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 }

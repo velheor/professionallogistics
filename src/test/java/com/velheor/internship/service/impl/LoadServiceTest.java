@@ -3,10 +3,10 @@ package com.velheor.internship.service.impl;
 import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.service.impl.TestUtils.LOAD1;
 import static com.velheor.internship.service.impl.TestUtils.LOAD2;
-import static com.velheor.internship.service.impl.TestUtils.ORDER2;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.velheor.internship.service.impl.TestUtils.LOAD_IGNORE;
+import static com.velheor.internship.service.impl.TestUtils.ORDER1;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Load;
 import com.velheor.internship.service.LoadService;
@@ -18,45 +18,48 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class LoadServiceTest implements BaseServiceTest {
+class LoadServiceTest extends BaseServiceTest {
 
     @Autowired
     private LoadService loadService;
 
     @Test
-    void findByIdReturnsLoad() {
+    void findById() {
         Load actual = loadService.findById(LOAD1.getId());
 
-        assertEquals(LOAD1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(LOAD1, LOAD_IGNORE);
     }
 
     @Test
-    void findByThrowsEntityNotFoundException() {
-        UUID notExistsId = UUID.fromString("12345678-958b-11eb-a8b3-0242ac130003");
+    void findByIdThrownEntityNotFoundException() {
+        UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
-        assertThrows(EntityNotFoundException.class, () -> loadService.findById(notExistsId));
+        assertThatThrownBy(() -> loadService.findById(notExistsId))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
     void create() {
         Load expected = new Load();
-        expected.setName("CEMENT");
-        expected.setWeight(new BigDecimal("1.5"));
-        expected.setOrder(ORDER2);
-        expected.setDetails("FOR BUILDING");
+        expected.setName("FURNITURE");
+        expected.setWeight(new BigDecimal("0.5"));
+        expected.setDetails("Just furniture");
+        expected.setOrder(ORDER1);
         Load actual = loadService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, LOAD_IGNORE);
     }
 
     @Test
     void update() {
-        Load expected = loadService.findById(LOAD1.getId());
-        expected.setName("VEGETABLES");
-
+        Load expected = new Load(LOAD1);
+        expected.setName("Test");
         Load actual = loadService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, LOAD_IGNORE);
     }
 
     @Test
@@ -65,19 +68,23 @@ class LoadServiceTest implements BaseServiceTest {
         List<Load> actualAll = new ArrayList<>();
         loadService.getAll().forEach(actualAll::add);
 
-        assertEquals(expectedAll, actualAll);
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(LOAD_IGNORE)
+            .isEqualTo(actualAll);
+
     }
 
     @Test
-    void delete() {
+    void deleteById() {
         loadService.deleteById(LOAD1.getId());
+
         int actualSize = 0;
-        for (Object i : loadService.getAll()) {
+        for (Object ignored : loadService.getAll()) {
             actualSize++;
         }
-        assertEquals(EXPECTED_SIZE, actualSize);
 
-        assertThrows(EntityNotFoundException.class,
-            () -> loadService.findById(TRUCK1.getId()));
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+
+        assertThatThrownBy(() -> loadService.findById(LOAD1.getId()))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 }

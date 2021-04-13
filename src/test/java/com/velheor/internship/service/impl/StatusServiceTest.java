@@ -4,12 +4,12 @@ import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.service.impl.TestUtils.ORDER1;
 import static com.velheor.internship.service.impl.TestUtils.STATUS1;
 import static com.velheor.internship.service.impl.TestUtils.STATUS2;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.velheor.internship.service.impl.TestUtils.STATUS_IGNORE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Status;
-import com.velheor.internship.models.enums.EStatusHistory;
+import com.velheor.internship.models.enums.EStatus;
 import com.velheor.internship.service.StatusService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,46 +19,47 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class StatusServiceTest implements BaseServiceTest {
+class StatusServiceTest extends BaseServiceTest {
 
     @Autowired
     private StatusService statusService;
 
     @Test
-    void findByIdReturnsStatusHistory() {
+    void findById() {
         Status actual = statusService.findById(STATUS1.getId());
 
-        assertEquals(STATUS1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(STATUS1, STATUS_IGNORE);
     }
 
     @Test
-    void findByIdThrowsEntityNotFoundException() {
-        UUID notExistsId = UUID.fromString("344444cc-958b-11eb-a8b3-0242ac130003");
+    void findByIdThrownEntityNotFoundException() {
+        UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
-        assertThrows(EntityNotFoundException.class,
-            () -> statusService.findById(notExistsId));
+        assertThatThrownBy(() -> statusService.findById(notExistsId))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
     void create() {
         Status expected = new Status();
-        expected.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
-        expected.setName(EStatusHistory.STARTED);
-        expected.setStatusDate(LocalDateTime.of(2020, 2, 10, 12, 0));
+        expected.setName(EStatus.ENDED);
+        expected.setStatusDate(LocalDateTime.of(2021, 1, 25, 11, 45));
         expected.setOrder(ORDER1);
-
         Status actual = statusService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
     }
 
     @Test
     void update() {
-        Status expected = statusService.findById(STATUS1.getId());
-        expected.setName(EStatusHistory.CANCELED);
+        Status expected = new Status(STATUS1);
+        expected.setName(EStatus.CANCELED);
         Status actual = statusService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
     }
 
     @Test
@@ -67,19 +68,23 @@ class StatusServiceTest implements BaseServiceTest {
         List<Status> actualAll = new ArrayList<>();
         statusService.getAll().forEach(actualAll::add);
 
-        assertEquals(expectedAll, actualAll);
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(STATUS_IGNORE)
+            .isEqualTo(actualAll);
+
     }
 
     @Test
-    void delete() {
+    void deleteById() {
         statusService.deleteById(STATUS1.getId());
+
         int actualSize = 0;
-        for (Object i : statusService.getAll()) {
+        for (Object ignored : statusService.getAll()) {
             actualSize++;
         }
-        assertEquals(EXPECTED_SIZE, actualSize);
 
-        assertThrows(EntityNotFoundException.class,
-            () -> statusService.findById(TRUCK1.getId()));
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+
+        assertThatThrownBy(() -> statusService.findById(STATUS1.getId()))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 }

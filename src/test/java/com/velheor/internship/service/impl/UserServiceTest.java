@@ -3,11 +3,11 @@ package com.velheor.internship.service.impl;
 import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.service.impl.TestUtils.USER1;
 import static com.velheor.internship.service.impl.TestUtils.USER2;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.velheor.internship.service.impl.TestUtils.USER_IGNORE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.User;
-import com.velheor.internship.models.enums.ERole;
 import com.velheor.internship.service.UserService;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class UserServiceTest implements BaseServiceTest {
+class UserServiceTest extends BaseServiceTest {
 
     @Autowired
     private UserService userService;
@@ -25,16 +25,15 @@ class UserServiceTest implements BaseServiceTest {
     @Test
     void findByIdReturnsUser() {
         User actual = userService.findById(USER1.getId());
-
-        assertEquals(USER1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(USER1, USER_IGNORE);
     }
 
     @Test
     void findByIdThrowsNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
-
-        assertThrows(EntityNotFoundException.class,
-            () -> userService.findById(notExistsId));
+        assertThatThrownBy(() -> userService.findById(notExistsId))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -45,22 +44,23 @@ class UserServiceTest implements BaseServiceTest {
         expected.setEmail("notivan@gmail.com");
         expected.setPhoneNumber("+37533111111");
         expected.setPassword("notpass");
-        expected.setRole(ERole.CARRIER);
 
         User actual = userService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, USER_IGNORE);
     }
 
     @Test
     void update() {
-        User expected = userService.findById(USER1.getId());
+        User expected = new User(USER1);
         expected.setFirstName("Dima");
         expected.setLastName("Bilan");
 
         User actual = userService.save(expected);
 
-        assertEquals(expected, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(expected, USER_IGNORE);
     }
 
     @Test
@@ -70,20 +70,24 @@ class UserServiceTest implements BaseServiceTest {
         List<User> expectedAll = Arrays
             .asList(USER1, USER2);
 
-        assertEquals(expectedAll, actualAll);
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(USER_IGNORE)
+            .isEqualTo(actualAll);
+
     }
 
     @Test
     public void deleteById() {
         userService.deleteById(USER1.getId());
+
         int actualSize = 0;
-        for (Object i : userService.getAll()) {
+        for (Object ignored : userService.getAll()) {
             actualSize++;
         }
-        assertEquals(EXPECTED_SIZE, actualSize);
 
-        assertThrows(EntityNotFoundException.class,
-            () -> userService.findById(USER1.getId()));
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+
+        assertThatThrownBy(() -> userService.findById(USER1.getId()))
+            .isInstanceOf(EntityNotFoundException.class);
 
     }
 
@@ -91,14 +95,15 @@ class UserServiceTest implements BaseServiceTest {
     void findByEmailReturnsUser() {
         User actual = userService.findByEmail(USER1.getEmail());
 
-        assertEquals(USER1, actual);
+        assertThat(actual)
+            .isEqualToIgnoringGivenFields(USER1, USER_IGNORE);
     }
 
     @Test
     void findByEmailThrowsEntityNotFoundException() {
         String notExistsEmail = "notExistsEmail";
 
-        assertThrows(EntityNotFoundException.class,
-            () -> userService.findByEmail(notExistsEmail));
+        assertThatThrownBy(() -> userService.findByEmail(notExistsEmail))
+            .isInstanceOf(EntityNotFoundException.class);
     }
 }
