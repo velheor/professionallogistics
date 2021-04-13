@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,6 +39,7 @@ public class Order extends BaseEntity {
     @Column(name = "voucher_delivery")
     private String voucherDelivery;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "truck_category")
     private ETruckCategory truckCategory;
 
@@ -47,7 +50,7 @@ public class Order extends BaseEntity {
     private List<Load> loads;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<Status> statusHistories;
+    private List<Status> statuses;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrier_id", referencedColumnName = "id")
@@ -58,13 +61,14 @@ public class Order extends BaseEntity {
     private User shipper;
 
     public Order(Order order) {
-        super.setId(order.getId());
+        this.setId(order.getId());
         this.setDatePickup(order.getDatePickup());
         this.setDateDelivery(order.getDateDelivery());
         this.setPrice(order.getPrice());
         this.setVoucherPickup(order.getVoucherPickup());
         this.setVoucherDelivery(order.getVoucherDelivery());
         this.setTruckCategory(order.getTruckCategory());
+        this.setShipper(new User(order.getShipper()));
     }
 
     public String toString() {

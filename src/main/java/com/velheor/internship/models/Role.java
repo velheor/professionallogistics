@@ -28,6 +28,7 @@ public class Role extends BaseEntity {
 
     public Role(Role role) {
         this.setName(role.getName());
+        this.setUser(new User(role.getUser()));
     }
 
     public String toString() {

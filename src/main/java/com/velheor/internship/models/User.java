@@ -1,14 +1,10 @@
 package com.velheor.internship.models;
 
-import com.velheor.internship.models.enums.ERole;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,9 +32,6 @@ public class User extends BaseEntity {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private ERole role;
-
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     private List<Order> carrierOrders;
 
@@ -48,12 +41,11 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trucks_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     private Truck truck;
 
     public User(User user) {
-        super.setId(user.getId());
+        this.setId(user.getId());
         this.setFirstName(user.getFirstName());
         this.setLastName(user.getLastName());
         this.setEmail(user.getEmail());
@@ -65,7 +57,6 @@ public class User extends BaseEntity {
     public String toString() {
         return "User(id=" + super.getId() + ", firstName=" + this.getFirstName() + ", lastName="
             + this.getLastName() + ", email=" + this.getEmail() + ", phoneNumber=" + this
-            .getPhoneNumber() + ", password=" + this.getPassword() + ", role=" + this.getRole()
-            + ")";
+            .getPhoneNumber() + ", password=" + this.getPassword() + ")";
     }
 }

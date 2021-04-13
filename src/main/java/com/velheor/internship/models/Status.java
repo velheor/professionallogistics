@@ -1,6 +1,6 @@
 package com.velheor.internship.models;
 
-import com.velheor.internship.models.enums.EStatusHistory;
+import com.velheor.internship.models.enums.EStatus;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "status_history")
+@Table(name = "statuses")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Status extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    private EStatusHistory name;
+    private EStatus name;
 
     @Column(name = "status_date")
     private LocalDateTime statusDate;
@@ -32,9 +32,10 @@ public class Status extends BaseEntity {
     private Order order;
 
     public Status(Status status) {
-        super.setId(status.getId());
+        this.setId(status.getId());
         this.setName(status.getName());
         this.setStatusDate(status.getStatusDate());
+        this.setOrder(new Order(status.getOrder()));
     }
 
     public String toString() {

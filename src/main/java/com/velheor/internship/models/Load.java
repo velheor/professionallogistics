@@ -28,10 +28,11 @@ public class Load extends BaseEntity {
     private Order order;
 
     public Load(Load load) {
-        super.setId(load.getId());
+        this.setId(load.getId());
         this.setName(load.getName());
         this.setWeight(load.getWeight());
         this.setDetails(load.getDetails());
+        this.setOrder(new Order(load.getOrder()));
     }
 
     @Override

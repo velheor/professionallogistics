@@ -4,7 +4,10 @@ import com.velheor.internship.models.enums.ETruckCategory;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -26,14 +29,16 @@ public class Truck extends BaseEntity {
     @Column(name = "max_weight")
     private BigDecimal maxWeight;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "truck_category")
     private ETruckCategory truckCategory;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "truck")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
     private User user;
 
     public Truck(Truck truck) {
-        super.setId(truck.getId());
+        this.setId(truck.getId());
         this.setName(truck.getName());
         this.setRegistrationNumber(truck.getRegistrationNumber());
         this.setMaxWeight(truck.getMaxWeight());

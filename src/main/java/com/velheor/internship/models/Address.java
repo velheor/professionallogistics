@@ -2,8 +2,6 @@ package com.velheor.internship.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +23,6 @@ public class Address extends BaseEntity {
 
     @Column(name = "street_number")
     private String streetNumber;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "addressTo")
-    private Route routeTo;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "addressFrom")
-    private Route routeFrom;
 
     public Address(Address address) {
         this.setCountry(address.getCountry());
