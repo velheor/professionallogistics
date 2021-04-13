@@ -45,6 +45,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "shipper", cascade = CascadeType.ALL)
     private List<Order> shipperOrders;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Role> roles;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "trucks_id", referencedColumnName = "id")
     private Truck truck;
@@ -56,7 +59,6 @@ public class User extends BaseEntity {
         this.setEmail(user.getEmail());
         this.setPhoneNumber(user.getPhoneNumber());
         this.setPassword(user.getPassword());
-        this.setRole(user.getRole());
     }
 
     @Override

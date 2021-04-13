@@ -1,10 +1,11 @@
 package com.velheor.internship.models;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,24 +18,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Route extends BaseEntity {
 
-    @Column(name = "address_to")
-    private String addressTo;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_to_id", referencedColumnName = "id")
+    private Address addressTo;
 
-    @Column(name = "address_from")
-    private String addressFrom;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_from_id", referencedColumnName = "id")
+    private Address addressFrom;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
-
-    public Route(Route route) {
-        super.setId(route.getId());
-        this.setAddressTo(route.getAddressTo());
-        this.setAddressFrom(route.getAddressFrom());
-    }
-
-    public String toString() {
-        return "Route(addressTo=" + this.getAddressTo() + ", addressFrom=" + this.getAddressFrom()
-            + ")";
-    }
 }
