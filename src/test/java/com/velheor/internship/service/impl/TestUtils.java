@@ -15,10 +15,10 @@ import java.util.UUID;
 
 public final class TestUtils {
 
-    static User USER1;
-    static User USER2;
     static Truck TRUCK1;
     static Truck TRUCK2;
+    static User USER1;
+    static User USER2;
     static Order ORDER1;
     static Order ORDER2;
     static Load LOAD1;
@@ -30,35 +30,15 @@ public final class TestUtils {
     static Integer EXPECTED_SIZE = 1;
 
     static {
-        setUpUser();
         setUpTruck();
+        setUpUser();
         setUpOrder();
         setUpLoad();
-        setUpStatusHistory();
-        setUpOrderAddress();
+        setUpStatus();
+        setUpRoute();
     }
 
     private TestUtils() {
-    }
-
-    static void setUpUser() {
-        USER1 = new User();
-        USER1.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));
-        USER1.setFirstName("Ivan");
-        USER1.setLastName("Ivanov");
-        USER1.setEmail("ivan@gmail.com");
-        USER1.setPhoneNumber("+375331234567");
-        USER1.setPassword("pass1");
-        USER1.setRole(ERole.CARRIER);
-
-        USER2 = new User();
-        USER2.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
-        USER2.setFirstName("Petr");
-        USER2.setLastName("Petrov");
-        USER2.setEmail("petr@gmail.com");
-        USER2.setPhoneNumber("+375296888258");
-        USER2.setPassword("pass2");
-        USER2.setRole(ERole.CARRIER);
     }
 
     static void setUpTruck() {
@@ -77,18 +57,42 @@ public final class TestUtils {
         TRUCK2.setTruckCategory(ETruckCategory.ALL_METAL);
     }
 
+    static void setUpUser() {
+        USER1 = new User();
+        USER1.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));
+        USER1.setFirstName("Ivan");
+        USER1.setLastName("Ivanov");
+        USER1.setEmail("ivan@gmail.com");
+        USER1.setPhoneNumber("+375331234567");
+        USER1.setPassword("pass1");
+        USER1.setRole(ERole.CARRIER);
+        USER1.setTruck(TRUCK1);
+
+        USER2 = new User();
+        USER2.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
+        USER2.setFirstName("Petr");
+        USER2.setLastName("Petrov");
+        USER2.setEmail("petr@gmail.com");
+        USER2.setPhoneNumber("+375296888258");
+        USER2.setPassword("pass2");
+        USER2.setRole(ERole.SHIPPER);
+    }
+
     static void setUpOrder() {
         ORDER1 = new Order();
         ORDER1.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
         ORDER1.setDatePickup(LocalDateTime.of(2021, 1, 3, 11, 30));
         ORDER1.setDateDelivery(LocalDateTime.of(2021, 1, 10, 10, 0));
         ORDER1.setPrice(new BigDecimal(4000));
+        ORDER1.setCarrier(USER1);
+        ORDER1.setShipper(USER2);
 
         ORDER2 = new Order();
         ORDER2.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
         ORDER2.setDateDelivery(LocalDateTime.of(2021, 2, 10, 12, 0));
         ORDER2.setDatePickup(LocalDateTime.of(2021, 2, 12, 6, 0));
         ORDER2.setPrice(new BigDecimal(5000));
+        ORDER2.setShipper(USER2);
     }
 
     static void setUpLoad() {
@@ -107,21 +111,21 @@ public final class TestUtils {
         LOAD2.setOrder(ORDER2);
     }
 
-    static void setUpStatusHistory() {
+    static void setUpStatus() {
         STATUS1 = new Status();
         STATUS1.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
-        STATUS1.setName(EStatusHistory.STARTED);
+        STATUS1.setName(EStatusHistory.WAITING_FOR_LOADING);
         STATUS1.setStatusDate(LocalDateTime.of(2020, 1, 4, 11, 30));
         STATUS1.setOrder(ORDER1);
 
         STATUS2 = new Status();
         STATUS2.setId(UUID.fromString("811f7588-96d8-11eb-a8b3-0242ac130003"));
-        STATUS2.setName(EStatusHistory.ENDED);
+        STATUS2.setName(EStatusHistory.WAITING_FOR_CARRIER);
         STATUS2.setStatusDate(LocalDateTime.of(2021, 1, 4, 11, 30));
         STATUS2.setOrder(ORDER2);
     }
 
-    static void setUpOrderAddress() {
+    static void setUpRoute() {
         ROUTE1 = new Route();
         ROUTE1.setId(UUID.fromString("a12ee7be-9589-11eb-a8b3-0242ac130003"));
         ROUTE1.setAddressTo("HRODNO");

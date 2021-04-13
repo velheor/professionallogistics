@@ -1,5 +1,5 @@
 package com.velheor.internship.models.enums;
 
 public enum EStatusHistory {
-    WAITING_FOR_SHIPPER, WAITING_FOR_LOADING, ON_WAY, ENDED, CANCELED, STARTED
+    WAITING_FOR_CARRIER, WAITING_FOR_LOADING, ON_WAY, ENDED, CANCELED, STARTED
 }
