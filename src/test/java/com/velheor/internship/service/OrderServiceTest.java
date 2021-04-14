@@ -1,13 +1,14 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.TestUtils.ORDER1;
-import static com.velheor.internship.service.TestUtils.ORDER2;
-import static com.velheor.internship.service.TestUtils.ORDER_IGNORE;
-import static com.velheor.internship.service.TestUtils.USER2;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.ORDER1;
+import static com.velheor.internship.utils.TestUtils.ORDER2;
+import static com.velheor.internship.utils.TestUtils.ORDER_IGNORE;
+import static com.velheor.internship.utils.TestUtils.USER2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.velheor.internship.BaseTest;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.enums.ETruckCategory;
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class OrderServiceTest extends BaseServiceTest {
+class OrderServiceTest extends BaseTest {
 
     @Autowired
     private OrderService orderService;

@@ -1,4 +1,4 @@
-package com.velheor.internship.service;
+package com.velheor.internship.utils;
 
 import com.velheor.internship.models.Address;
 import com.velheor.internship.models.Load;
@@ -16,28 +16,28 @@ import java.util.UUID;
 
 public final class TestUtils {
 
-    static Truck TRUCK1;
-    static Truck TRUCK2;
-    static String[] TRUCK_IGNORE;
-    static Role ROLE1;
-    static Role ROLE2;
-    static String[] ROLE_IGNORE;
-    static User USER1;
-    static User USER2;
-    static String[] USER_IGNORE;
-    static Order ORDER1;
-    static Order ORDER2;
-    static String[] ORDER_IGNORE;
-    static Load LOAD1;
-    static Load LOAD2;
-    static String[] LOAD_IGNORE;
-    static Status STATUS1;
-    static Status STATUS2;
-    static String[] STATUS_IGNORE;
-    static Address ADDRESS1;
-    static Address ADDRESS2;
-    static String[] ADDRESS_IGNORE;
-    static Integer EXPECTED_SIZE = 1;
+    public static Truck TRUCK1;
+    public static Truck TRUCK2;
+    public static String[] TRUCK_IGNORE;
+    public static Role ROLE1;
+    public static Role ROLE2;
+    public static String[] ROLE_IGNORE;
+    public static User USER1;
+    public static User USER2;
+    public static String[] USER_IGNORE;
+    public static Order ORDER1;
+    public static Order ORDER2;
+    public static String[] ORDER_IGNORE;
+    public static Load LOAD1;
+    public static Load LOAD2;
+    public static String[] LOAD_IGNORE;
+    public static Status STATUS1;
+    public static Status STATUS2;
+    public static String[] STATUS_IGNORE;
+    public static Address ADDRESS1;
+    public static Address ADDRESS2;
+    public static String[] ADDRESS_IGNORE;
+    public static Integer EXPECTED_SIZE = 1;
 
     static {
         setUpTruck();
@@ -52,7 +52,7 @@ public final class TestUtils {
     private TestUtils() {
     }
 
-    static void setUpTruck() {
+    public static void setUpTruck() {
         TRUCK_IGNORE = new String[]{"user"};
         TRUCK1 = new Truck();
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
@@ -69,7 +69,7 @@ public final class TestUtils {
         TRUCK2.setTruckCategory(ETruckCategory.ALL_METAL);
     }
 
-    static void setUpUser() {
+    public static void setUpUser() {
 
         USER_IGNORE = new String[]{"carrierOrders", "shipperOrders", "roles",
             "truck"};
@@ -91,7 +91,7 @@ public final class TestUtils {
         USER2.setPassword("pass2");
     }
 
-    static void setUpRole() {
+    public static void setUpRole() {
         ROLE_IGNORE = new String[]{"user"};
 
         ROLE1 = new Role();
@@ -100,12 +100,12 @@ public final class TestUtils {
         ROLE1.setUser(USER1);
 
         ROLE2 = new Role();
-        ROLE2.setId(UUID.fromString("d2cba0ce-9c4a-11eb-a8b3-0242ac130003"));
+        ROLE2.setId(UUID.fromString("faf2d93a-9c4c-11eb-a8b3-0242ac130003"));
         ROLE2.setName(ERole.SHIPPER);
         ROLE1.setUser(USER2);
     }
 
-    static void setUpOrder() {
+    public static void setUpOrder() {
         ORDER_IGNORE = new String[]{"carrier", "shipper", "routes", "loads", "statuses"};
 
         ORDER1 = new Order();
@@ -125,7 +125,7 @@ public final class TestUtils {
         ORDER2.setTruckCategory(ETruckCategory.ALL_METAL);
     }
 
-    static void setUpLoad() {
+    public static void setUpLoad() {
         LOAD_IGNORE = new String[]{"order"};
 
         LOAD1 = new Load();
@@ -142,7 +142,7 @@ public final class TestUtils {
         LOAD2.setDetails("HEINEKEN");
     }
 
-    static void setUpStatus() {
+    public static void setUpStatus() {
         STATUS_IGNORE = new String[]{"order"};
 
         STATUS1 = new Status();
@@ -158,7 +158,7 @@ public final class TestUtils {
         STATUS2.setOrder(ORDER2);
     }
 
-    static void setUpAddresses() {
+    public static void setUpAddresses() {
         ADDRESS_IGNORE = new String[]{"routeTo", "routeFrom"};
         ADDRESS1 = new Address();
         ADDRESS1.setId(UUID.fromString("fe8866ce-9c4b-11eb-a8b3-0242ac130003"));

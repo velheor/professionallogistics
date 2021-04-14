@@ -1,13 +1,14 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.TestUtils.ROLE1;
-import static com.velheor.internship.service.TestUtils.ROLE2;
-import static com.velheor.internship.service.TestUtils.ROLE_IGNORE;
-import static com.velheor.internship.service.TestUtils.USER2;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.ROLE1;
+import static com.velheor.internship.utils.TestUtils.ROLE2;
+import static com.velheor.internship.utils.TestUtils.ROLE_IGNORE;
+import static com.velheor.internship.utils.TestUtils.USER2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.velheor.internship.BaseTest;
 import com.velheor.internship.models.Role;
 import com.velheor.internship.models.enums.ERole;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class RoleServiceTest extends BaseServiceTest {
+class RoleServiceTest extends BaseTest {
 
     @Autowired
     private RoleService roleService;

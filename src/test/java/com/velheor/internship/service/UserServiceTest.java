@@ -3,7 +3,9 @@ package com.velheor.internship.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.velheor.internship.BaseTest;
 import com.velheor.internship.models.User;
+import com.velheor.internship.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class UserServiceTest extends BaseServiceTest {
+class UserServiceTest extends BaseTest {
 
     @Autowired
     private UserService userService;

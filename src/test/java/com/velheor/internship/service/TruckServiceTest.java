@@ -1,12 +1,13 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.TestUtils.TRUCK1;
-import static com.velheor.internship.service.TestUtils.TRUCK2;
-import static com.velheor.internship.service.TestUtils.TRUCK_IGNORE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.TRUCK1;
+import static com.velheor.internship.utils.TestUtils.TRUCK2;
+import static com.velheor.internship.utils.TestUtils.TRUCK_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.velheor.internship.BaseTest;
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.enums.ETruckCategory;
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class TruckServiceTest extends BaseServiceTest {
+class TruckServiceTest extends BaseTest {
 
     @Autowired
     private TruckService truckService;
