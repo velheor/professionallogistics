@@ -7,5 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface LoadMapper {
 
-    LoadDTO loadToLoadDTO(Load load);
+    LoadDTO loadToLoadDto(Load load);
+
+    Load loadDtoToLoad(LoadDTO loadDTO);
 }

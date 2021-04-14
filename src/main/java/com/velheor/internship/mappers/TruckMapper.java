@@ -7,5 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface TruckMapper {
 
-    TruckDTO truckToTruckDTO(Truck truck);
+    TruckDTO truckToTruckDto(Truck truck);
+
+    Truck truckDtoToTruck(TruckDTO truckDTO);
 }
