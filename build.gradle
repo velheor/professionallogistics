@@ -17,8 +17,11 @@ dependencies {
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
 
-    implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
-
+    //spring-web
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.5'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: "${spring}"
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.3'
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
@@ -27,7 +30,6 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-core', version: "${hibernate}"
     runtime group: 'mysql', name: 'mysql-connector-java', version: "${mysql}"
     implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
-
     implementation group: 'org.liquibase', name: 'liquibase-core', version: "${liquibase}"
 
     //test
@@ -37,6 +39,9 @@ dependencies {
     testImplementation group: 'org.springframework', name: 'spring-test', version: "${spring}"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: "${assertJ}"
 
+    //mapstruct
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: "${mapstruct}"
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: "${mapstruct}"
 }
 
 test {
