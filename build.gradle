@@ -18,10 +18,11 @@ dependencies {
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
 
     //spring-web
-    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.5'
+    implementation group: 'org.springframework', name: 'spring-web', version: "${spring}"
     implementation group: 'org.springframework', name: 'spring-webmvc', version: "${spring}"
-    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.3'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
+    implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
