@@ -4,25 +4,23 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 public class OrderDTO extends BaseDTO {
 
-    @NotNull(message = "{datePickup.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private LocalDateTime datePickup;
 
-    @NotNull(message = "{dateDelivery.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private LocalDateTime dateDelivery;
 
-    @NotNull(message = "{price.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private BigDecimal price;
 
     private String voucherPickup;
 
     private String voucherDelivery;
 
-    @NotNull(message = "{truckCategory.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String truckCategory;
 }

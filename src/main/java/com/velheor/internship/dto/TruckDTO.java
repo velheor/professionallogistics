@@ -7,15 +7,15 @@ import lombok.Data;
 @Data
 public class TruckDTO extends BaseDTO {
 
-    @NotNull(message = "{truckName.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String name;
 
-    @NotNull(message = "{registrationNumber.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String registrationNumber;
 
-    @NotNull(message = "{maxWeight.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private BigDecimal maxWeight;
 
-    @NotNull(message = "{truckCategory.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String truckCategory;
 }

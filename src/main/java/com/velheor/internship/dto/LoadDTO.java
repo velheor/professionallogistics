@@ -8,13 +8,13 @@ import lombok.Data;
 @Data
 public class LoadDTO extends BaseDTO {
 
-    @NotNull(message = "{name.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String name;
 
-    @NotNull(message = "{weight.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private BigDecimal weight;
 
-    @NotNull(message = "{details.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     @Min(value = 20, message = "{min.symbol}")
     private String description;
 }

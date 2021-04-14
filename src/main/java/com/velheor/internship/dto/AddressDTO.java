@@ -6,15 +6,15 @@ import lombok.Data;
 @Data
 public class AddressDTO extends BaseDTO {
 
-    @NotNull(message = "{country.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String country;
 
-    @NotNull(message = "{city.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String city;
 
-    @NotNull(message = "{streetName.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String streetName;
 
-    @NotNull(message = "{streetNumber.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String streetNumber;
 }

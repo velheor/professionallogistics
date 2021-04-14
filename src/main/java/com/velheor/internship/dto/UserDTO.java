@@ -8,17 +8,17 @@ import lombok.Data;
 @Data
 public class UserDTO extends BaseDTO {
 
-    @NotNull(message = "{firstName.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String firstName;
 
-    @NotNull(message = "{lastName.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String lastName;
 
-    @NotNull(message = "{email.notEmpty}")
-    @Email(message = "{email.validation}")
+    @NotNull(message = "{notEmpty}")
+    @Email(message = "{validation}")
     private String email;
 
-    @NotNull(message = "{phoneNumber.notEmpty}")
+    @NotNull(message = "{notEmpty}")
     private String phoneNumber;
 
     private List<RoleDTO> roles;
