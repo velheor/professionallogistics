@@ -2,10 +2,7 @@ package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.OrderDTO;
 import com.velheor.internship.mappers.OrderMapper;
-import com.velheor.internship.mappers.OrderMapper;
-import com.velheor.internship.models.Order;
 import com.velheor.internship.service.OrderService;
-import com.velheor.internship.service.orderservice;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+
     private final OrderService orderService;
     private final OrderMapper orderMapper;
 

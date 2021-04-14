@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public class LoadController {
+
     private final LoadService loadService;
     private final LoadMapper loadMapper;
 
     @Autowired
-
     public LoadController(LoadService LoadService, LoadMapper LoadMapper) {
         this.loadService = LoadService;
         this.loadMapper = LoadMapper;
