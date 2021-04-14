@@ -5,8 +5,12 @@ import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +30,27 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO findById(@PathVariable("id") UUID id) {
         return userMapper.userToUserDto(userService.findById(id));
+    }
+
+    @GetMapping("/{email}")
+    public UserDTO findByEmail(@PathVariable("email") String email) {
+        return userMapper.userToUserDto(userService.findByEmail(email));
+    }
+
+    @PutMapping
+    public UserDTO update(@RequestBody UserDTO userDTO) {
+        userService.save(userMapper.userDtoToUser(userDTO));
+        return userDTO;
+    }
+
+    @PostMapping
+    public UserDTO save(@RequestBody UserDTO userDTO) {
+        userService.save(userMapper.userDtoToUser(userDTO));
+        return userDTO;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") UUID id) {
+        userService.deleteById(id);
     }
 }
