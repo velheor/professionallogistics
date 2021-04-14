@@ -1,14 +1,9 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
-import static com.velheor.internship.service.impl.TestUtils.ADDRESS1;
-import static com.velheor.internship.service.impl.TestUtils.ADDRESS2;
-import static com.velheor.internship.service.impl.TestUtils.ADDRESS_IGNORE;
-import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Address;
-import com.velheor.internship.service.AddressService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +19,9 @@ class AddressServiceTest extends BaseServiceTest {
 
     @Test
     void findByIdReturnsAddress() {
-        Address actual = addressService.findById(ADDRESS1.getId());
+        Address actual = addressService.findById(TestUtils.ADDRESS1.getId());
         assertThat(actual)
-            .isEqualToIgnoringGivenFields(ADDRESS1, ADDRESS_IGNORE);
+            .isEqualToIgnoringGivenFields(TestUtils.ADDRESS1, TestUtils.ADDRESS_IGNORE);
     }
 
     @Test
@@ -46,17 +41,17 @@ class AddressServiceTest extends BaseServiceTest {
         Address actual = addressService.save(expected);
 
         assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ADDRESS_IGNORE);
+            .isEqualToIgnoringGivenFields(expected, TestUtils.ADDRESS_IGNORE);
     }
 
     @Test
     void update() {
-        Address expected = new Address(ADDRESS1);
+        Address expected = new Address(TestUtils.ADDRESS1);
 
         Address actual = addressService.save(expected);
 
         assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ADDRESS_IGNORE);
+            .isEqualToIgnoringGivenFields(expected, TestUtils.ADDRESS_IGNORE);
     }
 
     @Test
@@ -64,25 +59,25 @@ class AddressServiceTest extends BaseServiceTest {
         List<Address> actualAll = new ArrayList<>();
         addressService.getAll().forEach(actualAll::add);
         List<Address> expectedAll = Arrays
-            .asList(ADDRESS1, ADDRESS2);
+            .asList(TestUtils.ADDRESS1, TestUtils.ADDRESS2);
 
-        assertThat(expectedAll).usingElementComparatorIgnoringFields(ADDRESS_IGNORE)
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(TestUtils.ADDRESS_IGNORE)
             .isEqualTo(actualAll);
 
     }
 
     @Test
     public void deleteById() {
-        addressService.deleteById(ADDRESS1.getId());
+        addressService.deleteById(TestUtils.ADDRESS1.getId());
 
         int actualSize = 0;
         for (Object ignored : addressService.getAll()) {
             actualSize++;
         }
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(TestUtils.EXPECTED_SIZE);
 
-        assertThatThrownBy(() -> addressService.findById(ADDRESS1.getId()))
+        assertThatThrownBy(() -> addressService.findById(TestUtils.ADDRESS1.getId()))
             .isInstanceOf(EntityNotFoundException.class);
 
     }

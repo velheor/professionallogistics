@@ -1,16 +1,15 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
-import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.impl.TestUtils.ROLE1;
-import static com.velheor.internship.service.impl.TestUtils.ROLE2;
-import static com.velheor.internship.service.impl.TestUtils.ROLE_IGNORE;
-import static com.velheor.internship.service.impl.TestUtils.USER2;
+import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.service.TestUtils.ROLE1;
+import static com.velheor.internship.service.TestUtils.ROLE2;
+import static com.velheor.internship.service.TestUtils.ROLE_IGNORE;
+import static com.velheor.internship.service.TestUtils.USER2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Role;
 import com.velheor.internship.models.enums.ERole;
-import com.velheor.internship.service.RoleService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

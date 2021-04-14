@@ -1,15 +1,14 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
-import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK1;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK2;
-import static com.velheor.internship.service.impl.TestUtils.TRUCK_IGNORE;
+import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.service.TestUtils.TRUCK1;
+import static com.velheor.internship.service.TestUtils.TRUCK2;
+import static com.velheor.internship.service.TestUtils.TRUCK_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.enums.ETruckCategory;
-import com.velheor.internship.service.TruckService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

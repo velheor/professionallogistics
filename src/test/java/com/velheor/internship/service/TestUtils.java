@@ -1,4 +1,4 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
 import com.velheor.internship.models.Address;
 import com.velheor.internship.models.Load;

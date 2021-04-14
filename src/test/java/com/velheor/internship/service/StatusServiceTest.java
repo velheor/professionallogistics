@@ -1,16 +1,15 @@
-package com.velheor.internship.service.impl;
+package com.velheor.internship.service;
 
-import static com.velheor.internship.service.impl.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.service.impl.TestUtils.ORDER1;
-import static com.velheor.internship.service.impl.TestUtils.STATUS1;
-import static com.velheor.internship.service.impl.TestUtils.STATUS2;
-import static com.velheor.internship.service.impl.TestUtils.STATUS_IGNORE;
+import static com.velheor.internship.service.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.service.TestUtils.ORDER1;
+import static com.velheor.internship.service.TestUtils.STATUS1;
+import static com.velheor.internship.service.TestUtils.STATUS2;
+import static com.velheor.internship.service.TestUtils.STATUS_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.models.Status;
 import com.velheor.internship.models.enums.EStatus;
-import com.velheor.internship.service.StatusService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
