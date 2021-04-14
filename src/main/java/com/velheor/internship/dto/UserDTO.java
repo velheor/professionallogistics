@@ -3,11 +3,9 @@ package com.velheor.internship.dto;
 import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserDTO extends BaseDTO {
 
     @NotNull(message = "{firstName.notEmpty}")

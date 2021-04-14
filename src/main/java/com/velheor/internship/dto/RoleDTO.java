@@ -1,10 +1,8 @@
 package com.velheor.internship.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class RoleDTO {
 
     private String name;

@@ -3,12 +3,9 @@ package com.velheor.internship.dto;
 import java.math.BigDecimal;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class LoadDTO extends BaseDTO {
 
     @NotNull(message = "{name.notEmpty}")
