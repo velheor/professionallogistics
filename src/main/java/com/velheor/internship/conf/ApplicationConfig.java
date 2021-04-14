@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("com.velheor.internship")
-@Import({PersistenceConfig.class, LiquiBaseConfig.class, WebConfig.class})
 @RequiredArgsConstructor
 public class ApplicationConfig {
 

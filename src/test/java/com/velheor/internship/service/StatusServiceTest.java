@@ -28,8 +28,7 @@ class StatusServiceTest extends BaseTest {
     void findById() {
         Status actual = statusService.findById(STATUS1.getId());
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(STATUS1, STATUS_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(STATUS1, STATUS_IGNORE);
     }
 
     @Test
@@ -48,8 +47,7 @@ class StatusServiceTest extends BaseTest {
         expected.setOrder(ORDER1);
         Status actual = statusService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
     }
 
     @Test
@@ -58,8 +56,7 @@ class StatusServiceTest extends BaseTest {
         expected.setName(EStatus.CANCELED);
         Status actual = statusService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);
     }
 
     @Test

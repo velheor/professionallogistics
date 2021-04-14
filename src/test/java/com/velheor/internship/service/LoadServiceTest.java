@@ -1,11 +1,15 @@
 package com.velheor.internship.service;
 
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.LOAD1;
+import static com.velheor.internship.utils.TestUtils.LOAD2;
+import static com.velheor.internship.utils.TestUtils.LOAD_IGNORE;
+import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.velheor.internship.BaseTest;
 import com.velheor.internship.models.Load;
-import com.velheor.internship.utils.TestUtils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +25,9 @@ class LoadServiceTest extends BaseTest {
 
     @Test
     void findById() {
-        Load actual = loadService.findById(TestUtils.LOAD1.getId());
+        Load actual = loadService.findById(LOAD1.getId());
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(TestUtils.LOAD1, TestUtils.LOAD_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(LOAD1, LOAD_IGNORE);
     }
 
     @Test
@@ -41,46 +44,44 @@ class LoadServiceTest extends BaseTest {
         expected.setName("FURNITURE");
         expected.setWeight(new BigDecimal("0.5"));
         expected.setDetails("Just furniture");
-        expected.setOrder(TestUtils.ORDER1);
+        expected.setOrder(ORDER1);
         Load actual = loadService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, TestUtils.LOAD_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, LOAD_IGNORE);
     }
 
     @Test
     void update() {
-        Load expected = new Load(TestUtils.LOAD1);
+        Load expected = new Load(LOAD1);
         expected.setName("Test");
         Load actual = loadService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, TestUtils.LOAD_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, LOAD_IGNORE);
     }
 
     @Test
     void getAll() {
-        List<Load> expectedAll = List.of(TestUtils.LOAD1, TestUtils.LOAD2);
+        List<Load> expectedAll = List.of(LOAD1, LOAD2);
         List<Load> actualAll = new ArrayList<>();
         loadService.getAll().forEach(actualAll::add);
 
-        assertThat(expectedAll).usingElementComparatorIgnoringFields(TestUtils.LOAD_IGNORE)
+        assertThat(expectedAll).usingElementComparatorIgnoringFields(LOAD_IGNORE)
             .isEqualTo(actualAll);
 
     }
 
     @Test
     void deleteById() {
-        loadService.deleteById(TestUtils.LOAD1.getId());
+        loadService.deleteById(LOAD1.getId());
 
         int actualSize = 0;
         for (Object ignored : loadService.getAll()) {
             actualSize++;
         }
 
-        assertThat(actualSize).isEqualTo(TestUtils.EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
-        assertThatThrownBy(() -> loadService.findById(TestUtils.LOAD1.getId()))
+        assertThatThrownBy(() -> loadService.findById(LOAD1.getId()))
             .isInstanceOf(EntityNotFoundException.class);
     }
 }

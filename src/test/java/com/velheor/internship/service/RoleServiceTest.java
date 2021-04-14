@@ -27,8 +27,7 @@ class RoleServiceTest extends BaseTest {
     void findById() {
         Role actual = roleService.findById(ROLE1.getId());
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(ROLE1, ROLE_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(ROLE1, ROLE_IGNORE);
     }
 
     @Test
@@ -46,8 +45,7 @@ class RoleServiceTest extends BaseTest {
         expected.setUser(USER2);
         Role actual = roleService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ROLE_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ROLE_IGNORE);
     }
 
     @Test
@@ -56,8 +54,7 @@ class RoleServiceTest extends BaseTest {
         expected.setName(ERole.ADMIN);
         Role actual = roleService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ROLE_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ROLE_IGNORE);
     }
 
     @Test

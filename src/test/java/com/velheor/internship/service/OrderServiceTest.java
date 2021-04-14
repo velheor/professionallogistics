@@ -29,8 +29,7 @@ class OrderServiceTest extends BaseTest {
     void findById() {
         Order actual = orderService.findById(ORDER1.getId());
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(ORDER1, ORDER_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(ORDER1, ORDER_IGNORE);
     }
 
     @Test
@@ -51,8 +50,7 @@ class OrderServiceTest extends BaseTest {
         expected.setShipper(USER2);
         Order actual = orderService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
     }
 
     @Test
@@ -61,8 +59,7 @@ class OrderServiceTest extends BaseTest {
         expected.setTruckCategory(ETruckCategory.COVERED);
         Order actual = orderService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, ORDER_IGNORE);
     }
 
     @Test

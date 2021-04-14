@@ -27,8 +27,7 @@ class TruckServiceTest extends BaseTest {
     void findById() {
         Truck actual = truckService.findById(TRUCK1.getId());
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(TRUCK1, TRUCK_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(TRUCK1, TRUCK_IGNORE);
     }
 
     @Test
@@ -48,8 +47,7 @@ class TruckServiceTest extends BaseTest {
         expected.setTruckCategory(ETruckCategory.ALL_METAL);
         Truck actual = truckService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
     }
 
     @Test
@@ -59,8 +57,7 @@ class TruckServiceTest extends BaseTest {
         expected.setMaxWeight(new BigDecimal("5.0"));
         Truck actual = truckService.save(expected);
 
-        assertThat(actual)
-            .isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, TRUCK_IGNORE);
     }
 
     @Test
