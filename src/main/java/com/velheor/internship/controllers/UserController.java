@@ -32,11 +32,6 @@ public class UserController {
         return userMapper.userToUserDto(userService.findById(id));
     }
 
-    @GetMapping("/{email}")
-    public UserDTO findByEmail(@PathVariable("email") String email) {
-        return userMapper.userToUserDto(userService.findByEmail(email));
-    }
-
     @PutMapping
     public UserDTO update(@RequestBody UserDTO userDTO) {
         userService.save(userMapper.userDtoToUser(userDTO));

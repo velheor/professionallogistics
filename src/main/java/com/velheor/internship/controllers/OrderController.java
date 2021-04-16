@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -30,6 +30,11 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderDTO findById(@PathVariable("id") UUID id) {
         return orderMapper.orderToOrderDto(orderService.findById(id));
+    }
+
+    @GetMapping
+    public Iterable<OrderDTO> getAll() {
+        return orderMapper.ordersToOrdersDto(orderService.getAll());
     }
 
     @PutMapping
