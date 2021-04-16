@@ -9,5 +9,7 @@ public interface OrderMapper {
 
     OrderDTO orderToOrderDto(Order order);
 
+    Iterable<OrderDTO> ordersToOrdersDto(Iterable<Order> orders);
+
     Order orderDtoToOrder(OrderDTO orderDTO);
 }

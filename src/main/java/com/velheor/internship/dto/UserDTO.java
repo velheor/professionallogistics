@@ -27,5 +27,5 @@ public class UserDTO extends BaseDTO {
     @Pattern(regexp = "(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))")
     private String phoneNumber;
 
-    private List<RoleDTO> roles;
+    private List<String> roles;
 }
