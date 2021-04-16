@@ -17,10 +17,15 @@ dependencies {
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
 
+    //logger
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4j}"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4j}"
+
+
     //spring-web
     implementation group: 'org.springframework', name: 'spring-web', version: "${spring}"
     implementation group: 'org.springframework', name: 'spring-webmvc', version: "${spring}"
-    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
+    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
     implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
 
