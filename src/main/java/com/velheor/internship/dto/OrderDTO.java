@@ -22,13 +22,17 @@ public class OrderDTO extends BaseDTO {
     @NotNull(message = "notEmpty")
     private String truckCategory;
 
+    @NotNull(message = "notEmpty")
     private Iterable<LoadDTO> loadsDTO;
 
+    @NotNull(message = "notEmpty")
     private Iterable<StatusDTO> statusesDTO;
 
+    @NotNull(message = "notEmpty")
     private Iterable<RouteDTO> routesDTO;
 
     private UserDTO carrierDTO;
 
+    @NotNull(message = "notEmpty")
     private UserDTO shipperDTO;
 }

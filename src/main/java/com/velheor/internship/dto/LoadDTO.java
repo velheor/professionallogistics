@@ -8,6 +8,7 @@ import lombok.Data;
 public class LoadDTO extends BaseDTO {
 
     @NotNull(message = "notEmpty")
+    @Size(min = 5, message = "notCorrectSize")
     private String name;
 
     @NotNull(message = "notEmpty")

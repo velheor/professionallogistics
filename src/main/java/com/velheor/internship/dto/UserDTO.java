@@ -24,7 +24,7 @@ public class UserDTO extends BaseDTO {
 
     @NotNull(message = "notEmpty")
     @Size(min = 12, max = 12, message = "notCorrectSize")
-    @Pattern(regexp = "(8 0(25|29|33|34) ([0-9]{3}( [0-9]{2}){2}))")
+    @Pattern(regexp = "^\\+375 \\((17|29|33|44)\\) [0-9]{3}-[0-9]{2}-[0-9]{2}$")
     private String phoneNumber;
 
     private List<String> roles;
