@@ -4,7 +4,7 @@ import com.velheor.internship.dto.RoleDTO;
 import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.service.RoleService;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/roles")
+@RequiredArgsConstructor
 public class RoleController {
 
     private final RoleService roleService;
     private final RoleMapper roleMapper;
-
-    @Autowired
-    public RoleController(RoleService roleService, RoleMapper roleMapper) {
-        this.roleService = roleService;
-        this.roleMapper = roleMapper;
-    }
 
     @GetMapping("/{id}")
     public RoleDTO findById(@PathVariable("id") UUID id) {

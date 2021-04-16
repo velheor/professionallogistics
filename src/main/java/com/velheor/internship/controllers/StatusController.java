@@ -4,7 +4,7 @@ import com.velheor.internship.dto.StatusDTO;
 import com.velheor.internship.mappers.StatusMapper;
 import com.velheor.internship.service.StatusService;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,19 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/statuses")
+@RequiredArgsConstructor
 public class StatusController {
 
     private final StatusService statusService;
     private final StatusMapper statusMapper;
-
-    @Autowired
-    public StatusController(StatusService statusService, StatusMapper statusMapper) {
-        this.statusService = statusService;
-        this.statusMapper = statusMapper;
-    }
 
     @GetMapping("/{id}")
     public StatusDTO findById(@PathVariable("id") UUID id) {
