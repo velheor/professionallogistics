@@ -23,7 +23,7 @@
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS orders (
-      `id` VARCHAR(36) NOT NULL,
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `date_pickup` DATETIME NOT NULL,
       `date_delivery` DATETIME NOT NULL,
       `voucher_pickup` VARCHAR(45) NULL,
@@ -35,7 +35,7 @@
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS statuses (
-      `id` VARCHAR(36) NOT NULL,
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `status_date` DATETIME NOT NULL,
       `orders_id` VARCHAR(36) NOT NULL,
@@ -50,7 +50,7 @@
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS addresses (
-      `id` VARCHAR(36) NOT NULL,
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `country` VARCHAR(45) NOT NULL,
       `city` VARCHAR(45) NOT NULL,
       `street_name` VARCHAR(45) NOT NULL,
@@ -58,14 +58,14 @@
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS routes (
-      `id` VARCHAR(36) NOT NULL,
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `orders_id` VARCHAR(45) NOT NULL,
       `address_to_id` VARCHAR(36) NOT NULL,
       `address_from_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS roles (
-      `id` VARCHAR(36) NOT NULL,
+      `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `users_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`))
