@@ -23,15 +23,17 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4j}"
 
     //swagger
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: "${swagger}"
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swagger}"
+    implementation group: 'io.springfox', name: 'springfox-bean-validators', version: "${swagger}"
 
     //spring-web
     implementation group: 'org.springframework', name: 'spring-web', version: "${spring}"
     implementation group: 'org.springframework', name: 'spring-webmvc', version: "${spring}"
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jsr310}"
+
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
@@ -44,8 +46,8 @@ dependencies {
 
     //validation
     implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.7.Final'
-    implementation group: 'org.glassfish', name: 'javax.el', version: '3.0.0'
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidation}"
+    implementation group: 'org.glassfish', name: 'javax.el', version: "${javaxEl}"
 
     //test
     testImplementation group: 'com.h2database', name: 'h2', version: "${h2database}"
