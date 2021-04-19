@@ -5,6 +5,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,6 +19,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedEntityGraph(name = "UserWithTruckAndOrders",
+    attributeNodes = {
+        @NamedAttributeNode("carrierOrders"),
+        @NamedAttributeNode("shipperOrders"),
+        @NamedAttributeNode("truck")
+    }
+)
 public class User extends BaseEntity {
 
     @Column(name = "first_name")

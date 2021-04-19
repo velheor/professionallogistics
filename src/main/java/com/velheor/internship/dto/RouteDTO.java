@@ -7,8 +7,8 @@ import lombok.Data;
 public class RouteDTO extends BaseDTO {
 
     @NotNull(message = "{notEmpty}")
-    private String addressTo;
+    private AddressViewDTO addressTo;
 
     @NotNull(message = "{notEmpty}")
-    private String addressFrom;
+    private AddressViewDTO addressFrom;
 }

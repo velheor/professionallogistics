@@ -6,11 +6,11 @@
     <sql>
       CREATE TABLE IF NOT EXISTS users (
       `id` VARCHAR(36) UNIQUE NOT NULL,
-      `first_name` VARCHAR(45) NOT NULL,
-      `last_name` VARCHAR(45) NOT NULL,
-      `email` VARCHAR(45) UNIQUE NOT NULL,
-      `phone_number` VARCHAR(45) UNIQUE NOT NULL,
-      `password` VARCHAR(52) NOT NULL,
+      `first_name` VARCHAR(15) NOT NULL,
+      `last_name` VARCHAR(15) NOT NULL,
+      `email` VARCHAR(225) UNIQUE NOT NULL,
+      `phone_number` VARCHAR(19) UNIQUE NOT NULL,
+      `password` VARCHAR(255) NOT NULL,
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS trucks (
@@ -45,21 +45,21 @@
       `id` VARCHAR(36) UNIQUE NOT NULL,
       `name` VARCHAR(45) NOT NULL,
       `weight` DOUBLE NOT NULL,
-      `details` VARCHAR(45) NOT NULL,
+      `details` VARCHAR(255) NOT NULL,
       `orders_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS addresses (
       `id` VARCHAR(36) UNIQUE NOT NULL,
-      `country` VARCHAR(45) NOT NULL,
-      `city` VARCHAR(45) NOT NULL,
-      `street_name` VARCHAR(45) NOT NULL,
-      `street_number` VARCHAR(45) NOT NULL,
+      `country` VARCHAR(20) NOT NULL,
+      `city` VARCHAR(25) NOT NULL,
+      `street_name` VARCHAR(25) NOT NULL,
+      `street_number` VARCHAR(10) NOT NULL,
       PRIMARY KEY (`id`));
 
       CREATE TABLE IF NOT EXISTS routes (
       `id` VARCHAR(36) UNIQUE NOT NULL,
-      `orders_id` VARCHAR(45) NOT NULL,
+      `orders_id` VARCHAR(36) NOT NULL,
       `address_to_id` VARCHAR(36) NOT NULL,
       `address_from_id` VARCHAR(36) NOT NULL,
       PRIMARY KEY (`id`));
