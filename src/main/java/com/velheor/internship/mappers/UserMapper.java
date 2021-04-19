@@ -1,13 +1,13 @@
 package com.velheor.internship.mappers;
 
-import com.velheor.internship.dto.UserDTO;
+import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.models.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserDTO userToUserDto(User user);
+    UserViewDTO userToUserDto(User user);
 
-    User userDtoToUser(UserDTO userDTO);
+    User userDtoToUser(UserViewDTO userViewDTO);
 }

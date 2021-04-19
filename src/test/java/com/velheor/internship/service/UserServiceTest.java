@@ -23,7 +23,7 @@ class UserServiceTest extends BaseTest {
     private UserService userService;
 
     @Test
-    void findByIdReturnsUser() {
+    void findById() {
         User actual = userService.findById(USER1.getId());
         assertThat(actual).isEqualToIgnoringGivenFields(USER1, USER_IGNORE);
     }
@@ -38,6 +38,7 @@ class UserServiceTest extends BaseTest {
     @Test
     void create() {
         User expected = new User();
+        expected.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));
         expected.setFirstName("NotIvan");
         expected.setLastName("NotIvanov");
         expected.setEmail("notivan@gmail.com");
@@ -46,7 +47,7 @@ class UserServiceTest extends BaseTest {
 
         User actual = userService.save(expected);
 
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, USER_IGNORE);
+        assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
     @Test

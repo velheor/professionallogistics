@@ -4,8 +4,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class RoleDTO {
+public class RoleViewDTO {
 
-    @NotNull(message = "notEmpty")
+    @NotNull(message = "{notEmpty}")
     private String name;
 }

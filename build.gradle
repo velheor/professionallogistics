@@ -20,6 +20,11 @@ dependencies {
     //logger
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4j}"
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4j}"
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4j}"
+
+    //swagger
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 
 
     //spring-web
@@ -27,7 +32,6 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-webmvc', version: "${spring}"
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
-    implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
@@ -37,6 +41,11 @@ dependencies {
     runtime group: 'mysql', name: 'mysql-connector-java', version: "${mysql}"
     implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
     implementation group: 'org.liquibase', name: 'liquibase-core', version: "${liquibase}"
+
+    //validation
+    implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.7.Final'
+    implementation group: 'org.glassfish', name: 'javax.el', version: '3.0.0'
 
     //test
     testImplementation group: 'com.h2database', name: 'h2', version: "${h2database}"

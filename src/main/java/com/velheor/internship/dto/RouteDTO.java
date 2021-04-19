@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class RouteDTO extends BaseDTO {
 
-    @NotNull(message = "notEmpty")
-    private AddressDTO addressTo;
+    @NotNull(message = "{notEmpty}")
+    private String addressTo;
 
-    @NotNull(message = "notEmpty")
-    private AddressDTO addressFrom;
+    @NotNull(message = "{notEmpty}")
+    private String addressFrom;
 }

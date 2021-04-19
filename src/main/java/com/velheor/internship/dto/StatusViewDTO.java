@@ -4,11 +4,11 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class StatusDTO extends BaseDTO {
+public class StatusViewDTO extends BaseDTO {
 
-    @NotNull(message = "notEmpty")
+    @NotNull(message = "{notEmpty}")
     private String name;
 
-    @NotNull(message = "notEmpty")
+    @NotNull(message = "{notEmpty}")
     private String statusDate;
 }
