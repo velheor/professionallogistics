@@ -25,7 +25,7 @@ public class UserViewDTO extends BaseDTO {
 
     @NotNull(message = "{notEmpty}")
     @Size(min = 19, max = 19, message = "{notCorrectSize}")
-    @Pattern(regexp = "^\\+375 \\((17|29|33|44)\\) [0-9]{3}-[0-9]{2}-[0-9]{2}$", message = "{notValidNumber}")
+    @Pattern(regexp = "^\\+375 \\((17|29|33|44)\\) [0-9]{3}-[0-9]{2}-[0-9]{2}$", message = "{notValidPhoneNumber}")
     private String phoneNumber;
 
     @NotNull(message = "{notEmpty}")
