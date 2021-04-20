@@ -14,10 +14,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User findById(UUID id) {
-        return userRepository.findById(id)
-            .orElseThrow(
-                () -> new EntityNotFoundException(
-                    "User with id: " + id.toString() + " was not found."));
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+            "User with id: " + id.toString() + " was not found."));
     }
 
     public User save(User user) {
@@ -33,8 +31,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-            .orElseThrow(
-                () -> new EntityNotFoundException("User with email: " + email + " was not found."));
+        return userRepository.findByEmail(email).orElseThrow(
+            () -> new EntityNotFoundException("User with email: " + email + " was not found."));
     }
 }

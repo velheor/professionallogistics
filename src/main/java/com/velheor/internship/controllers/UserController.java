@@ -1,6 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserWithRolesDTO;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
 import io.swagger.annotations.Api;
@@ -32,6 +33,12 @@ public class UserController {
     @ApiOperation(value = "Find by id user view")
     public UserViewDTO findById(@PathVariable("id") UUID id) {
         return userMapper.userToUserDto(userService.findById(id));
+    }
+
+    @GetMapping("/findByEmail/{email}")
+    @ApiOperation(value = "Find by email user with roles")
+    public UserWithRolesDTO findByEmail(@PathVariable("email") String email) {
+        return userMapper.userToUserWithRolesDto(userService.findByEmail(email));
     }
 
     @PutMapping

@@ -19,11 +19,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@NamedEntityGraph(name = "UserWithTruckAndOrders",
+@NamedEntityGraph(name = "UserWithRoles",
     attributeNodes = {
-        @NamedAttributeNode("carrierOrders"),
-        @NamedAttributeNode("shipperOrders"),
-        @NamedAttributeNode("truck")
+        @NamedAttributeNode("roles")
     }
 )
 public class User extends BaseEntity {
