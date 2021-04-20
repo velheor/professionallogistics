@@ -1,6 +1,5 @@
 package com.velheor.internship.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
