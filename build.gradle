@@ -34,6 +34,12 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jsr310}"
 
+    //spring-security
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: "${springSecurityVersion}"
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: "${springSecurityVersion}"
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: "${jjwt}"
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: "${javax_api}"
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"
