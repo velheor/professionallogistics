@@ -1,5 +1,9 @@
 package com.velheor.internship.security.jwt;
 
+import static com.velheor.internship.mappers.UserMapper.rolesToListString;
+
+import com.velheor.internship.exception.JwtAuthenticationException;
+import com.velheor.internship.models.Role;
 import com.velheor.internship.security.JwtUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -22,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:security.properties")
 @RequiredArgsConstructor
-public class JwtTokenProvider {
+public class JwtProvider {
 
     private final JwtUserDetailsService userDetailsService;
 
@@ -40,9 +44,9 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("role", roles);
+        claims.put("roles", rolesToListString(roles));
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
 
@@ -59,17 +63,17 @@ public class JwtTokenProvider {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException(e.getMessage());
+            throw new JwtAuthenticationException();
         }
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "",
             userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {
+    public String getEmail(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 

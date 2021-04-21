@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,23 @@ public class RestExceptionHandler {
             .map(error -> error.getField() + " : " + error.getDefaultMessage())
             .collect(Collectors.toList());
         return new ErrorMessage(HttpStatus.BAD_REQUEST, ex.getMessage(), errors,
+            LocalDateTime.now());
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(JwtAuthenticationException.class)
+    public ErrorMessage jwtAuthenticationException(JwtAuthenticationException ex) {
+        log.info(ex.getMessage());
+        return new ErrorMessage(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex.toString(),
+            LocalDateTime.now());
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    public ErrorMessage badCredentialsException(BadCredentialsException ex) {
+        log.info(ex.getMessage());
+        return new ErrorMessage(HttpStatus.UNAUTHORIZED, ex.getMessage(),
+            "Incorrect email or password",
             LocalDateTime.now());
     }
 }

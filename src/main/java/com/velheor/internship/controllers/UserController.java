@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Find by id user view")
@@ -51,6 +53,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view")
     public UserViewDTO save(@RequestBody @Valid UserViewDTO userViewDTO) {
+        userViewDTO.setPassword(passwordEncoder.encode(userViewDTO.getPassword()));
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
