@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class UserController {
 
     @GetMapping("/findByEmail/{email}")
     @ApiOperation(value = "Find by email user with roles")
+    @PreAuthorize("hasAuthority('developers:read')")
     public UserWithRolesDTO findByEmail(@PathVariable("email") String email) {
         return userMapper.userToUserWithRolesDto(userService.findByEmail(email));
     }
