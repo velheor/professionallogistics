@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/findByEmail/{email}")
     @ApiOperation(value = "Find by email user with roles")
-    @PreAuthorize("hasAuthority('developers:read')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserWithRolesDTO findByEmail(@PathVariable("email") String email) {
         return userMapper.userToUserWithRolesDto(userService.findByEmail(email));
     }
