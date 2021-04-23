@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
+@RequestMapping("/users")
 @Api(tags = {"user crud controller"})
 public class UserController {
 
@@ -40,7 +40,6 @@ public class UserController {
 
     @GetMapping("/findByEmail/{email}")
     @ApiOperation(value = "Find by email user with roles")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public UserWithRolesDTO findByEmail(@PathVariable("email") String email) {
         return userMapper.userToUserWithRolesDto(userService.findByEmail(email));
     }

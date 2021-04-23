@@ -1,6 +1,6 @@
 package com.velheor.internship.conf;
 
-import com.velheor.internship.security.jwt.JwtConfigurer;
+import com.velheor.internship.security.JwtConfigurer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,10 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
-            .antMatchers("/users/**").permitAll()
-            .antMatchers("/addresses/**").hasAuthority("ADMIN")
-            .antMatchers("/**").denyAll()
+            .antMatchers("/**").permitAll()
+            .antMatchers("/roles/**").hasAuthority("ADMIN")
             .anyRequest()
             .authenticated()
             .and()

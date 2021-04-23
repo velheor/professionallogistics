@@ -2,7 +2,7 @@ package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.AuthUserDTO;
 import com.velheor.internship.models.User;
-import com.velheor.internship.security.jwt.JwtProvider;
+import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
