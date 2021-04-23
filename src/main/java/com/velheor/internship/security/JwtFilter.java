@@ -1,4 +1,4 @@
-package com.velheor.internship.security.jwt;
+package com.velheor.internship.security;
 
 import com.velheor.internship.exception.JwtAuthenticationException;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 @Component
@@ -24,7 +25,7 @@ public class JwtFilter extends GenericFilterBean {
         FilterChain filterChain) throws IOException, ServletException {
         String token = jwtProvider.resolveToken((HttpServletRequest) servletRequest);
         try {
-            if (token != null && jwtProvider.validateToken(token)) {
+            if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
                 Authentication authentication = jwtProvider.getAuthentication(token);
                 if (authentication != null) {
                     SecurityContextHolder.getContext().setAuthentication(authentication);

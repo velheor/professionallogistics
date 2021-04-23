@@ -1,4 +1,4 @@
-package com.velheor.internship.security.jwt;
+package com.velheor.internship.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

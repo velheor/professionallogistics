@@ -1,4 +1,4 @@
-package com.velheor.internship.security.jwt;
+package com.velheor.internship.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;

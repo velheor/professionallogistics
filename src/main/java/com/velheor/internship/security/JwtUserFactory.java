@@ -1,4 +1,4 @@
-package com.velheor.internship.security.jwt;
+package com.velheor.internship.security;
 
 import com.velheor.internship.models.Role;
 import com.velheor.internship.models.User;

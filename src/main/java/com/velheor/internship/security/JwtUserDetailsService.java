@@ -1,7 +1,6 @@
 package com.velheor.internship.security;
 
 import com.velheor.internship.models.User;
-import com.velheor.internship.security.jwt.JwtUserFactory;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

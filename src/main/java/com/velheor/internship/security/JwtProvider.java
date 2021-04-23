@@ -1,4 +1,4 @@
-package com.velheor.internship.security.jwt;
+package com.velheor.internship.security;
 
 import static com.velheor.internship.mappers.UserMapper.rolesToListString;
 
