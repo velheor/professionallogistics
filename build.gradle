@@ -35,10 +35,10 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jsr310}"
 
     //spring-security
-    compile group: 'org.springframework.security', name: 'spring-security-core', version: "${springSecurityVersion}"
-    compile group: 'org.springframework.security', name: 'spring-security-config', version: "${springSecurityVersion}"
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: "${jjwt}"
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: "${springSecurityVersion}"
+    implementation group: 'org.springframework.security', name: 'spring-security-config', version: "${springSecurityVersion}"
+    implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: "${jjwt}"
     implementation group: 'javax.annotation', name: 'javax.annotation-api', version: "${javax_api}"
 
     //persistence
@@ -60,7 +60,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "${jupiterTest}"
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${jupiterTest}"
     testImplementation group: 'org.springframework', name: 'spring-test', version: "${spring}"
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: "${springTest}"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: "${assertJ}"
+    testImplementation group: 'org.mockito', name: 'mockito-all', version: "${mockito}"
 
     //mapstruct
     implementation group: 'org.mapstruct', name: 'mapstruct', version: "${mapstruct}"

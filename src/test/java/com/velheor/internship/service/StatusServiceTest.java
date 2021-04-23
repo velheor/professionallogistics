@@ -8,7 +8,7 @@ import static com.velheor.internship.utils.TestUtils.STATUS_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.velheor.internship.BaseTest;
+import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Status;
 import com.velheor.internship.models.enums.EStatus;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class StatusServiceTest extends BaseTest {
+class StatusServiceTest extends BasePersistenceTest {
 
     @Autowired
     private StatusService statusService;

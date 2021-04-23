@@ -8,7 +8,7 @@ import static com.velheor.internship.utils.TestUtils.USER2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.velheor.internship.BaseTest;
+import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Role;
 import com.velheor.internship.models.enums.ERole;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class RoleServiceTest extends BaseTest {
+class RoleServiceTest extends BasePersistenceTest {
 
     @Autowired
     private RoleService roleService;

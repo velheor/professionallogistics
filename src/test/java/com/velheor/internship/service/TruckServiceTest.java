@@ -7,7 +7,7 @@ import static com.velheor.internship.utils.TestUtils.TRUCK_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.velheor.internship.BaseTest;
+import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.enums.ETruckCategory;
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class TruckServiceTest extends BaseTest {
+class TruckServiceTest extends BasePersistenceTest {
 
     @Autowired
     private TruckService truckService;
