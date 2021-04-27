@@ -1,85 +1,94 @@
 package com.velheor.internship.controllers;
 
 import static com.velheor.internship.utils.TestUtils.USER1;
-import static com.velheor.internship.utils.TestWebUtils.USER_VIEW1;
+import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
+import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO2;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.mappers.UserMapper;
+import com.velheor.internship.mappers.UserMapperImpl;
 import com.velheor.internship.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.http.MediaType;
 
 class UserControllerTest extends BaseWebTest {
 
-    @Autowired
-    private FilterChainProxy springSecurityFilterChain;
-
-    private MockMvc mockMvc;
-
-    @Mock
+    private final String user_url = "/users/";
     private UserService userService;
+    private UserController userController;
 
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    UserControllerTest() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @BeforeEach
-    public void setUp() {
-        mockMvc = MockMvcBuilders
-            .standaloneSetup(new UserController(userService, userMapper, passwordEncoder))
-            .apply(springSecurity(springSecurityFilterChain))
-            .build();
+    public UserControllerTest() {
+        setUp(() -> {
+            userService = mock(UserService.class);
+            UserMapper userMapper = new UserMapperImpl();
+            userController = new UserController(userService, userMapper);
+            return userController;
+        });
     }
 
     @Test
     void findById() throws Exception {
-        doReturn(USER1).when(userService).findById(USER1.getId());
-
-        mockMvc.perform(get("/users/" + USER1.getId()))
+        when(userService.findById(USER1.getId())).thenReturn(USER1);
+        mockMvc.perform(get(user_url + USER1.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json"))
-            .andReturn(USER_VIEW1);
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
+    }
+
+    @Test
+    void getAll() throws Exception {
+        when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
+        mockMvc.perform(get(user_url))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(
+                objectMapper.writeValueAsString(Arrays.asList(USER_VIEW_DTO1, USER_VIEW_DTO2))));
     }
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get("/users/notValidText")).andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void findByEmail() throws Exception {
-        doReturn(USER1).when(userService).findByEmail(USER1.getEmail());
-        mockMvc.perform(get("/users/findByEmail/" + USER1.getEmail()))
-            .andExpect(status().isOk());
+        mockMvc.perform(get(user_url + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void update() throws Exception {
+        when(userService.save(USER1)).thenReturn(USER1);
+
+        mockMvc.perform(put(user_url)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
     }
 
     @Test
-    void save() {
+    void save() throws Exception {
+        doReturn(USER1).when(userService).save(USER1);
+        mockMvc.perform(post(user_url)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
+            .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
     }
 
     @Test
-    void deleteById() {
+    void deleteById() throws Exception {
+        mockMvc.perform(delete(user_url + USER1.getId()))
+            .andExpect(status().isNoContent());
+        verify(userService).deleteById(USER1.getId());
     }
 }
