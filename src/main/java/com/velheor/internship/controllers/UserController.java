@@ -1,7 +1,6 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.UserViewDTO;
-import com.velheor.internship.dto.UserWithRolesDTO;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
 import io.swagger.annotations.Api;
@@ -10,8 +9,6 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,18 +27,11 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Find by id user view")
     public UserViewDTO findById(@PathVariable("id") UUID id) {
         return userMapper.userToUserDto(userService.findById(id));
-    }
-
-    @GetMapping("/findByEmail/{email}")
-    @ApiOperation(value = "Find by email user with roles")
-    public UserWithRolesDTO findByEmail(@PathVariable("email") String email) {
-        return userMapper.userToUserWithRolesDto(userService.findByEmail(email));
     }
 
     @PutMapping
@@ -54,7 +44,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view")
     public UserViewDTO save(@RequestBody @Valid UserViewDTO userViewDTO) {
-        userViewDTO.setPassword(passwordEncoder.encode(userViewDTO.getPassword()));
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
