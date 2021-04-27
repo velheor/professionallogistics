@@ -16,20 +16,20 @@ import java.util.UUID;
 
 public final class TestUtils {
 
-    public final static User USER1 = new User();
     public final static Truck TRUCK1 = new Truck();
     public final static Truck TRUCK2 = new Truck();
     public final static String[] TRUCK_IGNORE = new String[]{"user"};
     public final static Role ROLE1 = new Role();
     public final static Role ROLE2 = new Role();
-    public final static String[] ROLE_IGNORE = new String[]{"carrierOrders", "shipperOrders", "roles",
-        "truck"};
+    public final static String[] ROLE_IGNORE = new String[]{"user"};
+    public final static User USER1 = new User();
     public final static User USER2 = new User();
-    public final static String[] USER_IGNORE = new String[]{"user"};
+    public final static String[] USER_IGNORE = new String[]{"carrierOrders", "shipperOrders",
+        "roles", "truck"};
     public final static Order ORDER1 = new Order();
     public final static Order ORDER2 = new Order();
-    public final static String[] ORDER_IGNORE = new String[]{"carrier", "shipper", "routes", "loads",
-        "statuses"};
+    public final static String[] ORDER_IGNORE = new String[]{"carrier", "shipper", "routes",
+        "loads", "statuses"};
     public final static Load LOAD1 = new Load();
     public final static Load LOAD2 = new Load();
     public final static String[] LOAD_IGNORE = new String[]{"order"};
@@ -65,7 +65,7 @@ public final class TestUtils {
         USER2.setFirstName("Test2");
         USER2.setLastName("Test2");
         USER2.setEmail("test2@gmail.com");
-        USER2.setPhoneNumber("+375 (33) 123-45-67");
+        USER2.setPhoneNumber("+375 (33) 111-22-33");
         USER2.setPassword("$2y$12$ZN3OaMsgVkx9Z6.b.tnHSeok9zxUSVtQH9A0JFxSEhW8son/POBXi");
 
         ROLE1.setId(UUID.fromString("cd2d4abe-9c4a-11eb-a8b3-0242ac130003"));
