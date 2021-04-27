@@ -24,6 +24,5 @@ public interface UserMapper {
 
     User userDtoToUser(UserViewDTO userViewDTO);
 
-    @Mapping(target = "roles", qualifiedByName = "rolesToListString")
-    UserWithRolesDTO userToUserWithRolesDto(User user);
+    Iterable<UserViewDTO> usersToUsersDto(Iterable<User> users);
 }

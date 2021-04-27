@@ -29,20 +29,26 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Find by id user view")
+    @ApiOperation(value = "Find user by id")
     public UserViewDTO findById(@PathVariable("id") UUID id) {
         return userMapper.userToUserDto(userService.findById(id));
     }
 
+    @GetMapping
+    @ApiOperation(value = "Get all users")
+    public Iterable<UserViewDTO> getAll() {
+        return userMapper.usersToUsersDto(userService.getAll());
+    }
+
     @PutMapping
-    @ApiOperation(value = "Update user by user view")
+    @ApiOperation(value = "Update user by user view dto")
     public UserViewDTO update(@RequestBody @Valid UserViewDTO userViewDTO) {
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Save user by user view")
+    @ApiOperation(value = "Save user by user view dto")
     public UserViewDTO save(@RequestBody @Valid UserViewDTO userViewDTO) {
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
