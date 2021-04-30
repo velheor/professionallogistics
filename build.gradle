@@ -23,11 +23,10 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4j}"
 
     //swagger
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: "${swagger}"
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swagger}"
     implementation group: 'io.springfox', name: 'springfox-bean-validators', version: "${swagger}"
     implementation group: 'io.springfox', name: 'springfox-oas', version: "${swagger}"
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: "${openApi}"
 
     //spring-web
     implementation group: 'org.springframework', name: 'spring-web', version: "${spring}"
