@@ -5,9 +5,15 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class UserViewDTO extends BaseDTO {
 
     @NotNull(message = "{notEmpty}")
@@ -31,4 +37,12 @@ public class UserViewDTO extends BaseDTO {
     @Size(min = 7, max = 255, message = "{notCorrectSize}")
     private String password;
 
+    public UserViewDTO(UserViewDTO userViewDTO) {
+        super.setId(userViewDTO.getId());
+        firstName = userViewDTO.getFirstName();
+        lastName = userViewDTO.getLastName();
+        email = userViewDTO.getEmail();
+        phoneNumber = userViewDTO.getPhoneNumber();
+        password = userViewDTO.getPassword();
+    }
 }
