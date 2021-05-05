@@ -1,6 +1,5 @@
 package com.velheor.internship.security;
 
-import com.velheor.internship.exception.JwtAuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,16 +24,11 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         String token = jwtProvider.resolveToken((HttpServletRequest) servletRequest);
-        try {
-            if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
-                Authentication authentication = jwtProvider.getAuthentication(token);
-                if (authentication != null) {
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+        if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
+            Authentication authentication = jwtProvider.getAuthentication(token);
+            if (authentication != null) {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (JwtAuthenticationException e) {
-            SecurityContextHolder.clearContext();
-            throw new JwtAuthenticationException();
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
