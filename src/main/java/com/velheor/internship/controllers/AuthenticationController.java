@@ -1,6 +1,8 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.AuthUserDTO;
+import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.models.User;
 import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.service.UserService;
@@ -22,6 +24,7 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final JwtProvider jwtProvider;
+    private final UserMapper userMapper;
 
     @PostMapping("/login")
     public AuthUserDTO authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
@@ -31,5 +34,10 @@ public class AuthenticationController {
         String token = jwtProvider.createToken(authUserDTO.getEmail(), user.getRoles());
         authUserDTO.setJwtToken(token);
         return authUserDTO;
+    }
+
+    @PostMapping("/signup")
+    public UserViewDTO signUp(@Valid @RequestBody UserViewDTO userViewDTO) {
+        return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 }
