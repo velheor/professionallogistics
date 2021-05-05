@@ -3,6 +3,7 @@ package com.velheor.internship.service;
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,6 +13,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final UserRepository userRepository;
 
     public User findById(UUID id) {
@@ -20,6 +23,7 @@ public class UserService {
     }
 
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
