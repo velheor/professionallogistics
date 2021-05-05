@@ -63,7 +63,7 @@ dependencies {
     testImplementation group: 'org.springframework', name: 'spring-test', version: "${spring}"
     testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: "${springTest}"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: "${assertJ}"
-    testImplementation group: 'org.mockito', name: 'mockito-all', version: "${mockito}"
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "${mockito}"
     testImplementation group: 'com.jayway.jsonpath', name: 'json-path', version: "${jayway}"
     testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: "${skyscreamer}"
 
