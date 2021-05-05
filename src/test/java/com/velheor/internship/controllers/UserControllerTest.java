@@ -79,6 +79,14 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "USER")
+    void getAllWithBadAuthorities() throws Exception {
+        when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
+        mockMvc.perform(get(user_url))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void update() throws Exception {
         when(userService.save(USER1)).thenReturn(USER1);
 
