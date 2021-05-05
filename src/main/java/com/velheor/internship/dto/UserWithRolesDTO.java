@@ -1,7 +1,8 @@
 package com.velheor.internship.dto;
 
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class UserWithRolesDTO extends UserViewDTO {

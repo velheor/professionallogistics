@@ -3,7 +3,6 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.OrderViewDTO;
 import com.velheor.internship.mappers.OrderMapper;
 import com.velheor.internship.service.OrderService;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -35,14 +37,13 @@ public class OrderController {
     }
 
     @PutMapping
-    public OrderViewDTO update(@RequestBody OrderViewDTO OrderViewDTO) {
-        return orderMapper
-            .orderToOrderDto(orderService.save(orderMapper.orderDtoToOrder(OrderViewDTO)));
+    public OrderViewDTO update(@Valid @RequestBody OrderViewDTO OrderViewDTO) {
+        return orderMapper.orderToOrderDto(orderService.save(orderMapper.orderDtoToOrder(OrderViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderViewDTO save(@RequestBody OrderViewDTO OrderViewDTO) {
+    public OrderViewDTO save(@Valid @RequestBody OrderViewDTO OrderViewDTO) {
         orderService.save(orderMapper.orderDtoToOrder(OrderViewDTO));
         return OrderViewDTO;
     }

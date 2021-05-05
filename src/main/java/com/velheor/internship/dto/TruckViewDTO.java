@@ -1,12 +1,9 @@
 package com.velheor.internship.dto;
 
-import java.math.BigDecimal;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Data;
+
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 @Data
 public class TruckViewDTO extends BaseDTO {

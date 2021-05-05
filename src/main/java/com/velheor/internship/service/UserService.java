@@ -2,10 +2,11 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.User;
 import com.velheor.internship.repository.UserRepository;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class UserService {
 
     public User findById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
-            "User with id: " + id.toString() + " was not found."));
+                "User with id: " + id + " was not found."));
     }
 
     public User save(User user) {
@@ -31,7 +32,7 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-            () -> new EntityNotFoundException("User with email: " + email + " was not found."));
+        return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(
+                "User with email: " + email + " was not found."));
     }
 }

@@ -1,11 +1,12 @@
 package com.velheor.internship.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "addresses")
@@ -33,6 +34,6 @@ public class Address extends BaseEntity {
 
     public String toString() {
         return "Address(country=" + this.getCountry() + ", city=" + this.getCity() + ", streetName="
-            + this.getStreetName() + ", streetNumber=" + this.getStreetNumber() + ")";
+                + this.getStreetName() + ", streetNumber=" + this.getStreetNumber() + ")";
     }
 }

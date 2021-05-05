@@ -1,14 +1,15 @@
 package com.velheor.internship.utils;
 
+import com.velheor.internship.dto.UserViewDTO;
+
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
-
-import com.velheor.internship.dto.UserViewDTO;
 
 public final class TestWebUtils {
 
     public final static UserViewDTO USER_VIEW_DTO1 = new UserViewDTO();
     public final static UserViewDTO USER_VIEW_DTO2 = new UserViewDTO();
+    public final static String BAD_TOKEN = "BAD_TOKEN";
 
     static {
         USER_VIEW_DTO1.setId(USER1.getId());

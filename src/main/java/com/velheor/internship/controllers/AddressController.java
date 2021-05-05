@@ -3,7 +3,6 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.AddressViewDTO;
 import com.velheor.internship.mappers.AddressMapper;
 import com.velheor.internship.service.AddressService;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/addresses")
@@ -30,16 +32,16 @@ public class AddressController {
     }
 
     @PutMapping
-    public AddressViewDTO update(@RequestBody AddressViewDTO AddressViewDTO) {
+    public AddressViewDTO update(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
         return addressMapper.addressToAddressDto(
-            addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
+                addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AddressViewDTO save(@RequestBody AddressViewDTO AddressViewDTO) {
+    public AddressViewDTO save(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
         return addressMapper.addressToAddressDto(
-            addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
+                addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
     }
 
     @DeleteMapping("/{id}")

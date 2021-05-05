@@ -1,10 +1,11 @@
 package com.velheor.internship.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 public class OrderViewDTO extends BaseDTO {

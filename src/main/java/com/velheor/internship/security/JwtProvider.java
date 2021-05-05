@@ -1,20 +1,12 @@
 package com.velheor.internship.security;
 
-import static com.velheor.internship.mappers.UserMapper.rolesToListString;
-
 import com.velheor.internship.exception.JwtAuthenticationException;
 import com.velheor.internship.models.Role;
-import com.velheor.internship.security.JwtUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -22,6 +14,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+
+import static com.velheor.internship.mappers.UserMapper.rolesToListString;
 
 @Component
 @PropertySource("classpath:security.properties")
@@ -51,11 +51,11 @@ public class JwtProvider {
         Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
 
         return Jwts.builder()
-            .setClaims(claims)
-            .setIssuedAt(now)
-            .setExpiration(validity)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
-            .compact();
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public boolean validateToken(String token) {
@@ -70,7 +70,7 @@ public class JwtProvider {
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "",
-            userDetails.getAuthorities());
+                userDetails.getAuthorities());
     }
 
     public String getEmail(String token) {

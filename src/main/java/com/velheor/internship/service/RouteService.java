@@ -2,10 +2,11 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.Route;
 import com.velheor.internship.repository.RouteRepository;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +15,8 @@ public class RouteService {
     private final RouteRepository routeRepository;
 
     public Route findById(UUID id) {
-        return routeRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(
-                "OrderAdress with id: " + id.toString() + " was not found."));
+        return routeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+                        "Route with id: " + id + " was not found."));
     }
 
     public Route save(Route route) {

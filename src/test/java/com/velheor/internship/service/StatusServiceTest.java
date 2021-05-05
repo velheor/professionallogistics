@@ -1,5 +1,17 @@
 package com.velheor.internship.service;
 
+import com.velheor.internship.BasePersistenceTest;
+import com.velheor.internship.models.Status;
+import com.velheor.internship.models.enums.EStatus;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static com.velheor.internship.utils.TestUtils.STATUS1;
@@ -7,17 +19,6 @@ import static com.velheor.internship.utils.TestUtils.STATUS2;
 import static com.velheor.internship.utils.TestUtils.STATUS_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import com.velheor.internship.BasePersistenceTest;
-import com.velheor.internship.models.Status;
-import com.velheor.internship.models.enums.EStatus;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 class StatusServiceTest extends BasePersistenceTest {
 
@@ -36,7 +37,7 @@ class StatusServiceTest extends BasePersistenceTest {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
         assertThatThrownBy(() -> statusService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -66,7 +67,7 @@ class StatusServiceTest extends BasePersistenceTest {
         statusService.getAll().forEach(actualAll::add);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(STATUS_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
 
     }
 
@@ -82,6 +83,6 @@ class StatusServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> statusService.findById(STATUS1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

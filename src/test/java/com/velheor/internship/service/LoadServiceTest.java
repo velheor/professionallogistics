@@ -1,22 +1,19 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.utils.TestUtils.LOAD1;
-import static com.velheor.internship.utils.TestUtils.LOAD2;
-import static com.velheor.internship.utils.TestUtils.LOAD_IGNORE;
-import static com.velheor.internship.utils.TestUtils.ORDER1;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Load;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.velheor.internship.utils.TestUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LoadServiceTest extends BasePersistenceTest {
 
@@ -35,7 +32,7 @@ class LoadServiceTest extends BasePersistenceTest {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
         assertThatThrownBy(() -> loadService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -66,7 +63,7 @@ class LoadServiceTest extends BasePersistenceTest {
         loadService.getAll().forEach(actualAll::add);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(LOAD_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
 
     }
 
@@ -82,6 +79,6 @@ class LoadServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> loadService.findById(LOAD1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

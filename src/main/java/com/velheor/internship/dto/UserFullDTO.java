@@ -1,8 +1,9 @@
 package com.velheor.internship.dto;
 
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class UserFullDTO extends UserViewDTO {

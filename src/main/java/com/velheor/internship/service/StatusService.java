@@ -2,10 +2,11 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.Status;
 import com.velheor.internship.repository.StatusRepository;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +16,8 @@ public class StatusService {
 
     public Status findById(UUID id) {
         return statusRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException(
-                "StatusHistory with id: " + id.toString() + " was not found."));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Status with id: " + id + " was not found."));
     }
 
     public Status save(Status status) {

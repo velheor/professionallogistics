@@ -1,7 +1,10 @@
 package com.velheor.internship.models;
 
 import com.velheor.internship.models.enums.ETruckCategory;
-import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,9 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "trucks")
@@ -48,7 +49,7 @@ public class Truck extends BaseEntity {
     @Override
     public String toString() {
         return "Truck(id=" + this.getId() + ", name=" + this.getName() + ", registrationNumber="
-            + this.getRegistrationNumber() + ", maxWeight=" + this.getMaxWeight()
-            + ", truckCategory= " + this.truckCategory + ")";
+                + this.getRegistrationNumber() + ", maxWeight=" + this.getMaxWeight()
+                + ", truckCategory= " + this.truckCategory + ")";
     }
 }

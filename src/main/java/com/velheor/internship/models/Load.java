@@ -1,14 +1,15 @@
 package com.velheor.internship.models;
 
-import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "loads")
@@ -38,6 +39,6 @@ public class Load extends BaseEntity {
     @Override
     public String toString() {
         return "Load(name=" + this.getName() + ", weight=" + this.getWeight() + ", details=" + this
-            .getDetails() + ")";
+                .getDetails() + ")";
     }
 }

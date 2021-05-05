@@ -2,10 +2,11 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.repository.TruckRepository;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -14,10 +15,8 @@ public class TruckService {
     private final TruckRepository truckRepository;
 
     public Truck findById(UUID id) {
-        return truckRepository.findById(id)
-            .orElseThrow(
-                () -> new EntityNotFoundException(
-                    "Truck with id: " + id.toString() + " was not found."));
+        return truckRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+                "Truck with id: " + id + " was not found."));
     }
 
     public Truck save(Truck truck) {

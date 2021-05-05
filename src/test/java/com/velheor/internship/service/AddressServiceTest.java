@@ -1,21 +1,19 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.utils.TestUtils.ADDRESS1;
-import static com.velheor.internship.utils.TestUtils.ADDRESS2;
-import static com.velheor.internship.utils.TestUtils.ADDRESS_IGNORE;
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Address;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.velheor.internship.utils.TestUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AddressServiceTest extends BasePersistenceTest {
 
@@ -32,7 +30,7 @@ class AddressServiceTest extends BasePersistenceTest {
     void findByIdThrowsNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
         assertThatThrownBy(() -> addressService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -61,10 +59,10 @@ class AddressServiceTest extends BasePersistenceTest {
         List<Address> actualAll = new ArrayList<>();
         addressService.getAll().forEach(actualAll::add);
         List<Address> expectedAll = Arrays
-            .asList(ADDRESS1, ADDRESS2);
+                .asList(ADDRESS1, ADDRESS2);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(ADDRESS_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
 
     }
 
@@ -80,6 +78,6 @@ class AddressServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> addressService.findById(ADDRESS1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

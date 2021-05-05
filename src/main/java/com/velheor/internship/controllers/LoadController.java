@@ -3,7 +3,6 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.LoadViewDTO;
 import com.velheor.internship.mappers.LoadMapper;
 import com.velheor.internship.service.LoadService;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/loads")
@@ -30,13 +32,13 @@ public class LoadController {
     }
 
     @PutMapping
-    public LoadViewDTO update(@RequestBody LoadViewDTO LoadViewDTO) {
+    public LoadViewDTO update(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
         return loadMapper.loadToLoadDto(loadService.save(loadMapper.loadDtoToLoad(LoadViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LoadViewDTO save(@RequestBody LoadViewDTO LoadViewDTO) {
+    public LoadViewDTO save(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
         return loadMapper.loadToLoadDto(loadService.save(loadMapper.loadDtoToLoad(LoadViewDTO)));
     }
 

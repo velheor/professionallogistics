@@ -1,9 +1,10 @@
 package com.velheor.internship.models;
 
 import com.velheor.internship.models.enums.ETruckCategory;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -73,8 +74,8 @@ public class Order extends BaseEntity {
 
     public String toString() {
         return "Order(datePickup=" + this.getDatePickup() + ", dateDelivery=" + this
-            .getDateDelivery() + ", price=" + this.getPrice() + ", voucherPickup=" + this
-            .getVoucherPickup() + ", voucherDelivery=" + this.getVoucherDelivery()
-            + ", truckCategory=" + this.getTruckCategory() + ")";
+                .getDateDelivery() + ", price=" + this.getPrice() + ", voucherPickup=" + this
+                .getVoucherPickup() + ", voucherDelivery=" + this.getVoucherDelivery()
+                + ", truckCategory=" + this.getTruckCategory() + ")";
     }
 }

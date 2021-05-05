@@ -1,6 +1,9 @@
 package com.velheor.internship.models;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +13,7 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,9 +21,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @NamedEntityGraph(name = "UserWithRoles",
-    attributeNodes = {
-        @NamedAttributeNode("roles")
-    }
+        attributeNodes = {
+                @NamedAttributeNode("roles")
+        }
 )
 public class User extends BaseEntity {
 
@@ -63,7 +64,7 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         return "User(id=" + super.getId() + ", firstName=" + this.getFirstName() + ", lastName="
-            + this.getLastName() + ", email=" + this.getEmail() + ", phoneNumber=" + this
-            .getPhoneNumber() + ", password=" + this.getPassword() + ")";
+                + this.getLastName() + ", email=" + this.getEmail() + ", phoneNumber=" + this
+                .getPhoneNumber() + ", password=" + this.getPassword() + ")";
     }
 }

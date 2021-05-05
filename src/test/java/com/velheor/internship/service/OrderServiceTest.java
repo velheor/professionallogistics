@@ -1,24 +1,21 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.utils.TestUtils.ORDER1;
-import static com.velheor.internship.utils.TestUtils.ORDER2;
-import static com.velheor.internship.utils.TestUtils.ORDER_IGNORE;
-import static com.velheor.internship.utils.TestUtils.USER2;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.enums.ETruckCategory;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.velheor.internship.utils.TestUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class OrderServiceTest extends BasePersistenceTest {
 
@@ -37,7 +34,7 @@ class OrderServiceTest extends BasePersistenceTest {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
         assertThatThrownBy(() -> orderService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -69,7 +66,7 @@ class OrderServiceTest extends BasePersistenceTest {
         orderService.getAll().forEach(actualAll::add);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(ORDER_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
 
     }
 
@@ -85,6 +82,6 @@ class OrderServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> orderService.findById(ORDER1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

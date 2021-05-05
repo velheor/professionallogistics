@@ -1,9 +1,6 @@
 package com.velheor.internship.config;
 
 import com.velheor.internship.conf.LiquiBaseConfig;
-import java.util.Objects;
-import java.util.Properties;
-import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,11 +16,15 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
+import java.util.Objects;
+import java.util.Properties;
+
 @Configuration
-@ComponentScan(basePackages = {"com.velheor.internship.service"})
+@ComponentScan(basePackages = {"com.velheor.internship.service" })
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
-@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
+@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository" })
 @Import({LiquiBaseConfig.class})
 @RequiredArgsConstructor
 public class PersistenceTestConfig {
@@ -61,8 +62,7 @@ public class PersistenceTestConfig {
     @Bean
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(
-            Objects.requireNonNull(environment.getProperty("jdbc.driverClassName")));
+        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("jdbc.driverClassName")));
         dataSource.setUrl(environment.getProperty("jdbc.url"));
         dataSource.setUsername(environment.getProperty("jdbc.user"));
         dataSource.setPassword(environment.getProperty("jdbc.pass"));

@@ -1,5 +1,16 @@
 package com.velheor.internship.service;
 
+import com.velheor.internship.BasePersistenceTest;
+import com.velheor.internship.models.Role;
+import com.velheor.internship.models.enums.ERole;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
 import static com.velheor.internship.utils.TestUtils.ROLE1;
 import static com.velheor.internship.utils.TestUtils.ROLE2;
@@ -7,16 +18,6 @@ import static com.velheor.internship.utils.TestUtils.ROLE_IGNORE;
 import static com.velheor.internship.utils.TestUtils.USER2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import com.velheor.internship.BasePersistenceTest;
-import com.velheor.internship.models.Role;
-import com.velheor.internship.models.enums.ERole;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 class RoleServiceTest extends BasePersistenceTest {
 
@@ -35,7 +36,7 @@ class RoleServiceTest extends BasePersistenceTest {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
 
         assertThatThrownBy(() -> roleService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -64,7 +65,7 @@ class RoleServiceTest extends BasePersistenceTest {
         roleService.getAll().forEach(actualAll::add);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(ROLE_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
     }
 
     @Test
@@ -79,6 +80,6 @@ class RoleServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> roleService.findById(ROLE1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

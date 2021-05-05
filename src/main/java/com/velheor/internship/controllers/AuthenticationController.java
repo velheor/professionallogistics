@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -22,9 +24,8 @@ public class AuthenticationController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("/login")
-    public AuthUserDTO authenticate(@RequestBody AuthUserDTO authUserDTO) {
-        authenticationManager
-            .authenticate(new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
+    public AuthUserDTO authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
                 authUserDTO.getPassword()));
         User user = userService.findByEmail(authUserDTO.getEmail());
         String token = jwtProvider.createToken(authUserDTO.getEmail(), user.getRoles());

@@ -1,21 +1,19 @@
 package com.velheor.internship.service;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.utils.TestUtils.USER1;
-import static com.velheor.internship.utils.TestUtils.USER2;
-import static com.velheor.internship.utils.TestUtils.USER_IGNORE;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static com.velheor.internship.utils.TestUtils.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class UserServiceTest extends BasePersistenceTest {
 
@@ -32,7 +30,7 @@ class UserServiceTest extends BasePersistenceTest {
     void findByIdThrowsNotFoundException() {
         UUID notExistsId = UUID.fromString("74a07384-93b8-11eb-a8b3-0242ac130003");
         assertThatThrownBy(() -> userService.findById(notExistsId))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
@@ -68,7 +66,7 @@ class UserServiceTest extends BasePersistenceTest {
         List<User> expectedAll = Arrays.asList(USER1, USER2);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(USER_IGNORE)
-            .isEqualTo(actualAll);
+                .isEqualTo(actualAll);
 
     }
 
@@ -84,7 +82,7 @@ class UserServiceTest extends BasePersistenceTest {
         assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
 
         assertThatThrownBy(() -> userService.findById(USER1.getId()))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
 
     }
 
@@ -100,6 +98,6 @@ class UserServiceTest extends BasePersistenceTest {
         String notExistsEmail = "notExistsEmail";
 
         assertThatThrownBy(() -> userService.findByEmail(notExistsEmail))
-            .isInstanceOf(EntityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

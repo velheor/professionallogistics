@@ -21,10 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_WHITELIST = {
-        "/swagger-resources/**",
-        "/swagger-ui/**",
-        "/v2/api-docs",
-        "/webjars/**"
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/v2/api-docs",
+            "/webjars/**"
     };
 
     private final JwtConfigurer jwtConfigurer;
@@ -37,17 +37,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests()
-            .antMatchers("/**").permitAll()
-            .antMatchers("/roles/**").hasAuthority("ADMIN")
-            .anyRequest()
-            .authenticated()
-            .and()
-            .apply(jwtConfigurer);
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/roles/**").hasAuthority("ADMIN")
+                .antMatchers("/users/").hasAuthority("ADMIN")
+                .antMatchers("/**").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .apply(jwtConfigurer);
     }
 
     @Bean

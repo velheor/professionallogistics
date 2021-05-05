@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class JwtConfigurer extends
-    SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+        SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     private final JwtFilter jwtFilter;
 

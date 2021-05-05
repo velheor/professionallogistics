@@ -1,7 +1,8 @@
 package com.velheor.internship.dto;
 
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 @Data
 public class RouteDTO extends BaseDTO {
