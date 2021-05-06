@@ -3,7 +3,6 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.AuthUserDTO;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.mappers.UserMapper;
-import com.velheor.internship.models.User;
 import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +29,7 @@ public class AuthenticationController {
     public String authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
                 authUserDTO.getPassword()));
-        User user = userService.findByEmail(authUserDTO.getEmail());
-        return jwtProvider.createToken(authUserDTO.getEmail(), user.getRoles());
+        return jwtProvider.createToken(authUserDTO.getEmail(), userService.findByEmail(authUserDTO.getEmail()).getRoles());
     }
 
     @PostMapping("/signup")

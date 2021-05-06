@@ -21,6 +21,6 @@ public class JwtUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(username).orElseThrow(() -> new EntityNotFoundException(
                 "User with email: " + username + " was not found."));
 
-        return JwtUserFactory.create(user);
+        return new JwtUser(user);
     }
 }

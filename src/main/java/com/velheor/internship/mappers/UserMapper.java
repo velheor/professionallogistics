@@ -12,13 +12,6 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Named("rolesToListString")
-    static List<String> rolesToListString(List<Role> roles) {
-        return roles.stream()
-                .map(role -> role.getName().toString())
-                .collect(Collectors.toList());
-    }
-
     UserViewDTO userToUserDto(User user);
 
     User userDtoToUser(UserViewDTO userViewDTO);
