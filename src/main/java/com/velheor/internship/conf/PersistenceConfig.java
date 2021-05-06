@@ -19,7 +19,7 @@ import java.util.Objects;
 @Configuration
 @PropertySource("classpath:persistence.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository" })
+@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
 @RequiredArgsConstructor
 public class PersistenceConfig {
 
