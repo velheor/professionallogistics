@@ -53,14 +53,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(JwtAuthenticationException.class)
     public ResponseEntity<Object> jwtAuthenticationException(JwtAuthenticationException ex,
                                                              HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), "bad jwt",
+                LocalDateTime.now()), headers, status, request);
     }
 
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Object> badCredentialsException(BadCredentialsException ex,
                                                           HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), "bad email or password",
+                LocalDateTime.now()), headers, status, request);
     }
 
 
