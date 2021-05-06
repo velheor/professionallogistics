@@ -27,13 +27,11 @@ public class AuthenticationController {
     private final UserMapper userMapper;
 
     @PostMapping("/login")
-    public AuthUserDTO authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
+    public String authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
                 authUserDTO.getPassword()));
         User user = userService.findByEmail(authUserDTO.getEmail());
-        String token = jwtProvider.createToken(authUserDTO.getEmail(), user.getRoles());
-        authUserDTO.setJwtToken(token);
-        return authUserDTO;
+        return jwtProvider.createToken(authUserDTO.getEmail(), user.getRoles());
     }
 
     @PostMapping("/signup")
