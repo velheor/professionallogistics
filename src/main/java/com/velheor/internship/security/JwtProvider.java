@@ -21,7 +21,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
-import static com.velheor.internship.mappers.UserMapper.rolesToListString;
+import static com.velheor.internship.mappers.RoleMapper.rolesToListString;
 
 @Component
 @PropertySource("classpath:security.properties")
@@ -47,14 +47,10 @@ public class JwtProvider {
     public String createToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", rolesToListString(roles));
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
-
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
+                .setExpiration(new Date(new Date().getTime() + validityInMilliseconds * 1000))
                 .compact();
     }
 
@@ -69,8 +65,7 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getEmail(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "",
-                userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, ".", userDetails.getAuthorities());
     }
 
     public String getEmail(String token) {
