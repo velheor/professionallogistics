@@ -8,11 +8,11 @@ import java.math.BigDecimal;
 @Data
 public class TruckViewDTO extends BaseDTO {
 
-    @NotNull(message = "{notEmpty}")
+    @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 12, message = "{notCorrectSize}")
     private String name;
 
-    @NotNull(message = "{notEmpty}")
+    @NotEmpty(message = "{notEmpty}")
     @Size(min = 9, max = 9, message = "{notCorrectSize}")
     private String registrationNumber;
 
@@ -22,7 +22,7 @@ public class TruckViewDTO extends BaseDTO {
     @Digits(integer = 3, fraction = 2, message = "{notCorrectDigits}")
     private BigDecimal maxWeight;
 
-    @NotNull(message = "{notEmpty}")
+    @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 45, message = "{notCorrectSize}")
     private String truckCategory;
 }
