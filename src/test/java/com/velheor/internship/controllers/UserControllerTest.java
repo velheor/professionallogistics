@@ -64,8 +64,7 @@ class UserControllerTest extends BaseWebTest {
     void findByIdNotExistsUser() throws Exception {
         mockMvc.perform(get(user_url + "415ab4a6-adaf-11eb-8529-0242ac130003"))
                 .andExpect(status().isOk())
-                .andExpect(result -> assertTrue(
-                        result.getResolvedException() instanceof EntityNotFoundException));
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
 
     @Test
@@ -74,8 +73,7 @@ class UserControllerTest extends BaseWebTest {
         mockMvc.perform(get(user_url))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(
-                        objectMapper.writeValueAsString(Arrays.asList(USER_VIEW_DTO1, USER_VIEW_DTO2))));
+                .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(USER_VIEW_DTO1, USER_VIEW_DTO2))));
     }
 
     @Test
@@ -108,8 +106,7 @@ class UserControllerTest extends BaseWebTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testUser)))
                 .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(
-                        result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andReturn().getResponse().getContentAsString();
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 2;

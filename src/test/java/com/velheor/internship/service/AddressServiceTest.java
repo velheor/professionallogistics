@@ -11,7 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.*;
+import static com.velheor.internship.utils.TestUtils.ADDRESS1;
+import static com.velheor.internship.utils.TestUtils.ADDRESS2;
+import static com.velheor.internship.utils.TestUtils.ADDRESS_IGNORE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -58,8 +61,7 @@ class AddressServiceTest extends BasePersistenceTest {
     void getAll() {
         List<Address> actualAll = new ArrayList<>();
         addressService.getAll().forEach(actualAll::add);
-        List<Address> expectedAll = Arrays
-                .asList(ADDRESS1, ADDRESS2);
+        List<Address> expectedAll = Arrays.asList(ADDRESS1, ADDRESS2);
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(ADDRESS_IGNORE)
                 .isEqualTo(actualAll);
