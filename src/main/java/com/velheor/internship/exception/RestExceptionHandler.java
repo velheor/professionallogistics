@@ -26,8 +26,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> entityNotFoundException(EntityNotFoundException ex,
-                                                          HttpHeaders headers, HttpStatus status,
-                                                          WebRequest request) {
+                                                          HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), ex.toString(),
                 LocalDateTime.now()), headers, status, request);
@@ -35,9 +34,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
-            WebRequest request) {
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                               HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .filter(error -> error instanceof FieldError)
@@ -57,14 +55,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now()), headers, status, request);
     }
 
-    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<Object> badCredentialsException(BadCredentialsException ex,
-                                                          HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), "bad email or password",
-                LocalDateTime.now()), headers, status, request);
+    public ResponseEntity<Object> badCredentialsException(BadCredentialsException ex) {
+        return new ResponseEntity<>(new ErrorMessage(ex.getMessage(), "bad email or password",
+                LocalDateTime.now()), HttpStatus.FORBIDDEN);
     }
-
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
