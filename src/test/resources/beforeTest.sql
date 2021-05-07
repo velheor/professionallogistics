@@ -16,9 +16,9 @@ VALUES ('47a07384-93b8-11eb-a8b3-0242ac130003', 'Test1', 'Test1', 'test1@gmail.c
         '$2y$12$ZN3OaMsgVkx9Z6.b.tnHSeok9zxUSVtQH9A0JFxSEhW8son/POBXi');
 
 INSERT INTO trucks
-VALUES ('2da16836-9c4a-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 4000, 'ALL_METAL',
+VALUES ('2da16836-9c4a-11eb-a8b3-0242ac130003', 'VOLVO', '1234VA-5', 10, 'ALL_METAL',
         '47a07384-93b8-11eb-a8b3-0242ac130003'),
-       ('365e1fdc-9c4a-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 3500, 'ALL_METAL', null);
+       ('365e1fdc-9c4a-11eb-a8b3-0242ac130003', 'SCANIA', '2345AV-6', 10, 'ALL_METAL', null);
 
 INSERT INTO roles
 values ('cd2d4abe-9c4a-11eb-a8b3-0242ac130003', 'CARRIER', '47a07384-93b8-11eb-a8b3-0242ac130003'),

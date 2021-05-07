@@ -13,6 +13,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -21,10 +23,10 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.velheor.internship.service" })
+@ComponentScan(basePackages = {"com.velheor.internship.service"})
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
-@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository" })
+@EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
 @Import({LiquiBaseConfig.class})
 @RequiredArgsConstructor
 public class PersistenceTestConfig {
@@ -68,5 +70,10 @@ public class PersistenceTestConfig {
         dataSource.setPassword(environment.getProperty("jdbc.pass"));
 
         return dataSource;
+    }
+
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
     }
 }

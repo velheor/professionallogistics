@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 
+import static com.velheor.internship.utils.TestUtils.TEST_UUID;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
@@ -62,8 +63,9 @@ class UserControllerTest extends BaseWebTest {
 
     @Test
     void findByIdNotExistsUser() throws Exception {
-        mockMvc.perform(get(user_url + "415ab4a6-adaf-11eb-8529-0242ac130003"))
-                .andExpect(status().isOk())
+        when(userService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
+        mockMvc.perform(get(user_url + TEST_UUID))
+                .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
 

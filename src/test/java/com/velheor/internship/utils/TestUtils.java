@@ -41,18 +41,19 @@ public final class TestUtils {
     public final static Address ADDRESS2 = new Address();
     public final static String[] ADDRESS_IGNORE = new String[]{"routeTo", "routeFrom" };
     public final static Integer EXPECTED_SIZE = 1;
+    public final static UUID TEST_UUID = UUID.fromString("4690c03a-af55-11eb-8529-0242ac130003");
 
     static {
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK1.setName("VOLVO");
         TRUCK1.setRegistrationNumber("1234VA-5");
-        TRUCK1.setMaxWeight(new BigDecimal("4000.0"));
+        TRUCK1.setMaxWeight(new BigDecimal("10"));
         TRUCK1.setTruckCategory(ETruckCategory.ALL_METAL);
 
         TRUCK2.setId(UUID.fromString("365e1fdc-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK2.setName("SCANIA");
         TRUCK2.setRegistrationNumber("2345AV-6");
-        TRUCK2.setMaxWeight(new BigDecimal("3500.0"));
+        TRUCK2.setMaxWeight(new BigDecimal("5"));
         TRUCK2.setTruckCategory(ETruckCategory.ALL_METAL);
 
         USER1.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));

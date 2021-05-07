@@ -25,11 +25,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> entityNotFoundException(EntityNotFoundException ex,
-                                                          HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
 
-        return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), ex.toString(),
-                LocalDateTime.now()), headers, status, request);
+        return new ResponseEntity<>(new ErrorMessage(ex.getMessage(), "Not found",
+                LocalDateTime.now()), HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JwtAuthenticationException.class)
-    public ResponseEntity<Object> jwtAuthenticationException(JwtAuthenticationException ex,
+    public ResponseEntity<Object> handleJwtAuthenticationException(JwtAuthenticationException ex,
                                                              HttpHeaders headers, HttpStatus status, WebRequest request) {
         return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), "bad jwt",
                 LocalDateTime.now()), headers, status, request);
@@ -57,7 +56,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<Object> badCredentialsException(BadCredentialsException ex) {
+    public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
         return new ResponseEntity<>(new ErrorMessage(ex.getMessage(), "bad email or password",
                 LocalDateTime.now()), HttpStatus.FORBIDDEN);
     }

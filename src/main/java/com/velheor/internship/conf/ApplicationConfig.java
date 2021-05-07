@@ -8,5 +8,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.velheor.internship")
 @RequiredArgsConstructor
 public class ApplicationConfig {
-
 }

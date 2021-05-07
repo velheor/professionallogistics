@@ -2,6 +2,7 @@ package com.velheor.internship.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -9,11 +10,12 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ErrorMessage {
 
-    private final String message;
-    private final List<String> errors;
-    private final LocalDateTime timestamp;
+    private String message;
+    private List<String> errors;
+    private LocalDateTime timestamp;
 
     public ErrorMessage(String message, String errors,
                         LocalDateTime timestamp) {

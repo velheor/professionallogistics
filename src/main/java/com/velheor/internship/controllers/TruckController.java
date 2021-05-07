@@ -3,6 +3,7 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.TruckViewDTO;
 import com.velheor.internship.mappers.TruckMapper;
 import com.velheor.internship.service.TruckService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,12 @@ public class TruckController {
 
     private final TruckService truckService;
     private final TruckMapper truckMapper;
+
+    @GetMapping
+    @ApiOperation(value = "Get all trucks")
+    public Iterable<TruckViewDTO> getAll() {
+        return truckMapper.trucksToTrucksDto(truckService.getAll());
+    }
 
     @GetMapping("/{id}")
     public TruckViewDTO findById(@PathVariable("id") UUID id) {
