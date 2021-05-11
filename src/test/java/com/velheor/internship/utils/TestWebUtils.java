@@ -94,12 +94,12 @@ public final class TestWebUtils {
         LOAD_VIEW_DTO1.setId(LOAD1.getId());
         LOAD_VIEW_DTO1.setName(LOAD1.getName());
         LOAD_VIEW_DTO1.setWeight(LOAD1.getWeight());
-        LOAD_VIEW_DTO1.setDescription(LOAD1.getDetails());
+        LOAD_VIEW_DTO1.setDetails(LOAD1.getDetails());
 
         LOAD_VIEW_DTO2.setId(LOAD2.getId());
         LOAD_VIEW_DTO2.setName(LOAD2.getName());
         LOAD_VIEW_DTO2.setWeight(LOAD2.getWeight());
-        LOAD_VIEW_DTO2.setDescription(LOAD2.getDetails());
+        LOAD_VIEW_DTO2.setDetails(LOAD2.getDetails());
 
         STATUS_VIEW_DTO1.setId(STATUS1.getId());
         STATUS_VIEW_DTO1.setName(STATUS1.getName().toString());

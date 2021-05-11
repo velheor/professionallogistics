@@ -46,13 +46,13 @@ public final class TestUtils {
     static {
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK1.setName("VOLVO");
-        TRUCK1.setRegistrationNumber("1234VA-5");
+        TRUCK1.setRegistrationNumber("1234 VA-5");
         TRUCK1.setMaxWeight(new BigDecimal("10"));
         TRUCK1.setTruckCategory(ETruckCategory.ALL_METAL);
 
         TRUCK2.setId(UUID.fromString("365e1fdc-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK2.setName("SCANIA");
-        TRUCK2.setRegistrationNumber("2345AV-6");
+        TRUCK2.setRegistrationNumber("2345 AV-6");
         TRUCK2.setMaxWeight(new BigDecimal("5"));
         TRUCK2.setTruckCategory(ETruckCategory.ALL_METAL);
 
@@ -95,13 +95,13 @@ public final class TestUtils {
         LOAD1.setId(UUID.fromString("5942070a-957b-11eb-a8b3-0242ac130003"));
         LOAD1.setName("FURNITURE");
         LOAD1.setWeight(new BigDecimal("0.5"));
-        LOAD1.setDetails("Just furniture");
+        LOAD1.setDetails("Just furniture for my new house");
         LOAD1.setOrder(ORDER1);
 
         LOAD2.setId(UUID.fromString("60b523b4-957b-11eb-a8b3-0242ac130003"));
         LOAD2.setName("BEER");
         LOAD2.setWeight(new BigDecimal("23.0"));
-        LOAD2.setDetails("HEINEKEN");
+        LOAD2.setDetails("HEINEKEN bottles from factory");
 
         STATUS1.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
         STATUS1.setName(EStatus.WAITING_FOR_CARRIER);
