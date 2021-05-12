@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Objects;
+import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:persistence.properties")
@@ -33,6 +34,7 @@ public class PersistenceConfig {
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
 
         return em;
     }
@@ -55,5 +57,11 @@ public class PersistenceConfig {
         dataSource.setPassword(env.getProperty("jdbc.pass"));
 
         return dataSource;
+    }
+
+    private Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        return properties;
     }
 }
