@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.*;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.LOAD1;
+import static com.velheor.internship.utils.TestUtils.LOAD2;
+import static com.velheor.internship.utils.TestUtils.LOAD_IGNORE;
+import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

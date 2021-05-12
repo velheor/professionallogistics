@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @SpringJUnitConfig(classes = {PersistenceTestConfig.class})
 @Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = {
-        "classpath:beforeTest.sql" })
+        "classpath:beforeTest.sql"})
 public abstract class BasePersistenceTest {
 
 }

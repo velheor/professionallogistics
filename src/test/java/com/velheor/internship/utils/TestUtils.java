@@ -19,27 +19,27 @@ public final class TestUtils {
 
     public final static Truck TRUCK1 = new Truck();
     public final static Truck TRUCK2 = new Truck();
-    public final static String[] TRUCK_IGNORE = new String[]{"user" };
+    public final static String[] TRUCK_IGNORE = new String[]{"user"};
     public final static Role ROLE1 = new Role();
     public final static Role ROLE2 = new Role();
-    public final static String[] ROLE_IGNORE = new String[]{"user" };
+    public final static String[] ROLE_IGNORE = new String[]{"user"};
     public final static User USER1 = new User();
     public final static User USER2 = new User();
     public final static String[] USER_IGNORE = new String[]{"carrierOrders", "shipperOrders",
-            "roles", "truck" };
+            "roles", "truck"};
     public final static Order ORDER1 = new Order();
     public final static Order ORDER2 = new Order();
     public final static String[] ORDER_IGNORE = new String[]{"carrier", "shipper", "routes",
-            "loads", "statuses" };
+            "loads", "statuses"};
     public final static Load LOAD1 = new Load();
     public final static Load LOAD2 = new Load();
-    public final static String[] LOAD_IGNORE = new String[]{"order" };
+    public final static String[] LOAD_IGNORE = new String[]{"order"};
     public final static Status STATUS1 = new Status();
     public final static Status STATUS2 = new Status();
-    public final static String[] STATUS_IGNORE = new String[]{"order" };
+    public final static String[] STATUS_IGNORE = new String[]{"order"};
     public final static Address ADDRESS1 = new Address();
     public final static Address ADDRESS2 = new Address();
-    public final static String[] ADDRESS_IGNORE = new String[]{"routeTo", "routeFrom" };
+    public final static String[] ADDRESS_IGNORE = new String[]{"routeTo", "routeFrom"};
     public final static Integer EXPECTED_SIZE = 1;
     public final static UUID TEST_UUID = UUID.fromString("4690c03a-af55-11eb-8529-0242ac130003");
 

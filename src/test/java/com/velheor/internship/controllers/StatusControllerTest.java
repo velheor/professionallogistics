@@ -1,7 +1,6 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.OrderViewDTO;
 import com.velheor.internship.dto.StatusViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.StatusMapperImpl;

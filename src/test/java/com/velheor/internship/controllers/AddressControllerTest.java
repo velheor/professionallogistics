@@ -4,7 +4,6 @@ import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.AddressViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.AddressMapperImpl;
-import com.velheor.internship.mappers.LoadMapperImpl;
 import com.velheor.internship.service.AddressService;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

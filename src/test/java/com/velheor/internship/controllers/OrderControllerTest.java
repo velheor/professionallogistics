@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.EntityNotFoundException;
-
 import java.math.BigDecimal;
 
 import static com.velheor.internship.utils.TestUtils.ORDER1;
