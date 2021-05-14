@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 
 import static com.velheor.internship.utils.TestUtils.LOAD1;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
+import static com.velheor.internship.utils.TestWebUtils.LOAD_URL;
 import static com.velheor.internship.utils.TestWebUtils.LOAD_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class LoadControllerTest extends BaseWebTest {
-    private final String load_url = "/loads/";
     private LoadService loadService;
     private LoadController loadController;
 
@@ -44,7 +44,7 @@ public class LoadControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(loadService.findById(LOAD1.getId())).thenReturn(LOAD1);
-        mockMvc.perform(get(load_url + LOAD1.getId()))
+        mockMvc.perform(get(LOAD_URL + LOAD1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(LOAD_VIEW_DTO1)));
@@ -52,13 +52,13 @@ public class LoadControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(load_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(LOAD_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExists() throws Exception {
         when(loadService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(load_url + TEST_UUID))
+        mockMvc.perform(get(LOAD_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -67,7 +67,7 @@ public class LoadControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(loadService.save(LOAD1)).thenReturn(LOAD1);
 
-        mockMvc.perform(put(load_url)
+        mockMvc.perform(put(LOAD_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(LOAD_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -81,7 +81,7 @@ public class LoadControllerTest extends BaseWebTest {
 
         load.setWeight(new BigDecimal("0"));
 
-        String responseBody = mockMvc.perform(put(load_url)
+        String responseBody = mockMvc.perform(put(LOAD_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(load)))
                 .andExpect(status().isBadRequest())
@@ -95,7 +95,7 @@ public class LoadControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(loadService.save(LOAD1)).thenReturn(LOAD1);
-        mockMvc.perform(post(load_url)
+        mockMvc.perform(post(LOAD_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(LOAD_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -105,7 +105,7 @@ public class LoadControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(load_url + LOAD1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(LOAD_URL + LOAD1.getId())).andExpect(status().isNoContent());
 
         verify(loadService).deleteById(LOAD1.getId());
     }

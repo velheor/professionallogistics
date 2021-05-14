@@ -17,6 +17,7 @@ import java.util.Arrays;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
 import static com.velheor.internship.utils.TestUtils.TRUCK1;
 import static com.velheor.internship.utils.TestUtils.TRUCK2;
+import static com.velheor.internship.utils.TestWebUtils.TRUCK_URL;
 import static com.velheor.internship.utils.TestWebUtils.TRUCK_VIEW_DTO1;
 import static com.velheor.internship.utils.TestWebUtils.TRUCK_VIEW_DTO2;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class TruckControllerTest extends BaseWebTest {
-    private final String truck_url = "/trucks/";
     private TruckService truckService;
     private TruckController truckController;
 
@@ -48,7 +48,7 @@ public class TruckControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(truckService.findById(TRUCK1.getId())).thenReturn(TRUCK1);
-        mockMvc.perform(get(truck_url + TRUCK1.getId()))
+        mockMvc.perform(get(TRUCK_URL + TRUCK1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(TRUCK_VIEW_DTO1)));
@@ -56,13 +56,13 @@ public class TruckControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(truck_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(TRUCK_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExists() throws Exception {
         when(truckService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(truck_url + TEST_UUID))
+        mockMvc.perform(get(TRUCK_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -70,7 +70,7 @@ public class TruckControllerTest extends BaseWebTest {
     @Test
     void getAll() throws Exception {
         when(truckService.getAll()).thenReturn(Arrays.asList(TRUCK1, TRUCK2));
-        mockMvc.perform(get(truck_url))
+        mockMvc.perform(get(TRUCK_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(TRUCK_VIEW_DTO1, TRUCK_VIEW_DTO2))));
@@ -80,7 +80,7 @@ public class TruckControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(truckService.save(TRUCK1)).thenReturn(TRUCK1);
 
-        mockMvc.perform(put(truck_url)
+        mockMvc.perform(put(TRUCK_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TRUCK_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -94,7 +94,7 @@ public class TruckControllerTest extends BaseWebTest {
         truck.setTruckCategory(ETruckCategory.COVERED.toString());
         truck.setRegistrationNumber(null);
 
-        String responseBody = mockMvc.perform(put(truck_url)
+        String responseBody = mockMvc.perform(put(TRUCK_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(truck)))
                 .andExpect(status().isBadRequest())
@@ -108,7 +108,7 @@ public class TruckControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(truckService.save(TRUCK1)).thenReturn(TRUCK1);
-        mockMvc.perform(post(truck_url)
+        mockMvc.perform(post(TRUCK_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TRUCK_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -118,7 +118,7 @@ public class TruckControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(truck_url + TRUCK1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(TRUCK_URL + TRUCK1.getId())).andExpect(status().isNoContent());
 
         verify(truckService).deleteById(TRUCK1.getId());
     }

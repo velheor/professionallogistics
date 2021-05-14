@@ -17,6 +17,7 @@ import java.util.Arrays;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestWebUtils.USER_URL;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO2;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser(authorities = "ADMIN")
 class UserControllerTest extends BaseWebTest {
 
-    private final String user_url = "/users/";
     private UserService userService;
     private UserController userController;
 
@@ -50,7 +50,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(userService.findById(USER1.getId())).thenReturn(USER1);
-        mockMvc.perform(get(user_url + USER1.getId()))
+        mockMvc.perform(get(USER_URL + USER1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
@@ -58,13 +58,13 @@ class UserControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(user_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(USER_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExistsUser() throws Exception {
         when(userService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(user_url + TEST_UUID))
+        mockMvc.perform(get(USER_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -72,7 +72,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     void getAll() throws Exception {
         when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
-        mockMvc.perform(get(user_url))
+        mockMvc.perform(get(USER_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(USER_VIEW_DTO1, USER_VIEW_DTO2))));
@@ -82,7 +82,7 @@ class UserControllerTest extends BaseWebTest {
     @WithMockUser(authorities = "USER")
     void getAllWithBadAuthorities() throws Exception {
         when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
-        mockMvc.perform(get(user_url))
+        mockMvc.perform(get(USER_URL))
                 .andExpect(status().isForbidden());
     }
 
@@ -90,7 +90,7 @@ class UserControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(userService.save(USER1)).thenReturn(USER1);
 
-        mockMvc.perform(put(user_url)
+        mockMvc.perform(put(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -104,7 +104,7 @@ class UserControllerTest extends BaseWebTest {
         testUser.setPassword("test");
         testUser.setPhoneNumber("+1234");
 
-        String responseBody = mockMvc.perform(put(user_url)
+        String responseBody = mockMvc.perform(put(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testUser)))
                 .andExpect(status().isBadRequest())
@@ -118,7 +118,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(userService.save(USER1)).thenReturn(USER1);
-        mockMvc.perform(post(user_url)
+        mockMvc.perform(post(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -128,7 +128,7 @@ class UserControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(user_url + USER1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(USER_URL + USER1.getId())).andExpect(status().isNoContent());
 
         verify(userService).deleteById(USER1.getId());
     }

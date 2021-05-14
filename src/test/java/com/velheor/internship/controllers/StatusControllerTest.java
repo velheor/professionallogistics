@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 
 import static com.velheor.internship.utils.TestUtils.STATUS1;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
+import static com.velheor.internship.utils.TestWebUtils.STATUS_URL;
 import static com.velheor.internship.utils.TestWebUtils.STATUS_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class StatusControllerTest extends BaseWebTest {
-    private final String status_url = "/statuses/";
     private StatusService statusService;
     private StatusController statusController;
 
@@ -43,7 +43,7 @@ public class StatusControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(statusService.findById(STATUS1.getId())).thenReturn(STATUS1);
-        mockMvc.perform(get(status_url + STATUS1.getId()))
+        mockMvc.perform(get(STATUS_URL + STATUS1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(STATUS_VIEW_DTO1)));
@@ -51,13 +51,13 @@ public class StatusControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(status_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(STATUS_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExists() throws Exception {
         when(statusService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(status_url + TEST_UUID))
+        mockMvc.perform(get(STATUS_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -66,7 +66,7 @@ public class StatusControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(statusService.save(STATUS1)).thenReturn(STATUS1);
 
-        mockMvc.perform(put(status_url)
+        mockMvc.perform(put(STATUS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(STATUS_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -80,7 +80,7 @@ public class StatusControllerTest extends BaseWebTest {
 
         statusViewDTO.setStatusDate(null);
 
-        String responseBody = mockMvc.perform(put(status_url)
+        String responseBody = mockMvc.perform(put(STATUS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(statusViewDTO)))
                 .andExpect(status().isBadRequest())
@@ -94,7 +94,7 @@ public class StatusControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(statusService.save(STATUS1)).thenReturn(STATUS1);
-        mockMvc.perform(post(status_url)
+        mockMvc.perform(post(STATUS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(STATUS_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -104,7 +104,7 @@ public class StatusControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(status_url + STATUS1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(STATUS_URL + STATUS1.getId())).andExpect(status().isNoContent());
 
         verify(statusService).deleteById(STATUS1.getId());
     }

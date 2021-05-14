@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
+import static com.velheor.internship.utils.TestWebUtils.ADDRESS_URL;
 import static com.velheor.internship.utils.TestWebUtils.ADDRESS_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AddressControllerTest extends BaseWebTest {
-    private final String address_url = "/addresses/";
     private AddressService addressService;
     private AddressController addressController;
 
@@ -43,7 +43,7 @@ public class AddressControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(addressService.findById(ADDRESS1.getId())).thenReturn(ADDRESS1);
-        mockMvc.perform(get(address_url + ADDRESS1.getId()))
+        mockMvc.perform(get(ADDRESS_URL + ADDRESS1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(ADDRESS_VIEW_DTO1)));
@@ -51,13 +51,13 @@ public class AddressControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(address_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(ADDRESS_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExists() throws Exception {
         when(addressService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(address_url + TEST_UUID))
+        mockMvc.perform(get(ADDRESS_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -66,7 +66,7 @@ public class AddressControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(addressService.save(ADDRESS1)).thenReturn(ADDRESS1);
 
-        mockMvc.perform(put(address_url)
+        mockMvc.perform(put(ADDRESS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ADDRESS_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -80,7 +80,7 @@ public class AddressControllerTest extends BaseWebTest {
 
         address.setStreetName(null);
 
-        String responseBody = mockMvc.perform(put(address_url)
+        String responseBody = mockMvc.perform(put(ADDRESS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(address)))
                 .andExpect(status().isBadRequest())
@@ -94,7 +94,7 @@ public class AddressControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(addressService.save(ADDRESS1)).thenReturn(ADDRESS1);
-        mockMvc.perform(post(address_url)
+        mockMvc.perform(post(ADDRESS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ADDRESS_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -104,7 +104,7 @@ public class AddressControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(address_url + ADDRESS1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(ADDRESS_URL + ADDRESS1.getId())).andExpect(status().isNoContent());
 
         verify(addressService).deleteById(ADDRESS1.getId());
     }

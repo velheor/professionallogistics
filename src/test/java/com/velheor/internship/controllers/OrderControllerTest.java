@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 
 import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
+import static com.velheor.internship.utils.TestWebUtils.ORDER_URL;
 import static com.velheor.internship.utils.TestWebUtils.ORDER_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class OrderControllerTest extends BaseWebTest {
-    private final String order_url = "/orders/";
     private OrderService orderService;
     private OrderController orderController;
 
@@ -44,7 +44,7 @@ public class OrderControllerTest extends BaseWebTest {
     @Test
     void findById() throws Exception {
         when(orderService.findById(ORDER1.getId())).thenReturn(ORDER1);
-        mockMvc.perform(get(order_url + ORDER1.getId()))
+        mockMvc.perform(get(ORDER_URL + ORDER1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(ORDER_VIEW_DTO1)));
@@ -52,13 +52,13 @@ public class OrderControllerTest extends BaseWebTest {
 
     @Test
     void findByIdBadRequest() throws Exception {
-        mockMvc.perform(get(order_url + "notValidText")).andExpect(status().isBadRequest());
+        mockMvc.perform(get(ORDER_URL + "notValidText")).andExpect(status().isBadRequest());
     }
 
     @Test
     void findByIdNotExists() throws Exception {
         when(orderService.findById(TEST_UUID)).thenThrow(new EntityNotFoundException());
-        mockMvc.perform(get(order_url + TEST_UUID))
+        mockMvc.perform(get(ORDER_URL + TEST_UUID))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof EntityNotFoundException));
     }
@@ -67,7 +67,7 @@ public class OrderControllerTest extends BaseWebTest {
     void update() throws Exception {
         when(orderService.save(ORDER1)).thenReturn(ORDER1);
 
-        mockMvc.perform(put(order_url)
+        mockMvc.perform(put(ORDER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ORDER_VIEW_DTO1)))
                 .andExpect(status().isOk())
@@ -81,7 +81,7 @@ public class OrderControllerTest extends BaseWebTest {
 
         order.setPrice(new BigDecimal("0"));
 
-        String responseBody = mockMvc.perform(put(order_url)
+        String responseBody = mockMvc.perform(put(ORDER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(order)))
                 .andExpect(status().isBadRequest())
@@ -95,7 +95,7 @@ public class OrderControllerTest extends BaseWebTest {
     @Test
     void save() throws Exception {
         when(orderService.save(ORDER1)).thenReturn(ORDER1);
-        mockMvc.perform(post(order_url)
+        mockMvc.perform(post(ORDER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ORDER_VIEW_DTO1)))
                 .andExpect(status().isCreated())
@@ -105,7 +105,7 @@ public class OrderControllerTest extends BaseWebTest {
 
     @Test
     void deleteById() throws Exception {
-        mockMvc.perform(delete(order_url + ORDER1.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete(ORDER_URL + ORDER1.getId())).andExpect(status().isNoContent());
 
         verify(orderService).deleteById(ORDER1.getId());
     }
