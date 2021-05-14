@@ -21,8 +21,10 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final UserService userService;
     private final JwtProvider jwtProvider;
+    private final EmailTokenProvider emailTokenProvider;
+    private final EmailSender emailSender;
+    private final UserService userService;
     private final UserMapper userMapper;
 
     @PostMapping("/login")

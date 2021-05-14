@@ -47,13 +47,13 @@ public final class TestUtils {
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK1.setName("VOLVO");
         TRUCK1.setRegistrationNumber("1234 VA-5");
-        TRUCK1.setMaxWeight(new BigDecimal("10"));
+        TRUCK1.setMaxWeight(new BigDecimal("10.0"));
         TRUCK1.setTruckCategory(ETruckCategory.ALL_METAL);
 
         TRUCK2.setId(UUID.fromString("365e1fdc-9c4a-11eb-a8b3-0242ac130003"));
         TRUCK2.setName("SCANIA");
         TRUCK2.setRegistrationNumber("2345 AV-6");
-        TRUCK2.setMaxWeight(new BigDecimal("5"));
+        TRUCK2.setMaxWeight(new BigDecimal("10.0"));
         TRUCK2.setTruckCategory(ETruckCategory.ALL_METAL);
 
         USER1.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));

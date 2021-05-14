@@ -40,6 +40,9 @@ public class User extends BaseEntity {
 
     private String password;
 
+    @Column(name = "active")
+    private boolean isActive;
+
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     private List<Order> carrierOrders;
 

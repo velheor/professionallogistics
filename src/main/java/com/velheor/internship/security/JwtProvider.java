@@ -50,7 +50,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
-                .setExpiration(new Date(new Date().getTime() + validityInMilliseconds * 1000))
+                .setExpiration(new Date(new Date().getTime() + validityInMilliseconds))
                 .compact();
     }
 
