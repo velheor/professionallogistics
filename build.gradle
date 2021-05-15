@@ -74,7 +74,7 @@ dependencies {
     //mailsender
     implementation group: 'org.springframework', name: 'spring-context-support', version: "${spring}"
     implementation group: 'javax.mail', name: 'mail', version: "${javaMail}"
-
+    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: "${thymeleaf}"
 
 }
 

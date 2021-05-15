@@ -2,10 +2,10 @@ package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.AuthUserDTO;
 import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.models.User;
 import com.velheor.internship.security.JwtProvider;
-import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -40,20 +42,19 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public String signUp(@Valid @RequestBody UserViewDTO userViewDTO) {
         userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
-        String message = String.format(
-                "Hello, %s! \n" +
-                        "Welcome to Prolog. Please, visit next link: http://localhost:8080/prolog/activate/%s",
-                userViewDTO.getFirstName(),
-                jwtProvider.createMailToken(userViewDTO.getEmail())
-        );
-        emailSender.send(userViewDTO.getEmail(), "Activation code", message);
-        return message;
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("firstName", userViewDTO.getFirstName());
+        templateModel.put("token", jwtProvider.createMailToken(userViewDTO.getEmail()));
+
+        emailSender.sendMessageUsingThymeleafTemplate(userViewDTO.getEmail(), "Activation code", templateModel);
+        return "Check your email!";
     }
 
     @GetMapping("/activate/{code}")
-    public String activateAccount(@PathVariable("code") String jwtMail) {
-        jwtProvider.validateToken(jwtMail);
-        User user = userService.findByEmail(jwtProvider.getEmail(jwtMail));
+    public String activateAccount(@PathVariable("code") String tokenMail) {
+        jwtProvider.validateToken(tokenMail);
+        User user = userService.findByEmail(jwtProvider.getEmail(tokenMail));
         user.setActive(true);
         userService.save(user);
         return "Account activated successfully";
