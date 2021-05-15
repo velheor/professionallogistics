@@ -73,8 +73,7 @@ dependencies {
 
     //mailsender
     implementation group: 'org.springframework', name: 'spring-context-support', version: "${spring}"
-    implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
-    implementation group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
+    implementation group: 'javax.mail', name: 'mail', version: "${javaMail}"
 
 
 }

@@ -44,9 +44,18 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<Role> roles) {
+    public String createWebToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", rolesToListString(roles));
+        return builderToken(claims);
+    }
+
+    public String createMailToken(String email) {
+        Claims claims = Jwts.claims().setSubject(email);
+        return builderToken(claims);
+    }
+
+    private String builderToken(Claims claims){
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
