@@ -2,6 +2,8 @@ package com.velheor.internship.repository;
 
 import com.velheor.internship.models.User;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -11,4 +13,8 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     @EntityGraph(value = "UserWithRoles")
     Optional<User> findByEmail(String email);
+
+    @Modifying
+    @Query(value = "UPDATE User user SET user.isActive = true WHERE user.email = ?1")
+    void activateUserByEmail(String email);
 }

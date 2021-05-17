@@ -5,6 +5,7 @@ import com.velheor.internship.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
@@ -38,5 +39,10 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(
                 "User with email: " + email + " was not found."));
+    }
+
+    @Transactional
+    public void activateAccount(String email) {
+        userRepository.activateUserByEmail(email);
     }
 }
