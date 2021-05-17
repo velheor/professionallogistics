@@ -26,36 +26,38 @@ import static com.velheor.internship.utils.TestUtils.USER2;
 
 public final class TestWebUtils {
 
+    public final static String TRUCK_URL = "/trucks/";
+    public static final String USER_URL = "/users/";
+    public static final String ROLE_URL = "/roles/";
+    public static final String ORDER_URL = "/orders/";
+    public final static String LOAD_URL = "/loads/";
+    public final static String STATUS_URL = "/statuses/";
+    public static final String ADDRESS_URL = "/addresses/";
+    public static final String AUTH_URL = "/auth/";
+
+
     public final static TruckViewDTO TRUCK_VIEW_DTO1 = new TruckViewDTO();
     public final static TruckViewDTO TRUCK_VIEW_DTO2 = new TruckViewDTO();
-    public final static String TRUCK_URL = "/trucks/";
 
     public final static UserViewDTO USER_VIEW_DTO1 = new UserViewDTO();
     public final static UserViewDTO USER_VIEW_DTO2 = new UserViewDTO();
-    public final static String STATUS_URL = "/statuses/";
 
     public final static RoleViewDTO ROLE_VIEW_DTO1 = new RoleViewDTO();
     public final static RoleViewDTO ROLE_VIEW_DTO2 = new RoleViewDTO();
-    public static final String ROLE_URL = "/roles/";
 
     public final static OrderViewDTO ORDER_VIEW_DTO1 = new OrderViewDTO();
     public final static OrderViewDTO ORDER_VIEW_DTO2 = new OrderViewDTO();
-    public static final String ORDER_URL = "/orders/";
 
     public final static LoadViewDTO LOAD_VIEW_DTO1 = new LoadViewDTO();
     public final static LoadViewDTO LOAD_VIEW_DTO2 = new LoadViewDTO();
-    public final static String LOAD_URL = "/loads/";
 
     public final static StatusViewDTO STATUS_VIEW_DTO1 = new StatusViewDTO();
     public final static StatusViewDTO STATUS_VIEW_DTO2 = new StatusViewDTO();
-    public static final String USER_URL = "/users/";
 
     public final static AddressViewDTO ADDRESS_VIEW_DTO1 = new AddressViewDTO();
     public final static AddressViewDTO ADDRESS_VIEW_DTO2 = new AddressViewDTO();
-    public static final String ADDRESS_URL = "/addresses/";
 
     public final static AuthUserDTO AUTH_USER_DTO = new AuthUserDTO();
-    public static final String AUTH_URL = "/auth/";
 
     static {
         TRUCK_VIEW_DTO1.setId(TRUCK1.getId());
@@ -132,7 +134,7 @@ public final class TestWebUtils {
         ADDRESS_VIEW_DTO2.setStreetName(ADDRESS2.getStreetName());
         ADDRESS_VIEW_DTO2.setStreetNumber(ADDRESS2.getStreetNumber());
 
-        AUTH_USER_DTO.setEmail("Test@gmail.com");
-        AUTH_USER_DTO.setPassword("password");
+        AUTH_USER_DTO.setEmail(USER1.getEmail());
+        AUTH_USER_DTO.setPassword(USER1.getPassword());
     }
 }
