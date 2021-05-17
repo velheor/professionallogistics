@@ -13,6 +13,7 @@ import com.velheor.internship.models.enums.ETruckCategory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.UUID;
 
 public final class TestUtils {
@@ -73,6 +74,8 @@ public final class TestUtils {
         ROLE1.setId(UUID.fromString("cd2d4abe-9c4a-11eb-a8b3-0242ac130003"));
         ROLE1.setName(ERole.CARRIER);
         ROLE1.setUser(USER1);
+
+        USER1.setRoles(Collections.singletonList(ROLE1));
 
         ROLE2.setId(UUID.fromString("faf2d93a-9c4c-11eb-a8b3-0242ac130003"));
         ROLE2.setName(ERole.SHIPPER);
