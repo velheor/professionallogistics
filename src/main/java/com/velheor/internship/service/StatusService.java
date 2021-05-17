@@ -15,9 +15,8 @@ public class StatusService {
     private final StatusRepository statusRepository;
 
     public Status findById(UUID id) {
-        return statusRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Status with id: " + id + " was not found."));
+        return statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+                "Status with id: " + id + " was not found."));
     }
 
     public Status save(Status status) {

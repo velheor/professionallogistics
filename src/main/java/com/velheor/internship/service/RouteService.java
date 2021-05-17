@@ -16,7 +16,7 @@ public class RouteService {
 
     public Route findById(UUID id) {
         return routeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
-                        "Route with id: " + id + " was not found."));
+                "Route with id: " + id + " was not found."));
     }
 
     public Route save(Route route) {

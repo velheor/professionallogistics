@@ -16,7 +16,7 @@ public class OrderService {
 
     public Order findById(UUID id) {
         return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
-                        "Order with id: " + id + "was not found."));
+                "Order with id: " + id + "was not found."));
     }
 
     public Order save(Order order) {
