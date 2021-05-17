@@ -1,16 +1,16 @@
 package com.velheor.internship.email;
 
+import com.velheor.internship.dto.UserViewDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
+import lombok.SneakyThrows;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -21,40 +21,25 @@ public class EmailSender {
 
     private final JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
-    private String username;
-
-    public void send(String emailTo, String subject, String message) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-        mailMessage.setFrom(username);
-        mailMessage.setTo(emailTo);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(message);
-        mailSender.send(mailMessage);
-    }
-
+    @SneakyThrows
     private void sendHtmlMessage(String to, String subject, String htmlBody) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper;
-        try {
-            helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(htmlBody, true);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlBody, true);
         mailSender.send(message);
     }
 
-    public void sendMessageUsingThymeleafTemplate(
-            String to, String subject, Map<String, Object> templateModel) {
-
+    public void sendMessageAfterSignUp(UserViewDTO userViewDTO, String token) {
         Context thymeleafContext = new Context();
-        thymeleafContext.setVariables(templateModel);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("token", token);
+        variables.put("user", userViewDTO);
+        thymeleafContext.setVariables(variables);
         String htmlBody = thymeleafTemplateEngine.process("registrationMessage.html", thymeleafContext);
 
-        sendHtmlMessage(to, subject, htmlBody);
+        sendHtmlMessage(userViewDTO.getEmail(), "Activation code", htmlBody);
     }
 }
