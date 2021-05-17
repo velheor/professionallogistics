@@ -1,7 +1,6 @@
 package com.velheor.internship.security;
 
 import com.velheor.internship.exception.JwtAuthenticationException;
-import com.velheor.internship.models.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -12,16 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
-import static com.velheor.internship.mappers.RoleMapper.rolesToListString;
+import static com.velheor.internship.mappers.RoleMapper.mapToRoles;
 
 @Component
 @PropertySource("classpath:security.properties")
@@ -44,9 +44,9 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createWebToken(String username, List<Role> roles) {
+    public String createWebToken(String username, Collection<? extends GrantedAuthority> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", rolesToListString(roles));
+        claims.put("roles", mapToRoles(roles));
         return builderToken(claims);
     }
 
@@ -55,7 +55,7 @@ public class JwtProvider {
         return builderToken(claims);
     }
 
-    private String builderToken(Claims claims){
+    private String builderToken(Claims claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
