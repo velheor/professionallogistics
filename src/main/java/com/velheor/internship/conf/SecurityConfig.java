@@ -1,6 +1,6 @@
 package com.velheor.internship.conf;
 
-import com.velheor.internship.security.JwtConfigurer;
+import com.velheor.internship.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -27,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**"
     };
 
-    private final JwtConfigurer jwtConfigurer;
+    private final JwtFilter jwtFilter;
 
     @Override
     public void configure(WebSecurity web) {
@@ -47,8 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .apply(jwtConfigurer);
+                .and();
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
