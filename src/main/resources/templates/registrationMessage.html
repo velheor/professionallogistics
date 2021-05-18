@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="#{welcome(${token})}"></p>
+<p th:text="#{welcome} + ${token}"></p>
 <p th:text="(${user.firstName})"></p>
 <p th:text="(${user.lastName})"></p>
 <p th:text="(${user.email})"></p>
