@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: velheor1/prologdb
+    image: mysql:latest
     volumes:
       - ./mysql-data:/var/lib/mysql
     restart: always
