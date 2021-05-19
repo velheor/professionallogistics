@@ -134,7 +134,7 @@ public final class TestWebUtils {
         ADDRESS_VIEW_DTO2.setStreetName(ADDRESS2.getStreetName());
         ADDRESS_VIEW_DTO2.setStreetNumber(ADDRESS2.getStreetNumber());
 
-        AUTH_USER_DTO.setEmail(USER1.getEmail());
-        AUTH_USER_DTO.setPassword(USER1.getPassword());
+        AUTH_USER_DTO.setEmail(USER_VIEW_DTO1.getEmail());
+        AUTH_USER_DTO.setPassword("password");
     }
 }

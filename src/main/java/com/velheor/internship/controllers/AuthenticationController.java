@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +53,7 @@ public class AuthenticationController {
         return ResponseEntity.ok("Check your email!");
     }
 
-    @PostMapping("/activate/{code}")
+    @GetMapping("/activate/{code}")
     public ResponseEntity<String> activateAccount(@PathVariable("code") String tokenMail) {
         jwtProvider.validateToken(tokenMail);
         userService.changeAccountStatusByEmail(true, jwtProvider.getEmail(tokenMail));

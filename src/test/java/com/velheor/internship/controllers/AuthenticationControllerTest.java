@@ -1,12 +1,13 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
+import com.velheor.internship.dto.AuthUserDTO;
 import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.mappers.UserMapperImpl;
 import com.velheor.internship.security.JwtProvider;
-import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,52 +15,58 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestWebUtils.AUTH_URL;
 import static com.velheor.internship.utils.TestWebUtils.AUTH_USER_DTO;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AuthenticationControllerTest extends BaseWebTest {
-/*
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtProvider jwtProvider;
-    private UserService userService;
-    private EmailSender emailSender;
-    private AuthenticationController authController;
 
-    public AuthenticationControllerTest() {
+    private UserService userService;
+    private final JwtProvider jwtProvider;
+
+    @Autowired
+    AuthenticationControllerTest(AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
         setUp(() -> {
-            emailSender = mock(EmailSender.class);
+            EmailSender emailSender = mock(EmailSender.class);
             userService = mock(UserService.class);
             UserMapper userMapper = new UserMapperImpl();
-            return authController;
+            return new AuthenticationController(authenticationManager, jwtProvider, emailSender, userService, userMapper);
         });
     }
 
     @Test
     void authenticate() throws Exception {
-        when(userService.findByEmail(USER1.getEmail())).thenReturn(USER1);
         String jwt = mockMvc.perform(post(AUTH_URL + "login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(AUTH_USER_DTO)))
-                .andExpect(status().isOk()).andReturn().getResponse().toString();
-        System.out.println(jwt);
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertTrue(jwtProvider.validateToken(jwt));
+    }
+
+    @Test
+    void authenticateThrowForbiddenException() throws Exception {
+        AuthUserDTO authUserDTO = new AuthUserDTO(AUTH_USER_DTO);
+        authUserDTO.setPassword("blablabla");
+        mockMvc.perform(post(AUTH_URL + "login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(authUserDTO)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
     void signUp() throws Exception {
-        mockMvc.perform(post(AUTH_URL + "signup")
+        String result = mockMvc.perform(post(AUTH_URL + "signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(result).isEqualTo("Check your email!");
     }
 
     @Test
@@ -77,5 +84,5 @@ class AuthenticationControllerTest extends BaseWebTest {
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 2;
         assertThat(actual.getErrors().size()).isEqualTo(countOfErrors);
-    }*/
+    }
 }
