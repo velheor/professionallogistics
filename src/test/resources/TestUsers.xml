@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Users>
+    <User>
+        <id>47a07384-93b8-11eb-a8b3-0242ac130003</id>
+        <first_name>Test1</first_name>
+        <last_name>Test1</last_name>
+        <email>test1@gmail.com</email>
+        <phone_number>+375 (33) 123-45-67</phone_number>
+        <password>$2y$12$yVeTM63pz0oSJeet.BGEU.GxJvJdnf0FX5rGcqGl4Mk51edhBa1SC</password>
+        <active>0</active>
+    </User>
+    <User>
+        <id>45caf4c2-9565-11eb-a8b3-0242ac130003</id>
+        <first_name>Test2</first_name>
+        <last_name>Test2</last_name>
+        <email>test2@gmail.com</email>
+        <phone_number>+375 (33) 111-22-33</phone_number>
+        <password>$2y$12$ZN3OaMsgVkx9Z6.b.tnHSeok9zxUSVtQH9A0JFxSEhW8son/POBXi</password>
+        <active>0</active>
+    </User>
+</Users>
