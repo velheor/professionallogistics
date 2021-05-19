@@ -51,6 +51,9 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: "${spring}"
     implementation group: 'org.liquibase', name: 'liquibase-core', version: "${liquibase}"
 
+    //xml parser
+    implementation group: 'org.springframework', name: 'spring-oxm', version: "${spring}"
+
     //validation
     implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
     implementation group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidation}"
