@@ -44,8 +44,8 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createWebToken(String username, Collection<? extends GrantedAuthority> roles) {
-        Claims claims = Jwts.claims().setSubject(username);
+    public String createWebToken(String email, Collection<? extends GrantedAuthority> roles) {
+        Claims claims = Jwts.claims().setSubject(email);
         claims.put("roles", mapToRoles(roles));
         return builderToken(claims);
     }

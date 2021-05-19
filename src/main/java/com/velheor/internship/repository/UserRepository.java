@@ -15,6 +15,6 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     Optional<User> findByEmail(String email);
 
     @Modifying
-    @Query(value = "UPDATE User user SET user.isActive = true WHERE user.email = ?1")
-    void activateUserByEmail(String email);
+    @Query(value = "UPDATE User user SET user.isActive = ?1 WHERE user.email = ?2")
+    void activateUserByEmail(Boolean isActive, String email);
 }

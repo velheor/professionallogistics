@@ -42,7 +42,7 @@ public class UserService {
     }
 
     @Transactional
-    public void activateAccount(String email) {
-        userRepository.activateUserByEmail(email);
+    public void changeAccountStatusByEmail(Boolean isActive, String email) {
+        userRepository.activateUserByEmail(isActive, email);
     }
 }
