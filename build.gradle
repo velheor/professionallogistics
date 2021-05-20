@@ -52,7 +52,7 @@ dependencies {
     implementation group: 'org.liquibase', name: 'liquibase-core', version: "${liquibase}"
 
     //xml parser
-    implementation group: 'org.springframework', name: 'spring-oxm', version: "${spring}"
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
     //validation
     implementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"

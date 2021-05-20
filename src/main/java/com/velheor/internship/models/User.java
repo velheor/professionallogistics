@@ -13,6 +13,10 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @Entity
@@ -25,6 +29,7 @@ import java.util.List;
                 @NamedAttributeNode("roles")
         }
 )
+@XmlRootElement(name = "User")
 public class User extends BaseEntity {
 
     @Column(name = "first_name")
@@ -69,5 +74,20 @@ public class User extends BaseEntity {
         return "User(id=" + super.getId() + ", firstName=" + this.getFirstName() + ", lastName="
                 + this.getLastName() + ", email=" + this.getEmail() + ", phoneNumber=" + this
                 .getPhoneNumber() + ", password=" + this.getPassword() + ")";
+    }
+
+    @XmlElement(name = "first_name")
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @XmlElement(name = "last_name")
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @XmlElement(name = "phone_number")
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
