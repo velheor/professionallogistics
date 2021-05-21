@@ -45,4 +45,8 @@ public class UserService {
     public void changeAccountStatusByEmail(Boolean isActive, String email) {
         userRepository.activateUserByEmail(isActive, email);
     }
+
+    public void saveAll(Iterable<User> users) {
+        userRepository.saveAll(users);
+    }
 }

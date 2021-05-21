@@ -17,4 +17,6 @@ public interface UserMapper {
     User userDtoToUser(UserViewDTO userViewDTO);
 
     Iterable<UserViewDTO> usersToUsersDto(Iterable<User> users);
+
+    Iterable<User> usersDtoToUser(Iterable<UserViewDTO> usersViewDto);
 }

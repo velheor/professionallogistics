@@ -34,7 +34,7 @@ public class RandomDataInPojo {
         Users users = new Users();
         Faker faker = new Faker();
 
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             UserViewDTO user = new UserViewDTO();
             user.setId(UUID.randomUUID());
             user.setFirstName(faker.name().firstName());

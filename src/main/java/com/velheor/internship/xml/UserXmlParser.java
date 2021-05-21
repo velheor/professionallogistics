@@ -1,7 +1,8 @@
 package com.velheor.internship.xml;
 
-import com.velheor.internship.models.User;
-import com.velheor.internship.repository.UserRepository;
+import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.mappers.UserMapper;
+import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +16,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserXmlParser {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
-    public List<User> readUsersFromXML(InputStream is) throws XMLStreamException, JAXBException {
-        List<User> users = new ArrayList<>();
-        StaxStreamProcessor<User> processor = new StaxStreamProcessor<>(is, User.class, "Users");
+    public void readUsersFromXML(InputStream is) throws XMLStreamException, JAXBException {
+        List<UserViewDTO> users = new ArrayList<>();
+        StaxStreamProcessor<UserViewDTO> processor = new StaxStreamProcessor<>(is, UserViewDTO.class, "Users");
 
         while (processor.startElement()) {
             users.add(processor.getValue());
+            if (users.size() == 100) {
+                userService.saveAll(userMapper.usersDtoToUser(users));
+                users.clear();
+            }
         }
-        return users;
+        userService.saveAll(userMapper.usersDtoToUser(users));
     }
 }

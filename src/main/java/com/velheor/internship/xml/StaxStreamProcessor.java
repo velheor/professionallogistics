@@ -11,23 +11,23 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
 
-
 @Getter
 public class StaxStreamProcessor<T> implements AutoCloseable {
+
     private static final XMLInputFactory FACTORY = XMLInputFactory.newInstance();
     private final XMLStreamReader reader;
     private final JAXBContext context;
     private final Unmarshaller unmarshaller;
     private final Class<T> type;
 
-    public StaxStreamProcessor(InputStream is, Class<T> type, String parent) throws XMLStreamException, JAXBException {
+    public StaxStreamProcessor(InputStream is, Class<T> type, String rootName) throws XMLStreamException, JAXBException {
         reader = FACTORY.createXMLStreamReader(is);
         context = JAXBContext.newInstance(type);
         unmarshaller = context.createUnmarshaller();
         this.type = type;
 
         reader.nextTag();
-        reader.require(XMLStreamConstants.START_ELEMENT, null, parent);
+        reader.require(XMLStreamConstants.START_ELEMENT, null, rootName);
         reader.nextTag();
     }
 
@@ -37,9 +37,7 @@ public class StaxStreamProcessor<T> implements AutoCloseable {
 
     public T getValue() throws JAXBException, XMLStreamException {
         T t = unmarshaller.unmarshal(reader, type).getValue();
-        if (reader.getEventType() == XMLStreamConstants.CHARACTERS) {
-            reader.next();
-        }
+        reader.next();
         return t;
     }
 
