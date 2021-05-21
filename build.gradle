@@ -69,7 +69,7 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "${mockito}"
     testImplementation group: 'com.jayway.jsonpath', name: 'json-path', version: "${jayway}"
     testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: "${skyscreamer}"
-    testImplementation group: 'org.jeasy', name: 'easy-random-core', version: "${easyRandom}"
+    testImplementation group: 'com.github.javafaker', name: 'javafaker', version: "${javaFaker}"
 
 
     //mapstruct
