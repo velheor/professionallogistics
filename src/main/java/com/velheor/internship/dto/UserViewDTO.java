@@ -9,14 +9,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@XmlRootElement(name = "User")
 public class UserViewDTO extends BaseDTO {
 
     @NotEmpty(message = "{notEmpty}")
@@ -47,20 +44,5 @@ public class UserViewDTO extends BaseDTO {
         email = userViewDTO.getEmail();
         phoneNumber = userViewDTO.getPhoneNumber();
         password = userViewDTO.getPassword();
-    }
-
-    @XmlElement(name = "first_name")
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    @XmlElement(name = "last_name")
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @XmlElement(name = "phone_number")
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 }
