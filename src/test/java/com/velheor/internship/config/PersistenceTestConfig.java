@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.velheor.internship.service"})
+@ComponentScan(basePackages = {"com.velheor.internship.service", "com.velheor.internship.xml"})
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
 @EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
