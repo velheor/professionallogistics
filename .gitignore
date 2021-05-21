@@ -10,3 +10,5 @@ prolog.mwb.bak
 src/main/java/com/velheor/internship/Main.java
 logs
 mysql-data
+src/main/resources/GeneratedTestUsers.xml
+src/test/resources/GeneratedTestUsers.xml
