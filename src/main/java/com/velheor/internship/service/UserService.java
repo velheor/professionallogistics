@@ -1,6 +1,10 @@
 package com.velheor.internship.service;
 
+import com.velheor.internship.dto.TruckViewDTO;
+import com.velheor.internship.dto.UserWithTruckDTO;
+import com.velheor.internship.models.Role;
 import com.velheor.internship.models.User;
+import com.velheor.internship.models.enums.ERole;
 import com.velheor.internship.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -24,7 +29,14 @@ public class UserService {
     }
 
     public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role defaultRole = new Role();
+        defaultRole.setName(ERole.SHIPPER);
+        user.setRoles(Collections.singletonList(defaultRole));
         return userRepository.save(user);
     }
 

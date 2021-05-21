@@ -45,7 +45,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@Valid @RequestBody UserViewDTO userViewDTO) {
-        userService.save(userMapper.userDtoToUser(userViewDTO));
+        userService.registerUser(userMapper.userDtoToUser(userViewDTO));
 
         String token = jwtProvider.createMailToken(userViewDTO.getEmail());
 
