@@ -3,9 +3,10 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.AddressViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
-import com.velheor.internship.mappers.AddressMapperImpl;
+import com.velheor.internship.mappers.AddressMapper;
 import com.velheor.internship.service.AddressService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -28,13 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AddressControllerTest extends BaseWebTest {
+
     private AddressService addressService;
     private AddressController addressController;
 
-    public AddressControllerTest() {
+    @Autowired
+    public AddressControllerTest(AddressMapper addressMapper) {
         setUp(() -> {
             addressService = mock(AddressService.class);
-            AddressMapperImpl addressMapper = new AddressMapperImpl();
             addressController = new AddressController(addressService, addressMapper);
             return addressController;
         });

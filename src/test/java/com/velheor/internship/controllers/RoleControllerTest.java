@@ -3,9 +3,10 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.RoleViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
-import com.velheor.internship.mappers.RoleMapperImpl;
+import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.service.RoleService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,14 +31,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WithMockUser(authorities = "ADMIN")
 public class RoleControllerTest extends BaseWebTest {
+
     private RoleService roleService;
     private RoleController roleController;
 
-    public RoleControllerTest() {
+    @Autowired
+    public RoleControllerTest(RoleMapper roleMapper) {
         setUp(() -> {
             roleService = mock(RoleService.class);
-            RoleMapperImpl truckMapper = new RoleMapperImpl();
-            roleController = new RoleController(roleService, truckMapper);
+            roleController = new RoleController(roleService, roleMapper);
             return roleController;
         });
     }

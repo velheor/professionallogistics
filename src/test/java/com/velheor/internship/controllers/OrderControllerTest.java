@@ -3,9 +3,10 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.OrderViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
-import com.velheor.internship.mappers.OrderMapperImpl;
+import com.velheor.internship.mappers.OrderMapper;
 import com.velheor.internship.service.OrderService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -29,13 +30,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class OrderControllerTest extends BaseWebTest {
+
     private OrderService orderService;
     private OrderController orderController;
 
-    public OrderControllerTest() {
+    @Autowired
+    public OrderControllerTest(OrderMapper orderMapper) {
         setUp(() -> {
             orderService = mock(OrderService.class);
-            OrderMapperImpl orderMapper = new OrderMapperImpl();
             orderController = new OrderController(orderService, orderMapper);
             return orderController;
         });

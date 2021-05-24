@@ -3,9 +3,10 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.LoadViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
-import com.velheor.internship.mappers.LoadMapperImpl;
+import com.velheor.internship.mappers.LoadMapper;
 import com.velheor.internship.service.LoadService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -29,13 +30,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class LoadControllerTest extends BaseWebTest {
+
     private LoadService loadService;
     private LoadController loadController;
 
-    public LoadControllerTest() {
+    @Autowired
+    public LoadControllerTest(LoadMapper loadMapper) {
         setUp(() -> {
             loadService = mock(LoadService.class);
-            LoadMapperImpl loadMapper = new LoadMapperImpl();
             loadController = new LoadController(loadService, loadMapper);
             return loadController;
         });

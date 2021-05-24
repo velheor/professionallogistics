@@ -4,10 +4,10 @@ import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.TruckViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.TruckMapper;
-import com.velheor.internship.mappers.TruckMapperImpl;
 import com.velheor.internship.models.enums.ETruckCategory;
 import com.velheor.internship.service.TruckService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -33,13 +33,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class TruckControllerTest extends BaseWebTest {
+
     private TruckService truckService;
     private TruckController truckController;
 
-    public TruckControllerTest() {
+    @Autowired
+    public TruckControllerTest(TruckMapper truckMapper) {
         setUp(() -> {
             truckService = mock(TruckService.class);
-            TruckMapper truckMapper = new TruckMapperImpl();
             truckController = new TruckController(truckService, truckMapper);
             return truckController;
         });
