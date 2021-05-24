@@ -2,7 +2,7 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.BasePersistenceTest;
 import com.velheor.internship.models.Status;
-import com.velheor.internship.models.enums.EStatus;
+import com.velheor.internship.models.enums.ELoadStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,7 +43,7 @@ class StatusServiceTest extends BasePersistenceTest {
     @Test
     void create() {
         Status expected = new Status();
-        expected.setName(EStatus.ENDED);
+        expected.setName(ELoadStatus.ENDED);
         expected.setStatusDate(LocalDateTime.of(2021, 1, 25, 11, 45));
         expected.setOrder(ORDER1);
         Status actual = statusService.save(expected);
@@ -54,7 +54,7 @@ class StatusServiceTest extends BasePersistenceTest {
     @Test
     void update() {
         Status expected = new Status(STATUS1);
-        expected.setName(EStatus.CANCELED);
+        expected.setName(ELoadStatus.CANCELED);
         Status actual = statusService.save(expected);
 
         assertThat(actual).isEqualToIgnoringGivenFields(expected, STATUS_IGNORE);

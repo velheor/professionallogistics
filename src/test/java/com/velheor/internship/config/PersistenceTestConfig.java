@@ -1,7 +1,10 @@
 package com.velheor.internship.config;
 
 import com.velheor.internship.conf.LiquiBaseConfig;
+import com.velheor.internship.email.EmailSender;
 import lombok.RequiredArgsConstructor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +26,9 @@ import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.velheor.internship.service", "com.velheor.internship.xml"})
+@ComponentScan(basePackages =
+        {"com.velheor.internship.service", "com.velheor.internship.xml",
+                "com.velheor.internship.security", "com.velheor.internship.mappers"})
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
 @EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})
@@ -75,5 +80,10 @@ public class PersistenceTestConfig {
     @Bean
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
+    }
+
+    @Bean
+    protected EmailSender emailSender() {
+        return Mockito.mock(EmailSender.class);
     }
 }

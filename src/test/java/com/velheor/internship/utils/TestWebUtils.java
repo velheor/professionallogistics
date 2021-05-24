@@ -35,7 +35,6 @@ public final class TestWebUtils {
     public static final String ADDRESS_URL = "/addresses/";
     public static final String AUTH_URL = "/auth/";
 
-
     public final static TruckViewDTO TRUCK_VIEW_DTO1 = new TruckViewDTO();
     public final static TruckViewDTO TRUCK_VIEW_DTO2 = new TruckViewDTO();
 

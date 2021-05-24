@@ -3,11 +3,9 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.AuthUserDTO;
 import com.velheor.internship.dto.UserViewDTO;
-import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.exception.ErrorMessage;
+import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.mappers.UserMapper;
-import com.velheor.internship.mappers.UserMapperImpl;
-import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +19,27 @@ import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AuthenticationControllerTest extends BaseWebTest {
 
     private UserService userService;
-    private final JwtProvider jwtProvider;
 
     @Autowired
-    AuthenticationControllerTest(AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
-        this.jwtProvider = jwtProvider;
+    AuthenticationControllerTest(AuthenticationManager authenticationManager, UserMapper userMapper, RoleMapper roleMapper) {
         setUp(() -> {
-            EmailSender emailSender = mock(EmailSender.class);
             userService = mock(UserService.class);
-            UserMapper userMapper = new UserMapperImpl();
-            return new AuthenticationController(authenticationManager, jwtProvider, emailSender, userService, userMapper);
+            return new AuthenticationController(authenticationManager, userService, userMapper, roleMapper);
         });
     }
 
     @Test
     void authenticate() throws Exception {
-        String jwt = mockMvc.perform(post(AUTH_URL + "login")
+        mockMvc.perform(post(AUTH_URL + "login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(AUTH_USER_DTO)))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertTrue(jwtProvider.validateToken(jwt));
+                .andExpect(status().isOk());
     }
 
     @Test

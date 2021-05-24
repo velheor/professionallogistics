@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
@@ -36,7 +34,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 user.getEmail(),
                 user.getPhoneNumber(),
                 user.getPassword(),
-                roleMapper.mapToGrantedAuthorities(new ArrayList<>(user.getRoles())),
+                roleMapper.mapToGrantedAuthorities(user.getRoles()),
                 user.getStatus().equals(EUserStatus.ACTIVE));
     }
 }

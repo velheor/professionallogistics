@@ -20,7 +20,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 @SpringJUnitWebConfig(
         classes = {
-                WebTestConfig.class, PersistenceTestConfig.class, SecurityConfig.class
+                WebTestConfig.class, SecurityConfig.class
         })
 public abstract class BaseWebTest {
 

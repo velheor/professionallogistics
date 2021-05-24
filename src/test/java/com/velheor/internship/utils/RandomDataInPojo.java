@@ -21,7 +21,7 @@ public class RandomDataInPojo {
 
     @Test
     void randomData() throws JAXBException, FileNotFoundException {
-        creatingTestData();
+        //creatingTestData();
     }
 
     public void creatingTestData() throws JAXBException, FileNotFoundException {
