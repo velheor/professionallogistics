@@ -27,10 +27,6 @@ public class Role extends BaseEntity {
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     private User user;
 
-    public Role(String role) {
-        this.name = ERole.valueOf(role);
-    }
-
     public Role(Role role) {
         this.setName(role.getName());
         this.setUser(new User(role.getUser()));

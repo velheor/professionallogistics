@@ -1,6 +1,6 @@
 package com.velheor.internship.models;
 
-import com.velheor.internship.models.enums.EStatus;
+import com.velheor.internship.models.enums.ELoadStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Status extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    private EStatus name;
+    private ELoadStatus name;
 
     @Column(name = "status_date")
     private LocalDateTime statusDate;
@@ -40,7 +40,6 @@ public class Status extends BaseEntity {
     }
 
     public String toString() {
-        return "StatusHistory(name=" + this.getName() + ", statusDate=" + this.getStatusDate()
-                + ")";
+        return "StatusHistory(name=" + this.getName().toString() + ", statusDate=" + this.getStatusDate() + ")";
     }
 }
