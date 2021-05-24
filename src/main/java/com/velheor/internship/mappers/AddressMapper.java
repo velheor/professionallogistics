@@ -5,9 +5,9 @@ import com.velheor.internship.models.Address;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface AddressMapper {
+public abstract class AddressMapper {
 
-    AddressViewDTO addressToAddressDto(Address address);
+    public abstract AddressViewDTO addressToAddressDto(Address address);
 
-    Address addressDtoToAddress(AddressViewDTO addressViewDTO);
+    public abstract Address addressDtoToAddress(AddressViewDTO addressViewDTO);
 }

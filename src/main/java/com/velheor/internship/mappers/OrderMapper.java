@@ -5,11 +5,11 @@ import com.velheor.internship.models.Order;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface OrderMapper {
+public abstract class OrderMapper {
 
-    OrderViewDTO orderToOrderDto(Order order);
+    public abstract OrderViewDTO orderToOrderDto(Order order);
 
-    Iterable<OrderViewDTO> ordersToOrdersDto(Iterable<Order> orders);
+    public abstract Iterable<OrderViewDTO> ordersToOrdersDto(Iterable<Order> orders);
 
-    Order orderDtoToOrder(OrderViewDTO orderViewDTO);
+    public abstract Order orderDtoToOrder(OrderViewDTO orderViewDTO);
 }

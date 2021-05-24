@@ -5,9 +5,9 @@ import com.velheor.internship.models.Status;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface StatusMapper {
+public abstract class StatusMapper {
 
-    StatusViewDTO statusToStatusDto(Status status);
+    public abstract StatusViewDTO statusToStatusDto(Status status);
 
-    Status statusDtoToStatus(StatusViewDTO statusViewDTO);
+    public abstract Status statusDtoToStatus(StatusViewDTO statusViewDTO);
 }

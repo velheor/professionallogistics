@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface RoleMapper {
+public abstract class RoleMapper {
 
-    static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
+    public List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
         return userRoles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().toString()))
                 .collect(Collectors.toList());
     }
 
-    static List<Role> mapToRoles(Collection<? extends GrantedAuthority> userRoles) {
+    public List<String> mapToRoles(Collection<? extends GrantedAuthority> userRoles) {
         return userRoles.stream()
-                .map(grantedAuthority -> new Role(grantedAuthority.getAuthority()))
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
     }
 
-    RoleViewDTO roleToRoleDto(Role role);
+    public abstract RoleViewDTO roleToRoleDto(Role role);
 
-    Role roleDtoToRole(RoleViewDTO role);
+    public abstract Role roleDtoToRole(RoleViewDTO role);
 }
