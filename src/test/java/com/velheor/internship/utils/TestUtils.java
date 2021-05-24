@@ -7,35 +7,32 @@ import com.velheor.internship.models.Role;
 import com.velheor.internship.models.Status;
 import com.velheor.internship.models.Truck;
 import com.velheor.internship.models.User;
+import com.velheor.internship.models.enums.ELoadStatus;
 import com.velheor.internship.models.enums.ERole;
-import com.velheor.internship.models.enums.EStatus;
 import com.velheor.internship.models.enums.ETruckCategory;
+import com.velheor.internship.models.enums.EUserStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 public final class TestUtils {
 
     public final static UUID TEST_UUID = UUID.fromString("4690c03a-af55-11eb-8529-0242ac130003");
 
-    public final static String[] USER_IGNORE = new String[]{"carrierOrders", "shipperOrders",
-            "roles", "truck"};
-    public final static String[] ORDER_IGNORE = new String[]{"carrier", "shipper", "routes",
-            "loads", "statuses"};
+    public final static String[] USER_IGNORE = new String[]{"carrierOrders", "shipperOrders", "roles", "truck"};
+    public final static String[] ORDER_IGNORE = new String[]{"carrier", "shipper", "routes", "loads", "statuses"};
     public final static String[] LOAD_IGNORE = new String[]{"order"};
     public final static String[] STATUS_IGNORE = new String[]{"order"};
     public final static String[] ADDRESS_IGNORE = new String[]{"routeTo", "routeFrom"};
+    public final static String[] TRUCK_IGNORE = new String[]{"user"};
+    public final static String[] ROLE_IGNORE = new String[]{"user"};
 
     public final static Truck TRUCK1 = new Truck();
     public final static Truck TRUCK2 = new Truck();
-    public final static String[] TRUCK_IGNORE = new String[]{"user"};
     public final static Role ROLE1 = new Role();
     public final static Role ROLE2 = new Role();
-    public final static String[] ROLE_IGNORE = new String[]{"user"};
     public final static User USER1 = new User();
     public final static User USER2 = new User();
 
@@ -49,9 +46,6 @@ public final class TestUtils {
     public final static Address ADDRESS1 = new Address();
     public final static Address ADDRESS2 = new Address();
     public final static Integer EXPECTED_SIZE = 1;
-
-    public final static List<User> EXPECTED_ALL_USERS = Arrays.asList(USER1, USER2);
-
 
     static {
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
@@ -72,6 +66,7 @@ public final class TestUtils {
         USER1.setEmail("test1@gmail.com");
         USER1.setPhoneNumber("+375 (33) 123-45-67");
         USER1.setPassword("$2y$12$yVeTM63pz0oSJeet.BGEU.GxJvJdnf0FX5rGcqGl4Mk51edhBa1SC");
+        USER1.setStatus(EUserStatus.ACTIVE);
 
         USER2.setId(UUID.fromString("45caf4c2-9565-11eb-a8b3-0242ac130003"));
         USER2.setFirstName("Test2");
@@ -79,6 +74,7 @@ public final class TestUtils {
         USER2.setEmail("test2@gmail.com");
         USER2.setPhoneNumber("+375 (33) 111-22-33");
         USER2.setPassword("$2y$12$ZN3OaMsgVkx9Z6.b.tnHSeok9zxUSVtQH9A0JFxSEhW8son/POBXi");
+        USER2.setStatus(EUserStatus.INACTIVE);
 
         ROLE1.setId(UUID.fromString("cd2d4abe-9c4a-11eb-a8b3-0242ac130003"));
         ROLE1.setName(ERole.CARRIER);
@@ -116,12 +112,12 @@ public final class TestUtils {
         LOAD2.setDetails("HEINEKEN bottles from factory");
 
         STATUS1.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
-        STATUS1.setName(EStatus.WAITING_FOR_CARRIER);
+        STATUS1.setName(ELoadStatus.WAITING_FOR_CARRIER);
         STATUS1.setStatusDate(LocalDateTime.of(2021, 1, 3, 11, 30));
         STATUS1.setOrder(ORDER1);
 
         STATUS2.setId(UUID.fromString("811f7588-96d8-11eb-a8b3-0242ac130003"));
-        STATUS2.setName(EStatus.WAITING_FOR_LOADING);
+        STATUS2.setName(ELoadStatus.WAITING_FOR_LOADING);
         STATUS2.setStatusDate(LocalDateTime.of(2021, 1, 3, 11, 45));
         STATUS2.setOrder(ORDER2);
 
