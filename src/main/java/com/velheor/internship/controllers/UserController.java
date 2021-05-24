@@ -3,6 +3,7 @@ package com.velheor.internship.controllers;
 import com.velheor.internship.dto.UserProfileUpdateDTO;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.mappers.UserMapper;
+import com.velheor.internship.models.User;
 import com.velheor.internship.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,7 +66,8 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public void updateProfile(Principal principal, @Valid UserProfileUpdateDTO userProfileUpdateDTO) {
-        userService.updateCurrentUser(principal, userProfileUpdateDTO);
+    public UserViewDTO updateProfile(Principal principal, @Valid UserProfileUpdateDTO userProfileUpdateDTO) {
+        User user = userMapper.userUpdateProfileDtoToUser(userProfileUpdateDTO);
+        return userMapper.userToUserDto(userService.updateCurrentUser(principal, user));
     }
 }

@@ -1,6 +1,5 @@
 package com.velheor.internship.service;
 
-import com.velheor.internship.dto.UserProfileUpdateDTO;
 import com.velheor.internship.email.EmailSender;
 import com.velheor.internship.models.Role;
 import com.velheor.internship.models.User;
@@ -37,36 +36,36 @@ public class UserService {
                 "User with id: " + id + " was not found."));
     }
 
-    public void updateCurrentUser(Principal principal, UserProfileUpdateDTO userProfileUpdateDTO) {
+    public User updateCurrentUser(Principal principal, User userProfileUpdate) {
         User user = findByEmail(principal.getName());
-        if (StringUtils.hasText(userProfileUpdateDTO.getFirstName())) {
-            user.setFirstName(userProfileUpdateDTO.getFirstName());
+        if (StringUtils.hasText(userProfileUpdate.getFirstName())) {
+            user.setFirstName(userProfileUpdate.getFirstName());
         }
 
-        if (StringUtils.hasText(userProfileUpdateDTO.getLastName())) {
-            user.setLastName(userProfileUpdateDTO.getLastName());
+        if (StringUtils.hasText(userProfileUpdate.getLastName())) {
+            user.setLastName(userProfileUpdate.getLastName());
         }
 
-        if (StringUtils.hasText(userProfileUpdateDTO.getPhoneNumber())) {
-            user.setPhoneNumber(userProfileUpdateDTO.getPhoneNumber());
+        if (StringUtils.hasText(userProfileUpdate.getPhoneNumber())) {
+            user.setPhoneNumber(userProfileUpdate.getPhoneNumber());
         }
 
-        if (StringUtils.hasText(userProfileUpdateDTO.getPassword())) {
-            user.setPassword(userProfileUpdateDTO.getPassword());
+        if (StringUtils.hasText(userProfileUpdate.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(userProfileUpdate.getPassword());
         }
 
-        if (StringUtils.hasText(userProfileUpdateDTO.getEmail())) {
-            user.setEmail(userProfileUpdateDTO.getEmail());
+        if (StringUtils.hasText(userProfileUpdate.getEmail())) {
+            user.setEmail(userProfileUpdate.getEmail());
             user.setStatus(EUserStatus.INACTIVE);
             String token = jwtProvider.createMailToken(user.getEmail());
             emailSender.sendMessageAfterChangeEmail(user.getEmail(), token);
         }
 
-        save(user);
+        return save(user);
     }
 
     public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -81,6 +80,7 @@ public class UserService {
         defaultRole.setName(ERole.SHIPPER);
         defaultRole.setUser(user);
         user.setRoles(Collections.singletonList(defaultRole));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return save(user);
     }
 

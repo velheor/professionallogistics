@@ -7,6 +7,7 @@ import com.velheor.internship.dto.OrderViewDTO;
 import com.velheor.internship.dto.RoleViewDTO;
 import com.velheor.internship.dto.StatusViewDTO;
 import com.velheor.internship.dto.TruckViewDTO;
+import com.velheor.internship.dto.UserProfileUpdateDTO;
 import com.velheor.internship.dto.UserViewDTO;
 
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
@@ -57,6 +58,8 @@ public final class TestWebUtils {
     public final static AddressViewDTO ADDRESS_VIEW_DTO2 = new AddressViewDTO();
 
     public final static AuthUserDTO AUTH_USER_DTO = new AuthUserDTO();
+
+    public final static UserProfileUpdateDTO USER_PROFILE_UPDATE_DTO = new UserProfileUpdateDTO();
 
     static {
         TRUCK_VIEW_DTO1.setId(TRUCK1.getId());
@@ -135,5 +138,9 @@ public final class TestWebUtils {
 
         AUTH_USER_DTO.setEmail(USER_VIEW_DTO1.getEmail());
         AUTH_USER_DTO.setPassword("password");
+
+        USER_PROFILE_UPDATE_DTO.setFirstName("firstName");
+        USER_PROFILE_UPDATE_DTO.setLastName("lastName");
+        USER_PROFILE_UPDATE_DTO.setEmail("newEmail@gmail.com");
     }
 }

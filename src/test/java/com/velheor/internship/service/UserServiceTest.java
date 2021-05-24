@@ -1,24 +1,36 @@
 package com.velheor.internship.service;
 
 import com.velheor.internship.BasePersistenceTest;
+import com.velheor.internship.exception.JwtAuthenticationException;
 import com.velheor.internship.models.User;
+import com.velheor.internship.models.enums.ERole;
+import com.velheor.internship.models.enums.EUserStatus;
+import com.velheor.internship.security.JwtProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestUtils.USER_DOES_NOT_EXIST_IN_DB;
 import static com.velheor.internship.utils.TestUtils.USER_IGNORE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserServiceTest extends BasePersistenceTest {
+
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @Autowired
     private UserService userService;
@@ -38,17 +50,9 @@ class UserServiceTest extends BasePersistenceTest {
 
     @Test
     void create() {
-        User expected = new User();
-        expected.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));
-        expected.setFirstName("NotIvan");
-        expected.setLastName("NotIvanov");
-        expected.setEmail("notivan@gmail.com");
-        expected.setPhoneNumber("+37533111111");
-        expected.setPassword("notpass");
+        User actual = userService.save(USER_DOES_NOT_EXIST_IN_DB);
 
-        User actual = userService.save(expected);
-
-        assertThat(actual).isEqualToComparingFieldByField(expected);
+        assertThat(actual).isEqualToIgnoringGivenFields(USER_DOES_NOT_EXIST_IN_DB, USER_IGNORE);
     }
 
     @Test
@@ -86,7 +90,6 @@ class UserServiceTest extends BasePersistenceTest {
 
         assertThatThrownBy(() -> userService.findById(USER1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);
-
     }
 
     @Test
@@ -102,5 +105,54 @@ class UserServiceTest extends BasePersistenceTest {
 
         assertThatThrownBy(() -> userService.findByEmail(notExistsEmail))
                 .isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void updateCurrentUser() {
+        User expected = new User(USER1);
+        expected.setEmail(UPDATED_USER.getEmail());
+        expected.setFirstName(UPDATED_USER.getFirstName());
+        expected.setStatus(EUserStatus.INACTIVE);
+
+        Principal principal = USER1::getEmail;
+
+        User actual = userService.updateCurrentUser(principal, UPDATED_USER);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, USER_IGNORE);
+    }
+
+    @Test
+    void registerUser() {
+        User expected = new User(USER_DOES_NOT_EXIST_IN_DB);
+        User actual = userService.registerUser(USER_DOES_NOT_EXIST_IN_DB);
+        String[] userIgnoreWithPassword = Arrays.copyOf(USER_IGNORE, USER_IGNORE.length + 1);
+        userIgnoreWithPassword[USER_IGNORE.length] = "password";
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, userIgnoreWithPassword);
+    }
+
+    @Test
+    void changeAccountStatusByEmail() {
+        userService.changeAccountStatusByEmail(EUserStatus.BANNED, USER1.getEmail());
+        assertThat(EUserStatus.BANNED).isEqualTo(userService.findByEmail(USER1.getEmail()).getStatus());
+    }
+
+    @Test
+    void createWebToken() {
+        String jwt = userService.createWebToken(USER1.getEmail(), Collections.singletonList(ERole.CARRIER.name()));
+        assertTrue(jwtProvider.validateToken(jwt));
+    }
+
+    @Test
+    void validateTokenTrowException() {
+        String errorJwt = "test";
+        assertThatThrownBy(() -> userService.validateToken(errorJwt))
+                .isInstanceOf(JwtAuthenticationException.class);
+    }
+
+    @Test
+    void getEmailFromToken() {
+        String expected = USER1.getEmail();
+        String jwt = userService.createWebToken(USER1.getEmail(), Collections.singletonList(ERole.CARRIER.name()));
+        String actual = userService.getEmailFromToken(jwt);
+        assertThat(actual).isEqualTo(expected);
     }
 }

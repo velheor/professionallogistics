@@ -31,8 +31,10 @@ public final class TestUtils {
 
     public final static Truck TRUCK1 = new Truck();
     public final static Truck TRUCK2 = new Truck();
+
     public final static Role ROLE1 = new Role();
     public final static Role ROLE2 = new Role();
+
     public final static User USER1 = new User();
     public final static User USER2 = new User();
 
@@ -41,11 +43,18 @@ public final class TestUtils {
 
     public final static Load LOAD1 = new Load();
     public final static Load LOAD2 = new Load();
+
     public final static Status STATUS1 = new Status();
     public final static Status STATUS2 = new Status();
+
     public final static Address ADDRESS1 = new Address();
     public final static Address ADDRESS2 = new Address();
+
     public final static Integer EXPECTED_SIZE = 1;
+
+    public final static User UPDATED_USER = new User();
+
+    public final static User USER_DOES_NOT_EXIST_IN_DB = new User();
 
     static {
         TRUCK1.setId(UUID.fromString("2da16836-9c4a-11eb-a8b3-0242ac130003"));
@@ -132,5 +141,15 @@ public final class TestUtils {
         ADDRESS2.setCity("MINSK");
         ADDRESS2.setStreetName("STREETS");
         ADDRESS2.setStreetNumber("1373-B");
+
+        UPDATED_USER.setEmail("newEmail@gmail.com");
+        UPDATED_USER.setFirstName("newFirstName");
+
+        USER_DOES_NOT_EXIST_IN_DB.setId(UUID.fromString("47a07384-93b8-11eb-a8b3-0242ac130003"));
+        USER_DOES_NOT_EXIST_IN_DB.setFirstName("NotIvan");
+        USER_DOES_NOT_EXIST_IN_DB.setLastName("NotIvanov");
+        USER_DOES_NOT_EXIST_IN_DB.setEmail("notivan@gmail.com");
+        USER_DOES_NOT_EXIST_IN_DB.setPhoneNumber("+375 (33) 123-45-67");
+        USER_DOES_NOT_EXIST_IN_DB.setPassword("password");
     }
 }
