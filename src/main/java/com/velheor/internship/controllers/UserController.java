@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(tags = {"user crud controller"})
 public class UserController {
 
@@ -45,14 +46,14 @@ public class UserController {
 
     @PutMapping
     @ApiOperation(value = "Update user by user view dto")
-    public UserViewDTO update(@RequestBody @Valid UserViewDTO userViewDTO) {
+    public UserViewDTO update(@Valid @RequestBody UserViewDTO userViewDTO) {
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view dto")
-    public UserViewDTO save(@RequestBody @Valid UserViewDTO userViewDTO) {
+    public UserViewDTO save(@Valid @RequestBody UserViewDTO userViewDTO) {
         return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 

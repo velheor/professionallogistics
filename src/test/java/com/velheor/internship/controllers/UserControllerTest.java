@@ -4,9 +4,9 @@ import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.UserMapper;
-import com.velheor.internship.mappers.UserMapperImpl;
 import com.velheor.internship.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,10 +38,10 @@ class UserControllerTest extends BaseWebTest {
     private UserService userService;
     private UserController userController;
 
-    public UserControllerTest() {
+    @Autowired
+    public UserControllerTest(UserMapper userMapper) {
         setUp(() -> {
             userService = mock(UserService.class);
-            UserMapper userMapper = new UserMapperImpl();
             userController = new UserController(userService, userMapper);
             return userController;
         });
@@ -79,11 +79,9 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
-    @WithMockUser(authorities = "USER")
+    @WithMockUser(authorities = "CARRIER")
     void getAllWithBadAuthorities() throws Exception {
-        when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
-        mockMvc.perform(get(USER_URL))
-                .andExpect(status().isForbidden());
+        mockMvc.perform(get(USER_URL)).andExpect(status().isForbidden());
     }
 
     @Test
