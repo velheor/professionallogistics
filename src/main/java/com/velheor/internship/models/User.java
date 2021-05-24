@@ -1,5 +1,6 @@
 package com.velheor.internship.models;
 
+import com.velheor.internship.models.enums.EUserStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
@@ -40,8 +43,8 @@ public class User extends BaseEntity {
 
     private String password;
 
-    @Column(name = "active")
-    private boolean isActive;
+    @Enumerated(EnumType.STRING)
+    private EUserStatus status;
 
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     private List<Order> carrierOrders;
@@ -62,6 +65,7 @@ public class User extends BaseEntity {
         this.setEmail(user.getEmail());
         this.setPhoneNumber(user.getPhoneNumber());
         this.setPassword(user.getPassword());
+        this.setStatus(user.getStatus());
     }
 
     @Override
