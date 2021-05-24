@@ -11,17 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Date;
-
-import static com.velheor.internship.mappers.RoleMapper.mapToRoles;
+import java.util.List;
 
 @Component
 @PropertySource("classpath:security.properties")
@@ -44,9 +41,9 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createWebToken(String email, Collection<? extends GrantedAuthority> roles) {
+    public String createWebToken(String email, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(email);
-        claims.put("roles", mapToRoles(roles));
+        claims.put("roles", roles);
         return builderToken(claims);
     }
 

@@ -1,6 +1,8 @@
 package com.velheor.internship.security;
 
+import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.models.User;
+import com.velheor.internship.models.enums.EUserStatus;
 import com.velheor.internship.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,11 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleMapper roleMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -20,6 +25,18 @@ public class JwtUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new BadCredentialsException("email/password incorrect"));
 
-        return new JwtUser(user);
+        return createJwtUser(user);
+    }
+
+    public JwtUser createJwtUser(User user) {
+        return new JwtUser(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getPassword(),
+                roleMapper.mapToGrantedAuthorities(new ArrayList<>(user.getRoles())),
+                user.getStatus().equals(EUserStatus.ACTIVE));
     }
 }

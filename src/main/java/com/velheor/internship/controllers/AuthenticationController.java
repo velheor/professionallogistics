@@ -1,10 +1,10 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.dto.AuthUserDTO;
-import com.velheor.internship.dto.UserViewDTO;
-import com.velheor.internship.email.EmailSender;
+import com.velheor.internship.dto.UserRegistrationDTO;
+import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.mappers.UserMapper;
-import com.velheor.internship.security.JwtProvider;
+import com.velheor.internship.models.enums.EUserStatus;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,9 @@ import java.util.Collection;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtProvider jwtProvider;
-    private final EmailSender emailSender;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
@@ -40,23 +39,22 @@ public class AuthenticationController {
         Collection<? extends GrantedAuthority> grantedAuthorityList
                 = authenticationManager.authenticate(authenticationToken).getAuthorities();
 
-        return ResponseEntity.ok(jwtProvider.createWebToken(authUserDTO.getEmail(), grantedAuthorityList));
+        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.mapToRoles(grantedAuthorityList)));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@Valid @RequestBody UserViewDTO userViewDTO) {
-        userService.registerUser(userMapper.userDtoToUser(userViewDTO));
+    public ResponseEntity<String> signUp(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
 
-        String token = jwtProvider.createMailToken(userViewDTO.getEmail());
+        userService.registerUser(userMapper.userRegistrationDtoToUser(userRegistrationDTO));
+        userService.sendActivationCodeToEmail(userMapper.userRegistrationDtoToUser(userRegistrationDTO));
 
-        emailSender.sendMessageAfterSignUp(userViewDTO, token);
         return ResponseEntity.ok("Check your email!");
     }
 
     @GetMapping("/activate/{code}")
     public ResponseEntity<String> activateAccount(@PathVariable("code") String tokenMail) {
-        jwtProvider.validateToken(tokenMail);
-        userService.changeAccountStatusByEmail(true, jwtProvider.getEmail(tokenMail));
+        userService.validateToken(tokenMail);
+        userService.changeAccountStatusByEmail(EUserStatus.ACTIVE, userService.getEmailFromToken(tokenMail));
         return ResponseEntity.ok("Account activated successfully.");
     }
 }

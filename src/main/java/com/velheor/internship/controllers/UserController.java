@@ -1,5 +1,6 @@
 package com.velheor.internship.controllers;
 
+import com.velheor.internship.dto.UserProfileUpdateDTO;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.UUID;
 
 @RestController
@@ -59,5 +61,10 @@ public class UserController {
     @ApiOperation(value = "delete user by id")
     public void deleteById(@PathVariable("id") UUID id) {
         userService.deleteById(id);
+    }
+
+    @PutMapping("/profile")
+    public void updateProfile(Principal principal, @Valid UserProfileUpdateDTO userProfileUpdateDTO) {
+        userService.updateCurrentUser(principal, userProfileUpdateDTO);
     }
 }

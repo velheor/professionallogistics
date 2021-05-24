@@ -1,6 +1,6 @@
 package com.velheor.internship.email;
 
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.models.User;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -32,14 +32,23 @@ public class EmailSender {
         mailSender.send(message);
     }
 
-    public void sendMessageAfterSignUp(UserViewDTO userViewDTO, String token) {
+    public void sendMessageAfterSignUp(User user, String token) {
         Context thymeleafContext = new Context();
         Map<String, Object> variables = new HashMap<>();
         variables.put("token", token);
-        variables.put("user", userViewDTO);
+        variables.put("user", user);
         thymeleafContext.setVariables(variables);
         String htmlBody = thymeleafTemplateEngine.process("registrationMessage.html", thymeleafContext);
 
-        sendHtmlMessage(userViewDTO.getEmail(), "Activation code", htmlBody);
+        sendHtmlMessage(user.getEmail(), "Activation code", htmlBody);
+    }
+
+    public void sendMessageAfterChangeEmail(String email, String token) {
+        Context thymeleafContext = new Context();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("token", token);
+        thymeleafContext.setVariables(variables);
+        String htmlBody = thymeleafTemplateEngine.process("changeEmailMessage.html", thymeleafContext);
+        sendHtmlMessage(email, "Activation new email", htmlBody);
     }
 }

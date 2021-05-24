@@ -1,15 +1,12 @@
 package com.velheor.internship.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.velheor.internship.models.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.UUID;
-
-import static com.velheor.internship.mappers.RoleMapper.mapToGrantedAuthorities;
 
 @Getter
 public class JwtUser implements UserDetails {
@@ -21,15 +18,26 @@ public class JwtUser implements UserDetails {
     private final String phoneNumber;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
+    private final boolean enabled;
 
-    public JwtUser(User user) {
-        id = user.getId();
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        email = user.getEmail();
-        phoneNumber = user.getPhoneNumber();
-        password = user.getPassword();
-        authorities = mapToGrantedAuthorities(user.getRoles());
+    public JwtUser(
+            UUID id,
+            String firstName,
+            String lastName,
+            String email,
+            String phoneNumber,
+            String password,
+            Collection<? extends GrantedAuthority> authorities,
+            boolean enabled
+    ) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.authorities = authorities;
+        this.enabled = enabled;
     }
 
     @Override
@@ -44,7 +52,7 @@ public class JwtUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
     @JsonIgnore
