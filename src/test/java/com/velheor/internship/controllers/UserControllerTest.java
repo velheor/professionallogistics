@@ -4,6 +4,8 @@ import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.UserMapper;
+import com.velheor.internship.models.User;
+import com.velheor.internship.models.enums.EUserStatus;
 import com.velheor.internship.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,14 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 import java.util.Arrays;
 
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
+import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestWebUtils.USER_PROFILE_UPDATE_DTO;
 import static com.velheor.internship.utils.TestWebUtils.USER_URL;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO2;
@@ -32,7 +37,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser(authorities = "ADMIN")
 class UserControllerTest extends BaseWebTest {
 
     private UserService userService;
@@ -70,6 +74,7 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "ADMIN")
     void getAll() throws Exception {
         when(userService.getAll()).thenReturn(Arrays.asList(USER1, USER2));
         mockMvc.perform(get(USER_URL))
@@ -85,6 +90,7 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "ADMIN")
     void update() throws Exception {
         when(userService.save(USER1)).thenReturn(USER1);
 
@@ -97,6 +103,7 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "ADMIN")
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
         UserViewDTO testUser = new UserViewDTO(USER_VIEW_DTO1);
         testUser.setPassword("test");
@@ -114,6 +121,7 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "ADMIN")
     void save() throws Exception {
         when(userService.save(USER1)).thenReturn(USER1);
         mockMvc.perform(post(USER_URL)
@@ -125,9 +133,29 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(authorities = "ADMIN")
     void deleteById() throws Exception {
         mockMvc.perform(delete(USER_URL + USER1.getId())).andExpect(status().isNoContent());
 
         verify(userService).deleteById(USER1.getId());
+    }
+
+    @Test
+    void updateProfile() throws Exception {
+        Principal principal = USER1::getEmail;
+        User expected = new User(USER1);
+
+        expected.setFirstName(UPDATED_USER.getFirstName());
+        expected.setEmail(UPDATED_USER.getEmail());
+        expected.setStatus(EUserStatus.INACTIVE);
+
+        when(userService.updateCurrentUser(principal, UPDATED_USER)).thenReturn(expected);
+
+        mockMvc.perform(put(USER_URL + "profile")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(principal))
+                .content(objectMapper.writeValueAsString(USER_PROFILE_UPDATE_DTO)))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
     }
 }

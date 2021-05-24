@@ -22,6 +22,7 @@ import static com.velheor.internship.utils.TestUtils.STATUS1;
 import static com.velheor.internship.utils.TestUtils.STATUS2;
 import static com.velheor.internship.utils.TestUtils.TRUCK1;
 import static com.velheor.internship.utils.TestUtils.TRUCK2;
+import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 
@@ -139,8 +140,7 @@ public final class TestWebUtils {
         AUTH_USER_DTO.setEmail(USER_VIEW_DTO1.getEmail());
         AUTH_USER_DTO.setPassword("password");
 
-        USER_PROFILE_UPDATE_DTO.setFirstName("firstName");
-        USER_PROFILE_UPDATE_DTO.setLastName("lastName");
-        USER_PROFILE_UPDATE_DTO.setEmail("newEmail@gmail.com");
+        USER_PROFILE_UPDATE_DTO.setFirstName(UPDATED_USER.getEmail());
+        USER_PROFILE_UPDATE_DTO.setEmail(UPDATED_USER.getFirstName());
     }
 }
