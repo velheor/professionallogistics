@@ -7,9 +7,9 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class TruckMapper {
 
-    public abstract TruckViewDTO truckToTruckDto(Truck truck);
+    public abstract TruckViewDTO toTruckViewDto(Truck truck);
 
-    public abstract Truck truckDtoToTruck(TruckViewDTO truckViewDTO);
+    public abstract Truck toTruck(TruckViewDTO truckViewDTO);
 
-    public abstract Iterable<TruckViewDTO> trucksToTrucksDto(Iterable<Truck> trucks);
+    public abstract Iterable<TruckViewDTO> toTrucksDto(Iterable<Truck> trucks);
 }

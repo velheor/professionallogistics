@@ -28,18 +28,18 @@ public class LoadController {
 
     @GetMapping("/{id}")
     public LoadViewDTO findById(@PathVariable("id") UUID id) {
-        return loadMapper.loadToLoadDto(loadService.findById(id));
+        return loadMapper.toLoadDto(loadService.findById(id));
     }
 
     @PutMapping
     public LoadViewDTO update(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
-        return loadMapper.loadToLoadDto(loadService.save(loadMapper.loadDtoToLoad(LoadViewDTO)));
+        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LoadViewDTO save(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
-        return loadMapper.loadToLoadDto(loadService.save(loadMapper.loadDtoToLoad(LoadViewDTO)));
+        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
     }
 
     @DeleteMapping("/{id}")

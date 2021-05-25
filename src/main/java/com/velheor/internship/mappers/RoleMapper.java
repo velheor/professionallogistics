@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public abstract class RoleMapper {
 
-    public List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
+    public List<GrantedAuthority> toGrantedAuthorities(List<Role> userRoles) {
         return userRoles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().toString()))
                 .collect(Collectors.toList());
     }
 
-    public List<String> mapToRoles(Collection<? extends GrantedAuthority> userRoles) {
+    public List<String> toRoles(Collection<? extends GrantedAuthority> userRoles) {
         return userRoles.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
     }
 
-    public abstract RoleViewDTO roleToRoleDto(Role role);
+    public abstract RoleViewDTO toRoleViewDto(Role role);
 
-    public abstract Role roleDtoToRole(RoleViewDTO role);
+    public abstract Role toRole(RoleViewDTO role);
 }

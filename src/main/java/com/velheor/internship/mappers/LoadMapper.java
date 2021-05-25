@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class LoadMapper {
 
-    public abstract LoadViewDTO loadToLoadDto(Load load);
+    public abstract LoadViewDTO toLoadDto(Load load);
 
-    public abstract Load loadDtoToLoad(LoadViewDTO loadViewDTO);
+    public abstract Load toLoad(LoadViewDTO loadViewDTO);
 }

@@ -7,9 +7,9 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class OrderMapper {
 
-    public abstract OrderViewDTO orderToOrderDto(Order order);
+    public abstract OrderViewDTO toOrderDto(Order order);
 
-    public abstract Iterable<OrderViewDTO> ordersToOrdersDto(Iterable<Order> orders);
+    public abstract Iterable<OrderViewDTO> toOrdersViewDto(Iterable<Order> orders);
 
-    public abstract Order orderDtoToOrder(OrderViewDTO orderViewDTO);
+    public abstract Order toOrder(OrderViewDTO orderViewDTO);
 }

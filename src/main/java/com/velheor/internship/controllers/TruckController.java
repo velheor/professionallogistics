@@ -30,24 +30,24 @@ public class TruckController {
     @GetMapping
     @ApiOperation(value = "Get all trucks")
     public Iterable<TruckViewDTO> getAll() {
-        return truckMapper.trucksToTrucksDto(truckService.getAll());
+        return truckMapper.toTrucksDto(truckService.getAll());
     }
 
     @GetMapping("/{id}")
     public TruckViewDTO findById(@PathVariable("id") UUID id) {
-        return truckMapper.truckToTruckDto(truckService.findById(id));
+        return truckMapper.toTruckViewDto(truckService.findById(id));
     }
 
     @PutMapping
     public TruckViewDTO update(@Valid @RequestBody TruckViewDTO truckViewDto) {
-        return truckMapper.truckToTruckDto(truckService.save(truckMapper.truckDtoToTruck(truckViewDto)));
+        return truckMapper.toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TruckViewDTO save(@Valid @RequestBody TruckViewDTO truckViewDto) {
         return truckMapper
-                .truckToTruckDto(truckService.save(truckMapper.truckDtoToTruck(truckViewDto)));
+                .toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
     }
 
     @DeleteMapping("/{id}")

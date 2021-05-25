@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class AddressMapper {
 
-    public abstract AddressViewDTO addressToAddressDto(Address address);
+    public abstract AddressViewDTO toAddressDto(Address address);
 
-    public abstract Address addressDtoToAddress(AddressViewDTO addressViewDTO);
+    public abstract Address toAddress(AddressViewDTO addressViewDTO);
 }
