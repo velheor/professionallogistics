@@ -26,10 +26,10 @@ public class UserXmlParser {
         while (processor.startElement()) {
             users.add(processor.getValue());
             if (users.size() == 100) {
-                userService.saveAll(userMapper.usersDtoToUser(users));
+                userService.saveAll(userMapper.toUser(users));
                 users.clear();
             }
         }
-        userService.saveAll(userMapper.usersDtoToUser(users));
+        userService.saveAll(userMapper.toUser(users));
     }
 }

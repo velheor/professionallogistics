@@ -36,26 +36,26 @@ public class UserController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Find user by id")
     public UserViewDTO findById(@PathVariable("id") UUID id) {
-        return userMapper.userToUserDto(userService.findById(id));
+        return userMapper.toUserViewDto(userService.findById(id));
     }
 
     @GetMapping
     @ApiOperation(value = "Get all users")
     public Iterable<UserViewDTO> getAll() {
-        return userMapper.usersToUsersDto(userService.getAll());
+        return userMapper.toUserViewDto(userService.getAll());
     }
 
     @PutMapping
     @ApiOperation(value = "Update user by user view dto")
     public UserViewDTO update(@Valid @RequestBody UserViewDTO userViewDTO) {
-        return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
+        return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view dto")
     public UserViewDTO save(@Valid @RequestBody UserViewDTO userViewDTO) {
-        return userMapper.userToUserDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
+        return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @DeleteMapping("/{id}")
@@ -67,7 +67,7 @@ public class UserController {
 
     @PutMapping("/profile")
     public UserProfileUpdateDTO updateProfile(Principal principal, @Valid @RequestBody UserProfileUpdateDTO userProfileUpdateDTO) {
-        User user = userMapper.userUpdateProfileDtoToUser(userProfileUpdateDTO);
+        User user = userMapper.toUser(userProfileUpdateDTO);
         return userMapper.toUserProfileDto(userService.updateCurrentUser(principal.getName(), user));
     }
 }

@@ -21,6 +21,6 @@ public class UserPureJaxbParser {
         JAXBContext jc = JAXBContext.newInstance(Users.class);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
         Users users = (Users) unmarshaller.unmarshal(path);
-        userService.saveAll(userMapper.usersDtoToUser(users.getUsers()));
+        userService.saveAll(userMapper.toUser(users.getUsers()));
     }
 }

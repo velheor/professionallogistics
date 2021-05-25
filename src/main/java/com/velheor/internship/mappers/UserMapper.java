@@ -9,17 +9,17 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
 
-    public abstract UserViewDTO userToUserDto(User user);
-
+    public abstract UserViewDTO toUserViewDto(User user);
+    
     public abstract UserProfileUpdateDTO toUserProfileDto(User user);
 
     public abstract User userDtoToUser(UserViewDTO userViewDTO);
 
-    public abstract User userRegistrationDtoToUser(UserRegistrationDTO userRegistrationDTO);
+    public abstract User toUser(UserRegistrationDTO userRegistrationDTO);
 
-    public abstract User userUpdateProfileDtoToUser(UserProfileUpdateDTO userProfileUpdateDTO);
+    public abstract User toUser(UserProfileUpdateDTO userProfileUpdateDTO);
 
-    public abstract Iterable<UserViewDTO> usersToUsersDto(Iterable<User> users);
+    public abstract Iterable<UserViewDTO> toUserViewDto(Iterable<User> users);
 
-    public abstract Iterable<User> usersDtoToUser(Iterable<UserViewDTO> usersViewDto);
+    public abstract Iterable<User> toUser(Iterable<UserViewDTO> usersViewDto);
 }
