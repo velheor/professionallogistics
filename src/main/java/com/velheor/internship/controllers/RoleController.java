@@ -28,18 +28,18 @@ public class RoleController {
 
     @GetMapping("/{id}")
     public RoleViewDTO findById(@PathVariable("id") UUID id) {
-        return roleMapper.roleToRoleDto(roleService.findById(id));
+        return roleMapper.toRoleViewDto(roleService.findById(id));
     }
 
     @PutMapping
     public RoleViewDTO update(@Valid @RequestBody RoleViewDTO roleViewDTO) {
-        return roleMapper.roleToRoleDto(roleService.save(roleMapper.roleDtoToRole(roleViewDTO)));
+        return roleMapper.toRoleViewDto(roleService.save(roleMapper.toRole(roleViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RoleViewDTO save(@Valid @RequestBody RoleViewDTO roleViewDTO) {
-        return roleMapper.roleToRoleDto(roleService.save(roleMapper.roleDtoToRole(roleViewDTO)));
+        return roleMapper.toRoleViewDto(roleService.save(roleMapper.toRole(roleViewDTO)));
     }
 
     @DeleteMapping("/{id}")

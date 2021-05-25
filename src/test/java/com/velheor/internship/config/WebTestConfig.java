@@ -31,7 +31,7 @@ public class WebTestConfig {
     @Bean
     public JwtUserDetailsService userDetailsService() {
         JwtUserDetailsService jwtUserDetailsService = mock(JwtUserDetailsService.class);
-        Collection<? extends GrantedAuthority> authorities = roleMapper.mapToGrantedAuthorities(USER1.getRoles());
+        Collection<? extends GrantedAuthority> authorities = roleMapper.toGrantedAuthorities(USER1.getRoles());
         JwtUser jwtUser = new JwtUser(
                 USER1.getId(), USER1.getFirstName(),
                 USER1.getLastName(), USER1.getEmail(),

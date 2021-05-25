@@ -34,7 +34,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 user.getEmail(),
                 user.getPhoneNumber(),
                 user.getPassword(),
-                roleMapper.mapToGrantedAuthorities(user.getRoles()),
+                roleMapper.toGrantedAuthorities(user.getRoles()),
                 user.getStatus().equals(EUserStatus.ACTIVE));
     }
 }

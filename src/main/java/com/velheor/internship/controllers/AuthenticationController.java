@@ -39,14 +39,14 @@ public class AuthenticationController {
         Collection<? extends GrantedAuthority> grantedAuthorityList
                 = authenticationManager.authenticate(authenticationToken).getAuthorities();
 
-        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.mapToRoles(grantedAuthorityList)));
+        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.toRoles(grantedAuthorityList)));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
 
-        userService.registerUser(userMapper.userRegistrationDtoToUser(userRegistrationDTO));
-        userService.sendActivationCodeToEmail(userMapper.userRegistrationDtoToUser(userRegistrationDTO));
+        userService.registerUser(userMapper.toUser(userRegistrationDTO));
+        userService.sendActivationCodeToEmail(userMapper.toUser(userRegistrationDTO));
 
         return ResponseEntity.ok("Check your email!");
     }

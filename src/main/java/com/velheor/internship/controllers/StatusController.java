@@ -28,18 +28,18 @@ public class StatusController {
 
     @GetMapping("/{id}")
     public StatusViewDTO findById(@PathVariable("id") UUID id) {
-        return statusMapper.statusToStatusDto(statusService.findById(id));
+        return statusMapper.toStatusViewDto(statusService.findById(id));
     }
 
     @PutMapping
     public StatusViewDTO update(@Valid @RequestBody StatusViewDTO statusViewDTO) {
-        return statusMapper.statusToStatusDto(statusService.save(statusMapper.statusDtoToStatus(statusViewDTO)));
+        return statusMapper.toStatusViewDto(statusService.save(statusMapper.toStatus(statusViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StatusViewDTO save(@Valid @RequestBody StatusViewDTO statusViewDTO) {
-        return statusMapper.statusToStatusDto(statusService.save(statusMapper.statusDtoToStatus(statusViewDTO)));
+        return statusMapper.toStatusViewDto(statusService.save(statusMapper.toStatus(statusViewDTO)));
     }
 
     @DeleteMapping("/{id}")

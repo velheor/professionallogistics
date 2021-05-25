@@ -28,20 +28,20 @@ public class AddressController {
 
     @GetMapping("/{id}")
     public AddressViewDTO findById(@PathVariable("id") UUID id) {
-        return addressMapper.addressToAddressDto(addressService.findById(id));
+        return addressMapper.toAddressDto(addressService.findById(id));
     }
 
     @PutMapping
     public AddressViewDTO update(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
-        return addressMapper.addressToAddressDto(
-                addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
+        return addressMapper.toAddressDto(
+                addressService.save(addressMapper.toAddress(AddressViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AddressViewDTO save(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
-        return addressMapper.addressToAddressDto(
-                addressService.save(addressMapper.addressDtoToAddress(AddressViewDTO)));
+        return addressMapper.toAddressDto(
+                addressService.save(addressMapper.toAddress(AddressViewDTO)));
     }
 
     @DeleteMapping("/{id}")
