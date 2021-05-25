@@ -7,14 +7,13 @@ import com.velheor.internship.models.enums.ERole;
 import com.velheor.internship.models.enums.EUserStatus;
 import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.security.JwtProvider;
+import com.velheor.internship.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
-import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -31,38 +30,34 @@ public class UserService {
 
     private final JwtProvider jwtProvider;
 
+    private final UserValidator userValidator;
+
     public User findById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "User with id: " + id + " was not found."));
     }
 
+    @Transactional
     public User updateCurrentUser(String email, User userProfileUpdate) {
         User user = findByEmail(email);
-        if (StringUtils.hasText(userProfileUpdate.getFirstName())) {
-            user.setFirstName(userProfileUpdate.getFirstName());
-        }
+        user.setFirstName(userProfileUpdate.getFirstName());
+        user.setLastName(userProfileUpdate.getLastName());
 
-        if (StringUtils.hasText(userProfileUpdate.getLastName())) {
-            user.setLastName(userProfileUpdate.getLastName());
-        }
-
-        if (StringUtils.hasText(userProfileUpdate.getPhoneNumber())) {
+        if (userValidator.checkForUserHasThisPhoneNumber(user.getId(), userProfileUpdate.getPhoneNumber())) {
             user.setPhoneNumber(userProfileUpdate.getPhoneNumber());
         }
 
-        if (StringUtils.hasText(userProfileUpdate.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setPassword(userProfileUpdate.getPassword());
+        if (!passwordEncoder.matches(user.getPassword(), userProfileUpdate.getPassword())) {
+            user.setPassword(passwordEncoder.encode(userProfileUpdate.getPassword()));
         }
 
-        if (StringUtils.hasText(userProfileUpdate.getEmail())) {
+        if (userValidator.checkForUserHasThisEmail(user.getId(), userProfileUpdate.getEmail())) {
             user.setEmail(userProfileUpdate.getEmail());
             user.setStatus(EUserStatus.INACTIVE);
-            String token = jwtProvider.createMailToken(user.getEmail());
-            emailSender.sendMessageAfterChangeEmail(user.getEmail(), token);
+            sendActivationCodeToEmail(user);
         }
 
-        return save(user);
+        return user;
     }
 
     public User save(User user) {

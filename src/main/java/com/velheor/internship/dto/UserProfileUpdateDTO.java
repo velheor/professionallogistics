@@ -1,6 +1,7 @@
 package com.velheor.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -31,8 +32,4 @@ public class UserProfileUpdateDTO {
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 7, max = 255, message = "{notCorrectSize}")
     private String password;
-
-    @NotEmpty(message = "{notEmpty}")
-    @Size(min = 3, max = 15, message = "{notCorrectSize}")
-    private String status;
 }

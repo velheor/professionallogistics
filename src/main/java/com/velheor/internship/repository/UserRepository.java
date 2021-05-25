@@ -24,4 +24,10 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     @Query("SELECT (COUNT(user) = 0) FROM User user WHERE user.phoneNumber = ?1")
     Boolean checkForUniquePhoneNumber(String phoneNumber);
+
+    @Query("SELECT (COUNT(user) = 1) FROM User user WHERE user.id = ?1 AND user.email = ?2")
+    Boolean checkForUserHasThisEmail(UUID id, String email);
+
+    @Query("SELECT (COUNT(user) = 1) FROM User user WHERE user.id = ?1 AND user.phoneNumber = ?2")
+    Boolean checkForUserHasThisPhoneNumber(UUID id, String phoneNumber);
 }
