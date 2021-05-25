@@ -19,6 +19,6 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumberCons
 
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-        return userRepository.findByPhoneNumber(phoneNumber).isEmpty();
+        return userRepository.checkForUniquePhoneNumber(phoneNumber);
     }
 }

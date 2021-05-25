@@ -18,4 +18,10 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     @Modifying
     @Query("UPDATE User user SET user.status = ?1 WHERE user.email = ?2")
     void changeAccountStatusByEmail(EUserStatus status, String email);
+
+    @Query("SELECT (COUNT(user) = 0) FROM User user WHERE user.email = ?1")
+    Boolean checkForUniqueEmail(String email);
+
+    @Query("SELECT (COUNT(user) = 0) FROM User user WHERE user.phoneNumber = ?1")
+    Boolean checkForUniquePhoneNumber(String phoneNumber);
 }
