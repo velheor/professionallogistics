@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
-import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 import static com.velheor.internship.utils.TestUtils.USER_DOES_NOT_EXIST_IN_DB;
@@ -74,7 +72,6 @@ class UserServiceTest extends BasePersistenceTest {
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(USER_IGNORE)
                 .isEqualTo(actualAll);
-
     }
 
     @Test
@@ -110,13 +107,11 @@ class UserServiceTest extends BasePersistenceTest {
     @Test
     void updateCurrentUser() {
         User expected = new User(USER1);
-        expected.setEmail(UPDATED_USER.getEmail());
-        expected.setFirstName(UPDATED_USER.getFirstName());
+        expected.setEmail("test@gmail.com");
+        expected.setFirstName("test");
         expected.setStatus(EUserStatus.INACTIVE);
 
-        Principal principal = USER1::getEmail;
-
-        User actual = userService.updateCurrentUser(principal, UPDATED_USER);
+        User actual = userService.updateCurrentUser(USER1.getEmail(), expected);
         assertThat(actual).isEqualToIgnoringGivenFields(expected, USER_IGNORE);
     }
 

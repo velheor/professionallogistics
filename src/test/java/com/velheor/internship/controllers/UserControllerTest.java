@@ -14,11 +14,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.EntityNotFoundException;
-import java.security.Principal;
 import java.util.Arrays;
 
 import static com.velheor.internship.utils.TestUtils.TEST_UUID;
-import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 import static com.velheor.internship.utils.TestWebUtils.USER_PROFILE_UPDATE_DTO;
@@ -141,21 +139,22 @@ class UserControllerTest extends BaseWebTest {
     }
 
     @Test
+    @WithMockUser(username = "test1@gmail.com")
     void updateProfile() throws Exception {
-        Principal principal = USER1::getEmail;
         User expected = new User(USER1);
-
-        expected.setFirstName(UPDATED_USER.getFirstName());
-        expected.setEmail(UPDATED_USER.getEmail());
+        //because USER_PROFILE_UPDATE_DTO does not have id
+        expected.setId(null);
+        expected.setFirstName(USER_PROFILE_UPDATE_DTO.getFirstName());
+        expected.setEmail(USER_PROFILE_UPDATE_DTO.getEmail());
         expected.setStatus(EUserStatus.INACTIVE);
 
-        when(userService.updateCurrentUser(principal, UPDATED_USER)).thenReturn(expected);
+        when(userService.updateCurrentUser("test1@gmail.com", expected)).thenReturn(expected);
 
         mockMvc.perform(put(USER_URL + "profile")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(principal))
                 .content(objectMapper.writeValueAsString(USER_PROFILE_UPDATE_DTO)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(objectMapper.writeValueAsString(USER_PROFILE_UPDATE_DTO)));
     }
 }

@@ -9,6 +9,7 @@ import com.velheor.internship.dto.StatusViewDTO;
 import com.velheor.internship.dto.TruckViewDTO;
 import com.velheor.internship.dto.UserProfileUpdateDTO;
 import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.models.enums.EUserStatus;
 
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
 import static com.velheor.internship.utils.TestUtils.ADDRESS2;
@@ -22,7 +23,6 @@ import static com.velheor.internship.utils.TestUtils.STATUS1;
 import static com.velheor.internship.utils.TestUtils.STATUS2;
 import static com.velheor.internship.utils.TestUtils.TRUCK1;
 import static com.velheor.internship.utils.TestUtils.TRUCK2;
-import static com.velheor.internship.utils.TestUtils.UPDATED_USER;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 
@@ -81,6 +81,7 @@ public final class TestWebUtils {
         USER_VIEW_DTO1.setEmail(USER1.getEmail());
         USER_VIEW_DTO1.setPhoneNumber(USER1.getPhoneNumber());
         USER_VIEW_DTO1.setPassword(USER1.getPassword());
+        USER_VIEW_DTO1.setStatus(USER1.getStatus().name());
 
         USER_VIEW_DTO2.setId(USER2.getId());
         USER_VIEW_DTO2.setFirstName(USER2.getFirstName());
@@ -88,6 +89,7 @@ public final class TestWebUtils {
         USER_VIEW_DTO2.setEmail(USER2.getEmail());
         USER_VIEW_DTO2.setPhoneNumber(USER2.getPhoneNumber());
         USER_VIEW_DTO2.setPassword(USER2.getPassword());
+        USER_VIEW_DTO2.setStatus(USER2.getStatus().name());
 
         ROLE_VIEW_DTO1.setId(ROLE1.getId());
         ROLE_VIEW_DTO1.setName(ROLE1.getName().toString());
@@ -140,7 +142,11 @@ public final class TestWebUtils {
         AUTH_USER_DTO.setEmail(USER_VIEW_DTO1.getEmail());
         AUTH_USER_DTO.setPassword("password");
 
-        USER_PROFILE_UPDATE_DTO.setFirstName(UPDATED_USER.getEmail());
-        USER_PROFILE_UPDATE_DTO.setEmail(UPDATED_USER.getFirstName());
+        USER_PROFILE_UPDATE_DTO.setFirstName("test");
+        USER_PROFILE_UPDATE_DTO.setLastName(USER1.getLastName());
+        USER_PROFILE_UPDATE_DTO.setEmail("test@gmail.com");
+        USER_PROFILE_UPDATE_DTO.setPhoneNumber(USER1.getPhoneNumber());
+        USER_PROFILE_UPDATE_DTO.setPassword(USER1.getPassword());
+        USER_PROFILE_UPDATE_DTO.setStatus(EUserStatus.INACTIVE.name());
     }
 }

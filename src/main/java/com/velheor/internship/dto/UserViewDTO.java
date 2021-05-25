@@ -40,6 +40,10 @@ public class UserViewDTO extends BaseDTO {
     @Size(min = 7, max = 255, message = "{notCorrectSize}")
     private String password;
 
+    @NotEmpty(message = "{notEmpty}")
+    @Size(min = 3, max = 15, message = "{notCorrectSize}")
+    private String status;
+
     public UserViewDTO(UserViewDTO userViewDTO) {
         super.setId(userViewDTO.getId());
         firstName = userViewDTO.getFirstName();
@@ -47,6 +51,7 @@ public class UserViewDTO extends BaseDTO {
         email = userViewDTO.getEmail();
         phoneNumber = userViewDTO.getPhoneNumber();
         password = userViewDTO.getPassword();
+        status = userViewDTO.getStatus();
     }
 
     @XmlElement(name = "first_name")

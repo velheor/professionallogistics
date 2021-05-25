@@ -66,8 +66,8 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public UserViewDTO updateProfile(Principal principal, @Valid UserProfileUpdateDTO userProfileUpdateDTO) {
+    public UserProfileUpdateDTO updateProfile(Principal principal, @Valid @RequestBody UserProfileUpdateDTO userProfileUpdateDTO) {
         User user = userMapper.userUpdateProfileDtoToUser(userProfileUpdateDTO);
-        return userMapper.userToUserDto(userService.updateCurrentUser(principal, user));
+        return userMapper.toUserProfileDto(userService.updateCurrentUser(principal.getName(), user));
     }
 }

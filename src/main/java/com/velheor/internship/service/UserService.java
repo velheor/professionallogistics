@@ -36,8 +36,8 @@ public class UserService {
                 "User with id: " + id + " was not found."));
     }
 
-    public User updateCurrentUser(Principal principal, User userProfileUpdate) {
-        User user = findByEmail(principal.getName());
+    public User updateCurrentUser(String email, User userProfileUpdate) {
+        User user = findByEmail(email);
         if (StringUtils.hasText(userProfileUpdate.getFirstName())) {
             user.setFirstName(userProfileUpdate.getFirstName());
         }

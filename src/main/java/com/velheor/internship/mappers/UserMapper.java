@@ -11,6 +11,8 @@ public abstract class UserMapper {
 
     public abstract UserViewDTO userToUserDto(User user);
 
+    public abstract UserProfileUpdateDTO toUserProfileDto(User user);
+
     public abstract User userDtoToUser(UserViewDTO userViewDTO);
 
     public abstract User userRegistrationDtoToUser(UserRegistrationDTO userRegistrationDTO);
