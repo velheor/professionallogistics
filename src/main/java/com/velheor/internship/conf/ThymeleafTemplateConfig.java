@@ -19,14 +19,16 @@ public class ThymeleafTemplateConfig {
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setOrder(0);
         return templateResolver;
     }
 
     @Bean
-    public SpringTemplateEngine thymeleafTemplateEngine(ITemplateResolver templateResolver) {
+    public SpringTemplateEngine thymeleafTemplateEngine(ITemplateResolver templateResolver,
+                                                        ResourceBundleMessageSource emailMessageSource) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
-        templateEngine.setTemplateEngineMessageSource(emailMessageSource());
+        templateEngine.setTemplateEngineMessageSource(emailMessageSource);
         return templateEngine;
     }
 
