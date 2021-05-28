@@ -147,6 +147,5 @@ public final class TestWebUtils {
         USER_PROFILE_UPDATE_DTO.setEmail("test@gmail.com");
         USER_PROFILE_UPDATE_DTO.setPhoneNumber(USER1.getPhoneNumber());
         USER_PROFILE_UPDATE_DTO.setPassword(USER1.getPassword());
-        USER_PROFILE_UPDATE_DTO.setStatus(EUserStatus.INACTIVE.name());
     }
 }

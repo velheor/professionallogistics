@@ -21,7 +21,7 @@ public class RandomDataInPojo {
 
     @Test
     void randomData() throws JAXBException, FileNotFoundException {
-        //creatingTestData();
+        creatingTestData();
     }
 
     public void creatingTestData() throws JAXBException, FileNotFoundException {
@@ -34,12 +34,12 @@ public class RandomDataInPojo {
         Users users = new Users();
         Faker faker = new Faker();
 
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100; i++) {
             UserViewDTO user = new UserViewDTO();
             user.setId(UUID.randomUUID());
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
-            user.setEmail(faker.bothify("????##@gmail.com"));
+            user.setEmail(faker.bothify("????????####@gmail.com"));
             user.setPhoneNumber(faker.regexify("\\+375 \\((17|29|33|44)\\) [0-9]{3}-[0-9]{2}-[0-9]{2}"));
             user.setPassword(faker.internet().password(8, 20));
             userList.add(user);
