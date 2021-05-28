@@ -2,32 +2,25 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<jsp:include page="index.jsp"/>
-<jsp:include page="dataTable.jsp"/>
+<jsp:include page="fragments/index.jsp"/>
 <body>
 <div class="container">
+    <button class="btn btn-primary" id="addRow">Add user</button>
     <table id="userList" class="table table-hover">
         <thead>
         <tr class="table-primary">
             <th scope="col">User ID</th>
             <th scope="col">First name</th>
             <th scope="col">Last name</th>
+            <th scope="col">Functions</th>
         </tr>
         </thead>
 
         <tbody>
-        <c:forEach items="${users}" var="user">
-            <tr>
-                <td><c:out value="${user.id}"/></td>
-                <td><c:out value="${user.firstName}"/></td>
-                <td><c:out value="${user.lastName}"/></td>
-            </tr>
-        </c:forEach>
-        </tbody>
 
-        <tfoot>
-        </tfoot>
+        </tbody>
     </table>
+
 </div>
 </body>
 </html>
