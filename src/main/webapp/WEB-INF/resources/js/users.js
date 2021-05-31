@@ -1,8 +1,9 @@
 $(document).ready(function () {
     let table = $('#userList').DataTable({
+        dom: 'Bfrtip',
         ajax: {
             url: "http://localhost:8080/prolog/users/",
-            type: "GET"
+            dataSrc: ''
         },
         columns: [
             {

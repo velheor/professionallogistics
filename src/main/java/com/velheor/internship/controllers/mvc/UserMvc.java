@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mvc")
 public class UserMvc {
 
-    private final UserService userService;
-    private final UserMapper userMapper;
-
     @GetMapping("/users")
     @SneakyThrows
     public String getAllView() {
