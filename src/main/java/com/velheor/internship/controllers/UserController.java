@@ -58,6 +58,13 @@ public class UserController {
         return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
+    @PostMapping("/saveAll")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Save all users")
+    public void saveAll(@Valid @RequestBody Iterable<UserViewDTO> usersViewDTO) {
+        userService.saveAll(userMapper.toUser(usersViewDTO));
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "delete user by id")

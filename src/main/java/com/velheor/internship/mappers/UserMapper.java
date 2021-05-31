@@ -5,6 +5,9 @@ import com.velheor.internship.dto.UserRegistrationDTO;
 import com.velheor.internship.dto.UserViewDTO;
 import com.velheor.internship.models.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Named;
+
+import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
