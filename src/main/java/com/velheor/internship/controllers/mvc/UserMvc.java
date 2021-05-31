@@ -22,10 +22,7 @@ public class UserMvc {
 
     @GetMapping("/users")
     @SneakyThrows
-    public String getAll(Model model) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Iterable<UserViewDTO> userViewDTOS = userMapper.toUserViewDto(userService.getAll());
-        model.addAttribute("users", objectMapper.writeValueAsString(userViewDTOS));
+    public String getAllView() {
         return "users";
     }
 }

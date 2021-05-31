@@ -25,7 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/swagger-ui/**",
             "/v2/api-docs",
-            "/webjars/**"
+            "/webjars/**",
+            "/resources/**"
     };
 
     private final JwtFilter jwtFilter;
@@ -44,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/roles/**").hasAuthority("ADMIN")
-                .antMatchers("/users/").hasAuthority("ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest()
                 .authenticated()
