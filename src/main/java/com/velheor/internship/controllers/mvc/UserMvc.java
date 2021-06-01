@@ -2,6 +2,7 @@ package com.velheor.internship.controllers.mvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.form.UserViewsDtoForm;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class UserMvc {
     }
 
     @PostMapping("/users")
-    public String saveAllUsers(@Valid @ModelAttribute("users") Iterable<UserViewDTO> usersViewDTO) {
-        userService.saveAll(userMapper.toUser(usersViewDTO));
+    public String saveAllUsers(@Valid @ModelAttribute UserViewsDtoForm viewsDtoForm) {
+        userService.saveAll(userMapper.toUser(viewsDtoForm.getUserViewDTOS()));
         return "users";
     }
 }
