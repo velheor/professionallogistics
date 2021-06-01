@@ -2,14 +2,11 @@ $(document).ready(function () {
     let table = $('#userList').DataTable({
 
         bAutoWidth: false,
-        ajax: {
-            url: "http://localhost:8080/prolog/users/",
-            dataSrc: ''
-        },
+        data: users,
 
         columnDefs: [{
             defaultContent: "<input class='form-control'>",
-            targets: '_all',
+            targets: '_all'
         }],
 
         columns: [
@@ -66,20 +63,5 @@ $(document).ready(function () {
             .row($(this).parents('tr'))
             .remove()
             .draw();
-    });
-
-    $('#submit').click(function () {
-        let data1 = table.$('input', 'select').serialize();
-        let data = table
-            .rows()
-            .data()
-            .toArray();
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "http://localhost:8080/prolog/users/saveAll",
-            data: JSON.stringify(data),
-            dataType: 'json',
-        });
     });
 });
