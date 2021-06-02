@@ -2,6 +2,8 @@ package com.velheor.internship.repository;
 
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.EUserStatus;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +32,6 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     @Query("SELECT (COUNT(user) = 1) FROM User user WHERE user.id = ?1 AND user.phoneNumber = ?2")
     Boolean checkForUserHasThisPhoneNumber(UUID id, String phoneNumber);
+
+    Iterable<User> findAll(Pageable pageable);
 }

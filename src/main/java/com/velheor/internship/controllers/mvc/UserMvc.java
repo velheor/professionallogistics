@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,11 +22,11 @@ public class UserMvc {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @GetMapping("/users")
+    @GetMapping("/users/{page}/{count}")
     @SneakyThrows
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, @PathVariable("page") Integer page, @PathVariable("count") Integer count) {
         ObjectMapper objectMapper = new ObjectMapper();
-        Iterable<UserViewDTO> userViewDTOS = userMapper.toUserViewDto(userService.getAll());
+        Iterable<UserViewDTO> userViewDTOS = userMapper.toUserViewDto(userService.findAll(page, count));
         model.addAttribute("users", objectMapper.writeValueAsString(userViewDTOS));
         return "users";
     }
