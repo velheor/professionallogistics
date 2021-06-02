@@ -4,8 +4,10 @@ import com.velheor.internship.dto.UserViewDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class UserViewsDtoForm {
-    private Iterable<UserViewDTO> userViewDTOS;
+    private List<UserViewDTO> userViewDTOS;
 }
