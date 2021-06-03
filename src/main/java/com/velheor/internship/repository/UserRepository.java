@@ -32,6 +32,4 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     @Query("SELECT (COUNT(user) = 1) FROM User user WHERE user.id = ?1 AND user.phoneNumber = ?2")
     Boolean checkForUserHasThisPhoneNumber(UUID id, String phoneNumber);
-
-    Iterable<User> findAll(Pageable pageable);
 }

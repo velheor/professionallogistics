@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private EUserStatus status;
+    private EUserStatus status = EUserStatus.INACTIVE;
 
     @OneToMany(mappedBy = "carrier", cascade = CascadeType.ALL)
     private List<Order> carrierOrders;

@@ -73,8 +73,18 @@ $(document).ready(function () {
             },
 
             {
+                title: "Status",
+                data: "Status", render: function (data, type, row, meta) {
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].Status' + "' class='form-control' value='" + data + "'>";
+                }
+            },
+
+            {
                 title: "Function",
-                defaultContent: "<button class='btn btn-danger deleteBtn'>Delete</button>"
+                defaultContent: "<button class='btn btn-danger deleteBtn' type='button'>Delete</button>"
             }
         ]
     });

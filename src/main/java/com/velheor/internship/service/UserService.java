@@ -66,7 +66,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(
                 "User with email: " + email + " was not found."));
@@ -114,9 +113,4 @@ public class UserService {
     public String getEmailFromToken(String tokenMail) {
         return jwtProvider.getEmail(tokenMail);
     }
-
-    public Iterable<User> findAll(Integer from, Integer to) {
-        return userRepository.findAll(PageRequest.of(from,to));
-    }
-
 }

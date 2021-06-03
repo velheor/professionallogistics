@@ -13,7 +13,7 @@ public abstract class UserMapper {
     
     public abstract UserProfileUpdateDto toUserProfileDto(User user);
 
-    public abstract User userDtoToUser(UserViewDto userViewDTO);
+    public abstract User toUser(UserViewDto userViewDTO);
 
     public abstract User toUser(UserRegistrationDto userRegistrationDTO);
 
@@ -21,5 +21,5 @@ public abstract class UserMapper {
 
     public abstract Iterable<UserViewDto> toUserViewDto(Iterable<User> users);
 
-    public abstract Iterable<User> toUser(Iterable<UserViewDto> usersViewDto);
+    public abstract Iterable<User> toUser(Iterable<UserViewDto> userViewDtos);
 }

@@ -48,14 +48,14 @@ public class UserController {
     @PutMapping
     @ApiOperation(value = "Update user by user view dto")
     public UserViewDto update(@Valid @RequestBody UserViewDto userViewDTO) {
-        return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
+        return userMapper.toUserViewDto(userService.save(userMapper.toUser(userViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view dto")
     public UserViewDto save(@Valid @RequestBody UserViewDto userViewDTO) {
-        return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
+        return userMapper.toUserViewDto(userService.save(userMapper.toUser(userViewDTO)));
     }
 
     @PostMapping("/saveAll")
