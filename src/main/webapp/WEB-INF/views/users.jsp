@@ -16,7 +16,7 @@
     <button class="btn btn-primary" id="addRow">Add user</button>
 
     <form:form method="POST" modelAttribute="userViewDtoForm">
-        <button class="btn btn-primary" id="submit" type="submit">Submit form</button>
+        <button class="btn btn-primary" id="submitBtn" type="submit">Submit form</button>
         <table id="userList" class="table table-striped table-bordered" style="width:100%">
         </table>
     </form:form>

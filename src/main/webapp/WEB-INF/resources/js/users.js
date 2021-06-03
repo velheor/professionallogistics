@@ -2,12 +2,8 @@ $(document).ready(function () {
     let table = $('#userList').DataTable({
         paging: false,
         bAutoWidth: false,
+        orderable: false,
         data: users,
-
-        columnDefs: [{
-            orderable: false,
-            targets: "_all"
-        }],
 
         columns: [
             {
@@ -74,17 +70,17 @@ $(document).ready(function () {
 
             {
                 title: "Status",
-                data: "Status", render: function (data, type, row, meta) {
+                data: "status", render: function (data, type, row, meta) {
                     if (data === undefined) {
                         data = '';
                     }
-                    return "<input name='" + 'userViewDtos[' + meta.row + '].Status' + "' class='form-control' value='" + data + "'>";
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].status' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Function",
-                defaultContent: "<button class='btn btn-danger deleteBtn' type='button'>Delete</button>"
+                defaultContent: "<button class='btn btn-danger deleteRow'>Delete</button>"
             }
         ]
     });
@@ -95,9 +91,19 @@ $(document).ready(function () {
             .row
             .add([])
             .draw();
+
     });
 
-    $('#userList tbody').on('click', 'deleteBtn', function () {
+    $('#submitBtn').click(function () {
+        let newData = [];
+        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            alert(this.data().$('input, select').serialize());
+            newData.push(this.data());
+        });
+        table.clear().rows.add(JSON.parse(JSON.stringify(newData))).draw();
+    });
+
+    $('#userList tbody').on('click', '.deleteRow', function () {
         table
             .row($(this).parents('tr'))
             .remove()
