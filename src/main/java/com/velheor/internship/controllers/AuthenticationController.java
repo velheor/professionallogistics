@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.AuthUserDTO;
-import com.velheor.internship.dto.UserRegistrationDTO;
+import com.velheor.internship.dto.AuthUserDto;
+import com.velheor.internship.dto.UserRegistrationDto;
 import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.models.enums.EUserStatus;
@@ -32,7 +32,7 @@ public class AuthenticationController {
     private final RoleMapper roleMapper;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticate(@Valid @RequestBody AuthUserDTO authUserDTO) {
+    public ResponseEntity<String> authenticate(@Valid @RequestBody AuthUserDto authUserDTO) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
                 authUserDTO.getPassword());
 
@@ -43,7 +43,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<String> signUp(@Valid @RequestBody UserRegistrationDto userRegistrationDTO) {
 
         userService.registerUser(userMapper.toUser(userRegistrationDTO));
         userService.sendActivationCodeToEmail(userMapper.toUser(userRegistrationDTO));

@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.StatusViewDTO;
+import com.velheor.internship.dto.StatusViewDto;
 import com.velheor.internship.mappers.StatusMapper;
 import com.velheor.internship.service.StatusService;
 import lombok.RequiredArgsConstructor;
@@ -27,18 +27,18 @@ public class StatusController {
     private final StatusMapper statusMapper;
 
     @GetMapping("/{id}")
-    public StatusViewDTO findById(@PathVariable("id") UUID id) {
+    public StatusViewDto findById(@PathVariable("id") UUID id) {
         return statusMapper.toStatusViewDto(statusService.findById(id));
     }
 
     @PutMapping
-    public StatusViewDTO update(@Valid @RequestBody StatusViewDTO statusViewDTO) {
+    public StatusViewDto update(@Valid @RequestBody StatusViewDto statusViewDTO) {
         return statusMapper.toStatusViewDto(statusService.save(statusMapper.toStatus(statusViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StatusViewDTO save(@Valid @RequestBody StatusViewDTO statusViewDTO) {
+    public StatusViewDto save(@Valid @RequestBody StatusViewDto statusViewDTO) {
         return statusMapper.toStatusViewDto(statusService.save(statusMapper.toStatus(statusViewDTO)));
     }
 

@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.RoleViewDTO;
+import com.velheor.internship.dto.RoleViewDto;
 import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -27,18 +27,18 @@ public class RoleController {
     private final RoleMapper roleMapper;
 
     @GetMapping("/{id}")
-    public RoleViewDTO findById(@PathVariable("id") UUID id) {
+    public RoleViewDto findById(@PathVariable("id") UUID id) {
         return roleMapper.toRoleViewDto(roleService.findById(id));
     }
 
     @PutMapping
-    public RoleViewDTO update(@Valid @RequestBody RoleViewDTO roleViewDTO) {
+    public RoleViewDto update(@Valid @RequestBody RoleViewDto roleViewDTO) {
         return roleMapper.toRoleViewDto(roleService.save(roleMapper.toRole(roleViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RoleViewDTO save(@Valid @RequestBody RoleViewDTO roleViewDTO) {
+    public RoleViewDto save(@Valid @RequestBody RoleViewDto roleViewDTO) {
         return roleMapper.toRoleViewDto(roleService.save(roleMapper.toRole(roleViewDTO)));
     }
 

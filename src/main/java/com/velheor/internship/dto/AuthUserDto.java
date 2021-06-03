@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class AuthUserDTO {
+public class AuthUserDto {
 
     @Email(message = "{notValidEmail}")
     @Size(max = 255, message = "{notCorrectSize}")
@@ -20,7 +20,7 @@ public class AuthUserDTO {
     @Size(min = 7, max = 255, message = "{notCorrectSize}")
     private String password;
 
-    public AuthUserDTO(AuthUserDTO authUserDTO) {
+    public AuthUserDto(AuthUserDto authUserDTO) {
         this.email = authUserDTO.getEmail();
         this.password = authUserDTO.getPassword();
     }

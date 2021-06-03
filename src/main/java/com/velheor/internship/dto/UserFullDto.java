@@ -6,16 +6,16 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-public class UserFullDTO extends UserViewDTO {
+public class UserFullDto extends UserViewDto {
 
     @NotNull(message = "{notEmpty}")
-    private TruckViewDTO truck;
+    private TruckViewDto truck;
 
     @NotNull(message = "{notEmpty}")
-    private List<OrderViewDTO> shipperOrders;
+    private List<OrderViewDto> shipperOrders;
 
     @NotNull(message = "{notEmpty}")
-    private List<OrderViewDTO> carrierOrders;
+    private List<OrderViewDto> carrierOrders;
 
     @NotNull(message = "{notEmpty}")
     private List<String> roles;

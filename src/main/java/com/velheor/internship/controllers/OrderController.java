@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.OrderViewDTO;
+import com.velheor.internship.dto.OrderViewDto;
 import com.velheor.internship.mappers.OrderMapper;
 import com.velheor.internship.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -27,23 +27,23 @@ public class OrderController {
     private final OrderMapper orderMapper;
 
     @GetMapping("/{id}")
-    public OrderViewDTO findById(@PathVariable("id") UUID id) {
+    public OrderViewDto findById(@PathVariable("id") UUID id) {
         return orderMapper.toOrderDto(orderService.findById(id));
     }
 
     @GetMapping
-    public Iterable<OrderViewDTO> getAll() {
+    public Iterable<OrderViewDto> getAll() {
         return orderMapper.toOrdersViewDto(orderService.getAll());
     }
 
     @PutMapping
-    public OrderViewDTO update(@Valid @RequestBody OrderViewDTO OrderViewDTO) {
+    public OrderViewDto update(@Valid @RequestBody OrderViewDto OrderViewDTO) {
         return orderMapper.toOrderDto(orderService.save(orderMapper.toOrder(OrderViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderViewDTO save(@Valid @RequestBody OrderViewDTO OrderViewDTO) {
+    public OrderViewDto save(@Valid @RequestBody OrderViewDto OrderViewDTO) {
         orderService.save(orderMapper.toOrder(OrderViewDTO));
         return OrderViewDTO;
     }

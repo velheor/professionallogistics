@@ -5,11 +5,11 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class RouteDTO extends BaseDTO {
+public class RouteDto extends BaseDto {
 
     @NotNull(message = "{notEmpty}")
-    private AddressViewDTO addressTo;
+    private AddressViewDto addressTo;
 
     @NotNull(message = "{notEmpty}")
-    private AddressViewDTO addressFrom;
+    private AddressViewDto addressFrom;
 }

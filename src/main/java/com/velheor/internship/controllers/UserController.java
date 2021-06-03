@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.UserProfileUpdateDTO;
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserProfileUpdateDto;
+import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.models.User;
 import com.velheor.internship.service.UserService;
@@ -35,33 +35,33 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Find user by id")
-    public UserViewDTO findById(@PathVariable("id") UUID id) {
+    public UserViewDto findById(@PathVariable("id") UUID id) {
         return userMapper.toUserViewDto(userService.findById(id));
     }
 
     @GetMapping
     @ApiOperation(value = "Get all users")
-    public Iterable<UserViewDTO> getAll() {
+    public Iterable<UserViewDto> getAll() {
         return userMapper.toUserViewDto(userService.getAll());
     }
 
     @PutMapping
     @ApiOperation(value = "Update user by user view dto")
-    public UserViewDTO update(@Valid @RequestBody UserViewDTO userViewDTO) {
+    public UserViewDto update(@Valid @RequestBody UserViewDto userViewDTO) {
         return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save user by user view dto")
-    public UserViewDTO save(@Valid @RequestBody UserViewDTO userViewDTO) {
+    public UserViewDto save(@Valid @RequestBody UserViewDto userViewDTO) {
         return userMapper.toUserViewDto(userService.save(userMapper.userDtoToUser(userViewDTO)));
     }
 
     @PostMapping("/saveAll")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save all users")
-    public void saveAll(@Valid @RequestBody Iterable<UserViewDTO> usersViewDTO) {
+    public void saveAll(@Valid @RequestBody Iterable<UserViewDto> usersViewDTO) {
         userService.saveAll(userMapper.toUser(usersViewDTO));
     }
 
@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public UserProfileUpdateDTO updateProfile(Principal principal, @Valid @RequestBody UserProfileUpdateDTO userProfileUpdateDTO) {
+    public UserProfileUpdateDto updateProfile(Principal principal, @Valid @RequestBody UserProfileUpdateDto userProfileUpdateDTO) {
         User user = userMapper.toUser(userProfileUpdateDTO);
         return userMapper.toUserProfileDto(userService.updateCurrentUser(principal.getName(), user));
     }

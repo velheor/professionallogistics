@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.models.User;
@@ -103,7 +103,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        UserViewDTO testUser = new UserViewDTO(USER_VIEW_DTO1);
+        UserViewDto testUser = new UserViewDto(USER_VIEW_DTO1);
         testUser.setPassword("test");
         testUser.setPhoneNumber("+1234");
 

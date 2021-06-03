@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class TruckViewDTO extends BaseDTO {
+public class TruckViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 12, message = "{notCorrectSize}")
@@ -27,7 +27,7 @@ public class TruckViewDTO extends BaseDTO {
     @Size(min = 2, max = 45, message = "{notCorrectSize}")
     private String truckCategory;
 
-    public TruckViewDTO(TruckViewDTO truckViewDTO){
+    public TruckViewDto(TruckViewDto truckViewDTO) {
         setId(truckViewDTO.getId());
         name = truckViewDTO.getName();
         registrationNumber = truckViewDTO.getRegistrationNumber();

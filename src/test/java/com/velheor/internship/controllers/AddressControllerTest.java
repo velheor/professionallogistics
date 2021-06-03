@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.AddressViewDTO;
+import com.velheor.internship.dto.AddressViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.AddressMapper;
 import com.velheor.internship.service.AddressService;
@@ -78,7 +78,7 @@ public class AddressControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        AddressViewDTO address = new AddressViewDTO(ADDRESS_VIEW_DTO1);
+        AddressViewDto address = new AddressViewDto(ADDRESS_VIEW_DTO1);
 
         address.setStreetName(null);
 

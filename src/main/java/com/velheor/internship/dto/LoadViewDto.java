@@ -3,16 +3,12 @@ package com.velheor.internship.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class LoadViewDTO extends BaseDTO {
+public class LoadViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 5, max = 45, message = "{notCorrectSize}")
@@ -27,7 +23,7 @@ public class LoadViewDTO extends BaseDTO {
     @Size(min = 20, max = 255, message = "{notCorrectSize}")
     private String details;
 
-    public LoadViewDTO(LoadViewDTO loadViewDTO){
+    public LoadViewDto(LoadViewDto loadViewDTO) {
         super.setId(loadViewDTO.getId());
         name = loadViewDTO.getName();
         weight = loadViewDTO.getWeight();

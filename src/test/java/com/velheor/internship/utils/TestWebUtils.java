@@ -1,15 +1,7 @@
 package com.velheor.internship.utils;
 
-import com.velheor.internship.dto.AddressViewDTO;
-import com.velheor.internship.dto.AuthUserDTO;
-import com.velheor.internship.dto.LoadViewDTO;
-import com.velheor.internship.dto.OrderViewDTO;
-import com.velheor.internship.dto.RoleViewDTO;
-import com.velheor.internship.dto.StatusViewDTO;
-import com.velheor.internship.dto.TruckViewDTO;
-import com.velheor.internship.dto.UserProfileUpdateDTO;
-import com.velheor.internship.dto.UserViewDTO;
-import com.velheor.internship.models.enums.EUserStatus;
+import com.velheor.internship.dto.*;
+import com.velheor.internship.dto.AddressViewDto;
 
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
 import static com.velheor.internship.utils.TestUtils.ADDRESS2;
@@ -37,30 +29,30 @@ public final class TestWebUtils {
     public static final String ADDRESS_URL = "/addresses/";
     public static final String AUTH_URL = "/auth/";
 
-    public final static TruckViewDTO TRUCK_VIEW_DTO1 = new TruckViewDTO();
-    public final static TruckViewDTO TRUCK_VIEW_DTO2 = new TruckViewDTO();
+    public final static TruckViewDto TRUCK_VIEW_DTO1 = new TruckViewDto();
+    public final static TruckViewDto TRUCK_VIEW_DTO2 = new TruckViewDto();
 
-    public final static UserViewDTO USER_VIEW_DTO1 = new UserViewDTO();
-    public final static UserViewDTO USER_VIEW_DTO2 = new UserViewDTO();
+    public final static UserViewDto USER_VIEW_DTO1 = new UserViewDto();
+    public final static UserViewDto USER_VIEW_DTO2 = new UserViewDto();
 
-    public final static RoleViewDTO ROLE_VIEW_DTO1 = new RoleViewDTO();
-    public final static RoleViewDTO ROLE_VIEW_DTO2 = new RoleViewDTO();
+    public final static RoleViewDto ROLE_VIEW_DTO1 = new RoleViewDto();
+    public final static RoleViewDto ROLE_VIEW_DTO2 = new RoleViewDto();
 
-    public final static OrderViewDTO ORDER_VIEW_DTO1 = new OrderViewDTO();
-    public final static OrderViewDTO ORDER_VIEW_DTO2 = new OrderViewDTO();
+    public final static OrderViewDto ORDER_VIEW_DTO1 = new OrderViewDto();
+    public final static OrderViewDto ORDER_VIEW_DTO2 = new OrderViewDto();
 
-    public final static LoadViewDTO LOAD_VIEW_DTO1 = new LoadViewDTO();
-    public final static LoadViewDTO LOAD_VIEW_DTO2 = new LoadViewDTO();
+    public final static LoadViewDto LOAD_VIEW_DTO1 = new LoadViewDto();
+    public final static LoadViewDto LOAD_VIEW_DTO2 = new LoadViewDto();
 
-    public final static StatusViewDTO STATUS_VIEW_DTO1 = new StatusViewDTO();
-    public final static StatusViewDTO STATUS_VIEW_DTO2 = new StatusViewDTO();
+    public final static StatusViewDto STATUS_VIEW_DTO1 = new StatusViewDto();
+    public final static StatusViewDto STATUS_VIEW_DTO2 = new StatusViewDto();
 
-    public final static AddressViewDTO ADDRESS_VIEW_DTO1 = new AddressViewDTO();
-    public final static AddressViewDTO ADDRESS_VIEW_DTO2 = new AddressViewDTO();
+    public final static AddressViewDto ADDRESS_VIEW_DTO1 = new AddressViewDto();
+    public final static AddressViewDto ADDRESS_VIEW_DTO2 = new AddressViewDto();
 
-    public final static AuthUserDTO AUTH_USER_DTO = new AuthUserDTO();
+    public final static AuthUserDto AUTH_USER_DTO = new AuthUserDto();
 
-    public final static UserProfileUpdateDTO USER_PROFILE_UPDATE_DTO = new UserProfileUpdateDTO();
+    public final static UserProfileUpdateDto USER_PROFILE_UPDATE_DTO = new UserProfileUpdateDto();
 
     static {
         TRUCK_VIEW_DTO1.setId(TRUCK1.getId());

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @XmlRootElement(name = "User")
-public class UserViewDTO extends BaseDTO {
+public class UserViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 15, message = "{notCorrectSize}")
@@ -44,7 +44,7 @@ public class UserViewDTO extends BaseDTO {
     @Size(min = 3, max = 15, message = "{notCorrectSize}")
     private String status;
 
-    public UserViewDTO(UserViewDTO userViewDTO) {
+    public UserViewDto(UserViewDto userViewDTO) {
         super.setId(userViewDTO.getId());
         firstName = userViewDTO.getFirstName();
         lastName = userViewDTO.getLastName();

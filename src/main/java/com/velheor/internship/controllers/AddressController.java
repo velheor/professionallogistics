@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.AddressViewDTO;
+import com.velheor.internship.dto.AddressViewDto;
 import com.velheor.internship.mappers.AddressMapper;
 import com.velheor.internship.service.AddressService;
 import lombok.RequiredArgsConstructor;
@@ -27,19 +27,19 @@ public class AddressController {
     private final AddressMapper addressMapper;
 
     @GetMapping("/{id}")
-    public AddressViewDTO findById(@PathVariable("id") UUID id) {
+    public AddressViewDto findById(@PathVariable("id") UUID id) {
         return addressMapper.toAddressDto(addressService.findById(id));
     }
 
     @PutMapping
-    public AddressViewDTO update(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
+    public AddressViewDto update(@Valid @RequestBody AddressViewDto AddressViewDTO) {
         return addressMapper.toAddressDto(
                 addressService.save(addressMapper.toAddress(AddressViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AddressViewDTO save(@Valid @RequestBody AddressViewDTO AddressViewDTO) {
+    public AddressViewDto save(@Valid @RequestBody AddressViewDto AddressViewDTO) {
         return addressMapper.toAddressDto(
                 addressService.save(addressMapper.toAddress(AddressViewDTO)));
     }

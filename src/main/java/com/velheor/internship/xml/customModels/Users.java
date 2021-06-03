@@ -1,6 +1,6 @@
 package com.velheor.internship.xml.customModels;
 
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserViewDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +16,5 @@ import java.util.List;
 @Setter
 public class Users {
     @XmlElement(name = "User")
-    private List<UserViewDTO> users;
+    private List<UserViewDto> users;
 }

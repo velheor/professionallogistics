@@ -5,7 +5,6 @@ $(document).ready(function () {
         data: users,
 
         columnDefs: [{
-            defaultContent: "<input class='form-control'>",
             orderable: false,
             targets: "_all"
         }],
@@ -15,7 +14,10 @@ $(document).ready(function () {
                 title: "Id",
                 data: "id",
                 render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].id' + "' class='form-control' readonly value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].id' + "' class='form-control' value='" + data + "' readonly>";
                 }
             },
 
@@ -23,41 +25,56 @@ $(document).ready(function () {
                 title: "First name",
                 data: "firstName",
                 render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].firstName' + "' class='form-control' value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].firstName' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Last name",
                 data: "lastName", render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].lastName' + "' class='form-control' value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].lastName' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Email",
                 data: "email", render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].email' + "' class='form-control' value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].email' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Phone number",
                 data: "phoneNumber", render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].phoneNumber' + "' class='form-control' value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].phoneNumber' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Password",
                 data: "password", render: function (data, type, row, meta) {
-                    return "<input name='" + 'userViewDTOS[' + meta.row + '].password' + "' class='form-control' value='" + data + "'>";
+                    if (data === undefined) {
+                        data = '';
+                    }
+                    return "<input name='" + 'userViewDtos[' + meta.row + '].password' + "' class='form-control' value='" + data + "'>";
                 }
             },
 
             {
                 title: "Function",
-                defaultContent: "<button class='btn btn-danger'>Delete</button>"
+                defaultContent: "<button class='btn btn-danger deleteBtn'>Delete</button>"
             }
         ]
     });
@@ -70,7 +87,7 @@ $(document).ready(function () {
             .draw();
     });
 
-    $('#userList tbody').on('click', 'button', function () {
+    $('#userList tbody').on('click', 'deleteBtn', function () {
         table
             .row($(this).parents('tr'))
             .remove()

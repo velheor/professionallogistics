@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.StatusViewDTO;
+import com.velheor.internship.dto.StatusViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.StatusMapper;
 import com.velheor.internship.service.StatusService;
@@ -78,7 +78,7 @@ public class StatusControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        StatusViewDTO statusViewDTO = new StatusViewDTO(STATUS_VIEW_DTO1);
+        StatusViewDto statusViewDTO = new StatusViewDto(STATUS_VIEW_DTO1);
 
         statusViewDTO.setStatusDate(null);
 

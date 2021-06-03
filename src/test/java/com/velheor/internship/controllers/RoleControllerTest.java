@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.RoleViewDTO;
+import com.velheor.internship.dto.RoleViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.service.RoleService;
@@ -80,7 +80,7 @@ public class RoleControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        RoleViewDTO role = new RoleViewDTO(ROLE_VIEW_DTO1);
+        RoleViewDto role = new RoleViewDto(ROLE_VIEW_DTO1);
 
         role.setName(null);
 

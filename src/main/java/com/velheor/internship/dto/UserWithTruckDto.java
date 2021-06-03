@@ -5,6 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserWithTruckDTO extends UserViewDTO {
-    private TruckViewDTO truckViewDTO;
+public class UserWithTruckDto extends UserViewDto {
+    private TruckViewDto truckViewDTO;
 }

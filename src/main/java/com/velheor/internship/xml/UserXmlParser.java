@@ -1,6 +1,6 @@
 package com.velheor.internship.xml;
 
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.mappers.UserMapper;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class UserXmlParser {
     private final UserMapper userMapper;
 
     public void readUsersFromXML(InputStream is) throws XMLStreamException, JAXBException {
-        List<UserViewDTO> users = new ArrayList<>();
-        StaxStreamProcessor<UserViewDTO> processor = new StaxStreamProcessor<>(is, UserViewDTO.class, "Users");
+        List<UserViewDto> users = new ArrayList<>();
+        StaxStreamProcessor<UserViewDto> processor = new StaxStreamProcessor<>(is, UserViewDto.class, "Users");
 
         while (processor.startElement()) {
             users.add(processor.getValue());

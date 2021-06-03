@@ -1,15 +1,15 @@
 package com.velheor.internship.mappers;
 
-import com.velheor.internship.dto.TruckViewDTO;
+import com.velheor.internship.dto.TruckViewDto;
 import com.velheor.internship.models.Truck;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public abstract class TruckMapper {
 
-    public abstract TruckViewDTO toTruckViewDto(Truck truck);
+    public abstract TruckViewDto toTruckViewDto(Truck truck);
 
-    public abstract Truck toTruck(TruckViewDTO truckViewDTO);
+    public abstract Truck toTruck(TruckViewDto truckViewDTO);
 
-    public abstract Iterable<TruckViewDTO> toTrucksDto(Iterable<Truck> trucks);
+    public abstract Iterable<TruckViewDto> toTrucksDto(Iterable<Truck> trucks);
 }

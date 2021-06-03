@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class AddressViewDTO extends BaseDTO {
+public class AddressViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 20, message = "{notCorrectSize}")
@@ -26,7 +26,7 @@ public class AddressViewDTO extends BaseDTO {
     @Size(min = 2, max = 10, message = "{notCorrectSize}")
     private String streetNumber;
 
-    public AddressViewDTO(AddressViewDTO addressViewDTO){
+    public AddressViewDto(AddressViewDto addressViewDTO) {
         super.setId(addressViewDTO.getId());
         country = addressViewDTO.getCountry();
         city = addressViewDTO.getCity();

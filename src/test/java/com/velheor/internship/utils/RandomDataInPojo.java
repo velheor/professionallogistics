@@ -1,7 +1,7 @@
 package com.velheor.internship.utils;
 
 import com.github.javafaker.Faker;
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.xml.customModels.Users;
 import org.junit.jupiter.api.Test;
 
@@ -30,12 +30,12 @@ public class RandomDataInPojo {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty(marshaller.JAXB_ENCODING, "utf-8");
-        List<UserViewDTO> userList = new ArrayList<>();
+        List<UserViewDto> userList = new ArrayList<>();
         Users users = new Users();
         Faker faker = new Faker();
 
         for (int i = 0; i < 100; i++) {
-            UserViewDTO user = new UserViewDTO();
+            UserViewDto user = new UserViewDto();
             user.setId(UUID.randomUUID());
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());

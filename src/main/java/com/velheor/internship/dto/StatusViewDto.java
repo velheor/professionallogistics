@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class StatusViewDTO extends BaseDTO {
+public class StatusViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 10, max = 255, message = "{notCorrectSize}")
@@ -19,7 +19,7 @@ public class StatusViewDTO extends BaseDTO {
     @NotNull(message = "{notEmpty}")
     private LocalDateTime statusDate;
 
-    public StatusViewDTO(StatusViewDTO statusViewDTO1){
+    public StatusViewDto(StatusViewDto statusViewDTO1) {
         super.setId(statusViewDTO1.getId());
         name = statusViewDTO1.getName();
         statusDate = statusViewDTO1.getStatusDate();

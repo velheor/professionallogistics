@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.TruckViewDTO;
+import com.velheor.internship.dto.TruckViewDto;
 import com.velheor.internship.mappers.TruckMapper;
 import com.velheor.internship.service.TruckService;
 import io.swagger.annotations.ApiOperation;
@@ -29,23 +29,23 @@ public class TruckController {
 
     @GetMapping
     @ApiOperation(value = "Get all trucks")
-    public Iterable<TruckViewDTO> getAll() {
+    public Iterable<TruckViewDto> getAll() {
         return truckMapper.toTrucksDto(truckService.getAll());
     }
 
     @GetMapping("/{id}")
-    public TruckViewDTO findById(@PathVariable("id") UUID id) {
+    public TruckViewDto findById(@PathVariable("id") UUID id) {
         return truckMapper.toTruckViewDto(truckService.findById(id));
     }
 
     @PutMapping
-    public TruckViewDTO update(@Valid @RequestBody TruckViewDTO truckViewDto) {
+    public TruckViewDto update(@Valid @RequestBody TruckViewDto truckViewDto) {
         return truckMapper.toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TruckViewDTO save(@Valid @RequestBody TruckViewDTO truckViewDto) {
+    public TruckViewDto save(@Valid @RequestBody TruckViewDto truckViewDto) {
         return truckMapper
                 .toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
     }

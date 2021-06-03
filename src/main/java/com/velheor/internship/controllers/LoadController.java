@@ -1,6 +1,6 @@
 package com.velheor.internship.controllers;
 
-import com.velheor.internship.dto.LoadViewDTO;
+import com.velheor.internship.dto.LoadViewDto;
 import com.velheor.internship.mappers.LoadMapper;
 import com.velheor.internship.service.LoadService;
 import lombok.RequiredArgsConstructor;
@@ -27,18 +27,18 @@ public class LoadController {
     private final LoadMapper loadMapper;
 
     @GetMapping("/{id}")
-    public LoadViewDTO findById(@PathVariable("id") UUID id) {
+    public LoadViewDto findById(@PathVariable("id") UUID id) {
         return loadMapper.toLoadDto(loadService.findById(id));
     }
 
     @PutMapping
-    public LoadViewDTO update(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
+    public LoadViewDto update(@Valid @RequestBody LoadViewDto LoadViewDTO) {
         return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LoadViewDTO save(@Valid @RequestBody LoadViewDTO LoadViewDTO) {
+    public LoadViewDto save(@Valid @RequestBody LoadViewDto LoadViewDTO) {
         return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
     }
 

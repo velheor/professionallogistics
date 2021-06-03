@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.LoadViewDTO;
+import com.velheor.internship.dto.LoadViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.LoadMapper;
 import com.velheor.internship.service.LoadService;
@@ -79,7 +79,7 @@ public class LoadControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        LoadViewDTO load = new LoadViewDTO(LOAD_VIEW_DTO1);
+        LoadViewDto load = new LoadViewDto(LOAD_VIEW_DTO1);
 
         load.setWeight(new BigDecimal("0"));
 

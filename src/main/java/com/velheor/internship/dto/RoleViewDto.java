@@ -8,13 +8,13 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class RoleViewDTO extends BaseDTO {
+public class RoleViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 2, max = 45, message = "{notCorrectSize}")
     private String name;
 
-    public RoleViewDTO(RoleViewDTO roleViewDTO) {
+    public RoleViewDto(RoleViewDto roleViewDTO) {
         super.setId(roleViewDTO.getId());
         name = roleViewDTO.getName();
     }

@@ -1,8 +1,8 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.AuthUserDTO;
-import com.velheor.internship.dto.UserViewDTO;
+import com.velheor.internship.dto.AuthUserDto;
+import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.RoleMapper;
 import com.velheor.internship.mappers.UserMapper;
@@ -44,7 +44,7 @@ class AuthenticationControllerTest extends BaseWebTest {
 
     @Test
     void authenticateThrowForbiddenException() throws Exception {
-        AuthUserDTO authUserDTO = new AuthUserDTO(AUTH_USER_DTO);
+        AuthUserDto authUserDTO = new AuthUserDto(AUTH_USER_DTO);
         authUserDTO.setPassword("blablabla");
         mockMvc.perform(post(AUTH_URL + "login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ class AuthenticationControllerTest extends BaseWebTest {
 
     @Test
     void signUpThrowHandleMethodArgumentNotValid() throws Exception {
-        UserViewDTO testUser = new UserViewDTO(USER_VIEW_DTO1);
+        UserViewDto testUser = new UserViewDto(USER_VIEW_DTO1);
         testUser.setPassword("test");
         testUser.setPhoneNumber("+1234");
 

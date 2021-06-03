@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.TruckViewDTO;
+import com.velheor.internship.dto.TruckViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.TruckMapper;
 import com.velheor.internship.models.enums.ETruckCategory;
@@ -91,7 +91,7 @@ public class TruckControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        TruckViewDTO truck = new TruckViewDTO(TRUCK_VIEW_DTO1);
+        TruckViewDto truck = new TruckViewDto(TRUCK_VIEW_DTO1);
         truck.setTruckCategory(ETruckCategory.COVERED.toString());
         truck.setRegistrationNumber(null);
 

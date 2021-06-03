@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class OrderViewDTO extends BaseDTO {
+public class OrderViewDto extends BaseDto {
 
     @NotNull(message = "{notEmpty}")
     private LocalDateTime datePickup;
@@ -28,7 +28,7 @@ public class OrderViewDTO extends BaseDTO {
     @Size(min = 2, max = 45, message = "{notCorrectSize}")
     private String truckCategory;
 
-    public OrderViewDTO(OrderViewDTO orderViewDTO){
+    public OrderViewDto(OrderViewDto orderViewDTO) {
         super.setId(orderViewDTO.getId());
         datePickup = orderViewDTO.getDatePickup();
         dateDelivery = orderViewDTO.getDateDelivery();

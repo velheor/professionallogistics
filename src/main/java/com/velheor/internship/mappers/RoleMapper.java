@@ -1,6 +1,6 @@
 package com.velheor.internship.mappers;
 
-import com.velheor.internship.dto.RoleViewDTO;
+import com.velheor.internship.dto.RoleViewDto;
 import com.velheor.internship.models.Role;
 import org.mapstruct.Mapper;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +25,7 @@ public abstract class RoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public abstract RoleViewDTO toRoleViewDto(Role role);
+    public abstract RoleViewDto toRoleViewDto(Role role);
 
-    public abstract Role toRole(RoleViewDTO role);
+    public abstract Role toRole(RoleViewDto role);
 }

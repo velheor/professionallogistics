@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.BaseWebTest;
-import com.velheor.internship.dto.OrderViewDTO;
+import com.velheor.internship.dto.OrderViewDto;
 import com.velheor.internship.exception.ErrorMessage;
 import com.velheor.internship.mappers.OrderMapper;
 import com.velheor.internship.service.OrderService;
@@ -79,7 +79,7 @@ public class OrderControllerTest extends BaseWebTest {
 
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
-        OrderViewDTO order = new OrderViewDTO(ORDER_VIEW_DTO1);
+        OrderViewDto order = new OrderViewDto(ORDER_VIEW_DTO1);
 
         order.setPrice(new BigDecimal("0"));
 

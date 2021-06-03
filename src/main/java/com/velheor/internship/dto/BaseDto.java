@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
-public class BaseDTO {
+public class BaseDto {
 
     @NotNull(message = "{notEmpty}")
     private UUID id;
