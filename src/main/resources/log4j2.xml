@@ -20,10 +20,7 @@
   </Appenders>
   <Loggers>
     <Logger name="com.velheor.internship" level="debug" additivity="true">
-      <appender-ref ref="fileLogger" level="debug"/>
+      <appender-ref ref="fileLogger" level="error"/>
     </Logger>
-    <Root level="debug" additivity="false">
-      <appender-ref ref="console"/>
-    </Root>
   </Loggers>
 </Configuration>
