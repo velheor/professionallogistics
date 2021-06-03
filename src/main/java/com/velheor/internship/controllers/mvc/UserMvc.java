@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/mvc")
@@ -34,7 +32,7 @@ public class UserMvc {
 
     @PostMapping("/users")
     @SneakyThrows
-    public String saveAllUsers(Model model, @Valid @ModelAttribute("userViewDtoForm") UserViewDtoForm userViewDtoForms) {
+    public String saveAllUsers(Model model, @ModelAttribute("userViewDtoForm") UserViewDtoForm userViewDtoForms) {
         userService.saveAll(userMapper.toUser(userViewDtoForms.getUserViewDtos()));
         ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
