@@ -91,16 +91,22 @@ $(document).ready(function () {
             .row
             .add([])
             .draw();
-
     });
 
     $('#submitBtn').click(function () {
-        let newData = [];
-        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            alert(this.data().$('input, select').serialize());
-            newData.push(this.data());
+        let indexRow = 0;
+        $("table > tbody > tr").each(function () {
+            let inputs = $(this).children().children();
+            inputs.each(function () {
+                let oldName = $(this).attr('name');
+                if(oldName !== undefined){
+                    const regex = /\d+/
+                    $(this).attr('name',  oldName.replace(regex, indexRow))
+                }
+            })
+            indexRow++;
         });
-        table.clear().rows.add(JSON.parse(JSON.stringify(newData))).draw();
+
     });
 
     $('#userList tbody').on('click', '.deleteRow', function () {
