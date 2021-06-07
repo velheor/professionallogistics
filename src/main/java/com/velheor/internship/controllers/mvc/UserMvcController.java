@@ -21,11 +21,11 @@ public class UserMvcController {
     private final static String usersView = "users";
     private final UserService userService;
     private final UserMapper userMapper;
+    private final ObjectMapper objectMapper;
 
     @GetMapping("/users")
     @SneakyThrows
     public String getAllUsers(Model model) {
-        ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
         return usersView;
     }
@@ -34,7 +34,6 @@ public class UserMvcController {
     @SneakyThrows
     public String saveAllUsers(Model model, @ModelAttribute("userViewDtoForm") UserViewDtoForm userViewDtoForm) {
         userService.saveAll(userMapper.toUser(userViewDtoForm.getUserViewDtos()));
-        ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
         return usersView;
     }
