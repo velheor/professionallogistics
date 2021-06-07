@@ -9,6 +9,8 @@ import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,5 +117,16 @@ public class UserService {
 
     public String getEmailFromToken(String tokenMail) {
         return jwtProvider.getEmail(tokenMail);
+    }
+
+    public User randomUser() {
+        long qty = userRepository.count();
+        int idx = (int)(Math.random() * qty);
+        Page<User> UserPage = userRepository.findAll(PageRequest.of(idx, 1));
+        User q = null;
+        if (UserPage.hasContent()) {
+            q = UserPage.getContent().get(0);
+        }
+        return q;
     }
 }

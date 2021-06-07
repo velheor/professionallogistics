@@ -1,5 +1,6 @@
 package com.velheor.internship.controllers.testcontrollers;
 
+import com.velheor.internship.utils.TestOrders;
 import com.velheor.internship.xml.UserPureJaxbParser;
 import com.velheor.internship.xml.UserXmlParser;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +17,22 @@ public class TestController {
 
     private final UserXmlParser userXmlParser;
     private final UserPureJaxbParser userPureJaxbParser;
+    private final TestOrders testOrders;
 
-    @GetMapping
+    @GetMapping("/xml/users")
     @SneakyThrows
     public void test() {
         userXmlParser.readUsersFromXML(new ClassPathResource("GeneratedTestUsers.xml").getInputStream());
     }
 
-    @GetMapping("/full")
+    @GetMapping("/xml/users/full")
     @SneakyThrows
     public void full() {
         userPureJaxbParser.readLargeFileWithJaxb(new ClassPathResource("GeneratedTestUsers.xml").getFile());
+    }
+
+    @GetMapping("/orders/")
+    public void fillDbOrders() {
+        testOrders.getOrderViewWithUserDtos();
     }
 }

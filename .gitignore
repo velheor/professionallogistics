@@ -12,3 +12,5 @@ logs
 mysql-data
 src/main/resources/GeneratedTestUsers.xml
 src/test/resources/GeneratedTestUsers.xml
+src/main/resources/GeneratedTestOrders.xml
+src/test/resources/GeneratedTestOrders.xml
