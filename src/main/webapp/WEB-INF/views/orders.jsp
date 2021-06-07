@@ -5,7 +5,7 @@
 <body>
 <script type="text/javascript" src="resources/js/orders.js"></script>
 <script>
-    let orders = ${orderJson};
+    let orders = ${orderJsons};
 </script>
 
 <div class="container">

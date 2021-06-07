@@ -5,7 +5,9 @@ $(document).ready(function () {
         columns: [
             {
                 title: "Id",
-                data: "id"
+                data: "id", render: function (data) {
+                    return "<a href='/prolog/mvc/orders/fullInfo/" + data + "'>" + data + "</a>";
+                }
             },
 
             {
