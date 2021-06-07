@@ -8,8 +8,7 @@ $(document).ready(function () {
         columns: [
             {
                 title: "Id",
-                data: "id",
-                render: function (data, type, row, meta) {
+                data: "id", render: function (data, type, row, meta) {
                     if (data === undefined) {
                         data = '';
                     }
@@ -19,8 +18,7 @@ $(document).ready(function () {
 
             {
                 title: "First name",
-                data: "firstName",
-                render: function (data, type, row, meta) {
+                data: "firstName", render: function (data, type, row, meta) {
                     if (data === undefined) {
                         data = '';
                     }
@@ -99,9 +97,9 @@ $(document).ready(function () {
             let inputs = $(this).children().children();
             inputs.each(function () {
                 let oldName = $(this).attr('name');
-                if(oldName !== undefined){
+                if (oldName !== undefined) {
                     const regex = /\d+/
-                    $(this).attr('name',  oldName.replace(regex, indexRow))
+                    $(this).attr('name', oldName.replace(regex, indexRow))
                 }
             })
             indexRow++;

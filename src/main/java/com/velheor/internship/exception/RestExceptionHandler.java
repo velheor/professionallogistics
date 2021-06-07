@@ -49,7 +49,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JwtAuthenticationException.class)
     public ResponseEntity<Object> handleJwtAuthenticationException(JwtAuthenticationException ex,
-                                                             HttpHeaders headers, HttpStatus status, WebRequest request) {
+                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         return handleExceptionInternal(ex, new ErrorMessage(ex.getMessage(), "bad jwt",
                 LocalDateTime.now()), headers, status, request);
     }

@@ -2,7 +2,6 @@ package com.velheor.internship.xml;
 
 import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.mappers.UserMapper;
-import com.velheor.internship.models.User;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

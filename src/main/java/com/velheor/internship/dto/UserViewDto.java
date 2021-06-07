@@ -1,9 +1,9 @@
 package com.velheor.internship.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,10 +12,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @XmlRootElement(name = "User")
 public class UserViewDto extends BaseDto {
 
@@ -67,5 +66,10 @@ public class UserViewDto extends BaseDto {
     @XmlElement(name = "phone_number")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
     }
 }
