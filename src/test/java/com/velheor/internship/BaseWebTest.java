@@ -3,7 +3,6 @@ package com.velheor.internship;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.velheor.internship.conf.SecurityConfig;
-import com.velheor.internship.config.PersistenceTestConfig;
 import com.velheor.internship.config.WebTestConfig;
 import com.velheor.internship.exception.RestExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;

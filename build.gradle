@@ -34,8 +34,7 @@ dependencies {
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "${javaxServlet}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jackson}"
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jsr310}"
-    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
-
+    implementation group: 'javax.servlet', name: 'jstl', version: "${jstl}"
 
     //spring-security
     implementation group: 'org.springframework.security', name: 'spring-security-core', version: "${springSecurityVersion}"
