@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/mvc")
-public class UserMvc {
+public class UserMvcController {
 
     private final static String usersView = "users";
     private final UserService userService;
@@ -32,8 +32,8 @@ public class UserMvc {
 
     @PostMapping("/users")
     @SneakyThrows
-    public String saveAllUsers(Model model, @ModelAttribute("userViewDtoForm") UserViewDtoForm userViewDtoForms) {
-        userService.saveAll(userMapper.toUser(userViewDtoForms.getUserViewDtos()));
+    public String saveAllUsers(Model model, @ModelAttribute("userViewDtoForm") UserViewDtoForm userViewDtoForm) {
+        userService.saveAll(userMapper.toUser(userViewDtoForm.getUserViewDtos()));
         ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
         return usersView;

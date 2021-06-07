@@ -9,13 +9,12 @@ import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.security.JwtProvider;
 import com.velheor.internship.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -98,7 +97,11 @@ public class UserService {
         userRepository.changeAccountStatusByEmail(userStatus, email);
     }
 
+    @Transactional
     public void saveAll(Iterable<User> users) {
+        List<UUID> ids = new ArrayList<>();
+        users.forEach(user -> ids.add(user.getId()));
+        userRepository.deleteUsersByIds(ids);
         userRepository.saveAll(users);
     }
 

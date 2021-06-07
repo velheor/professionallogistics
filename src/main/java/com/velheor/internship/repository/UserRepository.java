@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,4 +34,8 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     @Query("SELECT (COUNT(user) = 1) FROM User user WHERE user.id = ?1 AND user.phoneNumber = ?2")
     Boolean checkForUserHasThisPhoneNumber(UUID id, String phoneNumber);
+
+    @Modifying
+    @Query("DELETE FROM User p WHERE p.id NOT IN (:ids)")
+    void deleteUsersByIds(@Param("ids") List<UUID> ids);
 }
