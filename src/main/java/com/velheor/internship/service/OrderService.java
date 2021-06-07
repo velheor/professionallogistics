@@ -30,4 +30,8 @@ public class OrderService {
     public void deleteById(UUID id) {
         orderRepository.deleteById(id);
     }
+
+    public void saveAll(Iterable<Order> orders) {
+        orderRepository.saveAll(orders);
+    }
 }

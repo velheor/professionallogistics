@@ -2,7 +2,7 @@ package com.velheor.internship.repository;
 
 import com.velheor.internship.models.User;
 import com.velheor.internship.models.enums.EUserStatus;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
@@ -38,4 +38,6 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     @Modifying
     @Query("DELETE FROM User p WHERE p.id NOT IN (:ids)")
     void deleteUsersByIds(@Param("ids") List<UUID> ids);
+
+    Page<User> findAll(Pageable pageable);
 }

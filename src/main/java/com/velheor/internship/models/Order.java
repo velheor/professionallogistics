@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -24,6 +26,12 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedEntityGraph(name = "OrderWithUsers",
+        attributeNodes = {
+                @NamedAttributeNode("carrier"),
+                @NamedAttributeNode("shipper")
+        }
+)
 public class Order extends BaseEntity {
 
     @Column(name = "date_pickup")
