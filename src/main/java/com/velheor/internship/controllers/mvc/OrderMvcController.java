@@ -27,8 +27,8 @@ public class OrderMvcController {
     @GetMapping("/orders")
     @SneakyThrows
     public String getAllOrdersWithUsers(Model model) {
-        Iterable<Order> users = orderService.getAll();
-        model.addAttribute("orderJsons", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(users)));
+        Iterable<Order> orders = orderService.getAll();
+        model.addAttribute("orderJsons", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ordersView;
     }
 

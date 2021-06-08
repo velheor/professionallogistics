@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface OrderRepository extends CrudRepository<Order, UUID> {
 
-    @EntityGraph(value = "UserWithRoles")
+    @EntityGraph(value = "OrderWithUsers")
     Iterable<Order> findAll();
 }
