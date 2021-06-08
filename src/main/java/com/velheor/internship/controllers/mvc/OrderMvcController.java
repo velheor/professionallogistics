@@ -1,6 +1,7 @@
 package com.velheor.internship.controllers.mvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.mappers.OrderMapper;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.service.OrderService;
@@ -9,7 +10,9 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
@@ -26,7 +29,7 @@ public class OrderMvcController {
 
     @GetMapping("/orders")
     @SneakyThrows
-    public String getAllOrdersWithUsers(Model model) {
+    public String getAllWithUsers(Model model) {
         Iterable<Order> orders = orderService.getAll();
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ordersView;
@@ -34,9 +37,17 @@ public class OrderMvcController {
 
     @GetMapping("/orders/{id}")
     @SneakyThrows
-    public String getFullInfoAboutOrder(@PathVariable("id") UUID id, Model model) {
+    public String getFullInfo(@PathVariable("id") UUID id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrderDto(order)));
+        return ordersView;
+    }
+
+    @PostMapping("/orders")
+    @SneakyThrows
+    public String getByParameters(@ModelAttribute("orderFilter") OrderFilterDto orderFilterDto, Model model) {
+        Iterable<Order> orders = orderService.filterOrders(orderFilterDto);
+        model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ordersView;
     }
 }

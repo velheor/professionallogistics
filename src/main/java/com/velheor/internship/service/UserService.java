@@ -123,10 +123,6 @@ public class UserService {
         long qty = userRepository.count();
         int idx = (int)(Math.random() * qty);
         Page<User> UserPage = userRepository.findAll(PageRequest.of(idx, 1));
-        User q = null;
-        if (UserPage.hasContent()) {
-            q = UserPage.getContent().get(0);
-        }
-        return q;
+        return UserPage.getContent().get(0);
     }
 }

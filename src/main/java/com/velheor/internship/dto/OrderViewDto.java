@@ -28,7 +28,7 @@ public class OrderViewDto extends BaseDto {
     private LocalDateTime dateDelivery;
 
     @NotNull(message = "{notEmpty}")
-    @DecimalMin(value = "1", message = "{notCorrectWeight}")
+    @DecimalMin(value = "1", message = "{notCorrectDigits}")
     private BigDecimal price;
 
     @NotEmpty(message = "{notEmpty}")

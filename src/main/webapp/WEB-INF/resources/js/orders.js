@@ -13,7 +13,7 @@ $(document).ready(function () {
             {
                 title: "Date pick up",
                 data: "datePickup", render: function (data, type, row) {
-                    return  moment(data, 'YYYY,MM,DD,hh,mm,ss').format('MM/DD/YYYY hh:mm:ss');
+                    return moment(data, 'YYYY,MM,DD,hh,mm,ss').format('MM/DD/YYYY hh:mm:ss');
                 },
             },
 

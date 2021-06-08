@@ -1,5 +1,6 @@
 package com.velheor.internship.service;
 
+import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,10 @@ public class OrderService {
 
     public void saveAll(Iterable<Order> orders) {
         orderRepository.saveAll(orders);
+    }
+
+    //TODO
+    public Iterable<Order> filterOrders(OrderFilterDto orderFilterDto) {
+        return orderRepository.findAll();
     }
 }
