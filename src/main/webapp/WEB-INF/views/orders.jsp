@@ -4,8 +4,9 @@
 <jsp:include page="fragments/tableSetup.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/orders.js"></script>
+
 <script>
-    let orders = ${orderJsons};
+    let orders = ${orderJson}
 </script>
 
 <div class="container">
