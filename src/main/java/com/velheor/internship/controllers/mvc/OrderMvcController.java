@@ -31,6 +31,7 @@ public class OrderMvcController {
     @SneakyThrows
     public String getAllWithUsers(Model model) {
         Iterable<Order> orders = orderService.getAll();
+        model.addAttribute("orderFilter", new OrderFilterDto());
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ordersView;
     }
