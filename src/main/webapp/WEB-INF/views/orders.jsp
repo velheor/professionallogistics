@@ -27,9 +27,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <form:input path="dateFrom" class="form-control" type="date datetime-local"/>
+                    <form:input path="dateFrom" class="form-control" type="datetime-local"/>
 
-                    <form:input path="dateTo" class="form-control" type="date datetime-local"/>
+                    <form:input path="dateTo" class="form-control" type="datetime-local" step="1"/>
                 </div>
                 <button type="submit" id="search" class="btn btn-primary">Search</button>
             </div>
