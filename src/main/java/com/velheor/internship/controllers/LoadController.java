@@ -32,14 +32,14 @@ public class LoadController {
     }
 
     @PutMapping
-    public LoadViewDto update(@Valid @RequestBody LoadViewDto LoadViewDTO) {
-        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
+    public LoadViewDto update(@Valid @RequestBody LoadViewDto loadViewDTO) {
+        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(loadViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LoadViewDto save(@Valid @RequestBody LoadViewDto LoadViewDTO) {
-        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(LoadViewDTO)));
+    public LoadViewDto save(@Valid @RequestBody LoadViewDto loadViewDTO) {
+        return loadMapper.toLoadDto(loadService.save(loadMapper.toLoad(loadViewDTO)));
     }
 
     @DeleteMapping("/{id}")

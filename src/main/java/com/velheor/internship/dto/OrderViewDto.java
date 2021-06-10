@@ -35,6 +35,9 @@ public class OrderViewDto extends BaseDto {
     @Size(min = 2, max = 45, message = "{notCorrectSize}")
     private String truckCategory;
 
+    @NotNull(message = "{notEmpty}")
+    private UserViewDto shipper;
+
     public OrderViewDto(OrderViewDto orderViewDTO) {
         super.setId(orderViewDTO.getId());
         datePickup = orderViewDTO.getDatePickup();

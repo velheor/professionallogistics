@@ -32,16 +32,16 @@ public class AddressController {
     }
 
     @PutMapping
-    public AddressViewDto update(@Valid @RequestBody AddressViewDto AddressViewDTO) {
+    public AddressViewDto update(@Valid @RequestBody AddressViewDto addressViewDTO) {
         return addressMapper.toAddressDto(
-                addressService.save(addressMapper.toAddress(AddressViewDTO)));
+                addressService.save(addressMapper.toAddress(addressViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AddressViewDto save(@Valid @RequestBody AddressViewDto AddressViewDTO) {
+    public AddressViewDto save(@Valid @RequestBody AddressViewDto addressViewDTO) {
         return addressMapper.toAddressDto(
-                addressService.save(addressMapper.toAddress(AddressViewDTO)));
+                addressService.save(addressMapper.toAddress(addressViewDTO)));
     }
 
     @DeleteMapping("/{id}")

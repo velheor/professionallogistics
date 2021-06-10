@@ -37,15 +37,15 @@ public class OrderController {
     }
 
     @PutMapping
-    public OrderViewDto update(@Valid @RequestBody OrderViewDto OrderViewDTO) {
-        return orderMapper.toOrderDto(orderService.save(orderMapper.toOrder(OrderViewDTO)));
+    public OrderViewDto update(@Valid @RequestBody OrderViewDto orderViewDTO) {
+        return orderMapper.toOrderDto(orderService.save(orderMapper.toOrder(orderViewDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderViewDto save(@Valid @RequestBody OrderViewDto OrderViewDTO) {
-        orderService.save(orderMapper.toOrder(OrderViewDTO));
-        return OrderViewDTO;
+    public OrderViewDto save(@Valid @RequestBody OrderViewDto orderViewDTO) {
+        orderService.save(orderMapper.toOrder(orderViewDTO));
+        return orderViewDTO;
     }
 
     @DeleteMapping("/{id}")
