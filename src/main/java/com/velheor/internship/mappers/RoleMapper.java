@@ -19,7 +19,7 @@ public abstract class RoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<String> toRoles(Collection<? extends GrantedAuthority> userRoles) {
+    public List<String> toStringRoles(Collection<? extends GrantedAuthority> userRoles) {
         return userRoles.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

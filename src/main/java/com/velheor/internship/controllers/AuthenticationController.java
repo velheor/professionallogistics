@@ -39,7 +39,7 @@ public class AuthenticationController {
         Collection<? extends GrantedAuthority> grantedAuthorityList
                 = authenticationManager.authenticate(authenticationToken).getAuthorities();
 
-        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.toRoles(grantedAuthorityList)));
+        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.toStringRoles(grantedAuthorityList)));
     }
 
     @PostMapping("/signup")
