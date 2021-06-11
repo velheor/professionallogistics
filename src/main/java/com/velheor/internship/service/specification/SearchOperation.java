@@ -1,4 +1,4 @@
-package com.velheor.internship.models.enums;
+package com.velheor.internship.service.specification;
 
 public enum SearchOperation {
     GREATER_THAN,

@@ -1,6 +1,5 @@
 package com.velheor.internship.repository;
 
-import com.velheor.internship.models.GenericSpecification;
 import com.velheor.internship.models.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;

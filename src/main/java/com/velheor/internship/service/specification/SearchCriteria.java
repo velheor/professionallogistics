@@ -1,6 +1,5 @@
-package com.velheor.internship.models;
+package com.velheor.internship.service.specification;
 
-import com.velheor.internship.models.enums.SearchOperation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

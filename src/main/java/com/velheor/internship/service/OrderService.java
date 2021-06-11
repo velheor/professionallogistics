@@ -1,11 +1,11 @@
 package com.velheor.internship.service;
 
 import com.velheor.internship.dto.OrderFilterDto;
-import com.velheor.internship.models.GenericSpecification;
 import com.velheor.internship.models.Order;
-import com.velheor.internship.models.SearchCriteria;
-import com.velheor.internship.models.SpecificationFilter;
 import com.velheor.internship.repository.OrderRepository;
+import com.velheor.internship.service.specification.GenericSpecification;
+import com.velheor.internship.service.specification.SearchCriteria;
+import com.velheor.internship.service.specification.SpecificationDiapason;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
-import static com.velheor.internship.models.enums.SearchOperation.AND;
-import static com.velheor.internship.models.enums.SearchOperation.GREATER_THAN;
-import static com.velheor.internship.models.enums.SearchOperation.LESS_THAN;
-import static com.velheor.internship.models.enums.SearchOperation.OR;
+import static com.velheor.internship.service.specification.SearchOperation.AND;
+import static com.velheor.internship.service.specification.SearchOperation.GREATER_THAN;
+import static com.velheor.internship.service.specification.SearchOperation.LESS_THAN;
+import static com.velheor.internship.service.specification.SearchOperation.OR;
+import static com.velheor.internship.service.specification.utils.CommonSpec.prepareSpecification;
 
 @Service
 @RequiredArgsConstructor
@@ -50,27 +51,11 @@ public class OrderService {
 
     public Iterable<Order> filterOrders(OrderFilterDto orderFilterDto) {
 
-        SpecificationFilter filterPrice = SpecificationFilter.builder()
-                .left(orderFilterDto.getPriceFrom())
-                .right(orderFilterDto.getPriceTo())
-                .fieldNameLeft(PRICE)
-                .fieldNameRight(PRICE)
-                .operationLeft(GREATER_THAN)
-                .operationRight(LESS_THAN)
-                .combine(AND)
-                .build();
+        SpecificationDiapason filterPrice = getPriceDiapason(orderFilterDto);
 
         Specification<Order> priceSpecification = prepareSpecification(filterPrice);
 
-        SpecificationFilter filterDate = SpecificationFilter.builder()
-                .left(orderFilterDto.getDateFrom())
-                .right(orderFilterDto.getDateTo())
-                .fieldNameLeft(DATE_FROM)
-                .fieldNameRight(DATE_TO)
-                .operationLeft(GREATER_THAN)
-                .operationRight(LESS_THAN)
-                .combine(AND)
-                .build();
+        SpecificationDiapason filterDate = getDateDiapason(orderFilterDto);
 
         Specification<Order> dateSpecification = prepareSpecification(filterDate);
 
@@ -79,28 +64,27 @@ public class OrderService {
         return orderRepository.findAll(result);
     }
 
-    private <T> Specification<T> prepareSpecification(SpecificationFilter specificationFilter) {
-        Specification<T> specification = null;
+    private SpecificationDiapason getDateDiapason(OrderFilterDto orderFilterDto) {
+        return SpecificationDiapason.builder()
+                .left(orderFilterDto.getDateFrom())
+                .right(orderFilterDto.getDateTo())
+                .keyLeft(DATE_FROM)
+                .keyRight(DATE_TO)
+                .operationLeft(GREATER_THAN)
+                .operationRight(LESS_THAN)
+                .combine(AND)
+                .build();
+    }
 
-        if (specificationFilter.getLeft() != null) {
-            SearchCriteria searchCriteria = new SearchCriteria(specificationFilter.getFieldNameLeft(),
-                    specificationFilter.getLeft(), specificationFilter.getOperationLeft());
-            specification = new GenericSpecification<>(searchCriteria);
-        }
-        if (specificationFilter.getRight() != null) {
-            SearchCriteria searchCriteria = new SearchCriteria(specificationFilter.getFieldNameLeft(),
-                    specificationFilter.getRight(), specificationFilter.getOperationRight());
-            GenericSpecification<T> specificationRight = new GenericSpecification<>(searchCriteria);
-            if (specification == null) {
-                specification = specificationRight;
-            } else {
-                if (specificationFilter.getCombine().equals(OR)) {
-                    specification = specification.or(specificationRight);
-                } else {
-                    specification = specification.and(specificationRight);
-                }
-            }
-        }
-        return specification;
+    private SpecificationDiapason getPriceDiapason(OrderFilterDto orderFilterDto) {
+        return SpecificationDiapason.builder()
+                .left(orderFilterDto.getPriceFrom())
+                .right(orderFilterDto.getPriceTo())
+                .keyLeft(PRICE)
+                .keyRight(PRICE)
+                .operationLeft(GREATER_THAN)
+                .operationRight(LESS_THAN)
+                .combine(AND)
+                .build();
     }
 }

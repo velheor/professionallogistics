@@ -1,16 +1,15 @@
-package com.velheor.internship.models;
+package com.velheor.internship.service.specification;
 
-import com.velheor.internship.models.enums.SearchOperation;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class SpecificationFilter {
+public class SpecificationDiapason {
     Object left;
     Object right;
-    String fieldNameLeft;
-    String fieldNameRight;
+    String keyLeft;
+    String keyRight;
     SearchOperation operationLeft;
     SearchOperation operationRight;
     SearchOperation combine;

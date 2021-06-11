@@ -1,4 +1,4 @@
-package com.velheor.internship.models;
+package com.velheor.internship.service.specification;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,7 +31,7 @@ public class GenericSpecification<T> implements Specification<T> {
             case LESS_THAN:
                 return builder.lessThan(root.get(searchCriteria.getKey()), searchCriteria.getValue().toString());
             default:
-                return null;
+                throw new IllegalArgumentException("Search operation doesn't set or exist!") ;
         }
     }
 }
