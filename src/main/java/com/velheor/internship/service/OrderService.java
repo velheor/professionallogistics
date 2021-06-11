@@ -4,6 +4,7 @@ import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.repository.OrderRepository;
 import com.velheor.internship.service.specification.SpecificationDiapason;
+import com.velheor.internship.service.specification.utils.SpecificationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,6 @@ import java.util.UUID;
 import static com.velheor.internship.service.specification.SearchOperation.AND;
 import static com.velheor.internship.service.specification.SearchOperation.GREATER_THAN;
 import static com.velheor.internship.service.specification.SearchOperation.LESS_THAN;
-import static com.velheor.internship.service.specification.utils.CommonSpec.prepareSpecification;
 
 @Service
 @RequiredArgsConstructor
@@ -50,11 +50,11 @@ public class OrderService {
 
         SpecificationDiapason filterPrice = getPriceDiapason(orderFilterDto);
 
-        Specification<Order> priceSpecification = prepareSpecification(filterPrice);
+        Specification<Order> priceSpecification = SpecificationUtil.prepareDiapason(filterPrice);
 
         SpecificationDiapason filterDate = getDateDiapason(orderFilterDto);
 
-        Specification<Order> dateSpecification = prepareSpecification(filterDate);
+        Specification<Order> dateSpecification = SpecificationUtil.prepareDiapason(filterDate);
 
         Specification<Order> result = priceSpecification.and(dateSpecification);
 

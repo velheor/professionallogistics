@@ -7,9 +7,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 import static com.velheor.internship.service.specification.SearchOperation.OR;
 
-public class CommonSpec {
-    public static <T> Specification<T> prepareSpecification(SpecificationDiapason specificationDiapason) {
-        Specification<T> specification = null;
+public class SpecificationUtil {
+    public static <T> Specification<T> prepareDiapason(SpecificationDiapason specificationDiapason) {
+        Specification<T> specification = (root, query, criteriaBuilder) -> null;
 
         if (specificationDiapason.getLeft() != null) {
             SearchCriteria searchCriteria = new SearchCriteria(specificationDiapason.getKeyLeft(),
@@ -20,14 +20,10 @@ public class CommonSpec {
             SearchCriteria searchCriteria = new SearchCriteria(specificationDiapason.getKeyLeft(),
                     specificationDiapason.getRight(), specificationDiapason.getOperationRight());
             GenericSpecification<T> specificationRight = new GenericSpecification<>(searchCriteria);
-            if (specification == null) {
-                specification = specificationRight;
+            if (specificationDiapason.getCombine().equals(OR)) {
+                specification = specification.or(specificationRight);
             } else {
-                if (specificationDiapason.getCombine().equals(OR)) {
-                    specification = specification.or(specificationRight);
-                } else {
-                    specification = specification.and(specificationRight);
-                }
+                specification = specification.and(specificationRight);
             }
         }
         return specification;
