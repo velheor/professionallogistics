@@ -20,8 +20,7 @@ public class AddressService {
     }
 
     public Address save(Address address) {
-        return addressRepository.save(
-                address);
+        return addressRepository.save(address);
     }
 
     public Iterable<Address> getAll() {

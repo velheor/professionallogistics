@@ -121,7 +121,7 @@ public class UserService {
 
     public User randomUser() {
         long qty = userRepository.count();
-        int idx = (int)(Math.random() * qty);
+        int idx = (int) (Math.random() * qty);
         Page<User> UserPage = userRepository.findAll(PageRequest.of(idx, 1));
         return UserPage.getContent().get(0);
     }

@@ -3,8 +3,6 @@ package com.velheor.internship.service;
 import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.repository.OrderRepository;
-import com.velheor.internship.service.specification.GenericSpecification;
-import com.velheor.internship.service.specification.SearchCriteria;
 import com.velheor.internship.service.specification.SpecificationDiapason;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +14,6 @@ import java.util.UUID;
 import static com.velheor.internship.service.specification.SearchOperation.AND;
 import static com.velheor.internship.service.specification.SearchOperation.GREATER_THAN;
 import static com.velheor.internship.service.specification.SearchOperation.LESS_THAN;
-import static com.velheor.internship.service.specification.SearchOperation.OR;
 import static com.velheor.internship.service.specification.utils.CommonSpec.prepareSpecification;
 
 @Service
