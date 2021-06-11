@@ -14,5 +14,4 @@ public class SpecificationFilter {
     SearchOperation operationLeft;
     SearchOperation operationRight;
     SearchOperation combine;
-    Class<?> cls;
 }

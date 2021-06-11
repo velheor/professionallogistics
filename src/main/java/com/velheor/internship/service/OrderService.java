@@ -58,20 +58,18 @@ public class OrderService {
                 .operationLeft(GREATER_THAN)
                 .operationRight(LESS_THAN)
                 .combine(AND)
-                .cls(Order.class)
                 .build();
 
         Specification<Order> priceSpecification = prepareSpecification(filterPrice);
 
         SpecificationFilter filterDate = SpecificationFilter.builder()
-                .left(orderFilterDto.getPriceFrom())
-                .right(orderFilterDto.getPriceTo())
-                .operationLeft(GREATER_THAN)
-                .operationRight(LESS_THAN)
+                .left(orderFilterDto.getDateFrom())
+                .right(orderFilterDto.getDateTo())
                 .fieldNameLeft(DATE_FROM)
                 .fieldNameRight(DATE_TO)
+                .operationLeft(GREATER_THAN)
+                .operationRight(LESS_THAN)
                 .combine(AND)
-                .cls(Order.class)
                 .build();
 
         Specification<Order> dateSpecification = prepareSpecification(filterDate);
@@ -81,28 +79,25 @@ public class OrderService {
         return orderRepository.findAll(result);
     }
 
-    private Specification<Order> prepareSpecification(SpecificationFilter specificationFilter) {
-        Specification<Order> specification = null;
+    private <T> Specification<T> prepareSpecification(SpecificationFilter specificationFilter) {
+        Specification<T> specification = null;
 
         if (specificationFilter.getLeft() != null) {
             SearchCriteria searchCriteria = new SearchCriteria(specificationFilter.getFieldNameLeft(),
                     specificationFilter.getLeft(), specificationFilter.getOperationLeft());
-
             specification = new GenericSpecification<>(searchCriteria);
         }
-
         if (specificationFilter.getRight() != null) {
             SearchCriteria searchCriteria = new SearchCriteria(specificationFilter.getFieldNameLeft(),
                     specificationFilter.getRight(), specificationFilter.getOperationRight());
-            GenericSpecification<Order> priceSpecification = new GenericSpecification<>(searchCriteria);
-
+            GenericSpecification<T> specificationRight = new GenericSpecification<>(searchCriteria);
             if (specification == null) {
-                specification = priceSpecification;
+                specification = specificationRight;
             } else {
                 if (specificationFilter.getCombine().equals(OR)) {
-                    specification = specification.or(priceSpecification);
+                    specification = specification.or(specificationRight);
                 } else {
-                    specification = specification.and(priceSpecification);
+                    specification = specification.and(specificationRight);
                 }
             }
         }
