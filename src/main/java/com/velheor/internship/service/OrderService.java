@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 import static com.velheor.internship.service.specification.SearchOperation.AND;
+import static com.velheor.internship.service.specification.SearchOperation.EQUALS;
 import static com.velheor.internship.service.specification.SearchOperation.GREATER_THAN;
 import static com.velheor.internship.service.specification.SearchOperation.LESS_THAN;
 
@@ -57,6 +58,28 @@ public class OrderService {
         Specification<Order> dateSpecification = SpecificationUtil.prepareDiapason(filterDate);
 
         Specification<Order> result = priceSpecification.and(dateSpecification);
+
+        return orderRepository.findAll(result);
+    }
+
+    public Iterable<Order> findByNameCarrier(String name) {
+        SpecificationDiapason specDiapason =  SpecificationDiapason.builder()
+                .left(name)
+                .keyLeft("shipper.firstName")
+                .operationLeft(EQUALS)
+                .build();
+
+        SpecificationDiapason specDiapasonTest =  SpecificationDiapason.builder()
+                .left(name)
+                .keyLeft("shipper.lastName")
+                .operationLeft(EQUALS)
+                .build();
+
+        Specification<Order> specificationTest = SpecificationUtil.prepareDiapason(specDiapasonTest);
+
+        Specification<Order> specification = SpecificationUtil.prepareDiapason(specDiapason);
+
+        Specification<Order> result = specification.and(specificationTest);
 
         return orderRepository.findAll(result);
     }
