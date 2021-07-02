@@ -52,11 +52,11 @@ public class OrderMvcController {
         return ordersView;
     }
 
-    @GetMapping("/orders/test/{userName}")
+    @GetMapping("/orders/test/{firstName}/{lastName}")
     @SneakyThrows
-    public String getByUserName(@PathVariable("userName") String name, Model model) {
+    public String getByUserName(@PathVariable String firstName, Model model, @PathVariable String lastName) {
         model.addAttribute("orderFilter", new OrderFilterDto());
-        Iterable<Order> orders = orderService.findByNameCarrier(name);
+        Iterable<Order> orders = orderService.findByNameCarrier(firstName, lastName);
 
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ordersView;

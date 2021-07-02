@@ -55,7 +55,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(optional = false, fetch = FetchType.LAZY, mappedBy = "user")
     private Truck truck;
 
     public User(User user) {

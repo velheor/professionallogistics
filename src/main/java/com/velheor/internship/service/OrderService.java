@@ -3,6 +3,9 @@ package com.velheor.internship.service;
 import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.repository.OrderRepository;
+import com.velheor.internship.service.specification.JpaSpecificationBuilder;
+import com.velheor.internship.service.specification.SearchCriteria;
+import com.velheor.internship.service.specification.SearchOperation;
 import com.velheor.internship.service.specification.SpecificationDiapason;
 import com.velheor.internship.service.specification.utils.SpecificationUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.UUID;
 
 import static com.velheor.internship.service.specification.SearchOperation.AND;
@@ -23,7 +27,7 @@ public class OrderService {
     private static final String DATE_FROM = "datePickup";
     private static final String DATE_TO = "dateDelivery";
     private static final String PRICE = "price";
-
+    private final JpaSpecificationBuilder<Order> jpaSpecificationBuilder = new JpaSpecificationBuilder<>();
     private final OrderRepository orderRepository;
 
     public Order findById(UUID id) {
@@ -62,48 +66,64 @@ public class OrderService {
         return orderRepository.findAll(result);
     }
 
-    public Iterable<Order> findByNameCarrier(String name) {
-        SpecificationDiapason specDiapason =  SpecificationDiapason.builder()
-                .left(name)
-                .keyLeft("shipper.firstName")
-                .operationLeft(EQUALS)
+    public Iterable<Order> findByNameCarrier(String firstName, String lastName) {
+
+        SearchCriteria searchCriteria1 = SearchCriteria.builder()
+                .key("shipper.firstName")
+                .value(firstName)
+                .operation(EQUALS)
                 .build();
 
-        SpecificationDiapason specDiapasonTest =  SpecificationDiapason.builder()
-                .left(name)
-                .keyLeft("shipper.lastName")
-                .operationLeft(EQUALS)
+        SearchCriteria searchCriteria2 = SearchCriteria.builder()
+                .key("shipper.lastName")
+                .value(lastName)
+                .operation(EQUALS)
                 .build();
 
-        Specification<Order> specificationTest = SpecificationUtil.prepareDiapason(specDiapasonTest);
+        SearchCriteria searchCriteriaResult = SearchCriteria.builder()
+                .criteria(List.of(searchCriteria1, searchCriteria2))
+                .operation(AND)
+                .build();
 
-        Specification<Order> specification = SpecificationUtil.prepareDiapason(specDiapason);
-
-        Specification<Order> result = specification.and(specificationTest);
-
-        return orderRepository.findAll(result);
+        return orderRepository.findAll(jpaSpecificationBuilder.buildSpecification(searchCriteriaResult));
     }
 
     private SpecificationDiapason getDateDiapason(OrderFilterDto orderFilterDto) {
+        SearchCriteria searchCriteriaLeft = SearchCriteria.builder()
+                .key(DATE_FROM)
+                .value(orderFilterDto.getDateFrom())
+                .operation(GREATER_THAN)
+                .build();
+
+        SearchCriteria searchCriteriaRight = SearchCriteria.builder()
+                .key(DATE_TO)
+                .value(orderFilterDto.getDateTo())
+                .operation(LESS_THAN)
+                .build();
+
         return SpecificationDiapason.builder()
-                .left(orderFilterDto.getDateFrom())
-                .right(orderFilterDto.getDateTo())
-                .keyLeft(DATE_FROM)
-                .keyRight(DATE_TO)
-                .operationLeft(GREATER_THAN)
-                .operationRight(LESS_THAN)
+                .searchCriteriaLeft(searchCriteriaLeft)
+                .searchCriteriaRight(searchCriteriaRight)
                 .combine(AND)
                 .build();
     }
 
     private SpecificationDiapason getPriceDiapason(OrderFilterDto orderFilterDto) {
+        SearchCriteria searchCriteriaLeft = SearchCriteria.builder()
+                .key(PRICE)
+                .value(orderFilterDto.getPriceFrom())
+                .operation(GREATER_THAN)
+                .build();
+
+        SearchCriteria searchCriteriaRight = SearchCriteria.builder()
+                .key(PRICE)
+                .value(orderFilterDto.getDateTo())
+                .operation(LESS_THAN)
+                .build();
+
         return SpecificationDiapason.builder()
-                .left(orderFilterDto.getPriceFrom())
-                .right(orderFilterDto.getPriceTo())
-                .keyLeft(PRICE)
-                .keyRight(PRICE)
-                .operationLeft(GREATER_THAN)
-                .operationRight(LESS_THAN)
+                .searchCriteriaLeft(searchCriteriaLeft)
+                .searchCriteriaRight(searchCriteriaRight)
                 .combine(AND)
                 .build();
     }

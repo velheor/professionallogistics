@@ -1,38 +1,45 @@
 package com.velheor.internship.service.specification;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@RequiredArgsConstructor
-public class GenericSpecification<T> implements Specification<T> {
+public class JpaSpecificationBuilder<T> {
 
-    private final SearchCriteria searchCriteria;
+    private final Map<String, Join<Object, Object>> joinMap = new HashMap<>();
 
-
-    @Override
-    public Specification<T> and(Specification<T> other) {
-        return Specification.super.and(other);
+    public Specification<T> buildSpecification(SearchCriteria criteria) {
+        this.joinMap.clear();
+        return (root, query, cb) -> toPredicate(root, cb, criteria);
     }
 
-    @Override
-    public Specification<T> or(Specification<T> other) {
-        return Specification.super.or(other);
+    public Predicate toPredicate(Root<T> root, CriteriaBuilder builder, SearchCriteria criteria) {
+        if (criteria.isComplex()) {
+            List<Predicate> predicates = new ArrayList<>();
+            for (SearchCriteria subCriterion : criteria.getCriteria()) {
+                predicates.add(toPredicate(root, builder, subCriterion));
+            }
+            if (SearchOperation.AND.equals(criteria.getOperation())) {
+                return builder.and(predicates.toArray(new Predicate[0]));
+            } else {
+                return builder.or(predicates.toArray(new Predicate[0]));
+            }
+        }
+        return predicateBuilder(root, builder, criteria);
     }
 
-    @Override
-    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    public Predicate predicateBuilder(Root<T> root, CriteriaBuilder builder, SearchCriteria searchCriteria) {
         if (searchCriteria.getValue() instanceof LocalDateTime) {
             switch (searchCriteria.getOperation()) {
                 case GREATER_THAN:
@@ -55,7 +62,7 @@ public class GenericSpecification<T> implements Specification<T> {
     }
 
     private Path buildPath(Root<T> root, String key) {
-        Map<String, Join<Object, Object>> joinMap = new HashMap<>();
+
         if (!key.contains(".")) {
             return root.get(key);
         } else {

@@ -8,18 +8,16 @@ import org.springframework.data.jpa.domain.Specification;
 import static com.velheor.internship.service.specification.SearchOperation.OR;
 
 public class SpecificationUtil {
+
     public static <T> Specification<T> prepareDiapason(SpecificationDiapason specificationDiapason) {
         Specification<T> specification = (root, query, criteriaBuilder) -> null;
 
-        if (specificationDiapason.getLeft() != null) {
-            SearchCriteria searchCriteria = new SearchCriteria(specificationDiapason.getKeyLeft(),
-                    specificationDiapason.getLeft(), specificationDiapason.getOperationLeft());
-            specification = new GenericSpecification<>(searchCriteria);
+        if (specificationDiapason.getSearchCriteriaLeft().getValue() != null) {
+            specification = new GenericSpecification<>(specificationDiapason.getSearchCriteriaLeft());
         }
-        if (specificationDiapason.getRight() != null) {
-            SearchCriteria searchCriteria = new SearchCriteria(specificationDiapason.getKeyLeft(),
-                    specificationDiapason.getRight(), specificationDiapason.getOperationRight());
-            GenericSpecification<T> specificationRight = new GenericSpecification<>(searchCriteria);
+
+        if (specificationDiapason.getSearchCriteriaRight().getValue() != null) {
+            GenericSpecification<T> specificationRight = new GenericSpecification<>(specificationDiapason.getSearchCriteriaRight());
             if (specificationDiapason.getCombine().equals(OR)) {
                 specification = specification.or(specificationRight);
             } else {

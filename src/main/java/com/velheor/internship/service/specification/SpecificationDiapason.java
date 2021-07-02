@@ -6,11 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class SpecificationDiapason {
-    Object left;
-    Object right;
-    String keyLeft;
-    String keyRight;
-    SearchOperation operationLeft;
-    SearchOperation operationRight;
+    private final SearchCriteria searchCriteriaLeft;
+    private final SearchCriteria searchCriteriaRight;
     SearchOperation combine;
 }
