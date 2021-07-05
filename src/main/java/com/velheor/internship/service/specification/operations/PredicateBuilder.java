@@ -1,4 +1,4 @@
-package com.velheor.internship.service.specification;
+package com.velheor.internship.service.specification.operations;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Path;

@@ -3,6 +3,7 @@ package com.velheor.internship.service.specification;
 import com.velheor.internship.service.specification.operations.Equal;
 import com.velheor.internship.service.specification.operations.GreaterThan;
 import com.velheor.internship.service.specification.operations.LessThan;
+import com.velheor.internship.service.specification.operations.PredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
