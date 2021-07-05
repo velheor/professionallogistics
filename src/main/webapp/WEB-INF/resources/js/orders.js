@@ -37,7 +37,7 @@ $(document).ready(function () {
             {
                 title: "Shipper name",
                 data: "shipper.id", render: function (data, type, row) {
-                    return "<a href='/prolog/mvc/orders/fullInfo/" + data + "'>" + row.shipper.firstName + " " + row.shipper.lastName + "</a>";
+                    return "<a href='/prolog/mvc/users/" + data + "'>" + row.shipper.firstName + " " + row.shipper.lastName + "</a>";
                 },
             }
         ]
