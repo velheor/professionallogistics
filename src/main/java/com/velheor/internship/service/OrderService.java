@@ -6,7 +6,6 @@ import com.velheor.internship.repository.OrderRepository;
 import com.velheor.internship.service.specification.JpaSpecificationBuilder;
 import com.velheor.internship.service.specification.SearchCriteria;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,13 +13,13 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.velheor.internship.service.specification.JoinType.AND;
-import static com.velheor.internship.service.specification.SearchOperation.EQUALS;
 import static com.velheor.internship.service.specification.SearchOperation.GREATER_THAN;
 import static com.velheor.internship.service.specification.SearchOperation.LESS_THAN;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
+
     private static final String DATE_FROM = "datePickup";
     private static final String DATE_TO = "dateDelivery";
     private static final String PRICE = "price";
@@ -53,13 +52,16 @@ public class OrderService {
         SearchCriteria criterionLessDate = getCriterionLessDate(orderFilterDto);
         SearchCriteria criterionGreaterPrice = getCriterionGreaterPrice(orderFilterDto);
         SearchCriteria criterionLessPrice = getCriterionLessPrice(orderFilterDto);
-
-        SearchCriteria result = SearchCriteria.builder()
-                .criteria(List.of(criterionGreaterDate, criterionLessDate, criterionGreaterPrice, criterionLessPrice))
-                .joinType(AND)
-                .build();
+        SearchCriteria result = buildFilter(List.of(criterionGreaterDate, criterionLessDate, criterionGreaterPrice, criterionLessPrice));
 
         return orderRepository.findAll(jpaSpecificationBuilder.buildSpecification(result));
+    }
+
+    private SearchCriteria buildFilter(List<SearchCriteria> criteria) {
+        return SearchCriteria.builder()
+                .criteria(criteria)
+                .joinType(AND)
+                .build();
     }
 
     private SearchCriteria getCriterionGreaterDate(OrderFilterDto orderFilterDto) {

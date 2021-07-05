@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
@@ -54,9 +55,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Role> roles;
-
-    @OneToOne(optional = false, fetch = FetchType.LAZY, mappedBy = "user")
-    private Truck truck;
 
     public User(User user) {
         this.setId(user.getId());
