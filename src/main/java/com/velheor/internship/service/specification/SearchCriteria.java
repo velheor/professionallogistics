@@ -1,11 +1,13 @@
 package com.velheor.internship.service.specification;
 
+import io.jsonwebtoken.lang.Collections;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -16,8 +18,9 @@ public class SearchCriteria {
     private Object value;
     private SearchOperation operation;
     private List<SearchCriteria> criteria;
+    private JoinType joinType;
 
-    public boolean isComplex(){
-        return this.operation != null && this.criteria != null && this.criteria.size() > 0;
+    public boolean isComplex() {
+        return !Objects.isNull(joinType) && !Collections.isEmpty(criteria);
     }
 }
