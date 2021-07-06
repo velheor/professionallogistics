@@ -70,6 +70,9 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "${mockito}"
     testImplementation group: 'com.jayway.jsonpath', name: 'json-path', version: "${jayway}"
     testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: "${skyscreamer}"
+    testImplementation group: 'javax.validation', name: 'validation-api', version: "${javaxValidation}"
+    testImplementation group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidation}"
+    testImplementation group: 'org.glassfish', name: 'javax.el', version: "${javaxEl}"
     implementation group: 'com.github.javafaker', name: 'javafaker', version: "${javaFaker}"
 
 

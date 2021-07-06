@@ -24,9 +24,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public abstract class BaseWebTest {
 
     public ObjectMapper objectMapper;
-
     protected MockMvc mockMvc;
-
     private StandaloneMockMvcBuilder standaloneMockMvcBuilder;
 
     @Autowired

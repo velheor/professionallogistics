@@ -44,6 +44,7 @@ public class OrderViewDto extends BaseDto {
         dateDelivery = orderViewDTO.getDateDelivery();
         price = orderViewDTO.getPrice();
         truckCategory = orderViewDTO.getTruckCategory();
+        shipper = orderViewDTO.getShipper();
     }
 
     @XmlElement(name = "date_pickup")

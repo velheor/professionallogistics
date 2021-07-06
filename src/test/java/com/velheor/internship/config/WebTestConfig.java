@@ -20,9 +20,11 @@ import static org.mockito.Mockito.when;
 @Configuration
 @ComponentScan(basePackages = {
         "com.velheor.internship.security",
-        "com.velheor.internship.mappers"
+        "com.velheor.internship.mappers",
+        "com.velheor.internship.validator.annotations"
 }, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = JwtUserDetailsService.class)})
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = JwtUserDetailsService.class),
+})
 public class WebTestConfig {
 
     @Autowired

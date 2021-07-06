@@ -3,7 +3,6 @@ package com.velheor.internship.config;
 import com.velheor.internship.conf.LiquiBaseConfig;
 import com.velheor.internship.email.EmailSender;
 import lombok.RequiredArgsConstructor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,8 +26,11 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages =
-        {"com.velheor.internship.service", "com.velheor.internship.xml",
-                "com.velheor.internship.security", "com.velheor.internship.mappers"})
+        {
+                "com.velheor.internship.service", "com.velheor.internship.xml",
+                "com.velheor.internship.security", "com.velheor.internship.mappers",
+                "com.velheor.internship.validator"
+        })
 @EnableTransactionManagement
 @PropertySource("classpath:h2.properties")
 @EnableJpaRepositories(basePackages = {"com.velheor.internship.repository"})

@@ -1,7 +1,14 @@
 package com.velheor.internship.utils;
 
-import com.velheor.internship.dto.*;
 import com.velheor.internship.dto.AddressViewDto;
+import com.velheor.internship.dto.AuthUserDto;
+import com.velheor.internship.dto.LoadViewDto;
+import com.velheor.internship.dto.OrderViewDto;
+import com.velheor.internship.dto.RoleViewDto;
+import com.velheor.internship.dto.StatusViewDto;
+import com.velheor.internship.dto.TruckViewDto;
+import com.velheor.internship.dto.UserProfileUpdateDto;
+import com.velheor.internship.dto.UserViewDto;
 
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
 import static com.velheor.internship.utils.TestUtils.ADDRESS2;
@@ -94,6 +101,7 @@ public final class TestWebUtils {
         ORDER_VIEW_DTO1.setDateDelivery(ORDER1.getDateDelivery());
         ORDER_VIEW_DTO1.setPrice(ORDER1.getPrice());
         ORDER_VIEW_DTO1.setTruckCategory(ORDER1.getTruckCategory().toString());
+        ORDER_VIEW_DTO1.setShipper(USER_VIEW_DTO2);
 
         ORDER_VIEW_DTO2.setId(ORDER2.getId());
         ORDER_VIEW_DTO2.setDatePickup(ORDER2.getDatePickup());

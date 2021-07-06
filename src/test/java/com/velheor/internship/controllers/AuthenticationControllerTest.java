@@ -57,7 +57,8 @@ class AuthenticationControllerTest extends BaseWebTest {
         String result = mockMvc.perform(post(AUTH_URL + "signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
         assertThat(result).isEqualTo("Check your email!");
     }
 

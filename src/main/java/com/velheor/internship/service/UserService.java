@@ -54,7 +54,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(userProfileUpdate.getPassword()));
         }
 
-        if (userValidator.checkForUserHasThisEmail(user.getId(), userProfileUpdate.getEmail())) {
+        if (!userValidator.checkForUserHasThisEmail(user.getId(), userProfileUpdate.getEmail())) {
             user.setEmail(userProfileUpdate.getEmail());
             user.setStatus(EUserStatus.INACTIVE);
             sendActivationCodeToEmail(user);

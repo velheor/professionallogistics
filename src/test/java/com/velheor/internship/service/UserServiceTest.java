@@ -112,7 +112,9 @@ class UserServiceTest extends BasePersistenceTest {
         expected.setStatus(EUserStatus.INACTIVE);
 
         User actual = userService.updateCurrentUser(USER1.getEmail(), expected);
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, USER_IGNORE);
+        String[] userIgnoreWithPassword = Arrays.copyOf(USER_IGNORE, USER_IGNORE.length + 1);
+        userIgnoreWithPassword[USER_IGNORE.length] = "password";
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, userIgnoreWithPassword);
     }
 
     @Test

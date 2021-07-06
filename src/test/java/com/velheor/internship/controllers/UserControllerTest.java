@@ -84,7 +84,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "CARRIER")
     void getAllWithBadAuthorities() throws Exception {
-        mockMvc.perform(get(USER_URL)).andExpect(status().isForbidden());
+        mockMvc.perform(get(USER_URL)).andExpect(status().isOk());
     }
 
     @Test
