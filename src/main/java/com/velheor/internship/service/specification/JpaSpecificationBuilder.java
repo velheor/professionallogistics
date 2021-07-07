@@ -5,6 +5,7 @@ import com.velheor.internship.service.specification.operations.GreaterThan;
 import com.velheor.internship.service.specification.operations.LessThan;
 import com.velheor.internship.service.specification.operations.PredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
 public class JpaSpecificationBuilder<T> {
 
     private final Map<String, Join<Object, Object>> joinMap = new HashMap<>();

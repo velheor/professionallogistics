@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static com.velheor.internship.utils.TestUtils.STATUS1;
 import static com.velheor.internship.utils.TestUtils.STATUS2;
 import static com.velheor.internship.utils.TestUtils.STATUS_IGNORE;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -75,12 +76,9 @@ class StatusServiceTest extends BasePersistenceTest {
     void deleteById() {
         statusService.deleteById(STATUS1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : statusService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(statusService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> statusService.findById(STATUS1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);

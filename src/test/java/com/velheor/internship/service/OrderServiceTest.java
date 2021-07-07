@@ -1,6 +1,7 @@
 package com.velheor.internship.service;
 
 import com.velheor.internship.BasePersistenceTest;
+import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.enums.ETruckCategory;
 import org.junit.jupiter.api.Test;
@@ -13,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_ALL;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.ORDER1;
 import static com.velheor.internship.utils.TestUtils.ORDER2;
 import static com.velheor.internship.utils.TestUtils.ORDER_IGNORE;
 import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -71,21 +74,31 @@ class OrderServiceTest extends BasePersistenceTest {
 
         assertThat(expectedAll).usingElementComparatorIgnoringFields(ORDER_IGNORE)
                 .isEqualTo(actualAll);
-
     }
 
     @Test
     void deleteById() {
         orderService.deleteById(ORDER1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : orderService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(orderService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> orderService.findById(ORDER1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void filterOrders() {
+        int actualSize;
+        OrderFilterDto orderFilterDto = new OrderFilterDto();
+        orderFilterDto.setPriceFrom(BigDecimal.valueOf(4500));
+        Iterable<Order> orders = orderService.filterOrders(orderFilterDto);
+        actualSize = countIterableSize(orders);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
+
+        orders = orderService.filterOrders(new OrderFilterDto());
+        actualSize = countIterableSize(orders);
+        assertThat(actualSize).isEqualTo(EXPECTED_ALL);
     }
 }

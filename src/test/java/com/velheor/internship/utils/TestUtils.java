@@ -1,6 +1,7 @@
 package com.velheor.internship.utils;
 
 import com.velheor.internship.models.Address;
+import com.velheor.internship.models.BaseEntity;
 import com.velheor.internship.models.Load;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.Role;
@@ -50,7 +51,8 @@ public final class TestUtils {
     public final static Address ADDRESS1 = new Address();
     public final static Address ADDRESS2 = new Address();
 
-    public final static Integer EXPECTED_SIZE = 1;
+    public final static Integer EXPECTED_SINGLE = 1;
+    public final static Integer EXPECTED_ALL = 2;
 
     public final static User USER_DOES_NOT_EXIST_IN_DB = new User();
 
@@ -146,5 +148,13 @@ public final class TestUtils {
         USER_DOES_NOT_EXIST_IN_DB.setEmail("notivan@gmail.com");
         USER_DOES_NOT_EXIST_IN_DB.setPhoneNumber("+375 (33) 123-45-67");
         USER_DOES_NOT_EXIST_IN_DB.setPassword("password");
+    }
+
+    public static int countIterableSize(Iterable<?> values){
+        int actualSize = 0;
+        for (Object ignored : values) {
+            actualSize++;
+        }
+        return actualSize;
     }
 }

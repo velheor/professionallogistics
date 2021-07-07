@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.TRUCK1;
 import static com.velheor.internship.utils.TestUtils.TRUCK2;
 import static com.velheor.internship.utils.TestUtils.TRUCK_IGNORE;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -75,12 +76,9 @@ class TruckServiceTest extends BasePersistenceTest {
     void deleteById() {
         truckService.deleteById(TRUCK1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : truckService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(truckService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> truckService.findById(TRUCK1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);

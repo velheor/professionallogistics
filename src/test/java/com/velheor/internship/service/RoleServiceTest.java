@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.ROLE1;
 import static com.velheor.internship.utils.TestUtils.ROLE2;
 import static com.velheor.internship.utils.TestUtils.ROLE_IGNORE;
 import static com.velheor.internship.utils.TestUtils.USER2;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -72,12 +73,9 @@ class RoleServiceTest extends BasePersistenceTest {
     void deleteById() {
         roleService.deleteById(ROLE1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : roleService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(roleService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> roleService.findById(ROLE1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);

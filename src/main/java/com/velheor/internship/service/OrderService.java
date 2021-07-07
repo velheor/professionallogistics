@@ -23,7 +23,7 @@ public class OrderService {
     private static final String DATE_FROM = "datePickup";
     private static final String DATE_TO = "dateDelivery";
     private static final String PRICE = "price";
-    private final JpaSpecificationBuilder<Order> jpaSpecificationBuilder = new JpaSpecificationBuilder<>();
+    private final JpaSpecificationBuilder<Order> jpaSpecificationBuilder;
     private final OrderRepository orderRepository;
 
     public Order findById(UUID id) {

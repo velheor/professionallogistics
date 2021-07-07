@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.LOAD1;
 import static com.velheor.internship.utils.TestUtils.LOAD2;
 import static com.velheor.internship.utils.TestUtils.LOAD_IGNORE;
 import static com.velheor.internship.utils.TestUtils.ORDER1;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -75,12 +76,9 @@ class LoadServiceTest extends BasePersistenceTest {
     void deleteById() {
         loadService.deleteById(LOAD1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : loadService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(loadService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> loadService.findById(LOAD1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);

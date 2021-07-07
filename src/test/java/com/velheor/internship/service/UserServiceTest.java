@@ -16,11 +16,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
 import static com.velheor.internship.utils.TestUtils.USER1;
 import static com.velheor.internship.utils.TestUtils.USER2;
 import static com.velheor.internship.utils.TestUtils.USER_DOES_NOT_EXIST_IN_DB;
 import static com.velheor.internship.utils.TestUtils.USER_IGNORE;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -78,12 +79,9 @@ class UserServiceTest extends BasePersistenceTest {
     public void deleteById() {
         userService.deleteById(USER1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : userService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(userService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> userService.findById(USER1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);

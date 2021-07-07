@@ -14,7 +14,8 @@ import java.util.UUID;
 import static com.velheor.internship.utils.TestUtils.ADDRESS1;
 import static com.velheor.internship.utils.TestUtils.ADDRESS2;
 import static com.velheor.internship.utils.TestUtils.ADDRESS_IGNORE;
-import static com.velheor.internship.utils.TestUtils.EXPECTED_SIZE;
+import static com.velheor.internship.utils.TestUtils.EXPECTED_SINGLE;
+import static com.velheor.internship.utils.TestUtils.countIterableSize;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -72,12 +73,9 @@ class AddressServiceTest extends BasePersistenceTest {
     public void deleteById() {
         addressService.deleteById(ADDRESS1.getId());
 
-        int actualSize = 0;
-        for (Object ignored : addressService.getAll()) {
-            actualSize++;
-        }
+        int actualSize = countIterableSize(addressService.getAll());
 
-        assertThat(actualSize).isEqualTo(EXPECTED_SIZE);
+        assertThat(actualSize).isEqualTo(EXPECTED_SINGLE);
 
         assertThatThrownBy(() -> addressService.findById(ADDRESS1.getId()))
                 .isInstanceOf(EntityNotFoundException.class);
