@@ -17,6 +17,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import java.util.Collection;
 
 import static com.velheor.internship.utils.TestUtils.USER1;
+import static com.velheor.internship.utils.TestWebUtils.INVALID_PHONE_NUMBER;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +54,7 @@ public class WebTestConfig {
         when(userRepository.checkForUserHasThisPhoneNumber(USER1.getId(), USER1.getPhoneNumber())).thenReturn(true);
         when(userRepository.checkForUniqueEmail(USER1.getEmail())).thenReturn(true);
         when(userRepository.checkForUniquePhoneNumber(USER1.getPhoneNumber())).thenReturn(true);
-        when(userRepository.checkForUniquePhoneNumber("+1234")).thenReturn(true);
+        when(userRepository.checkForUniquePhoneNumber(INVALID_PHONE_NUMBER)).thenReturn(true);
         return userRepository;
     }
 

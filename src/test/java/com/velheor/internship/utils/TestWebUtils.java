@@ -35,6 +35,8 @@ public final class TestWebUtils {
     public final static String STATUS_URL = "/statuses/";
     public static final String ADDRESS_URL = "/addresses/";
     public static final String AUTH_URL = "/auth/";
+    public static final String INVALID_PHONE_NUMBER="+1234";
+    public static final String INVALID_PASSWORD = "test";
 
     public final static TruckViewDto TRUCK_VIEW_DTO1 = new TruckViewDto();
     public final static TruckViewDto TRUCK_VIEW_DTO2 = new TruckViewDto();

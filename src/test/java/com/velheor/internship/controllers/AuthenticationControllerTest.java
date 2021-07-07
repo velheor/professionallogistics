@@ -17,6 +17,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import static com.velheor.internship.utils.TestWebUtils.AUTH_URL;
 import static com.velheor.internship.utils.TestWebUtils.AUTH_USER_DTO;
+import static com.velheor.internship.utils.TestWebUtils.INVALID_PASSWORD;
+import static com.velheor.internship.utils.TestWebUtils.INVALID_PHONE_NUMBER;
 import static com.velheor.internship.utils.TestWebUtils.USER_VIEW_DTO1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,8 +58,6 @@ class AuthenticationControllerTest extends BaseWebTest {
 
     @Test
     void signUp() throws Exception {
-        ObjectMapper customMapper = new ObjectMapper();
-        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
         String result = mockMvc.perform(post(AUTH_URL + "signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(customMapper.writeValueAsString(USER_VIEW_DTO1)))
@@ -69,8 +69,8 @@ class AuthenticationControllerTest extends BaseWebTest {
     @Test
     void signUpThrowHandleMethodArgumentNotValid() throws Exception {
         UserViewDto testUser = new UserViewDto(USER_VIEW_DTO1);
-        testUser.setPassword("test");
-        testUser.setPhoneNumber("+1234");
+        testUser.setPassword(INVALID_PASSWORD);
+        testUser.setPhoneNumber(INVALID_PHONE_NUMBER);
 
         String responseBody = mockMvc.perform(post(AUTH_URL + "signup")
                 .contentType(MediaType.APPLICATION_JSON)

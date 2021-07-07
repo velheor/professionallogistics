@@ -92,8 +92,7 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     void update() throws Exception {
-        ObjectMapper customMapper = new ObjectMapper();
-        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
+
         when(userService.save(USER1)).thenReturn(USER1);
         mockMvc.perform(put(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -124,8 +123,6 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     void save() throws Exception {
-        ObjectMapper customMapper = new ObjectMapper();
-        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
         when(userService.save(USER1)).thenReturn(USER1);
         mockMvc.perform(post(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)

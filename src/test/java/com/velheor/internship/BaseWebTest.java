@@ -1,5 +1,6 @@
 package com.velheor.internship;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.velheor.internship.conf.SecurityConfig;
@@ -25,6 +26,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public abstract class BaseWebTest {
 
     public ObjectMapper objectMapper;
+    public ObjectMapper customMapper;
     protected MockMvc mockMvc;
     private StandaloneMockMvcBuilder standaloneMockMvcBuilder;
 
@@ -37,6 +39,8 @@ public abstract class BaseWebTest {
     public void setUp(Supplier<Object> controllerSupplier) {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        customMapper = new ObjectMapper();
+        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
         standaloneMockMvcBuilder = MockMvcBuilders
                 .standaloneSetup(controllerSupplier.get())
                 .setControllerAdvice(new RestExceptionHandler());
