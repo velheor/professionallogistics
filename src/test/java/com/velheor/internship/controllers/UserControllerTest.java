@@ -1,5 +1,7 @@
 package com.velheor.internship.controllers;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.exception.ErrorMessage;
@@ -90,11 +92,12 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     void update() throws Exception {
+        ObjectMapper customMapper = new ObjectMapper();
+        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
         when(userService.save(USER1)).thenReturn(USER1);
-
         mockMvc.perform(put(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
+                .content(customMapper.writeValueAsString(USER_VIEW_DTO1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));
@@ -121,10 +124,12 @@ class UserControllerTest extends BaseWebTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     void save() throws Exception {
+        ObjectMapper customMapper = new ObjectMapper();
+        customMapper.disable(MapperFeature.USE_ANNOTATIONS);
         when(userService.save(USER1)).thenReturn(USER1);
         mockMvc.perform(post(USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(USER_VIEW_DTO1)))
+                .content(customMapper.writeValueAsString(USER_VIEW_DTO1)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(USER_VIEW_DTO1)));

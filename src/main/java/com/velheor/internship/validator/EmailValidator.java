@@ -4,10 +4,12 @@ import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.validator.annotations.EmailConstraint;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@Component
 @NoArgsConstructor
 public class EmailValidator implements ConstraintValidator<EmailConstraint, String> {
 

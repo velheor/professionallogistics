@@ -1,6 +1,7 @@
 package com.velheor.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class UserViewDto extends BaseDto {
 
     @NotEmpty(message = "{notEmpty}")
     @Size(min = 7, max = 255, message = "{notCorrectSize}")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotEmpty(message = "{notEmpty}")
@@ -66,10 +68,5 @@ public class UserViewDto extends BaseDto {
     @XmlElement(name = "phone_number")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @JsonIgnore
-    public String getPassword() {
-        return password;
     }
 }

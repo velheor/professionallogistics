@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
+import org.springframework.validation.Validator;
 
 import javax.annotation.PostConstruct;
 import java.util.function.Supplier;
@@ -30,6 +31,9 @@ public abstract class BaseWebTest {
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
 
+    @Autowired
+    private Validator validator;
+
     public void setUp(Supplier<Object> controllerSupplier) {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -40,6 +44,9 @@ public abstract class BaseWebTest {
 
     @PostConstruct
     private void setUpMockMvc() {
-        mockMvc = standaloneMockMvcBuilder.apply(springSecurity(springSecurityFilterChain)).build();
+        mockMvc = standaloneMockMvcBuilder
+                .apply(springSecurity(springSecurityFilterChain))
+                .setValidator(validator)
+                .build();
     }
 }
