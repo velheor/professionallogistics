@@ -2,23 +2,15 @@ package com.velheor.internship.validator;
 
 import com.velheor.internship.repository.UserRepository;
 import com.velheor.internship.validator.annotations.EmailConstraint;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-@Component
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class EmailValidator implements ConstraintValidator<EmailConstraint, String> {
 
-    private UserRepository userRepository;
-
-    @Autowired
-    public EmailValidator(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public void initialize(EmailConstraint constraintAnnotation) {
