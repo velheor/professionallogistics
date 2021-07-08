@@ -32,29 +32,25 @@ public class AuthenticationController {
     private final RoleMapper roleMapper;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticate(@Valid @RequestBody AuthUserDto authUserDTO) {
+    public String authenticate(@Valid @RequestBody AuthUserDto authUserDTO) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authUserDTO.getEmail(),
                 authUserDTO.getPassword());
 
         Collection<? extends GrantedAuthority> grantedAuthorityList
                 = authenticationManager.authenticate(authenticationToken).getAuthorities();
 
-        return ResponseEntity.ok(userService.createWebToken(authUserDTO.getEmail(), roleMapper.toStringRoles(grantedAuthorityList)));
+        return userService.createWebToken(authUserDTO.getEmail(), roleMapper.toStringRoles(grantedAuthorityList));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@Valid @RequestBody UserRegistrationDto userRegistrationDTO) {
-
+    public void signUp(@Valid @RequestBody UserRegistrationDto userRegistrationDTO) {
         userService.registerUser(userMapper.toUser(userRegistrationDTO));
         userService.sendActivationCodeToEmail(userMapper.toUser(userRegistrationDTO));
-
-        return ResponseEntity.ok("Check your email!");
     }
 
     @GetMapping("/activate/{code}")
-    public ResponseEntity<String> activateAccount(@PathVariable("code") String tokenMail) {
+    public void activateAccount(@PathVariable("code") String tokenMail) {
         userService.validateToken(tokenMail);
         userService.changeAccountStatusByEmail(EUserStatus.ACTIVE, userService.getEmailFromToken(tokenMail));
-        return ResponseEntity.ok("Account activated successfully.");
     }
 }
