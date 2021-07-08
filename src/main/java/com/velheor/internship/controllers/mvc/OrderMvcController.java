@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequestMapping("/mvc")
 public class OrderMvcController {
 
-    private final static String ordersView = "orders";
+    private final static String ORDERS_VIEW = "orders";
     private final OrderService orderService;
     private final OrderMapper orderMapper;
     private final ObjectMapper objectMapper;
@@ -33,7 +33,7 @@ public class OrderMvcController {
         Iterable<Order> orders = orderService.getAll();
         model.addAttribute("orderFilter", new OrderFilterDto());
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
-        return ordersView;
+        return ORDERS_VIEW;
     }
 
     @GetMapping("/orders/{id}")
@@ -41,7 +41,7 @@ public class OrderMvcController {
     public String getFullInfo(@PathVariable("id") UUID id, Model model) {
         Order order = orderService.findById(id);
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrderDto(order)));
-        return ordersView;
+        return ORDERS_VIEW;
     }
 
     @PostMapping("/orders")
@@ -49,6 +49,6 @@ public class OrderMvcController {
     public String getByParameters(@ModelAttribute("orderFilter") OrderFilterDto orderFilterDto, Model model) {
         Iterable<Order> orders = orderService.filterOrders(orderFilterDto);
         model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
-        return ordersView;
+        return ORDERS_VIEW;
     }
 }

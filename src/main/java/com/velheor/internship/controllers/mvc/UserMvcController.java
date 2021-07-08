@@ -22,8 +22,8 @@ import java.util.UUID;
 @RequestMapping("/mvc")
 public class UserMvcController {
 
-    private final static String usersView = "users";
-    private final static String userView = "user";
+    private final static String USERS_VIEW = "users";
+    private final static String USER_VIEW = "user";
     private final UserService userService;
     private final UserMapper userMapper;
     private final ObjectMapper objectMapper;
@@ -32,7 +32,7 @@ public class UserMvcController {
     @SneakyThrows
     public String getAllUsers(Model model) {
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
-        return usersView;
+        return USERS_VIEW;
     }
 
     @PostMapping("/users")
@@ -40,13 +40,13 @@ public class UserMvcController {
     public String saveAllUsers(@ModelAttribute("userViewDtoForm") @Valid UserViewDtoForm userViewDtoForm, Model model) {
         userService.saveAll(userMapper.toUser(userViewDtoForm.getUserViewDtos()));
         model.addAttribute("userJson", objectMapper.writeValueAsString(userMapper.toUserViewDto(userService.getAll())));
-        return usersView;
+        return USERS_VIEW;
     }
 
     @GetMapping("/users/{id}")
     @SneakyThrows
     public String getUserInfo(@PathVariable UUID id, Model model) {
         model.addAttribute("user", userMapper.toUserViewDto(userService.findById(id)));
-        return userView;
+        return USER_VIEW;
     }
 }
