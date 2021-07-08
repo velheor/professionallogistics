@@ -90,7 +90,7 @@ public class StatusControllerTest extends BaseWebTest {
                 .andReturn().getResponse().getContentAsString();
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 1;
-        assertThat(actual.getErrors().size()).isEqualTo(countOfErrors);
+        assertThat(actual.getMessage().split(", ").length).isEqualTo(countOfErrors);
     }
 
     @Test

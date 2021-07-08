@@ -14,7 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -25,15 +24,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
-        ErrorMessage errorMessage = ErrorMessage.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.NOT_FOUND.value())
-                .message(ex.getMessage())
-                .path(request.getRequestURI())
-                .build();
-
-        return customHandleException(ex, errorMessage, HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+        return customHandleException(ex, HttpStatus.NOT_FOUND, request);
     }
 
     @Override
@@ -49,8 +41,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorMessage errorMessage = ErrorMessage.builder()
                 .timestamp(LocalDateTime.now())
                 .status(status.value())
+                .error(ex.getClass().getSimpleName())
                 .message(message)
-                .path(Objects.requireNonNull(headers.getLocation()).getPath())
+                .path(request.getDescription(false))
                 .build();
 
         return handleExceptionInternal(ex, errorMessage, headers, status, request);
@@ -60,38 +53,38 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(JwtAuthenticationException.class)
     public ResponseEntity<Object> handleJwtAuthenticationException(JwtAuthenticationException ex, HttpHeaders headers,
                                                                    HttpStatus status, WebRequest request) {
-        ErrorMessage errorMessage = ErrorMessage.builder()
-                .timestamp(LocalDateTime.now())
-                .status(status.value())
-                .message(ex.getMessage())
-                .path(Objects.requireNonNull(headers.getLocation()).getPath())
-                .build();
-
-        return handleExceptionInternal(ex, errorMessage, headers, status, request);
+        return handleExceptionInternal(ex, null, headers, status, request);
     }
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex, HttpServletRequest request) {
-        ErrorMessage errorMessage = ErrorMessage.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.FORBIDDEN.value())
-                .message(ex.getMessage())
-                .path(Objects.requireNonNull(request.getRequestURI()))
-                .build();
-
-        return customHandleException(ex, errorMessage, HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex, WebRequest request) {
+        return customHandleException(ex, HttpStatus.FORBIDDEN, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
         log.warn(ex.getMessage());
+        if (Objects.isNull(body)) {
+            body = buildErrorMessage(ex, status, request);
+        }
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    private ResponseEntity<Object> customHandleException(Exception ex, Object message, HttpStatus status) {
+    private ResponseEntity<Object> customHandleException(Exception ex, HttpStatus status, WebRequest request) {
         log.warn(ex.getMessage());
-        return new ResponseEntity<>(message, status);
+        ErrorMessage errorMessage = buildErrorMessage(ex, status, request);
+        return new ResponseEntity<>(errorMessage, status);
+    }
+
+    private ErrorMessage buildErrorMessage(Exception ex, HttpStatus status, WebRequest request) {
+        return ErrorMessage.builder()
+                .timestamp(LocalDateTime.now())
+                .status(status.value())
+                .error(ex.getClass().getSimpleName())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .build();
     }
 }

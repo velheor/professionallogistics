@@ -1,7 +1,5 @@
 package com.velheor.internship.controllers;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.AuthUserDto;
 import com.velheor.internship.dto.UserViewDto;
@@ -58,12 +56,10 @@ class AuthenticationControllerTest extends BaseWebTest {
 
     @Test
     void signUp() throws Exception {
-        String result = mockMvc.perform(post(AUTH_URL + "signup")
+        mockMvc.perform(post(AUTH_URL + "signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(customMapper.writeValueAsString(USER_VIEW_DTO1)))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        assertThat(result).isEqualTo("Check your email!");
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -80,6 +76,6 @@ class AuthenticationControllerTest extends BaseWebTest {
                 .andReturn().getResponse().getContentAsString();
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 2;
-        assertThat(actual.getErrors().size()).isEqualTo(countOfErrors);
+        assertThat(actual.getMessage().split(", ").length).isEqualTo(countOfErrors);
     }
 }

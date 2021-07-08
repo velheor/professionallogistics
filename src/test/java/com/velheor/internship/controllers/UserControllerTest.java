@@ -1,7 +1,5 @@
 package com.velheor.internship.controllers;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velheor.internship.BaseWebTest;
 import com.velheor.internship.dto.UserViewDto;
 import com.velheor.internship.exception.ErrorMessage;
@@ -117,7 +115,7 @@ class UserControllerTest extends BaseWebTest {
                 .andReturn().getResponse().getContentAsString();
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 2;
-        assertThat(actual.getErrors().size()).isEqualTo(countOfErrors);
+        assertThat(actual.getMessage().split(", ").length).isEqualTo(countOfErrors);
     }
 
     @Test

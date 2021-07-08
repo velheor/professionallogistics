@@ -79,7 +79,6 @@ public class AddressControllerTest extends BaseWebTest {
     @Test
     void updateThrowHandleMethodArgumentNotValid() throws Exception {
         AddressViewDto address = new AddressViewDto(ADDRESS_VIEW_DTO1);
-
         address.setStreetName(null);
 
         String responseBody = mockMvc.perform(put(ADDRESS_URL)
@@ -90,7 +89,7 @@ public class AddressControllerTest extends BaseWebTest {
                 .andReturn().getResponse().getContentAsString();
         ErrorMessage actual = objectMapper.readValue(responseBody, ErrorMessage.class);
         int countOfErrors = 1;
-        assertThat(actual.getErrors().size()).isEqualTo(countOfErrors);
+        assertThat(actual.getMessage().split(", ").length).isEqualTo(countOfErrors);
     }
 
     @Test
