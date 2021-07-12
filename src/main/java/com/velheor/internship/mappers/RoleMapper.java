@@ -25,6 +25,12 @@ public abstract class RoleMapper {
                 .collect(Collectors.toList());
     }
 
+    public List<String> toStringRoles(List<Role> userRoles) {
+        return userRoles.stream()
+                .map(role -> role.getName().toString())
+                .collect(Collectors.toList());
+    }
+
     public abstract RoleViewDto toRoleViewDto(Role role);
 
     public abstract Role toRole(RoleViewDto role);

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +20,11 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@NamedEntityGraph(name = "SessionWithUser",
+        attributeNodes = {
+                @NamedAttributeNode("user")
+        }
+)
 public class Session extends BaseEntity {
 
     private String ip;

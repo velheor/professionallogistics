@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +18,6 @@ public class SessionService {
     private final SessionRepository sessionRepository;
     private final JwtProvider jwtProvider;
     private final UserService userService;
-
-    public Session findByToken(UUID token) {
-        return sessionRepository.findById(token).orElseThrow(() -> new EntityNotFoundException(
-                "Session with id: " + token + " was not found."));
-    }
 
     public String createRefreshToken(HttpServletRequest request, AuthUserDto authUserDTO) {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
@@ -35,5 +29,10 @@ public class SessionService {
         session.setUser(userService.findByEmail(authUserDTO.getEmail()));
         sessionRepository.save(session);
         return session.getRefreshToken();
+    }
+
+    public Session findByRefreshToken(String refreshToken) {
+       return sessionRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new EntityNotFoundException(
+               "Session with refresh token: " + refreshToken + " was not found."));
     }
 }
