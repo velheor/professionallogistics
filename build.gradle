@@ -41,7 +41,8 @@ dependencies {
     implementation group: 'org.springframework.security', name: 'spring-security-config', version: "${springSecurityVersion}"
     implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: "${jjwt}"
-    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: "${javax_api}"
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: "${javaxApi}"
+    implementation group: 'eu.bitwalker', name: 'UserAgentUtils', version: "${userAgentUtil}"
 
     //persistence
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: "${javax}"

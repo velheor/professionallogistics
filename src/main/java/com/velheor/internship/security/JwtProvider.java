@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @PropertySource("classpath:security.properties")
@@ -33,8 +34,11 @@ public class JwtProvider {
     @Value("${jwt.header}")
     private String authorizationHeader;
 
-    @Value("${jwt.expiration}")
-    private long validityInMilliseconds;
+    @Value("${access.jwt.expiration}")
+    private long accessTokenValidityInMilliseconds;
+
+    @Value("${refresh.jwt.expiration}")
+    private long refreshTokenValidityInMilliseconds;
 
     @PostConstruct
     protected void init() {
@@ -52,11 +56,19 @@ public class JwtProvider {
         return builderToken(claims);
     }
 
+    public String createRefreshToken(){
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .setExpiration(new Date(new Date().getTime() + refreshTokenValidityInMilliseconds))
+                .compact();
+    }
+
     private String builderToken(Claims claims) {
         return Jwts.builder()
                 .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + accessTokenValidityInMilliseconds))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
-                .setExpiration(new Date(new Date().getTime() + validityInMilliseconds))
                 .compact();
     }
 

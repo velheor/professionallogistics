@@ -56,6 +56,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Session> sessions;
+
     public User(User user) {
         this.setId(user.getId());
         this.setFirstName(user.getFirstName());

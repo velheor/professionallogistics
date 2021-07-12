@@ -69,6 +69,15 @@
             `id` VARCHAR(36) UNIQUE NOT NULL,
             `name` VARCHAR(45) NOT NULL,
             `users_id` VARCHAR(36) NOT NULL,
+            PRIMARY KEY (`id`));
+
+            CREATE TABLE IF NOT EXISTS sessions (
+            `id` VARCHAR(36) UNIQUE NOT NULL,
+            `users_id` VARCHAR(36) NOT NULL,
+            `ip` BINARY(16) NOT NULL,
+            `os` TEXT NOT NULL,
+            `browser` TEXT NOT NULL,
+            `refresh_token` TEXT NOT NULL,
             PRIMARY KEY (`id`))
         </sql>
     </changeSet>
