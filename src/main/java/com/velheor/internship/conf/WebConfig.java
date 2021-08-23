@@ -3,8 +3,7 @@ package com.velheor.internship.conf;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.velheor.internship.interceptors.RequestInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.velheor.internship.interceptors.LoggerInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,6 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,8 +24,11 @@ import java.util.List;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private RequestInterceptor requestInterceptor;
+    private final LoggerInterceptor loggerInterceptor;
+
+    public WebConfig(LoggerInterceptor loggerInterceptor) {
+        this.loggerInterceptor = loggerInterceptor;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -76,12 +77,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestInterceptor)
+        registry.addInterceptor(loggerInterceptor)
                 .addPathPatterns("/*");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
     }
 }
