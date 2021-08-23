@@ -4,81 +4,113 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet author="vlad.atsman" id="1">
         <sql>
-            CREATE TABLE IF NOT EXISTS users (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `first_name` VARCHAR(15) NOT NULL,
-            `last_name` VARCHAR(15) NOT NULL,
-            `email` VARCHAR(225) UNIQUE NOT NULL,
-            `phone_number` VARCHAR(19) UNIQUE NOT NULL,
-            `password` VARCHAR(255) NOT NULL,
-            `status` VARCHAR(15) DEFAULT 'INACTIVE' NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS users
+            (
+                `id`           VARCHAR(36) UNIQUE             NOT NULL,
+                `first_name`   VARCHAR(15)                    NOT NULL,
+                `last_name`    VARCHAR(15)                    NOT NULL,
+                `email`        VARCHAR(225) UNIQUE            NOT NULL,
+                `phone_number` VARCHAR(19) UNIQUE             NOT NULL,
+                `password`     VARCHAR(255)                   NOT NULL,
+                `status`       VARCHAR(15) DEFAULT 'INACTIVE' NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS trucks (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `name` VARCHAR(45) NOT NULL,
-            `registration_number` VARCHAR(45) NOT NULL,
-            `max_weight` DOUBLE NOT NULL,
-            `truck_category` VARCHAR(45) NOT NULL,
-            `users_id` VARCHAR(36) NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS trucks
+            (
+                `id`                  VARCHAR(36) UNIQUE NOT NULL,
+                `name`                VARCHAR(45)        NOT NULL,
+                `registration_number` VARCHAR(45)        NOT NULL,
+                `max_weight`          DOUBLE             NOT NULL,
+                `truck_category`      VARCHAR(45)        NOT NULL,
+                `users_id`            VARCHAR(36)        NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS orders (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `date_pickup` DATETIME NOT NULL,
-            `date_delivery` DATETIME NOT NULL,
-            `voucher_pickup` VARCHAR(45) NULL,
-            `voucher_delivery` VARCHAR(45) NULL,
-            `price` DOUBLE NOT NULL,
-            `truck_category` VARCHAR(45) NOT NULL,
-            `carrier_id` VARCHAR(36) NULL,
-            `shipper_id` VARCHAR(36) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS orders
+            (
+                `id`               VARCHAR(36) UNIQUE NOT NULL,
+                `date_pickup`      DATETIME           NOT NULL,
+                `date_delivery`    DATETIME           NOT NULL,
+                `voucher_pickup`   VARCHAR(45)        NULL,
+                `voucher_delivery` VARCHAR(45)        NULL,
+                `price`            DOUBLE             NOT NULL,
+                `truck_category`   VARCHAR(45)        NOT NULL,
+                `carrier_id`       VARCHAR(36)        NULL,
+                `shipper_id`       VARCHAR(36)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS statuses (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `name` VARCHAR(45) NOT NULL,
-            `status_date` DATETIME NOT NULL,
-            `orders_id` VARCHAR(36) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS statuses
+            (
+                `id`          VARCHAR(36) UNIQUE NOT NULL,
+                `name`        VARCHAR(45)        NOT NULL,
+                `status_date` DATETIME           NOT NULL,
+                `orders_id`   VARCHAR(36)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS loads (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `name` VARCHAR(45) NOT NULL,
-            `weight` DOUBLE NOT NULL,
-            `details` VARCHAR(255) NOT NULL,
-            `orders_id` VARCHAR(36) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS loads
+            (
+                `id`        VARCHAR(36) UNIQUE NOT NULL,
+                `name`      VARCHAR(45)        NOT NULL,
+                `weight`    DOUBLE             NOT NULL,
+                `details`   VARCHAR(255)       NOT NULL,
+                `orders_id` VARCHAR(36)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS addresses (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `country` VARCHAR(20) NOT NULL,
-            `city` VARCHAR(25) NOT NULL,
-            `street_name` VARCHAR(25) NOT NULL,
-            `street_number` VARCHAR(10) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS addresses
+            (
+                `id`            VARCHAR(36) UNIQUE NOT NULL,
+                `country`       VARCHAR(20)        NOT NULL,
+                `city`          VARCHAR(25)        NOT NULL,
+                `street_name`   VARCHAR(25)        NOT NULL,
+                `street_number` VARCHAR(10)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS routes (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `orders_id` VARCHAR(36) NOT NULL,
-            `address_to_id` VARCHAR(36) NOT NULL,
-            `address_from_id` VARCHAR(36) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS routes
+            (
+                `id`              VARCHAR(36) UNIQUE NOT NULL,
+                `orders_id`       VARCHAR(36)        NOT NULL,
+                `address_to_id`   VARCHAR(36)        NOT NULL,
+                `address_from_id` VARCHAR(36)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS roles (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `name` VARCHAR(45) NOT NULL,
-            `users_id` VARCHAR(36) NOT NULL,
-            PRIMARY KEY (`id`));
+            CREATE TABLE IF NOT EXISTS roles
+            (
+                `id`       VARCHAR(36) UNIQUE NOT NULL,
+                `name`     VARCHAR(45)        NOT NULL,
+                `users_id` VARCHAR(36)        NOT NULL,
+                PRIMARY KEY (`id`)
+            );
 
-            CREATE TABLE IF NOT EXISTS sessions (
-            `id` VARCHAR(36) UNIQUE NOT NULL,
-            `users_id` VARCHAR(36) NOT NULL,
-            `ip` BINARY(16) NOT NULL,
-            `os` TEXT NOT NULL,
-            `browser` TEXT NOT NULL,
-            `refresh_token` TEXT NOT NULL,
-            PRIMARY KEY (`id`))
+            CREATE TABLE IF NOT EXISTS sessions
+            (
+                `id`            VARCHAR(36) UNIQUE NOT NULL,
+                `users_id`      VARCHAR(36)        NOT NULL,
+                `ip`            BINARY(16)         NOT NULL,
+                `os`            TEXT               NOT NULL,
+                `browser`       TEXT               NOT NULL,
+                `refresh_token` TEXT               NOT NULL,
+                PRIMARY KEY (`id`)
+            )
+        </sql>
+    </changeSet>
+    <changeSet author="vlad.atsman" id="2">
+        <sql>
+            CREATE TABLE IF NOT EXISTS currencies
+            (
+                `id`       VARCHAR(36) UNIQUE NOT NULL,
+                `currency` CHAR(3) UNIQUE     NOT NULL,
+                `amount`   DECIMAL(10, 2)     NOT NULL,
+                PRIMARY KEY (`id`)
+            );
+
+            ALTER TABLE prolog.orders
+                ADD `currency` CHAR(3) NOT NULL AFTER `price`;
         </sql>
     </changeSet>
 </databaseChangeLog>
