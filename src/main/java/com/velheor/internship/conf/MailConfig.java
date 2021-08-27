@@ -13,6 +13,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:mail.properties")
 public class MailConfig {
+
     static {
         Security.setProperty("jdk.tls.disabledAlgorithms", "");
     }
