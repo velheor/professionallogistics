@@ -39,7 +39,6 @@ public class PersistenceConfig {
         return em;
     }
 
-
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource) {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
