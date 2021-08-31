@@ -2,21 +2,16 @@ version: '3.9'
 
 services:
   db:
-    image: mysql:latest
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-    restart: always
+    build:
+      dockerfile: ./docker/db/Dockerfile
     ports:
       - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: password
     container_name: db
-
   web:
+    build:
+      dockerfile: ./docker/web/Dockerfile
     depends_on:
       - db
     ports:
       - "9090:8080"
-    build:
-      dockerfile: Dockerfile
     container_name: server
