@@ -17,7 +17,6 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,8 +38,6 @@ public class Order extends BaseEntity {
 
     @Column(name = "date_delivery")
     private LocalDateTime dateDelivery;
-
-    private BigDecimal price;
 
     @Column(name = "voucher_pickup")
     private String voucherPickup;
@@ -73,7 +70,6 @@ public class Order extends BaseEntity {
         this.setId(order.getId());
         this.setDatePickup(order.getDatePickup());
         this.setDateDelivery(order.getDateDelivery());
-        this.setPrice(order.getPrice());
         this.setVoucherPickup(order.getVoucherPickup());
         this.setVoucherDelivery(order.getVoucherDelivery());
         this.setTruckCategory(order.getTruckCategory());
@@ -81,9 +77,8 @@ public class Order extends BaseEntity {
     }
 
     public String toString() {
-        return "Order(datePickup=" + this.getDatePickup() + ", dateDelivery=" + this
-                .getDateDelivery() + ", price=" + this.getPrice() + ", voucherPickup=" + this
-                .getVoucherPickup() + ", voucherDelivery=" + this.getVoucherDelivery()
+        return "Order(datePickup=" + this.getDatePickup() + ", dateDelivery=" + this.getDateDelivery()
+                + ", voucherPickup=" + this.getVoucherPickup() + ", voucherDelivery=" + this.getVoucherDelivery()
                 + ", truckCategory=" + this.getTruckCategory() + ")";
     }
 }

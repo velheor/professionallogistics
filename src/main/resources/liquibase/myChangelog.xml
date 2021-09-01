@@ -34,7 +34,7 @@
                 `date_delivery`    DATETIME           NOT NULL,
                 `voucher_pickup`   VARCHAR(45)        NULL,
                 `voucher_delivery` VARCHAR(45)        NULL,
-                `price`            DOUBLE             NOT NULL,
+                `cost`             DOUBLE             NOT NULL,
                 `truck_category`   VARCHAR(45)        NOT NULL,
                 `carrier_id`       VARCHAR(36)        NULL,
                 `shipper_id`       VARCHAR(36)        NOT NULL,
@@ -101,16 +101,20 @@
     </changeSet>
     <changeSet author="vlad.atsman" id="2">
         <sql>
-            CREATE TABLE IF NOT EXISTS currencies
+            CREATE TABLE IF NOT EXISTS rates
             (
-                `id`       VARCHAR(36) UNIQUE NOT NULL,
-                `currency` CHAR(3) UNIQUE     NOT NULL,
-                `amount`   DECIMAL(10, 2)     NOT NULL,
-                PRIMARY KEY (`id`)
+                `name`          CHAR(3) UNIQUE NOT NULL,
+                `exchange_rate` DECIMAL(10, 2) NOT NULL,
+                PRIMARY KEY (`name`)
             );
 
-            ALTER TABLE prolog.orders
-                ADD `currency` CHAR(3) NOT NULL AFTER `price`;
+            CREATE TABLE IF NOT EXISTS costs
+            (
+                `id`            VARCHAR(36) UNIQUE NOT NULL,
+                `amount`        DECIMAL(10, 2)     NOT NULL,
+                `currency_name` CHAR(3)            NOT NULL,
+                PRIMARY KEY (`id`)
+            );
         </sql>
     </changeSet>
 </databaseChangeLog>

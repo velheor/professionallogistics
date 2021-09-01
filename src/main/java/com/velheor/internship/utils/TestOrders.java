@@ -30,7 +30,7 @@ public class TestOrders {
 
             order.setShipper(userService.randomUser());
 
-            order.setPrice(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
+            //order.setPrice(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
 
             order.setDatePickup(faker.date().past(10, TimeUnit.DAYS).toInstant()
                     .atZone(ZoneId.systemDefault())
