@@ -1,4 +1,2 @@
-FROM mysql:latest
-COPY ./mysql-data ./var/lib/mysql
-ADD ./docker/db/my.cnf ./etc/mysql/my.cnf
+FROM mysql:5.7.35
 ENV MYSQL_ROOT_PASSWORD=password
