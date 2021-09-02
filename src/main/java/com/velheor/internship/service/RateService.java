@@ -1,6 +1,5 @@
 package com.velheor.internship.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velheor.internship.models.Rate;
@@ -32,7 +31,7 @@ public class RateService {
     }
 
     @SneakyThrows
-    private List<Rate> getJsonRates(){
+    private List<Rate> getJsonRates() {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
