@@ -1,7 +1,7 @@
 package com.velheor.internship.controllers;
 
 import com.velheor.internship.models.Rate;
-import com.velheor.internship.service.CurrencyService;
+import com.velheor.internship.service.RateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CurrencyController {
 
-    private final CurrencyService currencyService;
+    private final RateService currencyService;
 
     @GetMapping
     public List<Rate> getAll() {

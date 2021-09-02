@@ -26,8 +26,9 @@ public class Rate {
     @Column(name =  "exchange_rate")
     private BigDecimal exchangeRate;
 
-    public Rate(String name, String exchangeRate){
-        this.name = name;
-        this.exchangeRate = new BigDecimal(exchangeRate).setScale(2, RoundingMode.HALF_UP);
+    public Rate(String both){
+        String[] pairs = both.split(":");
+        this.name = pairs[0];
+        this.exchangeRate = new BigDecimal(pairs[1]).setScale(2, RoundingMode.HALF_UP);
     }
 }
