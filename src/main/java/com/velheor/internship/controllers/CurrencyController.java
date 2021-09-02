@@ -20,4 +20,9 @@ public class CurrencyController {
     public List<Rate> getAll() {
         return currencyService.getCurrentCurrency();
     }
+
+    @GetMapping("/update")
+    public void updateRate() {
+        currencyService.updateCurrentRates();
+    }
 }
