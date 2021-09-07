@@ -46,8 +46,7 @@ public class TruckController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TruckViewDto save(@Valid @RequestBody TruckViewDto truckViewDto) {
-        return truckMapper
-                .toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
+        return truckMapper.toTruckViewDto(truckService.save(truckMapper.toTruck(truckViewDto)));
     }
 
     @DeleteMapping("/{id}")

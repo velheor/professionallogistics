@@ -1,8 +1,10 @@
 package com.velheor.internship.utils;
 
 import com.github.javafaker.Faker;
+import com.velheor.internship.models.Cost;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.enums.ETruckCategory;
+import com.velheor.internship.service.CostService;
 import com.velheor.internship.service.OrderService;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +21,17 @@ import java.util.concurrent.TimeUnit;
 public class TestOrders {
 
     private final UserService userService;
-    private final OrderService orderService;
+    private final CostService costService;
 
     public void getOrderViewWithUserDtos() {
-        List<Order> orderList = new ArrayList<>();
+        List<Cost> costList = new ArrayList<>();
         Faker faker = new Faker();
 
         for (int i = 0; i < 100; i++) {
+            Cost cost = new Cost();
             Order order = new Order();
 
             order.setShipper(userService.randomUser());
-
-            //order.setPrice(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
 
             order.setDatePickup(faker.date().past(10, TimeUnit.DAYS).toInstant()
                     .atZone(ZoneId.systemDefault())
@@ -45,10 +46,11 @@ public class TestOrders {
             } else {
                 order.setTruckCategory(ETruckCategory.COVERED);
             }
-            orderList.add(order);
+            cost.setCurrencyName("USD");
+            cost.setAmount(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
+            cost.setOrder(order);
+            costList.add(cost);
         }
-        orderService.saveAll(orderList);
+        costService.saveAll(costList);
     }
-
-
 }

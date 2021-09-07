@@ -101,14 +101,14 @@ public final class TestWebUtils {
         ORDER_VIEW_DTO1.setId(ORDER1.getId());
         ORDER_VIEW_DTO1.setDatePickup(ORDER1.getDatePickup());
         ORDER_VIEW_DTO1.setDateDelivery(ORDER1.getDateDelivery());
-        ORDER_VIEW_DTO1.setPrice(ORDER1.getPrice());
+        //ORDER_VIEW_DTO1.setPrice(ORDER1.getPrice());
         ORDER_VIEW_DTO1.setTruckCategory(ORDER1.getTruckCategory().toString());
         ORDER_VIEW_DTO1.setShipper(USER_VIEW_DTO2);
 
         ORDER_VIEW_DTO2.setId(ORDER2.getId());
         ORDER_VIEW_DTO2.setDatePickup(ORDER2.getDatePickup());
         ORDER_VIEW_DTO2.setDateDelivery(ORDER2.getDateDelivery());
-        ORDER_VIEW_DTO2.setPrice(ORDER2.getPrice());
+        //ORDER_VIEW_DTO2.setPrice(ORDER2.getPrice());
         ORDER_VIEW_DTO2.setTruckCategory(ORDER2.getTruckCategory().toString());
 
         LOAD_VIEW_DTO1.setId(LOAD1.getId());

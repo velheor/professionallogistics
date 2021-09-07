@@ -98,7 +98,7 @@ public final class TestUtils {
         ORDER1.setId(UUID.fromString("377514cc-958b-11eb-a8b3-0242ac130003"));
         ORDER1.setDatePickup(LocalDateTime.of(2021, 1, 4, 11, 30));
         ORDER1.setDateDelivery(LocalDateTime.of(2021, 1, 10, 10, 0));
-        ORDER1.setPrice(new BigDecimal("4000.0"));
+        //ORDER1.setPrice(new BigDecimal("4000.0"));
         ORDER1.setTruckCategory(ETruckCategory.ALL_METAL);
         ORDER1.setCarrier(USER1);
         ORDER1.setShipper(USER2);
@@ -106,7 +106,7 @@ public final class TestUtils {
         ORDER2.setId(UUID.fromString("3a424170-958b-11eb-a8b3-0242ac130003"));
         ORDER2.setDatePickup(LocalDateTime.of(2021, 2, 10, 11, 0));
         ORDER2.setDateDelivery(LocalDateTime.of(2021, 2, 12, 6, 0));
-        ORDER2.setPrice(new BigDecimal("5000.0"));
+        //ORDER2.setPrice(new BigDecimal("5000.0"));
         ORDER2.setTruckCategory(ETruckCategory.ALL_METAL);
 
         LOAD1.setId(UUID.fromString("5942070a-957b-11eb-a8b3-0242ac130003"));
