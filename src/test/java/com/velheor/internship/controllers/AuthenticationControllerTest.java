@@ -30,10 +30,10 @@ class AuthenticationControllerTest extends BaseWebTest {
 
     @Autowired
     AuthenticationControllerTest(AuthenticationManager authenticationManager, UserMapper userMapper, RoleMapper roleMapper) {
-        setUp(() -> {
+        /*setUp(() -> {
             userService = mock(UserService.class);
-            return new AuthenticationController(authenticationManager, userService, userMapper, roleMapper);
-        });
+            //return new AuthenticationController(authenticationManager, userService, userMapper, roleMapper);
+        });*/
     }
 
     @Test

@@ -21,7 +21,7 @@ import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
-@PropertySource("classpath:persistence.properties")
+@PropertySource("classpath:currency.properties")
 public class CurrencyClient {
 
     private final RestTemplate restTemplate;
@@ -36,6 +36,7 @@ public class CurrencyClient {
     }
 
     private Currency getCurrencyByUrl(String url){
-        return restTemplate.getForObject(Objects.requireNonNull(env.getProperty(url)), Currency.class);
+        String urlResult = env.getProperty(url);
+        return restTemplate.getForObject(Objects.requireNonNull(urlResult), Currency.class);
     }
 }

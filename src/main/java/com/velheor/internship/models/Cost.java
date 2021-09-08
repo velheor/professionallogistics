@@ -2,6 +2,7 @@ package com.velheor.internship.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Table(name = "costs")
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @NamedEntityGraph(
         name = "CostWithOrder",
         attributeNodes = {

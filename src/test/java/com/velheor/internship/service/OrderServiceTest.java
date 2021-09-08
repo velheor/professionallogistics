@@ -49,7 +49,7 @@ class OrderServiceTest extends BasePersistenceTest {
         Order expected = new Order();
         expected.setDateDelivery(LocalDateTime.of(2021, 1, 10, 12, 0));
         expected.setDatePickup(LocalDateTime.of(2021, 1, 12, 6, 0));
-        expected.setPrice(new BigDecimal("300"));
+        //expected.setPrice(new BigDecimal("300"));
         expected.setTruckCategory(ETruckCategory.ALL_METAL);
         expected.setShipper(USER2);
         Order actual = orderService.save(expected);

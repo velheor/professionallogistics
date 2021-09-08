@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -48,6 +49,7 @@ public class TestOrders {
             }
             cost.setCurrencyName("USD");
             cost.setAmount(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
+            cost.setId(UUID.randomUUID());
             cost.setOrder(order);
             costList.add(cost);
         }
