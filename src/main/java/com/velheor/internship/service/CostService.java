@@ -34,4 +34,8 @@ public class CostService {
         costs.forEach(cost -> cost.setAmount(cost.getAmount().multiply(exchangeRate)));
         return costs;
     }
+
+    public Cost save(Cost cost) {
+        return costRepository.save(cost);
+    }
 }

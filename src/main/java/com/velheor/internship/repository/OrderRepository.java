@@ -1,6 +1,9 @@
 package com.velheor.internship.repository;
 
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -16,4 +19,6 @@ public interface OrderRepository extends CrudRepository<Order, UUID>, JpaSpecifi
 
     @EntityGraph(value = "OrderWithUsers")
     List<Order> findAll(Specification<Order> genericSpecification);
+
+    Page<Order> findAll(Pageable pageable);
 }

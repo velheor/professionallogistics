@@ -40,7 +40,7 @@ import java.util.UUID;
 public class Cost {
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "orders_id")
     private UUID id;
 
     @Column(name = "currency_name")

@@ -119,10 +119,10 @@
 
             CREATE TABLE IF NOT EXISTS costs
             (
-                `order_id`      VARCHAR(36) UNIQUE NOT NULL,
+                `orders_id`      VARCHAR(36) UNIQUE NOT NULL,
                 `amount`        DECIMAL(15, 6)     NOT NULL,
                 `currency_name` CHAR(3)            NOT NULL,
-                PRIMARY KEY (`order_id`)
+                PRIMARY KEY (`orders_id`)
             )
         </sql>
     </changeSet>

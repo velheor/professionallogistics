@@ -2,10 +2,13 @@ package com.velheor.internship.service;
 
 import com.velheor.internship.dto.OrderFilterDto;
 import com.velheor.internship.models.Order;
+import com.velheor.internship.models.User;
 import com.velheor.internship.repository.OrderRepository;
 import com.velheor.internship.service.specification.JpaSpecificationBuilder;
 import com.velheor.internship.service.specification.SearchCriteria;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -94,5 +97,12 @@ public class OrderService {
                 .value(orderFilterDto.getPriceTo())
                 .operation(LESS_THAN)
                 .build();
+    }
+
+    public Order getRandomOrder() {
+        long qty = orderRepository.count();
+        int idx = (int) (Math.random() * qty);
+        Page<Order> orderPage = orderRepository.findAll(PageRequest.of(idx, 1));
+        return orderPage.getContent().get(0);
     }
 }

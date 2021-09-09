@@ -9,6 +9,7 @@ import com.velheor.internship.service.OrderService;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.ZoneId;
@@ -23,6 +24,7 @@ public class TestOrders {
 
     private final UserService userService;
     private final CostService costService;
+    private final OrderService orderService;
 
     public void getOrderViewWithUserDtos() {
         List<Cost> costList = new ArrayList<>();
@@ -47,11 +49,9 @@ public class TestOrders {
             } else {
                 order.setTruckCategory(ETruckCategory.COVERED);
             }
-            cost.setCurrencyName("USD");
-            cost.setAmount(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
-            cost.setId(UUID.randomUUID());
-            cost.setOrder(order);
+
             costList.add(cost);
+            orderService.save(order);
         }
         costService.saveAll(costList);
     }
