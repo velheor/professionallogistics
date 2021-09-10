@@ -1,5 +1,6 @@
 package com.velheor.internship.controllers.testcontrollers;
 
+import com.velheor.internship.utils.TestCosts;
 import com.velheor.internship.utils.TestOrders;
 import com.velheor.internship.xml.UserPureJaxbParser;
 import com.velheor.internship.xml.UserXmlParser;
@@ -18,6 +19,7 @@ public class TestController {
     private final UserXmlParser userXmlParser;
     private final UserPureJaxbParser userPureJaxbParser;
     private final TestOrders testOrders;
+    private final TestCosts testCosts;
 
     @GetMapping("/xml/users")
     @SneakyThrows
@@ -33,6 +35,11 @@ public class TestController {
 
     @GetMapping("/orders/")
     public void fillDbOrders() {
-        testOrders.getOrderViewWithUserDtos();
+        testOrders.createTestData();
+    }
+
+    @GetMapping("/costs/")
+    public void fillDbCosts() {
+        testCosts.createTestData();
     }
 }

@@ -9,13 +9,10 @@ import com.velheor.internship.service.OrderService;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -26,7 +23,7 @@ public class TestOrders {
     private final CostService costService;
     private final OrderService orderService;
 
-    public void getOrderViewWithUserDtos() {
+    public void createTestData() {
         List<Cost> costList = new ArrayList<>();
         Faker faker = new Faker();
 

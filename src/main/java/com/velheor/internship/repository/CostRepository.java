@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface CostRepository extends CrudRepository<Cost, UUID> {
 
-    @EntityGraph(value = "OrderWithUsers")
+    @EntityGraph(value = "CostWithOrder")
     Iterable<Cost> findAll();
 }

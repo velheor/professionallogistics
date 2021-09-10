@@ -1,10 +1,10 @@
 package com.velheor.internship.models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,16 +20,17 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "costs")
-@Data
-@EqualsAndHashCode
+@Getter
+@Setter
 @NoArgsConstructor
 @NamedEntityGraph(
         name = "CostWithOrder",
         attributeNodes = {
-                @NamedAttributeNode(value = "order", subgraph = "orderWithUsers"),
+                @NamedAttributeNode(value = "order", subgraph = "OrderWithUsers"),
         },
         subgraphs = {
-                @NamedSubgraph(name = "orderWithUsers",
+                @NamedSubgraph(
+                        name = "OrderWithUsers",
                         attributeNodes = {
                                 @NamedAttributeNode(value = "carrier"),
                                 @NamedAttributeNode(value = "shipper")
@@ -40,7 +41,8 @@ import java.util.UUID;
 public class Cost {
 
     @Id
-    @Column(name = "orders_id")
+    @Column(name = "order_id")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(name = "currency_name")
@@ -48,12 +50,7 @@ public class Cost {
 
     private BigDecimal amount;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
     private Order order;
-
-    public void updateAmountAndCurrency(String currencyName, BigDecimal amount) {
-        this.currencyName = currencyName;
-        this.amount = amount;
-    }
 }
