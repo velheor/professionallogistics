@@ -22,7 +22,8 @@ import java.util.UUID;
 @RequestMapping("/mvc")
 public class OrderMvcController {
 
-    private final static String ORDERS_VIEW = "orders";
+    private static final String ORDERS_VIEW = "orders";
+    private static final String ORDER_JSON = "orderJson";
     private final OrderService orderService;
     private final OrderMapper orderMapper;
     private final ObjectMapper objectMapper;
@@ -32,7 +33,7 @@ public class OrderMvcController {
     public String getAllWithUsers(Model model) {
         Iterable<Order> orders = orderService.getAll();
         model.addAttribute("orderFilter", new OrderFilterDto());
-        model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
+        model.addAttribute(ORDER_JSON, objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ORDERS_VIEW;
     }
 
@@ -40,7 +41,7 @@ public class OrderMvcController {
     @SneakyThrows
     public String getFullInfo(@PathVariable("id") UUID id, Model model) {
         Order order = orderService.findById(id);
-        model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrderDto(order)));
+        model.addAttribute(ORDER_JSON, objectMapper.writeValueAsString(orderMapper.toOrderDto(order)));
         return ORDERS_VIEW;
     }
 
@@ -48,7 +49,7 @@ public class OrderMvcController {
     @SneakyThrows
     public String getByParameters(@ModelAttribute("orderFilter") OrderFilterDto orderFilterDto, Model model) {
         Iterable<Order> orders = orderService.filterOrders(orderFilterDto);
-        model.addAttribute("orderJson", objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
+        model.addAttribute(ORDER_JSON, objectMapper.writeValueAsString(orderMapper.toOrdersViewWithUserDto(orders)));
         return ORDERS_VIEW;
     }
 }

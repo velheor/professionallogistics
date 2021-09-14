@@ -1,18 +1,14 @@
 package com.velheor.internship.utils;
 
 import com.github.javafaker.Faker;
-import com.velheor.internship.models.Cost;
 import com.velheor.internship.models.Order;
 import com.velheor.internship.models.enums.ETruckCategory;
-import com.velheor.internship.service.CostService;
 import com.velheor.internship.service.OrderService;
 import com.velheor.internship.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -20,15 +16,12 @@ import java.util.concurrent.TimeUnit;
 public class TestOrders {
 
     private final UserService userService;
-    private final CostService costService;
     private final OrderService orderService;
 
     public void createTestData() {
-        List<Cost> costList = new ArrayList<>();
         Faker faker = new Faker();
 
         for (int i = 0; i < 100; i++) {
-            Cost cost = new Cost();
             Order order = new Order();
 
             order.setShipper(userService.randomUser());
@@ -47,9 +40,7 @@ public class TestOrders {
                 order.setTruckCategory(ETruckCategory.COVERED);
             }
 
-            costList.add(cost);
             orderService.save(order);
         }
-        costService.saveAll(costList);
     }
 }

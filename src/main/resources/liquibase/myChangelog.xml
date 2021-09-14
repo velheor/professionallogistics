@@ -102,8 +102,9 @@
         <sql>
             CREATE TABLE IF NOT EXISTS currencies
             (
-                `id`      CHAR(3) UNIQUE NOT NULL,
-                `updated` DATETIME       NOT NULL,
+                `id`      VARCHAR(36) UNIQUE NOT NULL,
+                `name`    VARCHAR(3)         NOT NULL,
+                `updated` DATETIME           NOT NULL,
                 PRIMARY KEY (`id`)
             );
 
@@ -111,8 +112,8 @@
             (
                 `id`            VARCHAR(36) UNIQUE NOT NULL,
                 `name`          CHAR(3)            NOT NULL,
+                `currencies_id` VARCHAR(36)        NOT NULL,
                 `exchange_rate` DECIMAL(15, 6)     NOT NULL,
-                `currencies_id` CHAR(3)            NOT NULL,
                 PRIMARY KEY (`id`)
             );
 

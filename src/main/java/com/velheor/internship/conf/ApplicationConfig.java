@@ -1,11 +1,11 @@
 package com.velheor.internship.conf;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@ComponentScan("com.velheor.internship")
-@RequiredArgsConstructor
+@EnableScheduling
+@ComponentScan(basePackages = "com.velheor.internship")
 public class ApplicationConfig {
 }

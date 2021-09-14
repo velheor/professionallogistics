@@ -20,12 +20,12 @@ public class CostController {
     @GetMapping("/change/")
     public Iterable<CostViewDto> changeCostCurrency(String from, String to) {
         Iterable<Cost> costs = costService.changeCostCurrency(from, to);
-        return costMapper.toCostViewDto(costs);
+        return costMapper.toCostViewDtoWithOrderViewDto(costs);
     }
 
     @GetMapping("/change/all")
     public Iterable<CostViewDto> changeAllCostCurrency(String to) {
         Iterable<Cost> costs = costService.changeAllCurrency(to);
-        return costMapper.toCostViewDto(costs);
+        return costMapper.toCostViewDtoWithOrderViewDto(costs);
     }
 }

@@ -1,17 +1,15 @@
 package com.velheor.internship.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.velheor.internship.mappers.CustomDateSerializer;
 import com.velheor.internship.mappers.RateDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
@@ -30,18 +28,17 @@ import java.util.List;
                 @NamedAttributeNode(value = "rates")
         }
 )
-public class Currency {
+public class Currency extends BaseEntity {
 
-    @Id
     @JsonProperty(value = "base")
-    @Column(name = "id")
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty(value = "timestamp")
+    @JsonDeserialize(using = CustomDateSerializer.class)
     private LocalDateTime updated;
 
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL)
-    @JsonProperty(value = "results")
+    @JsonProperty(value = "rates")
     @JsonDeserialize(using = RateDeserializer.class)
     private List<Rate> rates;
 }

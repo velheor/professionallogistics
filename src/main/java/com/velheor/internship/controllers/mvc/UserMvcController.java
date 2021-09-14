@@ -22,8 +22,8 @@ import java.util.UUID;
 @RequestMapping("/mvc")
 public class UserMvcController {
 
-    private final static String USERS_VIEW = "users";
-    private final static String USER_VIEW = "user";
+    private static final  String USERS_VIEW = "users";
+    private static final  String USER_VIEW = "user";
     private final UserService userService;
     private final UserMapper userMapper;
     private final ObjectMapper objectMapper;

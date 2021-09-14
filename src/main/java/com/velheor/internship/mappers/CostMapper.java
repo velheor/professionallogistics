@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class CostMapper {
 
-    public abstract Iterable<CostViewDto> toCostViewDto(Iterable<Cost> costs);
+    public abstract Iterable<CostViewDto> toCostViewDtoWithOrderViewDto(Iterable<Cost> costs);
 }

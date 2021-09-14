@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 public abstract class UserMapper {
 
     public abstract UserViewDto toUserViewDto(User user);
-    
+
     public abstract UserProfileUpdateDto toUserProfileDto(User user);
 
     public abstract User toUser(UserViewDto userViewDTO);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.velheor.internship.interceptors.LoggerInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,13 +23,10 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
+@RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
     private final LoggerInterceptor loggerInterceptor;
-
-    public WebConfig(LoggerInterceptor loggerInterceptor) {
-        this.loggerInterceptor = loggerInterceptor;
-    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
