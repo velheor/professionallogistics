@@ -9,6 +9,5 @@ import java.util.UUID;
 
 public interface RateRepository extends CrudRepository<Rate, UUID> {
 
-    @EntityGraph(value = "RateWithCurrency")
     Optional<Rate> findByNameAndCurrencyName(String name, String currencyName);
 }

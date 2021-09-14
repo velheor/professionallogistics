@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +30,9 @@ public class CostService {
     public Iterable<Cost> changeAllCurrency(String to) {
         Iterable<Cost> costs = costRepository.findAll();
         for (Cost cost : costs) {
-            Rate rate = rateService.findByNameAndCurrencyName(cost.getCurrencyName(), to);
-            changeCost(rate, cost);
+            BigDecimal exchangeRate = calculateRate(cost.getCurrencyName(), to);
+
+            changeCost(exchangeRate, cost);
         }
         return costs;
     }
@@ -40,10 +43,16 @@ public class CostService {
         return changeCost(rate, costs);
     }
 
-    private List<Cost> changeCost(Rate rate, Iterable<Cost> costs) {
+    private BigDecimal calculateRate(String from, String to) {
+        Rate rate = rateService.findByNameAndCurrencyName(from, "EUR");
+        Rate rate1 = rateService.findByNameAndCurrencyName(to, "EUR");
+        return rate.getExchangeRate().divide(rate1.getExchangeRate(),2, RoundingMode.HALF_UP);
+    }
+
+    private List<Cost> changeCost(BigDecimal exchangeCost, Iterable<Cost> costs) {
         List<Cost> costList = new ArrayList<>();
         for (Cost cost : costs) {
-            costList.add(changeCost(rate, cost));
+            costList.add(changeCost(exchangeCost, cost));
         }
         return costList;
     }
