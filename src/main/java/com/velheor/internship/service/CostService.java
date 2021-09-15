@@ -1,15 +1,15 @@
 package com.velheor.internship.service;
 
 import com.velheor.internship.models.Cost;
+import com.velheor.internship.models.Currency;
 import com.velheor.internship.models.Rate;
 import com.velheor.internship.repository.CostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +17,11 @@ import java.util.List;
 public class CostService {
 
     private final CostRepository costRepository;
-    private final RateService rateService;
+    private final CurrencyService currencyService;
+
+    public Cost save(Cost cost) {
+        return costRepository.save(cost);
+    }
 
     public Iterable<Cost> findAll() {
         return costRepository.findAll();
@@ -30,41 +34,44 @@ public class CostService {
     public Iterable<Cost> changeAllCurrency(String to) {
         Iterable<Cost> costs = costRepository.findAll();
         for (Cost cost : costs) {
-            BigDecimal exchangeRate = calculateRate(cost.getCurrencyName(), to);
-
-            changeCost(exchangeRate, cost);
+            Rate calculatedRate = calculateRate(cost.getCurrencyName(), to);
+            changeCost(calculatedRate, cost);
         }
         return costs;
     }
 
-    public Iterable<Cost> changeCostCurrency(String from, String to) {
-        Rate rate = rateService.findByNameAndCurrencyName(from, to);
-        Iterable<Cost> costs = costRepository.findAll();
-        return changeCost(rate, costs);
+    private Rate calculateRate(String from, String to) {
+        Rate rate = new Rate();
+        rate.setName(to);
+        BigDecimal amount = calculateExchangeRate(from, to);
+        rate.setExchangeRate(amount);
+        return rate;
     }
 
-    private BigDecimal calculateRate(String from, String to) {
-        Rate rate = rateService.findByNameAndCurrencyName(from, "EUR");
-        Rate rate1 = rateService.findByNameAndCurrencyName(to, "EUR");
-        return rate.getExchangeRate().divide(rate1.getExchangeRate(),2, RoundingMode.HALF_UP);
-    }
-
-    private List<Cost> changeCost(BigDecimal exchangeCost, Iterable<Cost> costs) {
-        List<Cost> costList = new ArrayList<>();
-        for (Cost cost : costs) {
-            costList.add(changeCost(exchangeCost, cost));
-        }
-        return costList;
+    private BigDecimal calculateExchangeRate(String from, String to) {
+        Currency currency = currencyService.findLatestCurrency("EUR");
+        Rate rateTo = findByName(to, currency.getRates());
+        Rate rateFrom = findByName(from, currency.getRates());
+        BigDecimal exchangeRateTo = rateTo.getExchangeRate();
+        BigDecimal exchangeRateFrom = rateFrom.getExchangeRate();
+        return exchangeRateTo.divide(exchangeRateFrom, 5, RoundingMode.HALF_DOWN);
     }
 
     private Cost changeCost(Rate rate, Cost cost) {
         BigDecimal exchangeRate = rate.getExchangeRate();
-        cost.setCurrencyName(rate.getCurrency().getName());
-        cost.setAmount(cost.getAmount().multiply(exchangeRate));
+        cost.setCurrencyName(rate.getName());
+        BigDecimal calculatedAmount = cost
+                .getAmount()
+                .multiply(exchangeRate)
+                .setScale(2, RoundingMode.HALF_DOWN);
+        cost.setAmount(calculatedAmount);
         return cost;
     }
 
-    public Cost save(Cost cost) {
-        return costRepository.save(cost);
+    private Rate findByName(String name, List<Rate> rates) {
+        return rates.stream()
+                .filter(r -> r.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Don't find rate with " + name + "name"));
     }
 }

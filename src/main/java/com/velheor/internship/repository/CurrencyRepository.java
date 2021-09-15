@@ -10,4 +10,7 @@ public interface CurrencyRepository extends CrudRepository<Currency, String> {
 
     @EntityGraph("CurrencyWithRates")
     Optional<Currency> findById(String id);
+
+    @EntityGraph("CurrencyWithRates")
+    Optional<Currency> findFirstByNameOrderByUpdatedDesc(String name);
 }
