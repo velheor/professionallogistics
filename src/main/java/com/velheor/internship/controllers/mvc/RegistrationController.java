@@ -21,7 +21,7 @@ public class RegistrationController {
 
     @GetMapping("/signup")
     public String registration() {
-        return "registrationForm";
+        return "mvc/registrationForm";
     }
 
     @PostMapping("/signup")

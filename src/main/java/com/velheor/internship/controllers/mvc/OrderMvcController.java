@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequestMapping("/mvc")
 public class OrderMvcController {
 
-    private static final String ORDERS_VIEW = "orders";
+    private static final String ORDERS_VIEW = "mvc/orders";
     private static final String ORDER_JSON = "orderJson";
     private final OrderService orderService;
     private final OrderMapper orderMapper;

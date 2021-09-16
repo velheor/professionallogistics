@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
-<jsp:include page="fragments/index.jsp"/>
+<jsp:include page="../fragments/index.jsp"/>
 <head>
     <title>Title</title>
 </head>

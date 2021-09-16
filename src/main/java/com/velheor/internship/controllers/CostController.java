@@ -22,4 +22,10 @@ public class CostController {
         Iterable<Cost> costs = costService.changeAllCurrency(to);
         return costMapper.toCostViewDtoWithOrderViewDto(costs);
     }
+
+    @GetMapping
+    public Iterable<CostViewDto> getAll() {
+        Iterable<Cost> costs = costService.findAll();
+        return costMapper.toCostViewDtoWithOrderViewDto(costs);
+    }
 }

@@ -2,8 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
-<jsp:include page="fragments/index.jsp"/>
-<jsp:include page="fragments/tableSetup.jsp"/>
+<jsp:include page="../fragments/index.jsp"/>
+<jsp:include page="../fragments/tableSetup.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/orders.js"></script>
 
