@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class TestCosts {
                 currency = "RUB";
             }
             cost.setCurrencyName(currency);
-            cost.setAmount(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)));
+            cost.setAmount(BigDecimal.valueOf(faker.number().randomDouble(3, 1, 199)).setScale(2, RoundingMode.HALF_DOWN));
             cost.setOrder(order);
             costs.add(cost);
         }

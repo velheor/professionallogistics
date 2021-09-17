@@ -2,7 +2,9 @@
 <html>
 <jsp:include page="../fragments/index.jsp"/>
 <body ng-app="Prolog" ng-controller="CostController">
-<script type="text/javascript" src="resources/js/costs.js"></script>
+<script type="text/javascript" src="resources/js/root.js"></script>
+<script type="text/javascript" src="resources/js/controllers/cost.js"></script>
+<script type="text/javascript" src="resources/js/services/cost.js"></script>
 <table>
     <tr>
         <th>Cost amount</th>
@@ -12,9 +14,11 @@
     <tr ng-repeat="cost in costs">
         <td>{{ cost.amount }}</td>
         <td>{{ cost.currencyName }}</td>
-        <td>{{ cost.order.truckCategory}}</td>
     </tr>
-    <button ng-click="changeAllCostCurrency()">Change currency</button>
+    <form ng-submit="changeAllCostCurrency(currencyName)">
+        <input type="text" ng-model="currencyName"/>
+        <button type="submit">Change currency</button>
+    </form>
 
 </table>
 </body>
